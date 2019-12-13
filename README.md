@@ -1,3 +1,2 @@
-# gl13
-
-Projet GL équipe gl13
+# Projet Génie Logiciel, Ensimag.
+Equipe @AUTHOR@, le @DATE@.
