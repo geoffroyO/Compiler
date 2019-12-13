@@ -1,8 +1,8 @@
 package fr.ensimag.deca.tree;
 
 /**
- * @author @AUTHOR@
- * @date @DATE@
+ * @author gl13
+ * @date 01/01/2020
  */
 public class Print extends AbstractPrint {
     /**
