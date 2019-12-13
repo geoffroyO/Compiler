@@ -1,7 +1,7 @@
 package calc;
 
 // ANTLR generated code uses the ANTLR runtime
-import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 /**
@@ -17,7 +17,7 @@ class Main {
 
         // Instantiate lexer and parser, connected together:
         CalcLexer lexer =
-            new CalcLexer(new ANTLRInputStream(System.in));
+            new CalcLexer(CharStreams.fromStream(System.in));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CalcParser parser = new CalcParser(tokens);
         // Launch the parser
