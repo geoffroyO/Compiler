@@ -37,8 +37,12 @@ options {
 
 prog returns[AbstractProgram tree]
     : list_classes main EOF {
+    		// System.out.println("### main 1 !!!###");
             assert($list_classes.tree != null);
+            // System.out.println("### main 2 !!!###");
             assert($main.tree != null);
+            // System.out.println("### main 3 !!!###");
+
             $tree = new Program($list_classes.tree, $main.tree);
             setLocation($tree, $list_classes.start);
         }
@@ -80,6 +84,7 @@ list_decl_var[ListDeclVar l, AbstractIdentifier t]
     : dv1=decl_var[$t] {
         $l.add($dv1.tree);
         } (COMMA dv2=decl_var[$t] {
+        	$l.add($dv2.tree);
         }
       )*
     ;
@@ -90,6 +95,7 @@ decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
     : i=ident {
         }
       (EQUALS e=expr {
+
         }
       )? {
         }
@@ -97,8 +103,11 @@ decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
 
 list_inst returns[ListInst tree]
 @init {
+	$tree  = new ListInst();
 }
     : (inst {
+    		assert($inst.tree != null);
+    		$tree.add($inst.tree);
         }
       )*
     ;
@@ -114,6 +123,8 @@ inst returns[AbstractInst tree]
         }
     | PRINTLN OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null);
+			$tree = new Println(false,$list_expr.tree);
+			setLocation($tree,$PRINTLN);
         }
     | PRINTX OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null);
@@ -148,17 +159,25 @@ if_then_else returns[IfThenElse tree]
 
 list_expr returns[ListExpr tree]
 @init   {
+	$tree = new ListExpr();
         }
     : (e1=expr {
+    	assert($e1.tree != null);
+    	$tree.add($e1.tree);
         }
        (COMMA e2=expr {
+       		assert($e2.tree != null);
+       		$tree.add($e2.tree);
         }
        )* )?
     ;
 
 expr returns[AbstractExpr tree]
     : assign_expr {
+    		// System.out.println("### assign_expr 1 ###");
             assert($assign_expr.tree != null);
+            // System.out.println("### assign_expr 2 ###");
+            $tree = $assign_expr.tree;
         }
     ;
 
@@ -170,18 +189,27 @@ assign_expr returns[AbstractExpr tree]
             }
         }
         EQUALS e2=assign_expr {
+        	// System.out.println("### or_expr 1 ###");
             assert($e.tree != null);
             assert($e2.tree != null);
+			$tree=new Assign((AbstractLValue)$e.tree,$e2.tree);
+			setLocation($tree,$EQUALS);
+			// System.out.println("### or_expr 2 ###");
         }
       | /* epsilon */ {
+      		// System.out.println("### or_expr EPSILON ###");
             assert($e.tree != null);
+            $tree = $e.tree;
         }
       )
     ;
 
 or_expr returns[AbstractExpr tree]
     : e=and_expr {
+    		// System.out.println("### and_expr 1 ###");
             assert($e.tree != null);
+            // System.out.println("### and_expr 2 ###");
+            $tree = $e.tree;
         }
     | e1=or_expr OR e2=and_expr {
             assert($e1.tree != null);
@@ -191,7 +219,10 @@ or_expr returns[AbstractExpr tree]
 
 and_expr returns[AbstractExpr tree]
     : e=eq_neq_expr {
+    		// System.out.println("### eq_neq_expr 1 ###");
             assert($e.tree != null);
+            // System.out.println("### eq_neq_expr 2 ###");
+            $tree = $e.tree;
         }
     |  e1=and_expr AND e2=eq_neq_expr {
             assert($e1.tree != null);                         
@@ -201,7 +232,10 @@ and_expr returns[AbstractExpr tree]
 
 eq_neq_expr returns[AbstractExpr tree]
     : e=inequality_expr {
+    		// System.out.println("### inequality_expr 1 ###");
             assert($e.tree != null);
+            // System.out.println("### inequality_expr 2 ###");
+            $tree = $e.tree;
         }
     | e1=eq_neq_expr EQEQ e2=inequality_expr {
             assert($e1.tree != null);
@@ -215,7 +249,10 @@ eq_neq_expr returns[AbstractExpr tree]
 
 inequality_expr returns[AbstractExpr tree]
     : e=sum_expr {
+    		// System.out.println("### sum_expr 1 ###");
             assert($e.tree != null);
+            // System.out.println("### sum_expr 2 ###");
+            $tree = $e.tree;
         }
     | e1=inequality_expr LEQ e2=sum_expr {
             assert($e1.tree != null);
@@ -242,7 +279,10 @@ inequality_expr returns[AbstractExpr tree]
 
 sum_expr returns[AbstractExpr tree]
     : e=mult_expr {
+    		// System.out.println("### mult_expr 1 ###");
             assert($e.tree != null);
+            // System.out.println("### mult_expr 2 ###");
+            $tree = $e.tree;
         }
     | e1=sum_expr PLUS e2=mult_expr {
             assert($e1.tree != null);
@@ -256,7 +296,9 @@ sum_expr returns[AbstractExpr tree]
 
 mult_expr returns[AbstractExpr tree]
     : e=unary_expr {
+    		// System.out.println("### unary_expr ###");
             assert($e.tree != null);
+            $tree = $e.tree;
         }
     | e1=mult_expr TIMES e2=unary_expr {
             assert($e1.tree != null);                                         
@@ -280,13 +322,17 @@ unary_expr returns[AbstractExpr tree]
             assert($e.tree != null);
         }
     | select_expr {
+    		// System.out.println("### select_expr ###");
             assert($select_expr.tree != null);
+            $tree = $select_expr.tree;
         }
     ;
 
 select_expr returns[AbstractExpr tree]
     : e=primary_expr {
+    		// System.out.println("### primary_expr ###");
             assert($e.tree != null);
+            $tree = $primary_expr.tree;
         }
     | e1=select_expr DOT i=ident {
             assert($e1.tree != null);
@@ -325,12 +371,15 @@ primary_expr returns[AbstractExpr tree]
             assert($expr.tree != null);
         }
     | literal {
+    		// System.out.println("### literal ###");
             assert($literal.tree != null);
+            $tree = $literal.tree;
         }
     ;
 
 type returns[AbstractIdentifier tree]
     : ident {
+    		// System.out.println("### ident ###");
             assert($ident.tree != null);
         }
     ;
@@ -340,7 +389,12 @@ literal returns[AbstractExpr tree]
         }
     | fd=FLOAT {
         }
-    | STRING {
+    | str=STRING {
+    	// System.out.println("### str ### " + $str.text);
+
+    	// Method substring to remove " " from the STRING TOKEN
+    	$tree=new StringLiteral( $str.text.substring(1,$str.text.length()-1) );
+		setLocation($tree,$str);
         }
     | TRUE {
         }
@@ -360,11 +414,17 @@ ident returns[AbstractIdentifier tree]
 /****     Class related rules     ****/
 
 list_classes returns[ListDeclClass tree]
-    :
-      (c1=class_decl {
-        }
-      )*
-    ;
+	@init {
+			// System.out.println("list classes");
+			$tree=new ListDeclClass();
+	}
+	:
+	(c1=class_decl {
+			// System.out.println("list classes");
+
+		}
+	)*
+	;
 
 class_decl
     : CLASS name=ident superclass=class_extension OBRACE class_body CBRACE {
