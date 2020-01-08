@@ -40,7 +40,8 @@ WHILE: 'while';
 
 
 // Identificateurs
-
+// fragment LETTER: [A-Za-z];
+// fragment DIGIT: [0-9];
 fragment LETTER: 'a' .. 'z' | 'A'  .. 'Z';
 DIGIT: '0' .. '9';
 
@@ -51,7 +52,7 @@ IDENT: (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')* ;
 EQUALS: '=';
 PLUS: '+';
 MINUS: '-';
-MULTIPLE: '*';
+TIMES: '*';
 PERCENT: '%';
 
 SLASH: '/';
@@ -67,13 +68,13 @@ OBRACE: '{';
 CBRACE: '}';
 
 
-LOWER: '<';
-GREATER: '>';
-GREATEREQUAL: '>=';
-LESSEQUAL: '<=';
+LT: '<';
+GT: '>';
+GEQ: '>=';
+LEQ: '<=';
 
-EQU: '==';
-NOTEQUALS: '!=';
+EQEQ: '==';
+NEQ: '!=';
 NOT: '!';
 
 AND: '&&';
@@ -104,9 +105,9 @@ STRING: '"' (STRING_CAR | '\\"' | '\\\\')* '"';
 MULTI_LINE_STRING: '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
 
 // Commentaires
-COMMENT_MULTIPLE_LINES: '/*' .*? '*/' {skip();};
+//COMMENT_MULTIPLE_LINES: '/*' .*? '*/' {skip();};
 //COMMENT_SINGLE_LINE: '//' .* (EOL)? {skip();};
-
+COMMENT: ('/*' .*? '*/' | '//' .*? ('\n' | EOF) ) {skip();};
 
 // Séparateurs
 SPACE: ' ' {skip();};
@@ -117,5 +118,13 @@ RETOURCHARIOT: '\r' {skip();};
 
 // Inclusion de fichier
 FILENAME: (LETTER | DIGIT | '.' | '-' | '_')+;
-INCLUDE: '#include' (' ')* '"' FILENAME '"';
+INCLUDE: '#include' (' ')* '"' FILENAME '"'{
+   doInclude(getText());
+   skip();
+};
 
+
+// If no token found
+//DEFAULT: .{
+//	System.out.println("Error! couldn't find the token!");
+// };
