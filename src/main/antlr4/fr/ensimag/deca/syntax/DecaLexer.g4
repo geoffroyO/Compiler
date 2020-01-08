@@ -40,10 +40,9 @@ WHILE: 'while';
 
 
 // Identificateurs
-// fragment LETTER: [A-Za-z];
-// fragment DIGIT: [0-9];
+
 fragment LETTER: 'a' .. 'z' | 'A'  .. 'Z';
-DIGIT: '0' .. '9';
+fragment DIGIT: '0' .. '9';
 
 IDENT: (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')* ;
 
@@ -81,21 +80,21 @@ AND: '&&';
 OR: '||';
 
 // Littéraux entiers
-POSITIVE_DIGIT : '1' .. '9';
+fragment POSITIVE_DIGIT : '1' .. '9';
 INT: '0' | POSITIVE_DIGIT DIGIT*;
 
 // Littéraux flottants
-NUM: DIGIT+;
+fragment NUM: DIGIT+;
 
-SIGN: '+' | '-' | {}; // EMPTY ?
-EXP: ('E' | 'e') SIGN NUM;
+fragment SIGN: '+' | '-' | ;
+fragment EXP: ('E' | 'e') SIGN NUM;
 
-DEC: NUM '.' NUM;
-FLOATDEC: (DEC | DEC EXP) ('F' | 'f' | {}); // EMPTY ?
+fragment DEC: NUM '.' NUM;
+fragment FLOATDEC: (DEC | DEC EXP) ('F' | 'f' | );
 
-DIGITHEX: '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
-NUMHEX: DIGITHEX+;
-FLOATHEX: ('0x' | 'OX') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | {});
+fragment DIGITHEX: '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
+fragment NUMHEX: DIGITHEX+;
+fragment FLOATHEX: ('0x' | 'OX') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | );
 FLOAT: FLOATDEC | FLOATHEX;
 
 // Chaines de caracteres
@@ -105,11 +104,11 @@ STRING: '"' (STRING_CAR | '\\"' | '\\\\')* '"';
 MULTI_LINE_STRING: '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
 
 // Commentaires
-//COMMENT_MULTIPLE_LINES: '/*' .*? '*/' {skip();};
-//COMMENT_SINGLE_LINE: '//' .* (EOL)? {skip();};
-COMMENT: ('/*' .*? '*/' | '//' .*? ('\n' | EOF) ) {skip();};
+
+COMMENT: ( '/*' .*? '*/' | '//' .*? ('\n' | EOF) ) {skip();};
 
 // Séparateurs
+
 SPACE: ' ' {skip();};
 TAB: '\t' {skip();};
 EOL: '\n' {skip();};
@@ -117,14 +116,9 @@ RETOURCHARIOT: '\r' {skip();};
 
 
 // Inclusion de fichier
-FILENAME: (LETTER | DIGIT | '.' | '-' | '_')+;
+
+fragment FILENAME: (LETTER | DIGIT | '.' | '-' | '_')+;
 INCLUDE: '#include' (' ')* '"' FILENAME '"'{
    doInclude(getText());
    skip();
 };
-
-
-// If no token found
-//DEFAULT: .{
-//	System.out.println("Error! couldn't find the token!");
-// };
