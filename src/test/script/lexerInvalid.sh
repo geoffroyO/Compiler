@@ -13,7 +13,7 @@ path=./src/test/script
 mkdir $path/logs
 
 x=1
-n=2 # Number of tests
+n=10 # Number of tests
 
 name="A_lexer_invalid"
 
