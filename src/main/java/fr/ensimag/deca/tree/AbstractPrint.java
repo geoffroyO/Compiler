@@ -10,6 +10,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
+import java.util.Iterator;
+
 import org.apache.commons.lang.Validate;
 
 /**
@@ -39,7 +41,26 @@ public abstract class AbstractPrint extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+
+        // - create iterator for the list of exps 'arguments'
+        Iterator<AbstractExpr> itrExpr = this.arguments.iterator();
+
+        Type type;
+        while (itrExpr.hasNext()){
+            try {
+                // - verify each expr in println(expr expr*)
+                type = itrExpr.next().verifyExpr(compiler, localEnv, currentClass);
+            } catch (ContextualError e){
+                throw e;
+            }
+
+            // TODO
+            // - (3.31)
+            // - verify (type) variable : should be only int, float or string
+            if (!type.isInt() && !type.isFloat() && !type.isString()){
+                throw new ContextualError("error", this.getLocation());
+            }
+        }
     }
 
     @Override

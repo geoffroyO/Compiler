@@ -3,6 +3,7 @@ package fr.ensimag.deca;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
 import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
@@ -45,6 +46,17 @@ public class DecacCompiler {
         super();
         this.compilerOptions = compilerOptions;
         this.source = source;
+        this.symbols = new SymbolTable();
+    }
+
+    /**
+     * Symbols table for the entier program
+     */
+    private SymbolTable symbols;
+
+
+    public SymbolTable getSymbols() {
+        return symbols;
     }
 
     /**

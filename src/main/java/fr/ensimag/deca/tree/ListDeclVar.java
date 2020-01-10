@@ -33,6 +33,8 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
      */    
     void verifyListDeclVariable(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        // TODO
+        System.out.println("[ ListDeclVar -> verifyListDeclVariable should be implemented later ]");
     }
 
 
