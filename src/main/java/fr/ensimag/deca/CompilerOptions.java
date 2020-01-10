@@ -44,6 +44,22 @@ public class CompilerOptions {
     
     public void parseArgs(String[] args) throws CLIException {
         // A FAIRE : parcourir args pour positionner les options correctement.
+
+        // - Commands Manager
+        for(String arg : args){
+            System.out.println(arg);
+
+            File file = new File(arg);
+            sourceFiles.add(file);
+
+            // TODO
+            // create a switch to manage different options
+//            switch (){
+//                case
+//            }
+        }
+
+
         Logger logger = Logger.getRootLogger();
         // map command-line debug option to log4j's level.
         switch (getDebug()) {
@@ -67,7 +83,7 @@ public class CompilerOptions {
             logger.info("Java assertions disabled");
         }
 
-        throw new UnsupportedOperationException("not yet implemented");
+//        throw new UnsupportedOperationException("not yet implemented");
     }
 
     protected void displayUsage() {

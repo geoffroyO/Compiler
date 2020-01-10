@@ -26,9 +26,17 @@ public class DecacMain {
             System.exit(1);
         }
         if (options.getPrintBanner()) {
-            throw new UnsupportedOperationException("decac -b not yet implemented");
+//            throw new UnsupportedOperationException("decac -b not yet implemented");
+            System.out.println("Projet GL 2020");
+            System.out.println("MORIN Lucas\n" +
+                    "NAVARRO Jérémy\n" +
+                    "ODEH Majd\n" +
+                    "OUDOUMANESSAH Geoffroy\n" +
+                    "POUGET Sylvain");
+
         }
         if (options.getSourceFiles().isEmpty()) {
+            System.out.println("Error no file found");
             throw new UnsupportedOperationException("decac without argument not yet implemented");
         }
         if (options.getParallel()) {
