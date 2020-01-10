@@ -31,7 +31,27 @@ public class CompilerOptions {
     public boolean getPrintBanner() {
         return printBanner;
     }
-    
+
+    public boolean getParse() {
+        return parse;
+    }
+
+    public boolean isVerification() {
+        return verification;
+    }
+
+    public boolean isNoCheck() {
+        return noCheck;
+    }
+
+    public boolean isParseRegistersNumber() {
+        return parseRegistersNumber;
+    }
+
+    public int getRegistersNumber() {
+        return registersNumber;
+    }
+
     public List<File> getSourceFiles() {
         return Collections.unmodifiableList(sourceFiles);
     }
@@ -39,6 +59,11 @@ public class CompilerOptions {
     private int debug = 0;
     private boolean parallel = false;
     private boolean printBanner = false;
+    private boolean parse = false;
+    private boolean verification = false;
+    private boolean noCheck = false;
+    private boolean parseRegistersNumber = false;
+    private int registersNumber = 16;
     private List<File> sourceFiles = new ArrayList<File>();
 
     
@@ -48,23 +73,48 @@ public class CompilerOptions {
         // - Commands Manager
         for(String arg : args){
 
-//            System.out.println(arg);
+            System.out.println(arg);
+            // - Check if we need to parse the registers number after the option '-r'
+            if(parseRegistersNumber){
+                registersNumber = Integer.parseInt(arg);
+                if (registersNumber <= 4 || registersNumber > 16){
+                    throw new UnsupportedOperationException("Registers number should be between 4 and 16 included");
+                }
+                // - after finishing parsing the registers number
+                parseRegistersNumber = false;
+            } else{
+                switch (arg){
+                    case "-b":
+                        this.printBanner = true;
+                        if (args.length!=1) {
+                            throw new UnsupportedOperationException("The -b option is only to be used alone.");
+                        }
+                        break;
+                    case "-p":
+                        this.parse = true;
+                        break;
+                    case "-v":
+                        verification = true;
+                        break;
+                    case "-n":
+                        noCheck = true;
+                        break;
+                    case "-r":
+                        parseRegistersNumber = true;
+                        break;
+                    case "-d":
+                        debug++;
+                        break;
+                    case "-P":
+                        this.parallel = true;
+                        break;
+                    default:
+                        // - create a file and add it to source files
+                        File file = new File(arg);
+                        sourceFiles.add(file);
+                        break;
 
-            // TODO
-            // create a switch to manage different options
-            switch (arg){
-                case "-b":
-                    this.printBanner = true;
-                    if (args.length!=1) {
-                        throw new UnsupportedOperationException("The -b option is only to be used alone.");
-                    }
-                    break;
-                default:
-                    // - create a file and add it to source files
-                    File file = new File(arg);
-                    sourceFiles.add(file);
-                    break;
-
+                }
             }
         }
 

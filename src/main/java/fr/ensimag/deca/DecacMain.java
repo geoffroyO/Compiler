@@ -1,6 +1,8 @@
 package fr.ensimag.deca;
 
 import java.io.File;
+
+import fr.ensimag.deca.tree.AbstractProgram;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,7 +29,6 @@ public class DecacMain {
             System.exit(1);
         }
         if (options.getPrintBanner()) {
-//            throw new UnsupportedOperationException("decac -b not yet implemented");
             System.out.println("[Project GL 2020][TEAM gl13]");
             System.out.println(">> MORIN Lucas\n" +
                     ">> NAVARRO Jérémy\n" +
@@ -37,6 +38,19 @@ public class DecacMain {
             // Exit program (0 = successfully)
             System.exit(0);
 
+        }
+
+        if (options.getParse()) {
+            // TODO
+            /*
+            for (File source : options.getSourceFiles()) {
+                DecacCompiler compiler = new DecacCompiler(options, source);
+                AbstractProgram prog = compiler.doLexingAndParsing(source.getAbsolutePath(), System.err);
+                compiler.displayIMAProgram();
+                // Exit program (0 = successfully)
+                System.exit(0);
+            }
+            */
         }
 
         if (options.getSourceFiles().isEmpty()) {
