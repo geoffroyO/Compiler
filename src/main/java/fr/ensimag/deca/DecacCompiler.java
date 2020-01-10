@@ -191,6 +191,12 @@ public class DecacCompiler {
         }
         assert(prog.checkAllLocations());
 
+        // - if '-p' option is used, stop after parsing stage and print the tree
+        if (getCompilerOptions().getParse()) {
+            // TODO
+            System.out.print(prog.decompile());
+            return false;
+        }
 
         prog.verifyProgram(this);
         assert(prog.checkAllDecorations());
