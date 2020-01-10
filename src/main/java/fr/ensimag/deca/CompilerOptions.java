@@ -47,16 +47,25 @@ public class CompilerOptions {
 
         // - Commands Manager
         for(String arg : args){
-            System.out.println(arg);
 
-            File file = new File(arg);
-            sourceFiles.add(file);
+//            System.out.println(arg);
 
             // TODO
             // create a switch to manage different options
-//            switch (){
-//                case
-//            }
+            switch (arg){
+                case "-b":
+                    this.printBanner = true;
+                    if (args.length!=1) {
+                        throw new UnsupportedOperationException("The -b option is only to be used alone.");
+                    }
+                    break;
+                default:
+                    // - create a file and add it to source files
+                    File file = new File(arg);
+                    sourceFiles.add(file);
+                    break;
+
+            }
         }
 
 
