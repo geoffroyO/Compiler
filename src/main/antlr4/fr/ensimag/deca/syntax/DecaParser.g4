@@ -388,6 +388,8 @@ literal returns[AbstractExpr tree]
     : INT {
         }
     | fd=FLOAT {
+    		$tree = new FloatLiteral(Float.parseFloat($fd.text));
+    		setLocation($tree,$fd);
         }
     | str=STRING {
     	// System.out.println("### str ### " + $str.text);

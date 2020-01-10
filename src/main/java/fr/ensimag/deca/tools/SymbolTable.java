@@ -25,7 +25,14 @@ public class SymbolTable {
      * this Symbol. Otherwise, create a new Symbol and add it to the table.
      */
     public Symbol create(String name) {
-        throw new UnsupportedOperationException("Symbol creation");
+        // - check if the symbol is in the table, create it if not
+        // - return a symbol in both cases
+        if(this.map.containsKey(name)) {
+            return this.map.get(name);
+        } else {
+            this.map.put(name, new Symbol(name));
+            return this.map.get(name);
+        }
     }
 
     public static class Symbol {

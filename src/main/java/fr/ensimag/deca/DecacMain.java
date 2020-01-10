@@ -17,6 +17,7 @@ public class DecacMain {
         LOG.info("Decac compiler started");
         boolean error = false;
         final CompilerOptions options = new CompilerOptions();
+
         try {
             options.parseArgs(args);
         } catch (CLIException e) {
@@ -26,11 +27,23 @@ public class DecacMain {
             System.exit(1);
         }
         if (options.getPrintBanner()) {
-            throw new UnsupportedOperationException("decac -b not yet implemented");
+//            throw new UnsupportedOperationException("decac -b not yet implemented");
+            System.out.println("[Project GL 2020][TEAM gl13]");
+            System.out.println(">> MORIN Lucas\n" +
+                    ">> NAVARRO Jérémy\n" +
+                    ">> ODEH Majd\n" +
+                    ">> OUDOUMANESSAH Geoffroy\n" +
+                    ">> POUGET Sylvain");
+            // Exit program (0 = successfully)
+            System.exit(0);
+
         }
+
         if (options.getSourceFiles().isEmpty()) {
-            throw new UnsupportedOperationException("decac without argument not yet implemented");
+            System.out.println("Error no file found");
+            throw new UnsupportedOperationException("decac without argument not implemented!");
         }
+
         if (options.getParallel()) {
             // A FAIRE : instancier DecacCompiler pour chaque fichier à
             // compiler, et lancer l'exécution des méthodes compile() de chaque
