@@ -389,7 +389,7 @@ select_expr returns[AbstractExpr tree]
         }
         | /* epsilon */ {
             // we matched "e.i"
-            $tree = $primary_expr.tree;
+            // TO DO
         }
         )
     ;
@@ -397,13 +397,16 @@ select_expr returns[AbstractExpr tree]
 primary_expr returns[AbstractExpr tree]
     : ident {
             assert($ident.tree != null);
+            $tree = $ident.tree;
         }
     | m=ident OPARENT args=list_expr CPARENT {
+    		/* fonction */
             assert($args.tree != null);
             assert($m.tree != null);
         }
     | OPARENT expr CPARENT {
             assert($expr.tree != null);
+            $tree = $expr.tree;
         }
     | READINT OPARENT CPARENT {
         }
@@ -435,7 +438,9 @@ type returns[AbstractIdentifier tree]
     ;
 
 literal returns[AbstractExpr tree]
-    : INT {
+    : i=INT {
+    		$tree = new IntLiteral(Integer.parseInt($i.text));
+    		setLocation($tree,$i);
         }
     | fd=FLOAT {
     		$tree = new FloatLiteral(Float.parseFloat($fd.text));
