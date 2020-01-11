@@ -15,6 +15,8 @@ public class Print extends AbstractPrint {
 
     @Override
     String getSuffix() {
+
         return "";
     }
+
 }
