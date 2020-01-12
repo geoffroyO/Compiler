@@ -73,7 +73,8 @@ public class CompilerOptions {
         // - Commands Manager
         for(String arg : args){
 
-            System.out.println(arg);
+            // - to test args -> System.out.println(arg);
+
             // - Check if we need to parse the registers number after the option '-r'
             if(parseRegistersNumber){
                 registersNumber = Integer.parseInt(arg);

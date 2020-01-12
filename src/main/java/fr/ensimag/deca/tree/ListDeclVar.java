@@ -6,6 +6,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
+import java.util.Iterator;
+
 /**
  * List of declarations (e.g. int x; float y,z).
  * 
@@ -16,7 +18,11 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        // -
+        Iterator<AbstractDeclVar> iterDeclVar = this.iterator();
+        while (iterDeclVar.hasNext()){
+            iterDeclVar.next().decompile(s);
+        }
     }
 
     /**
@@ -33,8 +39,11 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
      */    
     void verifyListDeclVariable(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        // TODO
-        System.out.println("[ ListDeclVar -> verifyListDeclVariable should be implemented later ]");
+        // -
+        Iterator<AbstractDeclVar> iterDeclVar = this.iterator();
+        while (iterDeclVar.hasNext()){
+            iterDeclVar.next().verifyDeclVar(compiler, localEnv, currentClass);
+        }
     }
 
 

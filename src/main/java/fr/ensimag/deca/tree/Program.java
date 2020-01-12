@@ -3,8 +3,13 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
@@ -41,6 +46,14 @@ public class Program extends AbstractProgram {
             this.classes.verifyListClass(compiler);
             // - Verify the main section in the program
             this.main.verifyMain(compiler);
+
+            // - below comment is just for testing
+            /*
+            Map<String, Symbol> map = compiler.getSymbols().getMap();
+            for (Map.Entry<String, Symbol> entry : map.entrySet()) {
+                System.out.println(entry.getKey() + " = " + entry.getValue());
+            }
+            */
 
         } catch (ContextualError e) {
             throw e;

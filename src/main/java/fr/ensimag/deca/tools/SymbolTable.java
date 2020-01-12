@@ -35,6 +35,11 @@ public class SymbolTable {
         }
     }
 
+    // - return the SymbolTable
+    public Map<String, Symbol> getMap(){
+        return this.map;
+    }
+
     public static class Symbol {
         // Constructor is private, so that Symbol instances can only be created
         // through SymbolTable.create factory (which thus ensures uniqueness
