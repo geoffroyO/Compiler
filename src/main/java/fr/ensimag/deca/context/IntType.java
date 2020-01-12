@@ -22,7 +22,8 @@ public class IntType extends Type {
 
     @Override
     public boolean sameType(Type otherType) {
-        throw new UnsupportedOperationException("not yet implemented");
+        // - checks if the 2 types are the same
+        return (otherType.isInt());
     }
 
 

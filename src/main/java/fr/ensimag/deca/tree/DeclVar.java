@@ -1,10 +1,7 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ClassDefinition;
-import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -33,12 +30,45 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
+
+        Type type;
+        try {
+            // - verify that type exists in envtypes (verifyType available in Identifier.java)
+            type = this.type.verifyType(compiler);
+            // - create definition for the variable using the type and location
+            VariableDefinition definition = new VariableDefinition(type, this.type.getLocation());
+            this.varName.setDefinition(definition);
+            // - add the variable to the local environment
+            localEnv.declare(this.varName.getName(), definition);
+
+        } catch (ContextualError e) {
+            throw e;
+        } catch (EnvironmentExp.DoubleDefException doubleDefinition) {
+            throw new ContextualError("variable already defined", this.getLocation());
+        }
+
+        if (type.isVoid()) {
+            throw new ContextualError("variable can't be void", this.getLocation());
+        }
+
+        // verify initialization for the declared variable
+        try {
+            this.initialization.verifyInitialization(compiler, type, localEnv, currentClass);
+        } catch (ContextualError e) {
+            throw e;
+        }
+
     }
 
-    
+
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        // -
+        s.print(this.type.getName().getName() + " " + this.varName.getName().getName());
+        s.print(initialization.decompile());
+        s.println(";");
+
+
     }
 
     @Override
