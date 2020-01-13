@@ -95,7 +95,9 @@ public abstract class AbstractExpr extends AbstractInst {
         }
 
         // TODO
-        // verify expectedType and obtainedType values types are the same (verify when they are classes)
+        // - verify expectedType and obtainedType values types are the same (verify when they are classes)
+
+        // - if obtainedType is not the same as expectedType
         if (!obtainedType.sameType(expectedType)){
             // - if expectedType is float and obtainedType is int
             if (expectedType.isFloat() && obtainedType.isInt()){
@@ -107,6 +109,8 @@ public abstract class AbstractExpr extends AbstractInst {
                 throw new ContextualError("Types don't match! ", this.getLocation());
             }
         }
+
+        // - return this by default
         return this;
     }
     

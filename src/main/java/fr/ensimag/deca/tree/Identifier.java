@@ -176,11 +176,12 @@ public class Identifier extends AbstractIdentifier {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
 
-        // -
+        // - if the Identifier is not declared in env_types
         if (localEnv.get(this.getName())==null) {
             throw new ContextualError("identifier not defined", this.getLocation());
         }
 
+        // get and set the definition and type for the current Identifier
         this.setDefinition(localEnv.get(name));
         Type type = localEnv.get(this.getName()).getType();
         this.setType(type);
