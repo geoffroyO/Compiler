@@ -1,0 +1,10 @@
+// Description:
+//    Programme minimaliste utilisant une affectation.
+//
+//
+// Historique:
+//    cree le 09/01/2020
+
+{
+    float x = 0;
+}

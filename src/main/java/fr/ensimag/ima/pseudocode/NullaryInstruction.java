@@ -11,6 +11,5 @@ import java.io.PrintStream;
 public abstract class NullaryInstruction extends Instruction {
     @Override
     void displayOperands(PrintStream s) {
-        // no operand
     }
 }
