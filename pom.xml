@@ -173,6 +173,19 @@
             <goals><goal>exec</goal></goals>
           </execution>
           <execution>
+            <id>decompilation</id>
+            <configuration>
+              <executable>./src/test/script/decompilation.sh</executable>
+              <!-- If we need to pass arguments :
+                   <arguments>
+                   <argument>...</argument>
+                   </arguments>
+              -->
+            </configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+          <execution>
             <id>basic-synt</id>
             <configuration><executable>./src/test/script/basic-synt.sh</executable></configuration>
             <phase>test</phase>
