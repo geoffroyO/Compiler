@@ -38,7 +38,7 @@ public class DeclVar extends AbstractDeclVar {
             // - create definition for the variable using the type and location
             VariableDefinition definition = new VariableDefinition(type, this.type.getLocation());
             this.varName.setDefinition(definition);
-            // - add the variable to the local environment
+            // - add the variable to the local environment (Symbol -> definition)
             localEnv.declare(this.varName.getName(), definition);
 
         } catch (ContextualError e) {
