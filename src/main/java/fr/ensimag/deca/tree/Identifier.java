@@ -21,6 +21,7 @@ import fr.ensimag.ima.pseudocode.ImmediateString;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -247,8 +248,9 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
+        // works only for int type
         DAddr addr = this.getVariableDefinition().getOperand();
-        compiler.addInstruction(new STORE(Register.getR(1), addr));
+        compiler.addInstruction(new LOAD(addr, Register.getR(1)));
         compiler.addInstruction(new WINT());
     }
 
