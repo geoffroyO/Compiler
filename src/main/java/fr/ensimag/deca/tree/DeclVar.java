@@ -5,9 +5,11 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -93,8 +95,22 @@ public class DeclVar extends AbstractDeclVar {
     public void codeGenDeclVar(DecacCompiler compiler) {
 
         // TODO gérer stack_overflow push et pop et
-        this.initialization.codeGenInit(compiler, Register.getR(3));
-        this.varName.getVariableDefinition().setOperand(new RegisterOffset(1, Register.SP));
+
         compiler.addInstruction(new ADDSP(1));
+        compiler.regM.incrSP();
+
+        GPRegister register = compiler.regM.findFreeGPRegister(); // a gerer si plus de registres push et pop
+        this.initialization.codeGenInit(compiler, register);
+
+
+
+
+        this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
+
+      
+        this.initialization.codeGenStInit(compiler, register);
+        compiler.regM.incrGB();
+        compiler.regM.freeRegister(register);
+
     }
 }
