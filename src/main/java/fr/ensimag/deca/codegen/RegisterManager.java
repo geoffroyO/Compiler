@@ -16,6 +16,7 @@ public class RegisterManager {
     private int GB;
     private int LB;
     private boolean[] freeRegister;
+    private int nb_registers = 15;
 
     public RegisterManager() {
         this.SP = 0;
@@ -28,6 +29,9 @@ public class RegisterManager {
         }
     }
 
+    public int getNb_registers(){
+        return this.nb_registers;
+    }
     public void incrSP(){
         this.SP++;
     }
@@ -89,6 +93,15 @@ public class RegisterManager {
         return Register.getR(j);
     }
 
+    public boolean hasFreeGPRegister(){
+        for (boolean b: this.freeRegister){
+
+            if (b){
+                return true;
+            }
+        }
+        return false;
+    }
     public void freeRegister(GPRegister register){
         int i = register.getNumber();
         this.freeRegister[i] = true;

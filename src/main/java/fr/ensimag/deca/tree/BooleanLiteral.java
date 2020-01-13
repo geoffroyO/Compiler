@@ -3,6 +3,10 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 import java.io.PrintStream;
 
 /**
@@ -53,4 +57,12 @@ public class BooleanLiteral extends AbstractExpr {
         return "BooleanLiteral (" + value + ")";
     }
 
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+
+        if (this.getValue()) {
+            compiler.addInstruction(new LOAD(new ImmediateInteger(1), register));
+        } else{
+            compiler.addInstruction(new LOAD(new ImmediateInteger(0), register));
+        }
+    }
 }
