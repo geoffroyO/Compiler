@@ -9,8 +9,7 @@
 
     int x = 0;
     float y = 1.0;
-    string str = "Hello";
     boolean b = true;
-//  nullType n = null;
+
 
 }

@@ -28,6 +28,7 @@ options {
     import java.io.PrintStream;
     import fr.ensimag.deca.tools.SymbolTable;
     import fr.ensimag.deca.syntax.*;
+    import java.util.*;
 }
 
 @members {
@@ -99,7 +100,7 @@ decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
         }
     : i=ident {
         	initialization = new NoInitialization();
-        	setLocation(initialization, $i.start);
+
         }
       (EQUALS e=expr {
             initialization = new Initialization($e.tree);
@@ -170,29 +171,30 @@ inst returns[AbstractInst tree]
 
 if_then_else returns[IfThenElse tree]
 @init {
-            /*ListInst else = new ListInst();*/
+            ListInst else1 = new ListInst();
+            ListInst else2 = new ListInst();
         
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
-    /*
-            $tree = new IfThenElse($condition.tree, $li_if.tree, else);
-            setLocation($tree, $IF);
-            */
+    
+            $tree = new IfThenElse($condition.tree, $li_if.tree, else1);
+            setLocation($tree, $if1);
+            
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
-      /*
-            ListInst else2 = new ListlInst();
-            Tree n = new IfThenElse($elsif_cond.tree, $elsif_li.tree, else2);
+      
+            AbstractInst n = new IfThenElse($elsif_cond.tree, $elsif_li.tree, else2);
             setLocation(n, $ELSE);
-            else.add(n);
-            else = else2;
-            */
+            else1.add(n);
+            else1 = else2;
+            else2 = new ListInst();
+            
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
-      /*
-            else2.add(li_else);
-            */
+      	     
+            else2.add($li_else.tree.getList().get(0));
+            
         }
       )?
     ;
