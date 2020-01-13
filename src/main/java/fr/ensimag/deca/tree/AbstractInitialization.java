@@ -27,6 +27,18 @@ public abstract class AbstractInitialization extends Tree {
             Type t, EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError;
 
+    /**
+     * Loads the expression into a free register if Initialization
+     * @param compiler
+     * @param register
+     */
     protected abstract void codeGenInit(DecacCompiler compiler, GPRegister register);
+
+    /**
+     * Stores the expression into the stack if Initialization
+     * @param compiler
+     * @param register
+     */
+    protected abstract void codeGenStInit(DecacCompiler compiler, GPRegister register);
 
 }

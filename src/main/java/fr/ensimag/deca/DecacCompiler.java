@@ -1,5 +1,6 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.deca.codegen.RegisterManager;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
@@ -47,6 +48,10 @@ public class DecacCompiler {
      * Portable newline character.
      */
     private static final String nl = System.getProperty("line.separator", "\n");
+    /**
+     * Manager for registers
+     */
+    public RegisterManager regM;
 
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
@@ -54,6 +59,7 @@ public class DecacCompiler {
         this.source = source;
         this.symbols = new SymbolTable();
         this.envTypes = new EnvironmentType(this.symbols);
+        this.regM = new RegisterManager();
     }
 
     /**
