@@ -1,5 +1,7 @@
 package fr.ensimag.ima.pseudocode.instructions;
 
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.ImmediateString;
 import fr.ensimag.ima.pseudocode.NullaryInstruction;
 
 /**
