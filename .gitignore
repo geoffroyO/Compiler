@@ -8,3 +8,6 @@
 .project
 .metadata
 .settings
+./global
+./.idea
+./.DS_Store
