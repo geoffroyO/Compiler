@@ -14,25 +14,36 @@ decompilation()
 
 cd "$(dirname "$0")"/../../.. || exit 1
 
-path=./src/test/deca/syntax/valid/provided
+path=./src/test/deca/context/valid/created
+pathLogs=../../../../logs
+
 cd $path
+mkdir $pathLogs
+
+echo "## DECOMPILATION ##"
+echo
 
 
 for i in *.deca
 do 
+    decompilation $i $pathLogs/$i.v1
+    decompilation $pathLogs/$i.v1 $pathLogs/$i.v2
 
-    decompilation $i $i.v1
-    decompilation $i.v1 $i.v2
-
-    valDiff=$(diff -q $i.v1 $i.v2)
+    valDiff=$(diff -q $pathLogs/$i.v1 $pathLogs/$i.v2)
 
     if ["$valDiff" = ""] 
     then
-        echo "OK"
-        rm $i.v*
+
+        echo "\e[32mDECOMPILATION $i\e[39m"
+        rm $pathLogs/$i.v*
+
     else
-        echo "KO"
-        # Keep the files
+
+        echo "\e[31mDECOMPILATION KO"
+        echo "FICHIER $i"
+        echo "LOGS $i.v1 $i.v2"
+        echo "\e[39m"
+
         exit 1
     fi
 

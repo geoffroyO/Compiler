@@ -1,0 +1,49 @@
+// Description :
+// Fichier contenant tous les mots réservés.
+//
+// Resultats :
+// Lexer -> OK (resultat dans lexer)
+// Parser -> Error (resultat dans parser)
+
+asm
+class
+extends
+else
+false
+if
+instanceof
+new
+null
+readInt
+readFloat
+print
+println
+printlnx
+printx
+protected
+return
+this
+true
+while
+=
++
+-
+*
+%
+/
+.
+,
+;
+(
+)
+{
+}
+<
+>
+>=
+<=
+==
+!=
+!
+&&
+||

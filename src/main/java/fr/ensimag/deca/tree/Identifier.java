@@ -1,30 +1,29 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.context.ClassType;
+import java.io.PrintStream;
+
+import org.apache.commons.lang.Validate;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
-import fr.ensimag.deca.context.ExpDefinition;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
-import java.io.PrintStream;
-
 import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.ImmediateString;
+import fr.ensimag.ima.pseudocode.Operand;
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.WSTR;
-import fr.ensimag.ima.pseudocode.instructions.WINT;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
-import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
 
 /**
  * Deca Identifier
@@ -251,8 +250,25 @@ public class Identifier extends AbstractIdentifier {
     protected void codeGenPrint(DecacCompiler compiler) {
         // works only for int type
         DAddr addr = this.getVariableDefinition().getOperand();
-        compiler.addInstruction(new LOAD(addr, Register.getR(1)));
-        compiler.addInstruction(new WINT());
+
+        if (this.getType().isInt()){
+            compiler.addInstruction(new LOAD(addr, Register.R1));
+            compiler.addInstruction(new WINT());
+        }
+        if (this.getType().isFloat()){
+        	compiler.addInstruction(new LOAD(addr, Register.R1));
+            compiler.addInstruction(new WFLOAT());
+        }
+        /*
+        
+        if (this.getType().isString()){
+            compiler.addInstruction(new WSTR((String)this);
+        }
+        if (this.getType().isBoolean()){
+            compiler.addInstruction(new LOAD(addr, Register.R1));
+            compiler.addInstruction(new WINT());
+        }
+        */
     }
 
 }
