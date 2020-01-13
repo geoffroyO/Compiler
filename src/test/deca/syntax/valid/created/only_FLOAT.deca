@@ -1,8 +1,9 @@
 // Description :
-// Test du Lexer -> Fichier contenant uniquement des nombres flottants
+// Fichier contenant uniquement des nombres flottants
 //
 // Resultats :
-// ok (uniquement des tokens flottants)
+// Lexer -> OK (resultat dans lexer) uniquement tokens FLOAT
+// Parser -> Error (resultat dans parser)
 
 
 0xF1bd8BCB02A3E9daD4FBAf76.55E33cD2ccfdfAEbed120EfE6P2152061328f

@@ -1,5 +1,6 @@
 // Description :
-// Test du Lexer -> Fichier vide.
+// Fichier vide.
 //
 // Resultats :
-// ok
+// Lexer -> OK (resultat dans lexer) Fichier vide
+// Parser -> OK (resultat dans parser) Fichier vide

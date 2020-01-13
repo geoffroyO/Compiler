@@ -1,8 +1,9 @@
 // Description :
-// Test du Lexer -> Fichier contenant tous les mots réservés.
+// Fichier contenant tous les mots réservés.
 //
 // Resultats :
-// ok
+// Lexer -> OK (resultat dans lexer)
+// Parser -> Error (resultat dans parser)
 
 asm
 class

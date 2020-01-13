@@ -1,8 +1,9 @@
 // Description :
-// Test du Lexer -> Fichier contenant uniquement des identificateurs
+// Fichier contenant uniquement des identificateurs
 //
 // Resultats :
-// ok (uniquement des tokens identificateurs)
+// Lexer -> OK (resultat dans lexer) uniquement des tokens IDENT
+// Parser -> Error (resultat dans parser)
 
 uHcWaSdh3uiOPGvdF$HS
 YOM0AIkiKC0QRKVcll
