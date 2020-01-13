@@ -77,11 +77,15 @@ public abstract class AbstractPrint extends AbstractInst {
     @Override
     public void decompile(IndentPrintStream s) {
         // -
-        s.print("print" + getSuffix() + "(");
+        s.print("print" + getSuffix());
+        if (this.printHex){
+            s.print("x");
+        }
+        s.print("(");
         s.indent();
         this.arguments.decompile(s);
         s.unindent();
-        s.println(")");
+        s.println(");");
     }
 
     @Override

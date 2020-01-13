@@ -4,6 +4,10 @@ import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -38,7 +42,7 @@ public class DeclVar extends AbstractDeclVar {
             // - create definition for the variable using the type and location
             VariableDefinition definition = new VariableDefinition(type, this.type.getLocation());
             this.varName.setDefinition(definition);
-            // - add the variable to the local environment
+            // - add the variable to the local environment (Symbol -> definition)
             localEnv.declare(this.varName.getName(), definition);
 
         } catch (ContextualError e) {
@@ -84,5 +88,13 @@ public class DeclVar extends AbstractDeclVar {
         type.prettyPrint(s, prefix, false);
         varName.prettyPrint(s, prefix, false);
         initialization.prettyPrint(s, prefix, true);
+    }
+
+    public void codeGenDeclVar(DecacCompiler compiler) {
+
+        // TODO gérer stack_overflow push et pop et
+        this.initialization.codeGenInit(compiler, Register.getR(3));
+        this.varName.getVariableDefinition().setOperand(new RegisterOffset(1, Register.SP));
+        compiler.addInstruction(new ADDSP(1));
     }
 }

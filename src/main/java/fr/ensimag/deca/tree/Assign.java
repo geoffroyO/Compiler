@@ -6,6 +6,13 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.instructions.WNL;
 
 /**
  * Assignment, i.e. lvalue = expr.
@@ -27,7 +34,7 @@ public class Assign extends AbstractBinaryExpr {
     }
 
     @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
+    public Type  verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         // -
         Type type;
@@ -46,6 +53,14 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     protected String getOperatorName() {
         return "=";
+    }
+
+    protected void codeGenInst(DecacCompiler compiler) {
+        // only works for int = int
+
+        super.codeGenInst(compiler);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(((IntLiteral) this.getRightOperand()).getValue()), GPRegister.getR(2)));
+        compiler.addInstruction(new STORE(GPRegister.getR(2), new RegisterOffset(0, Register.SP)));
     }
 
 }

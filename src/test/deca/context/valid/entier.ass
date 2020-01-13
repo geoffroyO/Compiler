@@ -1,0 +1,8 @@
+; start main program
+; Main program
+; Beginning of main instructions:
+	ADDSP #1
+	LOAD #3, R2
+	STORE R2, 0(SP)
+	HALT
+; end main program

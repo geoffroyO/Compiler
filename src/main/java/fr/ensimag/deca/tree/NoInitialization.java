@@ -6,6 +6,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.GPRegister;
+
 import java.io.PrintStream;
 
 /**
@@ -49,4 +51,7 @@ public class NoInitialization extends AbstractInitialization {
         // leaf node => nothing to do
     }
 
+    protected void codeGenInit(DecacCompiler compiler, GPRegister register) {
+
+    }
 }

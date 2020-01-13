@@ -2,8 +2,31 @@
 // Library for class Math of Deca, coded in Deca
 
 class Math {
-    float sin(float f) {
-        println("sin(f) not yet implemented");
+
+    float half = 0x3f000000;
+    float S1 = 0xbe2aaaab;
+    float S2 = 0x3c088889;
+    float S3 = 0xb9500d01;
+    float S4 = 0x3638ef1b;
+    float S5 = 0xb2d72f34;
+    float S6 = 0x2f2ec9d3;
+
+    public float sin(float x) {
+    /* Don't forget A+B*C */
+        float z,r,v;
+
+        int ix;
+
+        ix = x&0x7fffffff;	/* abs(x) */
+
+       	if(ix<0x3e400000)			/* |x| < 2**-27 */
+      	   {if( (int) x == 0) {return x};}		/* return sin(x)~x */
+
+       	z	=  x*x;
+       	v	=  z*x;
+       	r	=  S2+z*(S3+z*(S4+z*(S5+z*S6))); /* Assembly code needed */
+
+       	return x+v*(S1+z*r); /* Assembly code needed */
     }
     float cos(float f) {
         println("cos(f) not yet implemented");
