@@ -5,6 +5,7 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 
 import java.util.Iterator;
 
@@ -43,6 +44,12 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
         Iterator<AbstractDeclVar> iterDeclVar = this.iterator();
         while (iterDeclVar.hasNext()){
             iterDeclVar.next().verifyDeclVar(compiler, localEnv, currentClass);
+        }
+    }
+
+    public void codeGenDeclVar(DecacCompiler compiler) {
+        for (AbstractDeclVar i : getList()) {
+            i.codeGenDeclVar(compiler);
         }
     }
 
