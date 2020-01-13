@@ -1,3 +1,9 @@
+// Description :
+// Test du Lexer -> Fichier contenant tous les mots réservés.
+//
+// Resultats :
+// ok
+
 asm
 class
 extends
