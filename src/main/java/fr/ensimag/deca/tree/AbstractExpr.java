@@ -9,6 +9,8 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
+
+import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -82,7 +84,13 @@ public abstract class AbstractExpr extends AbstractInst {
             EnvironmentExp localEnv, ClassDefinition currentClass, 
             Type expectedType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        // -
+        Type obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
+
+        // TODO
+        // verify expectedType and obtainedType values types are the same or do conversion if Int and float
+
+        return this;
     }
     
     
@@ -90,7 +98,9 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+
+        // - verify expr contextual syntax
+        this.verifyExpr(compiler, localEnv, currentClass);
     }
 
     /**
@@ -119,9 +129,10 @@ public abstract class AbstractExpr extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+//        throw new UnsupportedOperationException("not yet implemented");
+        // - TODO
     }
-    
+
 
     @Override
     protected void decompileInst(IndentPrintStream s) {

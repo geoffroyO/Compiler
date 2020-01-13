@@ -47,8 +47,7 @@ public class StringLiteral extends AbstractStringLiteral {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("\"" + value + "\"");
-        //throw new UnsupportedOperationException("not yet implemented");
+        s.print("\"" + this.getValue() + "\"");
     }
 
     @Override

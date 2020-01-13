@@ -1,10 +1,13 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
+import fr.ensimag.deca.tree.Location;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
 import fr.ensimag.ima.pseudocode.IMAProgram;
@@ -15,6 +18,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
@@ -47,16 +53,25 @@ public class DecacCompiler {
         this.compilerOptions = compilerOptions;
         this.source = source;
         this.symbols = new SymbolTable();
+        this.envTypes = new EnvironmentType(this.symbols);
     }
 
     /**
-     * Symbols table for the entier program
+     * // - Symbols table for the entier program
      */
     private SymbolTable symbols;
 
-
     public SymbolTable getSymbols() {
         return symbols;
+    }
+
+    /**
+     * // - EnvTypes for the entire program
+     */
+    private EnvironmentType envTypes;
+
+    public EnvironmentType getEnvTypes() {
+        return envTypes;
     }
 
     /**
