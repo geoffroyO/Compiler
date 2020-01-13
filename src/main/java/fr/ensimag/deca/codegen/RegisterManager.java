@@ -90,6 +90,7 @@ public class RegisterManager {
             }
         }
 
+        this.freeRegister[j] = false;
         return Register.getR(j);
     }
 
