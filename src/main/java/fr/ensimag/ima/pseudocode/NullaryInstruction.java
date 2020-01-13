@@ -1,5 +1,7 @@
 package fr.ensimag.ima.pseudocode;
 
+import java.io.PrintStream;
+
 /**
  * Instruction without operand.
  *
@@ -7,5 +9,7 @@ package fr.ensimag.ima.pseudocode;
  * @date 01/01/2020
  */
 public abstract class NullaryInstruction extends Instruction {
-
+    @Override
+    void displayOperands(PrintStream s) {
+    }
 }

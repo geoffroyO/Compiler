@@ -13,7 +13,9 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateFloat;
+import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 
 /**
  * Single precision, floating-point literal
@@ -70,6 +72,12 @@ public class FloatLiteral extends AbstractExpr {
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
         compiler.addInstruction(new LOAD(new ImmediateFloat(this.getValue()), register));
+    }
+
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) {
+    	compiler.addInstruction(new LOAD(new ImmediateFloat(this.getValue()), Register.R1));
+        compiler.addInstruction(new WFLOAT());
     }
 
 }
