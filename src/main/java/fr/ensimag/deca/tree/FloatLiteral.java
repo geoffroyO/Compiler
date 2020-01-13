@@ -32,7 +32,7 @@ public class FloatLiteral extends AbstractExpr {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         // - create or get the float type
-        FloatType type = new FloatType((compiler.getSymbols().create("float")));
+        Type type = new FloatType((compiler.getSymbols().create("float")));
         // - set this terminal's type to float
         setType(type);
         return type;

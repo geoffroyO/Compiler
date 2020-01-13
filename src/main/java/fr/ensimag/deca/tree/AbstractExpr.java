@@ -85,12 +85,28 @@ public abstract class AbstractExpr extends AbstractInst {
             EnvironmentExp localEnv, ClassDefinition currentClass, 
             Type expectedType)
             throws ContextualError {
-        // -
-        Type obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
+
+        // - verify Right value
+        Type obtainedType;
+        try {
+            obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
+        } catch (ContextualError e){
+            throw e;
+        }
 
         // TODO
-        // verify expectedType and obtainedType values types are the same or do conversion if Int and float
-
+        // verify expectedType and obtainedType values types are the same (verify when they are classes)
+        if (!obtainedType.sameType(expectedType)){
+            // - if expectedType is float and obtainedType is int
+            if (expectedType.isFloat() && obtainedType.isInt()){
+                // - create conversion to float
+                ConvFloat convToFloat = new ConvFloat(this);
+                convToFloat.verifyExpr(compiler, localEnv, currentClass);
+                return convToFloat;
+            } else {
+                throw new ContextualError("Types don't match! ", this.getLocation());
+            }
+        }
         return this;
     }
     
