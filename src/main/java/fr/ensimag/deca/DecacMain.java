@@ -55,7 +55,7 @@ public class DecacMain {
 
         if (options.getSourceFiles().isEmpty()) {
             System.out.println("Error no file found");
-            throw new UnsupportedOperationException("decac without argument not implemented!");
+//            throw new UnsupportedOperationException("decac without argument not implemented!");
         }
 
         if (options.getParallel()) {
