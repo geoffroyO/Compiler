@@ -12,6 +12,11 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+<<<<<<< HEAD
+=======
+
+import java.io.PrintStream;
+>>>>>>> 915b551e66e9b2ccce7a840856ec39b53a6e6450
 
 /**
  *
@@ -61,5 +66,14 @@ public class BooleanLiteral extends AbstractExpr {
         return "BooleanLiteral (" + value + ")";
     }
 
+
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+
+        if (this.getValue()) {
+            compiler.addInstruction(new LOAD(new ImmediateInteger(1), register));
+        } else{
+            compiler.addInstruction(new LOAD(new ImmediateInteger(0), register));
+        }
+    }
 
 }

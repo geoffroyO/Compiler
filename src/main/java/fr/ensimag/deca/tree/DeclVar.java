@@ -6,9 +6,13 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import org.apache.commons.lang.Validate;
 
@@ -94,20 +98,30 @@ public class DeclVar extends AbstractDeclVar {
 
     public void codeGenDeclVar(DecacCompiler compiler) {
 
-        // TODO gérer stack_overflow push et pop et
+
+        // TODO gérer stack_overflow push et pop
+
+        compiler.addComment("Test Stack_overflow");
+        compiler.addInstruction(new TSTO(new ImmediateInteger(1)));
+        //compiler.addInstruction(new BOV( ????? ));
+
+
         compiler.regM.incrSP();
         compiler.addInstruction(new ADDSP(1));
 
-        compiler.regM.incrGB();
-        GPRegister register = compiler.regM.findFreeGPRegister(); // a gerer si plus de registres push et pop
-        this.initialization.codeGenInit(compiler, register);
+        if (compiler.regM.hasFreeGPRegister()) {
+            GPRegister register = compiler.regM.findFreeGPRegister(); // a gerer si plus de registres push et pop
+            this.initialization.codeGenInit(compiler, register);
 
 
+            compiler.regM.incrGB();
+            this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
+            this.initialization.codeGenStInit(compiler, register);
+            compiler.regM.freeRegister(register);
+        } else {
+            compiler.addInstruction(new PUSH(Register.getR(compiler.regM.getNb_registers())));
+        }
 
-        
-        this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
-        this.initialization.codeGenStInit(compiler, register);
-        compiler.regM.freeRegister(register);
 
     }
 }
