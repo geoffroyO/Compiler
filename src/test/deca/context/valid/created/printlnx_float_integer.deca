@@ -1,0 +1,5 @@
+// printlnx with integer and float
+
+{
+    print(12, 32, 3.6f, 89.0);
+}
