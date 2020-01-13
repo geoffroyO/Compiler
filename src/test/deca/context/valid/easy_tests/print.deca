@@ -1,0 +1,15 @@
+// Description:
+//    Programme minimaliste utilisant println.
+//
+// Resultats:
+//    Hello
+//
+// Historique:
+//    cree le 01/01/2020
+
+{
+	print("Start");
+        println("Hello, world!");
+	printx(20);
+	printlnx(20);
+}
