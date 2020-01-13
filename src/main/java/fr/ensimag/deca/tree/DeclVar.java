@@ -98,11 +98,13 @@ public class DeclVar extends AbstractDeclVar {
 
     public void codeGenDeclVar(DecacCompiler compiler) {
 
+
         // TODO gérer stack_overflow push et pop
 
         compiler.addComment("Test Stack_overflow");
         compiler.addInstruction(new TSTO(new ImmediateInteger(1)));
         //compiler.addInstruction(new BOV( ????? ));
+
 
         compiler.regM.incrSP();
         compiler.addInstruction(new ADDSP(1));
@@ -110,6 +112,7 @@ public class DeclVar extends AbstractDeclVar {
         if (compiler.regM.hasFreeGPRegister()) {
             GPRegister register = compiler.regM.findFreeGPRegister(); // a gerer si plus de registres push et pop
             this.initialization.codeGenInit(compiler, register);
+
 
             compiler.regM.incrGB();
             this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
@@ -128,6 +131,7 @@ public class DeclVar extends AbstractDeclVar {
 
             compiler.addInstruction(new POP(register));
         }
+
 
     }
 }
