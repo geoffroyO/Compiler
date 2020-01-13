@@ -98,13 +98,13 @@ public class DeclVar extends AbstractDeclVar {
         compiler.regM.incrSP();
         compiler.addInstruction(new ADDSP(1));
 
-
+        compiler.regM.incrGB();
         GPRegister register = compiler.regM.findFreeGPRegister(); // a gerer si plus de registres push et pop
         this.initialization.codeGenInit(compiler, register);
 
 
 
-        compiler.regM.incrGB();
+        
         this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
         this.initialization.codeGenStInit(compiler, register);
         compiler.regM.freeRegister(register);
