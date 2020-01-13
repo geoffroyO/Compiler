@@ -2,7 +2,10 @@
 ; Main program
 ; Beginning of main instructions:
 	ADDSP #1
-	LOAD #3, R2
-	STORE R2, 0(SP)
+	LOAD #4, R14
+	STORE R14, 0(GB)
+	STORE R1, 0(GB)
+	WINT
+	WNL
 	HALT
 ; end main program
