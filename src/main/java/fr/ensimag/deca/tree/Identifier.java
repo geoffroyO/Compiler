@@ -250,8 +250,11 @@ public class Identifier extends AbstractIdentifier {
     protected void codeGenPrint(DecacCompiler compiler) {
         // works only for int type
         DAddr addr = this.getVariableDefinition().getOperand();
-        compiler.addInstruction(new LOAD(addr, Register.getR(1)));
-        compiler.addInstruction(new WINT());
+
+        if (this.getType().isInt()){
+            compiler.addInstruction(new LOAD(addr, Register.getR(1)));
+            compiler.addInstruction(new WINT());
+        }
     }
 
 }
