@@ -9,6 +9,9 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -61,5 +64,9 @@ public class Initialization extends AbstractInitialization {
 
     protected void codeGenInit(DecacCompiler compiler, GPRegister register) {
         this.expression.codeGenExpr(compiler, register);
+    }
+
+    protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
+        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.regM.getGB(), Register.GB)));
     }
 }
