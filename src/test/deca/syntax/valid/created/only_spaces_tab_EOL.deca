@@ -1,17 +1,39 @@
+// Description :
+// Test du Lexer -> Fichier contenant que des caractères non imprimables 
+//
+// Resultats :
+// ok, aucun token identifie
 
 
- 		     
+
+ 
+		 
+    
 
 
-   
-  	 			
 
-	 	
+ 
+ 
+ 
+
+  	 		
+	
+
+
+	 	
 
 			 	
 
-	 
+	
+ 
      
-   	
-				 
- 
+   
+	
+		
+	
+	 
+
+
+
+
+ 
