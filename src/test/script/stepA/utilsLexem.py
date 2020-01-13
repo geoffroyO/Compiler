@@ -1,8 +1,11 @@
 import random
 
-FILE_DECA = "test.deca"
-FILE_RES = "test.deca.res"
-FILE_OUTPUT = "test.deca.out"
+LOG_PATH = "./src/test/logs/"
+
+SUFFIX_DECA = ".deca"
+SUFFIX_RES = ".deca.res"
+SUFFIX_OUTPUT = ".deca.out"
+
 
 TOKENS_SAME_VALUE = [
     # The value and the token are similar
@@ -210,11 +213,54 @@ def generateIdent():
 
 
 def generateCommentSingleLine():
-    pass
+    com = """"""
+    for i in range (random.randint(0, 20)):
+        typeToken = random.randint(1, 3)
 
+        if (typeToken == 1):  
+            value = random.choice(TOKENS_SAME_VALUE)
+            com = com + value + ' '
+
+        if (typeToken == 2):  # No token
+            value = random.choice(NO_TOKENS)
+            com = com + value
+
+        if(typeToken == 3):  # Specific command
+            value = handleGeneration(random.choice(TOKEN_SPECIFIC)[0])
+            com = com + value + ' '
+
+    com = str(" ".join(com.split("\n")))
+
+    val = """// {}""".format(com)
+
+    return (val)
+
+def generateCommentMultipleLine():
+    com = """"""
+    for i in range (random.randint(0, 50)):
+        typeToken = random.randint(1, 3)
+
+        if (typeToken == 1):  
+            value = random.choice(TOKENS_SAME_VALUE)
+            com = com + value + ' '
+
+        if (typeToken == 2):  # No token
+            value = random.choice(NO_TOKENS)
+            com = com + value
+
+        if(typeToken == 3):  # Specific command
+            value = handleGeneration(random.choice(TOKEN_SPECIFIC)[0])
+            com = com + value + ' '
+
+    com = str(" ".join(com.split("*/")))
+
+    val = """/* {} */""".format(com)
+
+    return (val)
 
 def generateInvalidToken():
     # Generate a string with no " at the end
+
     invalidToken = generateString()
     return(invalidToken[:len(invalidToken)-1])  # Erase the final "
 
@@ -234,7 +280,7 @@ def addTokenValid(fileDeca, fileResDeca, nbTokens):
     # Complete the 2 files
 
     for i in range(nbTokens):
-        typeToken = random.randint(1, 3)
+        typeToken = random.randint(1, 4)
 
         if (typeToken == 1):  # Token and value are similar
             value = random.choice(TOKENS_SAME_VALUE)
@@ -249,6 +295,15 @@ def addTokenValid(fileDeca, fileResDeca, nbTokens):
             value = random.choice(TOKEN_SPECIFIC)
             fileDeca.write(handleGeneration(value[0]) + ' ')
             fileResDeca.write(value[1] + '\n')
+
+        if(typeToken == 4): #Add comment
+            typeComment = random.randint(1, 2)
+            if (typeComment == 1):
+                value = generateCommentSingleLine()
+                fileDeca.write(value + "\n")
+            if (typeComment == 2):
+                value = generateCommentMultipleLine()
+                fileDeca.write(value + "\n")
 
 
 def addTokenInvalid(fileDeca, nbTokens):
@@ -276,12 +331,12 @@ def addTokenInvalid(fileDeca, nbTokens):
             fileDeca.write(value + ' ')
 
 
-def generateFilesValid():
+def generateFilesValid(name):
     # Generate the file .deca and the res expected
-    deca = open(FILE_DECA, 'w')
-    resDeca = open(FILE_RES, 'w')
+    deca = open(LOG_PATH + name + SUFFIX_DECA, 'w')
+    resDeca = open(LOG_PATH + name + SUFFIX_RES, 'w')
 
-    nbTokens = random.randint(0, 2**8)
+    nbTokens = random.randint(0, 2**10)
 
     addTokenValid(deca, resDeca, nbTokens)
 
@@ -289,13 +344,43 @@ def generateFilesValid():
     resDeca.close()
 
 
-def generateFileInvalid():
+def generateFileInvalid(name):
     # Generate the file .deca invalid
-    deca = open(FILE_DECA, 'w')
+    deca = open(LOG_PATH + name + SUFFIX_DECA, 'w')
 
-    nbTokens = random.randint(1, 2**8)  # Min 1 invalid token
+    nbTokens = random.randint(1, 2**10)  # Min 1 invalid token
 
-    for i in range(nbTokens):
-        addTokenInvalid(deca, nbTokens)
+    addTokenInvalid(deca, nbTokens)
 
     deca.close()
+
+
+def generateValid(f, nbTokens):
+    for i in range(nbTokens):
+        typeToken = random.randint(1, 3)
+
+        if (typeToken == 1):  # Token and value are similar
+            value = random.choice(TOKENS_SAME_VALUE)
+            f.write(value + ' ')
+
+        if (typeToken == 2):  # No token
+            value = random.choice(NO_TOKENS)
+            f.write(value)
+
+        if(typeToken == 3):  # Specific command
+            value = random.choice(TOKEN_SPECIFIC)
+            f.write(handleGeneration(value[0]) + ' ')
+
+        if(typeToken == 4): #Add comment
+            typeComment = random.randint(1, 2)
+            if (typeComment == 1):
+                value = generateCommentSingleLine()
+                f.write(value + "\n")
+            if (typeComment == 2):
+                value = generateCommentMultipleLine()
+                f.write(value + "\n")
+
+def generateInvalid(f, nbTokens):
+    # Generate the file .deca invalid
+    addTokenInvalid(f, nbTokens)
+
