@@ -56,8 +56,8 @@ public class Not extends AbstractUnaryExpr {
 
     protected void codeGenCond(DecacCompiler compiler, Label label){
         // TODO push et pop
-        if (compiler.regM.hasFreeGPRegister()) {
-            GPRegister register = compiler.regM.findFreeGPRegister();
+        if (compiler.getRegM().hasFreeGPRegister()) {
+            GPRegister register = compiler.getRegM().findFreeGPRegister();
 
             this.getOperand().codeGenExpr(compiler, register);
 
@@ -67,7 +67,7 @@ public class Not extends AbstractUnaryExpr {
             compiler.addInstruction(new CMP(new ImmediateInteger(1),register));
             compiler.addInstruction(new BEQ(label));
 
-            compiler.regM.freeRegister(register);
+            compiler.getRegM().freeRegister(register);
         }
     }
 }

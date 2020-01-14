@@ -57,7 +57,7 @@ public class Lower extends AbstractOpIneq {
         // TODO push et pop
         if (compiler.getRegM().hasFreeGPRegister()) {
             GPRegister reg_left_op = compiler.getRegM().findFreeGPRegister();
-            GPRegister reg_right_op = compiler.getRegM().findFreeGPRegister();
+            GPRegister reg_right_op = compiler.getRegM(). findFreeGPRegister();
 
             this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
             this.getRightOperand().codeGenExpr(compiler, reg_right_op);
