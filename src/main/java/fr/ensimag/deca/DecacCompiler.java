@@ -214,13 +214,18 @@ public class DecacCompiler {
 
         // - if '-p' option is used, stop after parsing stage and print the tree
         if (getCompilerOptions().getParse()) {
-            // TODO
             System.out.print(prog.decompile());
             return false;
         }
 
         prog.verifyProgram(this);
         assert(prog.checkAllDecorations());
+
+        // if '-v' option used, stop after verification
+        if (getCompilerOptions().isVerification())
+        {
+            return false;
+        }
 
         addComment("start main program");
         prog.codeGenProgram(this);

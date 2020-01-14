@@ -5,6 +5,13 @@ import java.io.File;
 import fr.ensimag.deca.tree.AbstractProgram;
 import org.apache.log4j.Logger;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import java.util.concurrent.*;
+
+
 /**
  * Main class for the command-line Deca compiler.
  *
@@ -13,8 +20,8 @@ import org.apache.log4j.Logger;
  */
 public class DecacMain {
     private static Logger LOG = Logger.getLogger(DecacMain.class);
-    
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         // example log4j message.
         LOG.info("Decac compiler started");
         boolean error = false;
@@ -68,20 +75,7 @@ public class DecacMain {
             System.exit(0);
         }
 
-        if (options.getParse()) {
-            // TODO
-            /*
-            for (File source : options.getSourceFiles()) {
-                DecacCompiler compiler = new DecacCompiler(options, source);
-                AbstractProgram prog = compiler.doLexingAndParsing(source.getAbsolutePath(), System.err);
-                compiler.displayIMAProgram();
-                // Exit program (0 = successfully)
-                System.exit(0);
-            }
-            */
-        }
-
-        if (options.getSourceFiles().isEmpty()){
+        if (options.getSourceFiles().isEmpty()) {
             System.out.println("File not found, please choose a '.deca' file.");
             // Exit program (1 = successfully)
             System.exit(1);
@@ -89,11 +83,37 @@ public class DecacMain {
         }
 
         if (options.getParallel()) {
-            // A FAIRE : instancier DecacCompiler pour chaque fichier à
-            // compiler, et lancer l'exécution des méthodes compile() de chaque
-            // instance en parallèle. Il est conseillé d'utiliser
-            // java.util.concurrent de la bibliothèque standard Java.
-            throw new UnsupportedOperationException("Parallel build not yet implemented");
+            // Compilation en parallele
+
+            List<Callable<Boolean>> taskToDo = new LinkedList<Callable<Boolean>>(); // List of task to do
+
+            for (File f : options.getSourceFiles()) {
+                // Create a task for each file
+
+                Callable<Boolean> task = () -> {
+                    DecacCompiler compiler = new DecacCompiler(options, f);
+                    return(compiler.compile());
+                };
+
+                taskToDo.add(task);
+            }
+
+            ExecutorService pCompiler = Executors.newFixedThreadPool(java.lang.Runtime.getRuntime().availableProcessors()); // Init a threat for each core available
+
+
+            List<Future<Boolean>> resCompiler = pCompiler.invokeAll(taskToDo); // Run all the tasks
+
+            for (Future<Boolean> res : resCompiler)
+            {
+                if (res.get())
+                // Error detected
+                {
+                   System.exit(1);
+                }
+            }
+
+            System.exit(0);
+
         } else {
             for (File source : options.getSourceFiles()) {
                 DecacCompiler compiler = new DecacCompiler(options, source);
