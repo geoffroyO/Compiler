@@ -20,7 +20,7 @@ for i in *.deca
 do
     cDate="`date "+%Y_%m_%d_%H_%M_%S"`"
 
-    test_synt $i > $pathLogs/$i.$cDate.parser.logs
+    test_synt $i > $pathLogs/$i.$cDate.parser.logs 2>&1 # Redirect stdErr 2 in stdOut 1
 
     valDiff=$(diff -q $pathLogs/$i.$cDate.parser.logs parser/$i.res)
 
@@ -45,7 +45,7 @@ for i in *.deca
 do
     cDate="`date "+%Y_%m_%d_%H_%M_%S"`"
 
-    test_synt $i > $pathLogs/$i.$cDate.parser.logs
+    test_synt $i > $pathLogs/$i.$cDate.parser.logs 2>&1 # Redirect stdErr 2 in stdOut 1
 
     valDiff=$(diff -q $pathLogs/$i.$cDate.parser.logs parser/$i.res)
 
