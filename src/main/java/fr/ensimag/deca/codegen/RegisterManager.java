@@ -16,15 +16,15 @@ public class RegisterManager {
     private int GB;
     private int LB;
     private boolean[] freeRegister;
-    private int nb_registers = 4;
+    private int nb_registers = 16;
 
     public RegisterManager() {
         this.SP = 0;
         this.GB = 0;
         this.LB = 0;
-        this.freeRegister = new boolean[4];
+        this.freeRegister = new boolean[16];
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 16; i++) {
             this.freeRegister[i] = true;
         }
     }
@@ -60,7 +60,7 @@ public class RegisterManager {
         // TODO faire un bon rattrapage d'erreur
         int j = -1;
 
-        for (int i = 3; i <= 0; i--) {
+        for (int i = 15; i <= 0; i--) {
 
             if (this.freeRegister[i]) {
                 j = i;
@@ -75,20 +75,17 @@ public class RegisterManager {
         // TODO faire un bon rattrapage d'erreur
         int j = -1;
 
-        for (int i = 3; i >= 2; i--) {
+        for (int i = 15; i >= 2; i--) {
             if (this.freeRegister[i]) {
                 j = i;
             }
         }
-        if (j != -1) {
-            this.freeRegister[j] = false;
-            return Register.getR(j);
-        }
-        return Register.getR(3);
+        this.freeRegister[j] = false;
+        return Register.getR(j);
     }
 
     public boolean hasFreeGPRegister(){
-        for (int i = 3; i >= 2; i--){
+        for (int i = 15; i >= 2; i--){
 
             if (this.freeRegister[i]){
                 return true;
@@ -96,6 +93,7 @@ public class RegisterManager {
         }
         return false;
     }
+
     public void freeRegister(GPRegister register){
         int i = register.getNumber();
         this.freeRegister[i] = true;

@@ -7,8 +7,11 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateFloat;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 import java.io.PrintStream;
@@ -54,12 +57,22 @@ public class NoInitialization extends AbstractInitialization {
         // leaf node => nothing to do
     }
 
-    protected void codeGenInit(DecacCompiler compiler, GPRegister register) {
-        // nothing to do
+    @Override
+    protected void codeGenInit(DecacCompiler compiler, GPRegister register, Type type) {
+    	if (type.isInt()) {
+    		compiler.addInstruction(new LOAD(new ImmediateInteger(0), register));
+    	}
+    	else if (type.isFloat()) {
+    		compiler.addInstruction(new LOAD(new ImmediateFloat(0), register));
+    	}
     }
 
 
-    protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
-   
-    }
+
+
+	@Override
+	protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
+		// TODO Auto-generated method stub
+		
+	}
 }

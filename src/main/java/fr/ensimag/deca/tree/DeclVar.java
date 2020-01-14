@@ -1,20 +1,22 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.*;
-import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
+import org.apache.commons.lang.Validate;
+
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.VariableDefinition;
+import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
-import fr.ensimag.ima.pseudocode.instructions.POP;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
-import org.apache.commons.lang.Validate;
 
 /**
  * @author gl13
@@ -99,39 +101,23 @@ public class DeclVar extends AbstractDeclVar {
     public void codeGenDeclVar(DecacCompiler compiler) {
 
 
-        // TODO gérer stack_overflow push et pop
+        // TODO gérer rattrapage stack_overflow
 
         compiler.addComment("Test Stack_overflow");
         compiler.addInstruction(new TSTO(new ImmediateInteger(1)));
         //compiler.addInstruction(new BOV( ????? ));
 
 
-        compiler.regM.incrSP();
+        compiler.getRegM().incrSP();
         compiler.addInstruction(new ADDSP(1));
 
-        if (compiler.regM.hasFreeGPRegister()) {
-            GPRegister register = compiler.regM.findFreeGPRegister(); // a gerer si plus de registres push et pop
-            this.initialization.codeGenInit(compiler, register);
+        GPRegister register = compiler.getRegM().findFreeGPRegister();
+        this.initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
 
 
-            compiler.regM.incrGB();
-            this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
-            this.initialization.codeGenStInit(compiler, register);
-            compiler.regM.freeRegister(register);
-        } else {
-            GPRegister register = Register.getR(compiler.regM.getNb_registers());
-            compiler.addInstruction(new PUSH(register));
-
-            this.initialization.codeGenInit(compiler, register);
-
-            compiler.regM.incrGB();
-            this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
-            this.initialization.codeGenStInit(compiler, register);
-            compiler.regM.freeRegister(register);
-
-            compiler.addInstruction(new POP(register));
-        }
-
-
+        compiler.getRegM().incrGB();
+        this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.getRegM().getGB(), Register.GB));
+        this.initialization.codeGenStInit(compiler, register);
+        compiler.getRegM().freeRegister(register);
     }
 }

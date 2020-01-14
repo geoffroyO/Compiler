@@ -66,11 +66,11 @@ public class Initialization extends AbstractInitialization {
         expression.prettyPrint(s, prefix, true);
     }
 
-    protected void codeGenInit(DecacCompiler compiler, GPRegister register) {
+    protected void codeGenInit(DecacCompiler compiler, GPRegister register, Type type) {
         this.expression.codeGenExpr(compiler, register);
     }
 
     protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
-        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.regM.getGB(), Register.GB)));
+        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
     }
 }

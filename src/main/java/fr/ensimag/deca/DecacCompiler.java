@@ -1,5 +1,6 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.codegen.RegisterManager;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.syntax.DecaLexer;
@@ -51,7 +52,16 @@ public class DecacCompiler {
     /**
      * Manager for registers
      */
-    public RegisterManager regM;
+
+    private RegisterManager regM;
+
+    private LabelManager  labM;
+
+    public LabelManager getLabM(){
+        return this.labM;
+    }
+
+    public RegisterManager getRegM() { return this.regM; }
 
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
@@ -60,6 +70,7 @@ public class DecacCompiler {
         this.symbols = new SymbolTable();
         this.envTypes = new EnvironmentType(this.symbols);
         this.regM = new RegisterManager();
+        this.labM = new LabelManager();
     }
 
     /**
@@ -214,13 +225,18 @@ public class DecacCompiler {
 
         // - if '-p' option is used, stop after parsing stage and print the tree
         if (getCompilerOptions().getParse()) {
-            // TODO
             System.out.print(prog.decompile());
             return false;
         }
 
         prog.verifyProgram(this);
         assert(prog.checkAllDecorations());
+
+        // if '-v' option used, stop after verification
+        if (getCompilerOptions().isVerification())
+        {
+            return false;
+        }
 
         addComment("start main program");
         prog.codeGenProgram(this);
