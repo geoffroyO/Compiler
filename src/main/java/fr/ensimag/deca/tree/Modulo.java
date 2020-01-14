@@ -5,6 +5,8 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.instructions.REM;
 
 /**
  *
@@ -55,4 +57,13 @@ public class Modulo extends AbstractOpArith {
         return "%";
     }
 
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+        GPRegister reg_left_op = compiler.regM.findFreeGPRegister();
+
+        this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
+        this.getRightOperand().codeGenExpr(compiler, register);
+
+        compiler.addInstruction(new REM(reg_left_op, register));
+        compiler.regM.freeRegister(reg_left_op);
+    }
 }

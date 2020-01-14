@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.GPRegister;
 import org.apache.commons.lang.Validate;
 
 import fr.ensimag.deca.DecacCompiler;
@@ -248,7 +249,7 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        // works only for int type
+        // works only for int and float type
         DAddr addr = this.getVariableDefinition().getOperand();
 
         if (this.getType().isInt()){
@@ -269,6 +270,11 @@ public class Identifier extends AbstractIdentifier {
             compiler.addInstruction(new WINT());
         }
         */
+    }
+
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+        DAddr addr = this.getVariableDefinition().getOperand();
+        compiler.addInstruction(new LOAD(addr, register));
     }
 
 }

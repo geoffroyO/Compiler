@@ -58,7 +58,7 @@ public class Assign extends AbstractBinaryExpr {
         super.codeGenInst(compiler);
         DAddr addr = ((AbstractIdentifier) this.getLeftOperand()).getVariableDefinition().getOperand();
 
-        GPRegister register = compiler.regM.findFreeRegister();
+        GPRegister register = compiler.regM.findFreeGPRegister();
         this.getRightOperand().codeGenExpr(compiler, register);
         compiler.addInstruction(new STORE(register, addr));
 
