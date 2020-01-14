@@ -52,7 +52,7 @@ public class And extends AbstractOpBool {
         }
     }
 
-    protected void codeGenWhileCond(DecacCompiler compiler, Label label){
+    protected void codeGenCond(DecacCompiler compiler, Label label){
         // TODO push et pop
         if (compiler.regM.hasFreeGPRegister()) {
             GPRegister reg_left_op = compiler.regM.findFreeGPRegister();
