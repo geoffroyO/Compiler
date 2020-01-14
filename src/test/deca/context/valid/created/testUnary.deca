@@ -1,0 +1,6 @@
+{
+    int c = 5;
+    int a;
+    boolean k = !true;
+    //int v = ;
+}
