@@ -7,9 +7,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
-import fr.ensimag.ima.pseudocode.instructions.ADD;
-import fr.ensimag.ima.pseudocode.instructions.MUL;
-import fr.ensimag.ima.pseudocode.instructions.REM;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 /**
  *
@@ -53,5 +52,10 @@ public class Not extends AbstractUnaryExpr {
         compiler.addInstruction(new ADD(new ImmediateInteger(1), register));
         compiler.addInstruction(new REM(new ImmediateInteger(2), register));
 
+    }
+
+    protected void codeGenWhileCond(DecacCompiler compiler, Label label){
+        // TODO push et pop
+        System.out.println("Not implemented yet");
     }
 }
