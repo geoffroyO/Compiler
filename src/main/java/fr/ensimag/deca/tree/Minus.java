@@ -23,16 +23,16 @@ public class Minus extends AbstractOpArith {
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
 
-        if (compiler.regM.hasFreeGPRegister()) {
-            GPRegister reg_right_op = compiler.regM.findFreeGPRegister();
+        if (compiler.getRegM().hasFreeGPRegister()) {
+            GPRegister reg_right_op = compiler.getRegM().findFreeGPRegister();
 
             this.getLeftOperand().codeGenExpr(compiler, register);
             this.getRightOperand().codeGenExpr(compiler, reg_right_op);
 
             compiler.addInstruction(new SUB(reg_right_op, register));
-            compiler.regM.freeRegister(reg_right_op);
+            compiler.getRegM().freeRegister(reg_right_op);
         } else{
-            GPRegister reg_right_op = Register.getR(compiler.regM.getNb_registers());
+            GPRegister reg_right_op = Register.getR(compiler.getRegM().getNb_registers());
 
             this.getLeftOperand().codeGenExpr(compiler, register);
 

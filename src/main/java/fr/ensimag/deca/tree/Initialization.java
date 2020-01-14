@@ -71,6 +71,6 @@ public class Initialization extends AbstractInitialization {
     }
 
     protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
-        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.regM.getGB(), Register.GB)));
+        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
     }
 }

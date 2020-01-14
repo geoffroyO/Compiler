@@ -84,8 +84,8 @@ public class BooleanLiteral extends AbstractExpr {
 
     protected void codeGenCond(DecacCompiler compiler, Label label){
 
-        if (compiler.regM.hasFreeGPRegister()) {
-            GPRegister register = compiler.regM.findFreeGPRegister();
+        if (compiler.getRegM().hasFreeGPRegister()) {
+            GPRegister register = compiler.getRegM().findFreeGPRegister();
 
             int i;
             if (this.getValue()){
@@ -96,7 +96,7 @@ public class BooleanLiteral extends AbstractExpr {
             compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
             compiler.addInstruction(new BNE(label));
 
-            compiler.regM.freeRegister(register);
+            compiler.getRegM().freeRegister(register);
         }
     }
 }

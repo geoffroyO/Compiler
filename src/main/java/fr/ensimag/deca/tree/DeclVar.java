@@ -108,16 +108,16 @@ public class DeclVar extends AbstractDeclVar {
         //compiler.addInstruction(new BOV( ????? ));
 
 
-        compiler.regM.incrSP();
+        compiler.getRegM().incrSP();
         compiler.addInstruction(new ADDSP(1));
 
-        GPRegister register = compiler.regM.findFreeGPRegister();
+        GPRegister register = compiler.getRegM().findFreeGPRegister();
         this.initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
 
 
-        compiler.regM.incrGB();
-        this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
+        compiler.getRegM().incrGB();
+        this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.getRegM().getGB(), Register.GB));
         this.initialization.codeGenStInit(compiler, register);
-        compiler.regM.freeRegister(register);
+        compiler.getRegM().freeRegister(register);
     }
 }
