@@ -39,12 +39,16 @@ public class While extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        //mettre label debut
-        GPRegister reg_cond = compiler.regM.findFreeGPRegister();
-        this.condition.codeGenWhileCond(compiler, label);
+        Label debut_while = compiler.getLabM().genWhileLabel();
+        Label fin_while = compiler.getLabM().genEndWhileLabel();
+        compiler.addLabel(debut_while);
+
+        this.condition.codeGenWhileCond(compiler, fin_while);
         this.body.codeGenListInst(compiler);
-        //mettre label fin
-        compiler.addInstruction(new BRA(new Label("mettre nom")));
+
+        compiler.addInstruction(new BRA(debut_while));
+        compiler.addLabel(fin_while);
+
     }
 
     @Override

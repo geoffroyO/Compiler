@@ -1,5 +1,6 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.codegen.RegisterManager;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.syntax.DecaLexer;
@@ -51,7 +52,14 @@ public class DecacCompiler {
     /**
      * Manager for registers
      */
+    // TODO private
     public RegisterManager regM;
+
+    private LabelManager  labM;
+
+    public LabelManager getLabM(){
+        return this.labM;
+    }
 
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
@@ -60,6 +68,7 @@ public class DecacCompiler {
         this.symbols = new SymbolTable();
         this.envTypes = new EnvironmentType(this.symbols);
         this.regM = new RegisterManager();
+        this.labM = new LabelManager();
     }
 
     /**

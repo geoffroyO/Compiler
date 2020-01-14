@@ -4,11 +4,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.CMP;
-import fr.ensimag.ima.pseudocode.instructions.POP;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
-import fr.ensimag.ima.pseudocode.instructions.BGE;
-import fr.ensimag.ima.pseudocode.instructions.SGE;
+import fr.ensimag.ima.pseudocode.instructions.*;
 import fr.ensimag.ima.pseudocode.Label;
 
 /**
@@ -36,7 +32,7 @@ public class GreaterOrEqual extends AbstractOpIneq {
             this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
             this.getRightOperand().codeGenExpr(compiler, register);
 
-            compiler.addInstruction(new CMP(reg_left_op, register));
+            compiler.addInstruction(new CMP(register, reg_left_op));
             compiler.addInstruction(new SGE(register));
 
             compiler.regM.freeRegister(reg_left_op);
@@ -49,15 +45,16 @@ public class GreaterOrEqual extends AbstractOpIneq {
 
             this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
 
-            compiler.addInstruction(new CMP(reg_left_op, Register.R0));
+            compiler.addInstruction(new LOAD(reg_left_op, Register.R0));
             compiler.addInstruction(new POP(reg_left_op));
 
-            compiler.addInstruction(new CMP(Register.R0, register));
+            compiler.addInstruction(new CMP(register, Register.R0));
             compiler.addInstruction(new SGE(register));
         }
     }
 
     protected void codeGenWhileCond(DecacCompiler compiler, Label label){
+        // TODO push et pop
         if (compiler.regM.hasFreeGPRegister()) {
             GPRegister reg_left_op = compiler.regM.findFreeGPRegister();
             GPRegister reg_right_op = compiler.regM.findFreeGPRegister();
@@ -65,10 +62,11 @@ public class GreaterOrEqual extends AbstractOpIneq {
             this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
             this.getRightOperand().codeGenExpr(compiler, reg_right_op);
 
-            compiler.addInstruction(new CMP(reg_left_op, reg_right_op));
-            compiler.addInstruction(new BGE(label));
+            compiler.addInstruction(new CMP(reg_right_op, reg_left_op));
+            compiler.addInstruction(new BLT(label));
 
             compiler.regM.freeRegister(reg_left_op);
+            compiler.regM.freeRegister(reg_right_op);
         }
     }
 }
