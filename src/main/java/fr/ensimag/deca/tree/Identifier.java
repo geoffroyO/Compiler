@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.GPRegister;
 import org.apache.commons.lang.Validate;
 
 import fr.ensimag.deca.DecacCompiler;
@@ -175,11 +176,12 @@ public class Identifier extends AbstractIdentifier {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
 
-        // -
+        // - if the Identifier is not declared in env_types
         if (localEnv.get(this.getName())==null) {
             throw new ContextualError("identifier not defined", this.getLocation());
         }
 
+        // get and set the definition and type for the current Identifier
         this.setDefinition(localEnv.get(name));
         Type type = localEnv.get(this.getName()).getType();
         this.setType(type);
@@ -259,6 +261,11 @@ public class Identifier extends AbstractIdentifier {
             compiler.addInstruction(new WFLOAT());
         }
 
+    }
+
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+        DAddr addr = this.getVariableDefinition().getOperand();
+        compiler.addInstruction(new LOAD(addr, register));
     }
 
 }

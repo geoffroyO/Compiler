@@ -1,6 +1,9 @@
 package fr.ensimag.deca.tree;
 
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.instructions.MUL;
 
 /**
  * @author gl13
@@ -17,4 +20,13 @@ public class Multiply extends AbstractOpArith {
         return "*";
     }
 
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+        GPRegister reg_left_op = compiler.regM.findFreeGPRegister();
+
+        this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
+        this.getRightOperand().codeGenExpr(compiler, register);
+
+        compiler.addInstruction(new MUL(reg_left_op, register));
+        compiler.regM.freeRegister(reg_left_op);
+    }
 }

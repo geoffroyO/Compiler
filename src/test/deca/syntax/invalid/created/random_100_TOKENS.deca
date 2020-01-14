@@ -1,10 +1,9 @@
 // Description :
-// Test du Lexer -> Fichier contenant 100 tokens dont un invalide 
+// Fichier contenant 100 tokens dont un invalide 
 //
 // Resultats :
-// Erreur token invalid
-// INFO  fr.ensimag.deca.syntax.DecacErrorListner.syntaxError(DecacErrorListner.java:50) - no token, no LocationException => using input.getSourceName(): line=21
-// random_100_TOKENS.deca:21:7: token recognition error at: '�'
+// Lexer -> Error (resultat dans lexer)
+// Parser -> Error (resultat dans parser)
 
 RtEzCQWtqNxurM0plns9ZCJPn4hlN3Vpn 
 
