@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.GPRegister;
 import org.apache.commons.lang.Validate;
 
 import fr.ensimag.deca.DecacCompiler;
@@ -194,7 +195,7 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
 
-        // - Verify that the type exists in envTypes
+    	// - Verify that the type exists in envTypes
 //        System.out.println(this.getName());
 //        System.out.println(compiler.getEnvTypes().get(this.getName()));
 //        Symbol type =  compiler.getSymbols().create();
@@ -248,7 +249,7 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        // works only for int type
+        // we can't print(x) if x if of type string 
         DAddr addr = this.getVariableDefinition().getOperand();
 
         if (this.getType().isInt()){
@@ -259,16 +260,12 @@ public class Identifier extends AbstractIdentifier {
         	compiler.addInstruction(new LOAD(addr, Register.R1));
             compiler.addInstruction(new WFLOAT());
         }
-        /*
-        
-        if (this.getType().isString()){
-            compiler.addInstruction(new WSTR((String)this);
-        }
-        if (this.getType().isBoolean()){
-            compiler.addInstruction(new LOAD(addr, Register.R1));
-            compiler.addInstruction(new WINT());
-        }
-        */
+
+    }
+
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+        DAddr addr = this.getVariableDefinition().getOperand();
+        compiler.addInstruction(new LOAD(addr, register));
     }
 
 }

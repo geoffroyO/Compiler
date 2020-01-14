@@ -3,7 +3,7 @@
 //
 // Resultats :
 // Lexer -> OK (resultat dans lexer) uniquement des tokens INTEGER
-// Parser -> Error (resultat dans parser)
+// Parser -> Error: only_INTEGER.deca:8:0: no viable alternative at input '1793447822'
 
 1793447822
 1764961972

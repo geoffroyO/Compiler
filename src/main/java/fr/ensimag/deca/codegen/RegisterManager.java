@@ -16,15 +16,15 @@ public class RegisterManager {
     private int GB;
     private int LB;
     private boolean[] freeRegister;
-    private int nb_registers = 15;
+    private int nb_registers = 4;
 
     public RegisterManager() {
         this.SP = 0;
         this.GB = 0;
         this.LB = 0;
-        this.freeRegister = new boolean[15];
+        this.freeRegister = new boolean[4];
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 4; i++) {
             this.freeRegister[i] = true;
         }
     }
@@ -55,36 +55,13 @@ public class RegisterManager {
     public int getLB(){
         return this.LB;
     }
-    public boolean isFreeRegister() {
-
-        for (int i = 0; i < 15; i++) {
-            if (this.freeRegister[i]) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     public GPRegister findFreeRegister(){
         // TODO faire un bon rattrapage d'erreur
         int j = -1;
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 3; i <= 0; i--) {
 
-            if (this.freeRegister[i]) {
-                j = i;
-            }
-        }
-
-        return Register.getR(j);
-    }
-
-    public GPRegister findFreeGPRegister(){
-        // TODO faire un bon rattrapage d'erreur
-        int j = -1;
-
-        for (int i = 2; i < 15; i++) {
             if (this.freeRegister[i]) {
                 j = i;
             }
@@ -94,10 +71,26 @@ public class RegisterManager {
         return Register.getR(j);
     }
 
-    public boolean hasFreeGPRegister(){
-        for (boolean b: this.freeRegister){
+    public GPRegister findFreeGPRegister(){
+        // TODO faire un bon rattrapage d'erreur
+        int j = -1;
 
-            if (b){
+        for (int i = 3; i >= 2; i--) {
+            if (this.freeRegister[i]) {
+                j = i;
+            }
+        }
+        if (j != -1) {
+            this.freeRegister[j] = false;
+            return Register.getR(j);
+        }
+        return Register.getR(3);
+    }
+
+    public boolean hasFreeGPRegister(){
+        for (int i = 3; i >= 2; i--){
+
+            if (this.freeRegister[i]){
                 return true;
             }
         }

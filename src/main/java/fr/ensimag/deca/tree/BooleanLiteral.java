@@ -79,13 +79,13 @@ public class BooleanLiteral extends AbstractExpr {
         }
     }
 
-    @Override
-    protected void codeGenPrint(DecacCompiler compiler) {
-        if (this.getValue()) {
-        	 compiler.addInstruction(new WSTR(new ImmediateString("True")));
-        } else{
-        	 compiler.addInstruction(new WSTR(new ImmediateString("False")));
-        }
-    }
+//    @Override
+//    protected void codeGenPrint(DecacCompiler compiler) {
+//        if (this.getValue()) {
+//        	 compiler.addInstruction(new WSTR(new ImmediateString("True")));
+//        } else{
+//        	 compiler.addInstruction(new WSTR(new ImmediateString("False")));
+//        }
+//    }
     
 }

@@ -60,6 +60,6 @@ public class NoInitialization extends AbstractInitialization {
 
 
     protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
-        // nothing to do
+   
     }
 }
