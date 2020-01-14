@@ -1,10 +1,12 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+
+import fr.ensimag.deca.tools.SymbolTable;
+import jdk.nashorn.internal.ir.Symbol;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
@@ -36,8 +38,10 @@ public class Main extends AbstractMain {
         EnvironmentExp env = new EnvironmentExp(null);
         // - check declaration of variables
         this.declVariables.verifyListDeclVariable(compiler, env, null);
+
         // - check the list of instructions
-        this.insts.verifyListInst(compiler, env, null, null);
+        VoidType returnType = new VoidType(compiler.getSymbols().create("void"));
+        this.insts.verifyListInst(compiler, env, null, returnType); // (3.4)
 
         LOG.debug("verify Main: end");
     }
