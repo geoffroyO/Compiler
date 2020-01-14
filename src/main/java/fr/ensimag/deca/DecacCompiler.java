@@ -52,14 +52,16 @@ public class DecacCompiler {
     /**
      * Manager for registers
      */
-    // TODO private
-    public RegisterManager regM;
+    
+    private RegisterManager regM;
 
     private LabelManager  labM;
 
     public LabelManager getLabM(){
         return this.labM;
     }
+
+    public RegisterManager getRegM() { return this.regM; }
 
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
