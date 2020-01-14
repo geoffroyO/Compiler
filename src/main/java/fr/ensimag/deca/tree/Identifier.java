@@ -249,7 +249,7 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        // works only for int and float type
+        // we can't print(x) if x if of type string 
         DAddr addr = this.getVariableDefinition().getOperand();
 
         if (this.getType().isInt()){
@@ -260,16 +260,7 @@ public class Identifier extends AbstractIdentifier {
         	compiler.addInstruction(new LOAD(addr, Register.R1));
             compiler.addInstruction(new WFLOAT());
         }
-        /*
-        
-        if (this.getType().isString()){
-            compiler.addInstruction(new WSTR((String)this);
-        }
-        if (this.getType().isBoolean()){
-            compiler.addInstruction(new LOAD(addr, Register.R1));
-            compiler.addInstruction(new WINT());
-        }
-        */
+
     }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
