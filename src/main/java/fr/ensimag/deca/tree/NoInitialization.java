@@ -72,7 +72,6 @@ public class NoInitialization extends AbstractInitialization {
 
 	@Override
 	protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
-		// TODO Auto-generated method stub
-		
+        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
 	}
 }

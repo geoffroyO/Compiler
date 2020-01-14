@@ -1,16 +1,27 @@
 {
-int N = 1000;
+int N = 10;
 int n = 0;
-float x = 1;
+float x = 1.0;
 int fact = 1;
 
-float val_approx = 0;
+float val_approx = 0.0;
 
 while (n <= N){
     val_approx = val_approx + x/fact;
     x = x*x;
     n = n+1;
     fact = n*fact;
+    if (n % 2 == 0) {
+        println("C'est pas encore fini...");
+    } else {
+        if (n <= 9) {
+            println("C'est pas tout à fait fini...");
+        } else {
+            println("C'est fini");
+        }
+    }
 }
-println("La valeur de val_approx);
+println("La valeur approchée de e est: ", val_approx);
+println(x);
 }
+

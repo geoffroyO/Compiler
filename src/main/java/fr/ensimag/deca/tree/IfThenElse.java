@@ -52,6 +52,8 @@ public class IfThenElse extends AbstractInst {
     @Override
     protected void codeGenInst(DecacCompiler compiler) { 	
         Label debut_if = compiler.getLabM().genIfLabel();
+        Label fin_if = compiler.getLabM().genEndIfLabel();
+
         if (!elseBranch.getList().isEmpty()) {       	
             Label debut_else = compiler.getLabM().genElseLabel();
             Label fin_else = compiler.getLabM().genEndElseLabel();    
@@ -63,11 +65,11 @@ public class IfThenElse extends AbstractInst {
 	       
 	        compiler.addLabel(debut_else); 
 	        this.elseBranch.codeGenListInst(compiler);    	
-	        compiler.addLabel(fin_else); 	   
-	     }
+	        compiler.addLabel(fin_else);
+            compiler.addLabel(fin_if);
+        }
         else {        	
-        	Label fin_if = compiler.getLabM().genEndIfLabel();
-        	
+
 	        compiler.addLabel(debut_if);
 	        this.condition.codeGenCond(compiler, fin_if);
 	        this.thenBranch.codeGenListInst(compiler);     	

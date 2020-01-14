@@ -61,24 +61,24 @@ public class Modulo extends AbstractOpArith {
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
 
         if (compiler.getRegM().hasFreeGPRegister()) {
-            GPRegister reg_left_op = compiler.getRegM().findFreeGPRegister();
+            GPRegister reg_right_op = compiler.getRegM().findFreeGPRegister();
 
-            this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
-            this.getRightOperand().codeGenExpr(compiler, register);
+            this.getLeftOperand().codeGenExpr(compiler, register);
+            this.getRightOperand().codeGenExpr(compiler, reg_right_op);
 
-            compiler.addInstruction(new REM(reg_left_op, register));
-            compiler.getRegM().freeRegister(reg_left_op);
+            compiler.addInstruction(new REM(reg_right_op, register));
+            compiler.getRegM().freeRegister(reg_right_op);
         } else {
-            GPRegister reg_left_op = Register.getR(compiler.getRegM().getNb_registers());
+            GPRegister reg_right_op = Register.getR(compiler.getRegM().getNb_registers());
 
-            this.getRightOperand().codeGenExpr(compiler, register);
+            this.getLeftOperand().codeGenExpr(compiler, register);
 
-            compiler.addInstruction(new PUSH(reg_left_op));
+            compiler.addInstruction(new PUSH(reg_right_op));
 
-            this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
+            this.getRightOperand().codeGenExpr(compiler, reg_right_op);
 
-            compiler.addInstruction(new LOAD(reg_left_op, Register.R0));
-            compiler.addInstruction(new POP(reg_left_op));
+            compiler.addInstruction(new LOAD(reg_right_op, Register.R0));
+            compiler.addInstruction(new POP(reg_right_op));
 
             compiler.addInstruction(new REM(Register.R0, register));
         }
