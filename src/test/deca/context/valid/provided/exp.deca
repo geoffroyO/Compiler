@@ -1,0 +1,16 @@
+{
+int N = 1000;
+int n = 0;
+float x = 1;
+int fact = 1;
+
+float val_approx = 0;
+
+while (n <= N){
+    val_approx = val_approx + x/fact;
+    x = x*x;
+    n = n+1;
+    fact = n*fact;
+}
+println("La valeur de val_approx);
+}

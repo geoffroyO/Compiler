@@ -52,7 +52,7 @@ public class DecacCompiler {
     /**
      * Manager for registers
      */
-    
+
     private RegisterManager regM;
 
     private LabelManager  labM;
