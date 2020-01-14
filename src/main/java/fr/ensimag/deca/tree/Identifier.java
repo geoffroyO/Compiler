@@ -2,7 +2,6 @@ package fr.ensimag.deca.tree;
 
 import java.io.PrintStream;
 
-import fr.ensimag.ima.pseudocode.GPRegister;
 import org.apache.commons.lang.Validate;
 
 import fr.ensimag.deca.DecacCompiler;
@@ -19,12 +18,15 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.Operand;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
-import fr.ensimag.ima.pseudocode.instructions.WSTR;
 
 /**
  * Deca Identifier
@@ -260,7 +262,6 @@ public class Identifier extends AbstractIdentifier {
         	compiler.addInstruction(new LOAD(addr, Register.R1));
             compiler.addInstruction(new WFLOAT());
         }
-
     }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
@@ -268,4 +269,19 @@ public class Identifier extends AbstractIdentifier {
         compiler.addInstruction(new LOAD(addr, register));
     }
 
+    protected void codeGenCond(DecacCompiler compiler, Label label){
+    	if (this.getType().isBoolean()) {
+            if (compiler.regM.hasFreeGPRegister()) {
+            	DAddr addr = this.getVariableDefinition().getOperand();
+            	
+            	GPRegister register = compiler.regM.findFreeGPRegister();
+            	compiler.addInstruction(new LOAD(addr, register));
+            	
+                compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
+                compiler.addInstruction(new BNE(label));
+
+            }         		
+    	}
+    }
+    
 }
