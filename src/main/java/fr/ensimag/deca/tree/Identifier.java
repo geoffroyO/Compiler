@@ -271,10 +271,10 @@ public class Identifier extends AbstractIdentifier {
 
     protected void codeGenCond(DecacCompiler compiler, Label label){
     	if (this.getType().isBoolean()) {
-            if (compiler.regM.hasFreeGPRegister()) {
+            if (compiler.getRegM().hasFreeGPRegister()) {
             	DAddr addr = this.getVariableDefinition().getOperand();
             	
-            	GPRegister register = compiler.regM.findFreeGPRegister();
+            	GPRegister register = compiler.getRegM().findFreeGPRegister();
             	compiler.addInstruction(new LOAD(addr, register));
             	
                 compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
