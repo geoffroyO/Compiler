@@ -103,7 +103,7 @@ public class DeclVar extends AbstractDeclVar {
     public void codeGenDeclVar(DecacCompiler compiler) {
 
 
-        // TODO gérer stack_overflow push et pop
+        // TODO gérer rattrapage stack_overflow
 
         compiler.addComment("Test Stack_overflow");
         compiler.addInstruction(new TSTO(new ImmediateInteger(1)));
@@ -113,29 +113,13 @@ public class DeclVar extends AbstractDeclVar {
         compiler.regM.incrSP();
         compiler.addInstruction(new ADDSP(1));
 
-        if (compiler.regM.hasFreeGPRegister()) {
-            GPRegister register = compiler.regM.findFreeGPRegister(); // a gerer si plus de registres push et pop
-            this.initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
+        GPRegister register = compiler.regM.findFreeGPRegister();
+        this.initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
 
 
-            compiler.regM.incrGB();
-            this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
-            this.initialization.codeGenStInit(compiler, register);
-            compiler.regM.freeRegister(register);
-        } else {
-            GPRegister register = Register.getR(compiler.regM.getNb_registers());
-            compiler.addInstruction(new PUSH(register));
-
-            this.initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
-
-            compiler.regM.incrGB();
-            this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
-            this.initialization.codeGenStInit(compiler, register);
-            compiler.regM.freeRegister(register);
-
-            compiler.addInstruction(new POP(register));
-        }
-
-
+        compiler.regM.incrGB();
+        this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
+        this.initialization.codeGenStInit(compiler, register);
+        compiler.regM.freeRegister(register);
     }
 }
