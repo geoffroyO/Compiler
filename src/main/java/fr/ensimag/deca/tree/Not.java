@@ -54,7 +54,7 @@ public class Not extends AbstractUnaryExpr {
 
     }
 
-    protected void codeGenWhileCond(DecacCompiler compiler, Label label){
+    protected void codeGenCond(DecacCompiler compiler, Label label){
         // TODO push et pop
         System.out.println("Not implemented yet");
     }

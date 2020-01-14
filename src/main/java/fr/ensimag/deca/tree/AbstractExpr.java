@@ -168,10 +168,12 @@ public abstract class AbstractExpr extends AbstractInst {
 
     }
 
-    protected void codeGenWhileCond(DecacCompiler compiler, Label label){
+    protected void codeGenCond(DecacCompiler compiler, Label label){
 
     }
 
+
+    
     @Override
     protected void decompileInst(IndentPrintStream s) {
         decompile(s);
