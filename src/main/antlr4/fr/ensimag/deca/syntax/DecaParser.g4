@@ -182,7 +182,7 @@ if_then_else returns[IfThenElse tree]
             
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
-      
+
             AbstractInst n = new IfThenElse($elsif_cond.tree, $elsif_li.tree, else2);
             setLocation(n, $ELSE);
             else1.add(n);
@@ -192,8 +192,9 @@ if_then_else returns[IfThenElse tree]
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
-      	     
-            else2.add($li_else.tree.getList().get(0));
+      	    if (!$li_else.tree.getList().isEmpty()){
+      	    	else1.add($li_else.tree.getList().get(0));
+      	    }
             
         }
       )?

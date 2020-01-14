@@ -29,7 +29,7 @@ do
     decompilation $i $pathLogs/$i.v1
     decompilation $pathLogs/$i.v1 $pathLogs/$i.v2
 
-    valDiff=$(diff -q $pathLogs/$i.v1 $pathLogs/$i.v2)
+    valDiff=$(diff -q $pathLogs/$i.v1 $pathLogs/$i.v2 2>&1)
 
     if ["$valDiff" = ""] 
     then

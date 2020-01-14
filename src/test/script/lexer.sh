@@ -14,15 +14,12 @@ echo "##########################"
 echo "## LEXER NON REGRESSION ##"
 echo "##########################"
 
-echo 
-echo "## LEXER VALID ##"
-echo 
 
 for i in *.deca
 do
     cDate="`date "+%Y_%m_%d_%H_%M_%S"`"
 
-    test_lex $i > $pathLogs/$i.$cDate.lex.logs
+    test_lex $i > $pathLogs/$i.$cDate.lex.logs 2>&1 # Redirect stdErr 2 in stdOut 1
 
     valDiff=$(diff -q $pathLogs/$i.$cDate.lex.logs lexer/$i.res)
 
@@ -41,23 +38,19 @@ do
 
 done
 
-echo 
-echo "## LEXER INVALID ##"
-echo 
-
 cd ../../invalid/created
 
 for i in *.deca
 do
     cDate="`date "+%Y_%m_%d_%H_%M_%S"`"
 
-    test_lex $i > $pathLogs/$i.$cDate.lex.logs
+    test_lex $i > $pathLogs/$i.$cDate.lex.logs 2>&1 # Redirect stdErr 2 in stdOut 1
 
     valDiff=$(diff -q $pathLogs/$i.$cDate.lex.logs lexer/$i.res)
 
     if ["$valDiff" = ""] 
     then
-        echo "\e[32mINVALID \t $i.deca\e[39m"
+        echo "\e[32mVALID \t $i.deca\e[39m"
         rm $pathLogs/$i.$cDate.lex.logs
 
     else

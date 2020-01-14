@@ -2,8 +2,8 @@
 // Fichier contenant 100 tokens dont un invalide 
 //
 // Resultats :
-// Lexer -> Error (resultat dans lexer)
-// Parser -> Error (resultat dans parser)
+// Lexer -> Error: random_100_TOKENS.deca:21:7: token recognition error at: '�'
+// Parser -> Error: random_100_TOKENS.deca:21:7: token recognition error at: '�'
 
 RtEzCQWtqNxurM0plns9ZCJPn4hlN3Vpn 
 
