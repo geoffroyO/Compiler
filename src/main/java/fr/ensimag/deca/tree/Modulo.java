@@ -37,7 +37,7 @@ public class Modulo extends AbstractOpArith {
         }
 
         // - Operands must be numeric numbers
-        if((leftOpType.isInt() || leftOpType.isFloat()) && (rightOpType.isInt() || rightOpType.isFloat())){
+        if((leftOpType.isInt()) && (rightOpType.isInt())){
             if (leftOpType.isFloat()){
                 this.setType(leftOpType);
                 return leftOpType;
@@ -46,7 +46,7 @@ public class Modulo extends AbstractOpArith {
                 return rightOpType;
             }
         } else {
-            throw new ContextualError("Operands must be numeric numbers [Modulo]", getLocation());
+            throw new ContextualError("Operands must be int [Modulo] int", getLocation());
         }
 
 
