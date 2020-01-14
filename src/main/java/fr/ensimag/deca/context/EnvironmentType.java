@@ -25,6 +25,8 @@ public class EnvironmentType {
         Symbol intSymbol = symbols.create("int");
         Symbol floatSymbol = symbols.create("float");
         Symbol voidSymbol = symbols.create("void");
+//        Symbol stringSymbol = symbols.create("string");
+//        Symbol nullSymbol = symbols.create("null");
         Symbol objectSymbol = symbols.create("Object");
 
         // - create definitions from symbols
@@ -32,12 +34,16 @@ public class EnvironmentType {
         TypeDefinition boolDefinition = new TypeDefinition(new BooleanType(boolSymbol), Location.BUILTIN);
         TypeDefinition intDefinition = new TypeDefinition(new IntType(intSymbol), Location.BUILTIN);
         TypeDefinition floatDefinition = new TypeDefinition(new FloatType(floatSymbol), Location.BUILTIN);
+//        TypeDefinition stringDefinition = new TypeDefinition(new StringType(stringSymbol), Location.BUILTIN);
+//        TypeDefinition nullDefinition = new TypeDefinition(new NullType(nullSymbol), Location.BUILTIN);
         TypeDefinition voidDefinition = new TypeDefinition(new VoidType(voidSymbol), Location.BUILTIN);
 
         // - Add types to envTypes
         this.envTypes.put(intSymbol, intDefinition);
         this.envTypes.put(boolSymbol, boolDefinition);
         this.envTypes.put(floatSymbol, floatDefinition);
+//        this.envTypes.put(stringSymbol, stringDefinition);
+//        this.envTypes.put(nullSymbol, nullDefinition);
         this.envTypes.put(voidSymbol, voidDefinition);
 
     }

@@ -213,8 +213,11 @@ def generateIdent():
 
 
 def generateCommentSingleLine():
+    ## Attention, contient des bugs imprevisible
+    ## L'ajout de "//" n'est pas toujours pris en compte.
+
     com = """"""
-    for i in range (random.randint(0, 20)):
+    for i in range (random.randint(0, 10)):
         typeToken = random.randint(1, 3)
 
         if (typeToken == 1):  
@@ -372,13 +375,15 @@ def generateValid(f, nbTokens):
             f.write(handleGeneration(value[0]) + ' ')
 
         if(typeToken == 4): #Add comment
-            typeComment = random.randint(1, 2)
-            if (typeComment == 1):
-                value = generateCommentSingleLine()
-                f.write(value + "\n")
-            if (typeComment == 2):
-                value = generateCommentMultipleLine()
-                f.write(value + "\n")
+            value = generateCommentMultipleLine()
+            f.write(value + "\n")
+            # typeComment = random.randint(1, 2)
+            # if (typeComment == 1):
+            #     value = generateCommentSingleLine()
+            #     f.write(value + "\n")
+            # if (typeComment == 2):
+            #     value = generateCommentMultipleLine()
+            #     f.write(value + "\n")
 
 def generateInvalid(f, nbTokens):
     # Generate the file .deca invalid

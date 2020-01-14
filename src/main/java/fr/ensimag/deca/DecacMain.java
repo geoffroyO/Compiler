@@ -40,6 +40,34 @@ public class DecacMain {
 
         }
 
+        // - if command is "decac" without arguments
+        if (args.length == 0) {
+            System.out.println("decac [[-p | -v] [-n] [-r X] [-d]* [-P] [-w] <fichier deca>...] | [-b]\n");
+            System.out.println("-b (banner) : affiche une bannière indiquant le nom de l’équipe\n");
+            System.out.println("-p (parse) : arrête decac après l’étape de construction de" +
+                    "l’arbre, et affiche la décompilation de ce dernier" +
+                    "(i.e. s’il n’y a qu’un fichier source à" +
+                    "compiler, la sortie doit être un programme" +
+                    "deca syntaxiquement correct)\n");
+            System.out.println("-v (verification) : arrête decac après l’étape de vérifications" +
+                    "(ne produit aucune sortie en l’absence d’erreur)\n");
+            System.out.println("-n (no check) : supprime les tests de débordement à l’exécution" +
+                    "- débordement arithmétique" +
+                    "- débordement mémoire" +
+                    "- déréférencement de null\n");
+            System.out.println("-r X (registers) : limite les registres banalisés disponibles à" +
+                    "R0 ... R{X-1}, avec 4 <= X <= 16\n");
+            System.out.println("-d (debug) : active les traces de debug. Répéter" +
+                    "l’option plusieurs fois pour avoir plus de" +
+                    "traces.\n");
+            System.out.println("-P (parallel) : s’il y a plusieurs fichiers sources," +
+                    "lance la compilation des fichiers en" +
+                    "parallèle (pour accélérer la compilation)\n");
+            System.out.println("N.B. Les options ’-p’ et ’-v’ sont incompatibles.\n");
+            // Exit program (0 = successfully)
+            System.exit(0);
+        }
+
         if (options.getParse()) {
             // TODO
             /*
@@ -53,9 +81,11 @@ public class DecacMain {
             */
         }
 
-        if (options.getSourceFiles().isEmpty()) {
-            System.out.println("Error no file found");
-//            throw new UnsupportedOperationException("decac without argument not implemented!");
+        if (options.getSourceFiles().isEmpty()){
+            System.out.println("File not found, please choose a '.deca' file.");
+            // Exit program (1 = successfully)
+            System.exit(1);
+            //            throw new UnsupportedOperationException("decac without argument not implemented!");
         }
 
         if (options.getParallel()) {

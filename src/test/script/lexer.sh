@@ -5,8 +5,10 @@
 cd "$(dirname "$0")"/../../.. || exit 1
 
 path=./src/test/deca/syntax/valid/created #Path execution script
-cd $path || exit 1
+pathLogs=../../../../logs
 
+cd $path || exit 1
+mkdir $pathLogs
 
 echo "##########################"
 echo "## LEXER NON REGRESSION ##"
@@ -18,13 +20,25 @@ echo
 
 for i in *.deca
 do
-    if test_lex $i 2>&1 | grep -q -e "token recognition error at"
-    then 
-        echo "\e[31mDETECTE INVALIDE\e[39m"
-        echo "\e[31mERROR IN FILE $i.deca\e[39m"
-    else 
+    cDate="`date "+%Y_%m_%d_%H_%M_%S"`"
+
+    test_lex $i > $pathLogs/$i.$cDate.lex.logs
+
+    valDiff=$(diff -q $pathLogs/$i.$cDate.lex.logs lexer/$i.res)
+
+    if ["$valDiff" = ""] 
+    then
+
         echo "\e[32mVALID \t $i.deca\e[39m"
+        rm $pathLogs/$i.$cDate.lex.logs
+
+    else
+        echo "\e[31mDETECTE INVALIDE\e[39m"
+        echo "\e[31mERROR IN FILE $i\e[39m"
+        echo "\e[31mSHOW LOGS $i.$cDate.lex.logs\e[39m"
+        exit 1
     fi
+
 done
 
 echo 
@@ -35,11 +49,22 @@ cd ../../invalid/created
 
 for i in *.deca
 do
-    if test_lex $i 2>&1 | grep -q -e "token recognition error at"
-    then 
+    cDate="`date "+%Y_%m_%d_%H_%M_%S"`"
+
+    test_lex $i > $pathLogs/$i.$cDate.lex.logs
+
+    valDiff=$(diff -q $pathLogs/$i.$cDate.lex.logs lexer/$i.res)
+
+    if ["$valDiff" = ""] 
+    then
         echo "\e[32mINVALID \t $i.deca\e[39m"
-    else 
-        echo "\e[31mDETECTE VALIDE\e[39m"
-        echo "\e[31mERROR IN FILE $i.deca\e[39m"
+        rm $pathLogs/$i.$cDate.lex.logs
+
+    else
+        echo "\e[31mDETECTE VALID\e[39m"
+        echo "\e[31mERROR IN FILE $i\e[39m"
+        echo "\e[31mSHOW LOGS $i.$cDate.lex.logs\e[39m"
+        exit 1
     fi
+
 done

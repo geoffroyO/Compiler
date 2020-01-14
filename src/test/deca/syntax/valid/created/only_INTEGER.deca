@@ -1,8 +1,9 @@
 // Description :
-// Test du Lexer -> Fichier contenant uniquement des nombres entiers
+// Fichier contenant uniquement des nombres entiers
 //
 // Resultats :
-// ok (uniquement des tokens INTEGER)
+// Lexer -> OK (resultat dans lexer) uniquement des tokens INTEGER
+// Parser -> Error (resultat dans parser)
 
 1793447822
 1764961972
