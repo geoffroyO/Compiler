@@ -33,7 +33,7 @@ public class Or extends AbstractOpBool {
             this.getRightOperand().codeGenExpr(compiler, register);
 
             compiler.addInstruction(new ADD(reg_left_op, register));
-            compiler.addInstruction(new QUO(new ImmediateInteger(2), register));
+            compiler.addInstruction(new SHR(register));
 
             compiler.regM.freeRegister(reg_left_op);
         } else {
@@ -49,7 +49,7 @@ public class Or extends AbstractOpBool {
             compiler.addInstruction(new POP(reg_left_op));
 
             compiler.addInstruction(new ADD(Register.R0, register));
-            compiler.addInstruction(new QUO(new ImmediateInteger(2), register));
+            compiler.addInstruction(new SHR(register));
         }
     }
 
@@ -63,7 +63,7 @@ public class Or extends AbstractOpBool {
             this.getRightOperand().codeGenExpr(compiler, reg_right_op);
 
             compiler.addInstruction(new ADD(reg_left_op, reg_right_op));
-            compiler.addInstruction(new QUO(new ImmediateInteger(2), reg_right_op));
+            compiler.addInstruction(new SHR(reg_right_op));
 
             compiler.addInstruction(new CMP(new ImmediateInteger(1), reg_right_op));
             compiler.addInstruction(new BEQ(label));
