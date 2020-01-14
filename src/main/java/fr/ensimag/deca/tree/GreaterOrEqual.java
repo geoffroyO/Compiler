@@ -7,7 +7,9 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.BGE;
 import fr.ensimag.ima.pseudocode.instructions.SGE;
+import fr.ensimag.ima.pseudocode.Label;
 
 /**
  * Operator "x >= y"
@@ -52,6 +54,21 @@ public class GreaterOrEqual extends AbstractOpIneq {
 
             compiler.addInstruction(new CMP(Register.R0, register));
             compiler.addInstruction(new SGE(register));
+        }
+    }
+
+    protected void codeGenWhileCond(DecacCompiler compiler, Label label){
+        if (compiler.regM.hasFreeGPRegister()) {
+            GPRegister reg_left_op = compiler.regM.findFreeGPRegister();
+            GPRegister reg_right_op = compiler.regM.findFreeGPRegister();
+
+            this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
+            this.getRightOperand().codeGenExpr(compiler, reg_right_op);
+
+            compiler.addInstruction(new CMP(reg_left_op, reg_right_op));
+            compiler.addInstruction(new BGE(label));
+
+            compiler.regM.freeRegister(reg_left_op);
         }
     }
 }
