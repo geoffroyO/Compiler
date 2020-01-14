@@ -1,6 +1,6 @@
 {
-    int x;
-    int y;
-    x = y + 1;
+    float x;
+    float y;
+    x = y + 1.0;
     println(x);
 }

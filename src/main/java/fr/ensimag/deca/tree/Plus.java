@@ -25,7 +25,7 @@ public class Plus extends AbstractOpArith {
     }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
-
+        // TODO factoriser le code?
         if (compiler.regM.hasFreeGPRegister()) {
             GPRegister reg_left_op = compiler.regM.findFreeGPRegister();
 

@@ -5,6 +5,11 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.instructions.ADD;
+import fr.ensimag.ima.pseudocode.instructions.MUL;
+import fr.ensimag.ima.pseudocode.instructions.REM;
 
 /**
  *
@@ -20,12 +25,33 @@ public class Not extends AbstractUnaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        // - verify operand is boolean
+        Type opType;
+        try {
+            opType = this.getOperand().verifyExpr(compiler, localEnv, currentClass);
+        } catch (ContextualError e){
+            throw e;
+        }
+        // - // - verify condition if its type is boolean
+        if (!opType.isBoolean()) {
+            throw new ContextualError("Unary Minus Operand should be int or float", getLocation());
+        }
+        this.setType(opType);
+        return opType;
     }
 
 
     @Override
     protected String getOperatorName() {
         return "!";
+    }
+
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+
+        this.getOperand().codeGenExpr(compiler, register);
+
+        compiler.addInstruction(new ADD(new ImmediateInteger(1), register));
+        compiler.addInstruction(new REM(new ImmediateInteger(2), register));
+
     }
 }
