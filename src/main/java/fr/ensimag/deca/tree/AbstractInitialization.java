@@ -31,8 +31,9 @@ public abstract class AbstractInitialization extends Tree {
      * Loads the expression into a free register if Initialization
      * @param compiler
      * @param register
+     * @param type
      */
-    protected abstract void codeGenInit(DecacCompiler compiler, GPRegister register);
+    protected abstract void codeGenInit(DecacCompiler compiler, GPRegister register, Type type);
 
     /**
      * Stores the expression into the stack if Initialization
