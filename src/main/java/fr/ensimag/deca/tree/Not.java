@@ -56,6 +56,18 @@ public class Not extends AbstractUnaryExpr {
 
     protected void codeGenWhileCond(DecacCompiler compiler, Label label){
         // TODO push et pop
-        System.out.println("Not implemented yet");
+        if (compiler.regM.hasFreeGPRegister()) {
+            GPRegister register = compiler.regM.findFreeGPRegister();
+
+            this.getOperand().codeGenExpr(compiler, register);
+
+            compiler.addInstruction(new ADD(new ImmediateInteger(1), register));
+            compiler.addInstruction(new REM(new ImmediateInteger(2), register));
+
+            compiler.addInstruction(new CMP(new ImmediateInteger(1),register));
+            compiler.addInstruction(new BEQ(label));
+
+            compiler.regM.freeRegister(register);
+        }
     }
 }

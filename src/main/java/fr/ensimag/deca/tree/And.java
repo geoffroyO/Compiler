@@ -4,12 +4,9 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.MUL;
-import fr.ensimag.ima.pseudocode.instructions.REM;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.POP;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 /**
  *
@@ -54,4 +51,24 @@ public class And extends AbstractOpBool {
 
         }
     }
+
+    protected void codeGenWhileCond(DecacCompiler compiler, Label label){
+        // TODO push et pop
+        if (compiler.regM.hasFreeGPRegister()) {
+            GPRegister reg_left_op = compiler.regM.findFreeGPRegister();
+            GPRegister reg_right_op = compiler.regM.findFreeGPRegister();
+
+            this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
+            this.getRightOperand().codeGenExpr(compiler, reg_right_op);
+
+            compiler.addInstruction(new MUL(reg_left_op, reg_right_op));
+
+            compiler.addInstruction(new CMP(new ImmediateInteger(1), reg_right_op));
+            compiler.addInstruction(new BEQ(label));
+
+            compiler.regM.freeRegister(reg_left_op);
+            compiler.regM.freeRegister(reg_right_op);
+        }
+    }
+
 }

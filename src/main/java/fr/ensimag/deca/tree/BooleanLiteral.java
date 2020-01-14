@@ -87,5 +87,8 @@ public class BooleanLiteral extends AbstractExpr {
 //        	 compiler.addInstruction(new WSTR(new ImmediateString("False")));
 //        }
 //    }
-    
+
+    protected void codeGenWhileCond(DecacCompiler compiler){
+        // TODO
+    }
 }
