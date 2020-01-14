@@ -195,7 +195,7 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
 
-        // - Verify that the type exists in envTypes
+    	// - Verify that the type exists in envTypes
 //        System.out.println(this.getName());
 //        System.out.println(compiler.getEnvTypes().get(this.getName()));
 //        Symbol type =  compiler.getSymbols().create();

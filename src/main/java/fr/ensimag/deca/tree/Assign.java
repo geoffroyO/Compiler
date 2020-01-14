@@ -53,7 +53,7 @@ public class Assign extends AbstractBinaryExpr {
     }
 
     protected void codeGenInst(DecacCompiler compiler) {
-        // only works for int = int
+
 
         super.codeGenInst(compiler);
         DAddr addr = ((AbstractIdentifier) this.getLeftOperand()).getVariableDefinition().getOperand();
