@@ -9,14 +9,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateFloat;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
-import fr.ensimag.ima.pseudocode.ImmediateString;
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
-import fr.ensimag.ima.pseudocode.instructions.WSTR;
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
 
@@ -88,7 +82,21 @@ public class BooleanLiteral extends AbstractExpr {
 //        }
 //    }
 
-    protected void codeGenWhileCond(DecacCompiler compiler){
-        // TODO
+    protected void codeGenCond(DecacCompiler compiler, Label label){
+
+        if (compiler.regM.hasFreeGPRegister()) {
+            GPRegister register = compiler.regM.findFreeGPRegister();
+
+            int i;
+            if (this.getValue()){
+                i = 1;
+            } else { i = 0;}
+
+            compiler.addInstruction(new LOAD(new ImmediateInteger(i), register));
+            compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
+            compiler.addInstruction(new BNE(label));
+
+            compiler.regM.freeRegister(register);
+        }
     }
 }
