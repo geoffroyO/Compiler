@@ -5,6 +5,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.ima.pseudocode.GPRegister;
 
 /**
  * Arithmetic binary operations (+, -, /, ...)
@@ -57,4 +58,9 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         this.setType(leftOpType);
         return leftOpType;
     }
-}
+
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+
+    }
+
+    }
