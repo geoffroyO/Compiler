@@ -1,0 +1,12 @@
+// Description :
+// Test toutes les types d'opérations unaires
+//
+// Resultats :
+// OK (Resultat dans synt)
+
+{
+    int a = -1; // Unary (Minus, Int) -> int
+    float b = -5.3; // Unary (Minus, float) -> float
+    boolean c = !true; // Unary (not, boolean) -> boolean
+    boolean d = !false; // Unary (not, boolean) -> boolean
+}

@@ -1,0 +1,13 @@
+Valid:
+	INT
+		- 20 programmes deca contenant 10000 affectation INT
+	FLOAT
+		- 20 programmes deca contenant 10000 affectation FLOAT
+
+invalid 
+	INT
+		- 20 programmes deca contenant 10000 affectation INT
+		- La premiere variable du fichier 0 est utilisée sans être initialisé à la fin du fichier 19
+	FLOAT
+		- 20 programmes deca contenant 10000 affectation FLOAT
+		- La premiere variable du fichier 0 est utilisée sans être initialisé à la fin du fichier 19
