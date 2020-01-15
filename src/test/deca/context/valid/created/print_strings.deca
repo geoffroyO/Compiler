@@ -1,6 +1,8 @@
-/*
-    Comment
-*/
+// Description :
+// Affiche deux chaines de caractères
+//
+// Resultats :
+// OK (Resultat dans synt)
 
 {
     print("Hello ", "world");
