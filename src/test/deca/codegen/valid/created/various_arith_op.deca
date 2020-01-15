@@ -1,0 +1,33 @@
+// Description:
+//    Affectation d'une variable avec valeur d'une autre varible.
+//    Affichage print avec parametres multiples
+//    Test de plusieurs operations arithmetiques
+//
+// Resultat:
+//  valeur 1 : 0
+//  valeur 2 : 2
+//  valeur 3 : 0
+//
+// Historique:
+//    cree le 09/01/2020
+
+{
+    int x = 0;
+    int y;
+
+    y = x;
+    println("valeur 1 : ", y);
+
+    y = x + 4;
+    println("valeur 2 : ", y);
+
+    y = y - 2;
+    println("valeur 3 : ", y);
+
+    y = y * 2;
+    println("valeur 5 : ", y);
+
+    y = y % 2;
+    println("valeur 6 : ", y);
+
+}
