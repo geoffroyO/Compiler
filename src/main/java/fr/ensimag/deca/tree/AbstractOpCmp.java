@@ -2,9 +2,7 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.DecacCompiler;
-import jdk.nashorn.internal.ir.Symbol;
 
-import java.util.zip.CheckedOutputStream;
 
 /**
  *

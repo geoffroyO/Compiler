@@ -1,7 +1,4 @@
 {
-int x = 2;
-float z = 3.0;
-float p;
-p = z + x;
-println(p);
+int x = 2273948594;
+println(x);
 }
