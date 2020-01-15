@@ -5,7 +5,11 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
 
 import java.util.Iterator;
 
@@ -48,6 +52,17 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
     }
 
     public void codeGenDeclVar(DecacCompiler compiler) {
+        int nb_var = this.size();
+        // TODO gérer rattrapage stack_overflow BOV
+
+        compiler.addComment("Test Stack_overflow");
+        compiler.addInstruction(new TSTO(new ImmediateInteger(nb_var)));
+        compiler.addInstruction(new BOV( new Label("stack_overflow")));
+
+
+        compiler.getRegM().incrSP(nb_var);
+        compiler.addInstruction(new ADDSP(nb_var));
+
         for (AbstractDeclVar i : getList()) {
             i.codeGenDeclVar(compiler);
         }

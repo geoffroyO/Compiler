@@ -99,18 +99,6 @@ public class DeclVar extends AbstractDeclVar {
     }
 
     public void codeGenDeclVar(DecacCompiler compiler) {
-
-
-        // TODO gérer rattrapage stack_overflow
-
-        compiler.addComment("Test Stack_overflow");
-        compiler.addInstruction(new TSTO(new ImmediateInteger(1)));
-        //compiler.addInstruction(new BOV( ????? ));
-
-
-        compiler.getRegM().incrSP();
-        compiler.addInstruction(new ADDSP(1));
-
         GPRegister register = compiler.getRegM().findFreeGPRegister();
         this.initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
 
