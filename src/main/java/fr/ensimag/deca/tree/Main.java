@@ -5,8 +5,7 @@ import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
-import fr.ensimag.deca.tools.SymbolTable;
-import jdk.nashorn.internal.ir.Symbol;
+
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 

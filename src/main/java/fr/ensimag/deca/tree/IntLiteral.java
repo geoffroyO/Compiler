@@ -9,11 +9,10 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.IntType;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
-import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
 
 /**
@@ -72,5 +71,10 @@ public class IntLiteral extends AbstractExpr {
     protected void codeGenPrint(DecacCompiler compiler) {
     	compiler.addInstruction(new LOAD(new ImmediateInteger(this.getValue()), Register.R1));
         compiler.addInstruction(new WINT());
+    }
+
+    protected void codeGenPrintx(DecacCompiler compiler) {
+        compiler.addInstruction(new FLOAT(this.value, Register.R1));
+        compiler.addInstruction(new WFLOATX());
     }
 }

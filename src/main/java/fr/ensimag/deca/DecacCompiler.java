@@ -21,6 +21,7 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.ensimag.ima.pseudocode.instructions.ERROR;
 import fr.ensimag.ima.pseudocode.instructions.HALT;
 import fr.ensimag.ima.pseudocode.instructions.WNL;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
@@ -244,7 +245,11 @@ public class DecacCompiler {
         addLabel(new Label("stack_overflow"));
         addInstruction(new WSTR(new ImmediateString("Error: stack_overflowed")));
         addInstruction(new WNL());
-        addInstruction(new HALT());
+        addInstruction(new ERROR());
+        addLabel(new Label("Zero_division"));
+        addInstruction(new WSTR(new ImmediateString("Error: Zero_division")));
+        addInstruction(new WNL());
+        addInstruction(new ERROR());
         addComment("end main program");
         LOG.debug("Generated assembly code:" + nl + program.display());
         LOG.info("Output file assembly file is: " + destName);
