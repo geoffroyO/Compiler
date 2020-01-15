@@ -105,13 +105,13 @@ def generateString():
 
 
 def generateInteger():
-    # Generate a positive number from 0 to 2^32
-    return(str(random.randint(0, 2**32-1)))
+    # Generate a positive number from 0 to 2^31 (limit of integer)
+    return(str(random.randint(0, 2**31-1)))
 
 
 def generateDec():
-    lP = random.randint(0, 2**16 - 1)
-    rP = random.randint(0, 2**16 - 1)
+    lP = random.randint(0, 2**6 - 1)
+    rP = random.randint(0, 2**6 - 1)
 
     return "{}.{}".format(lP, rP)
 
@@ -120,7 +120,7 @@ def generateHexaNum():
     possible = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
                 "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F"]
 
-    size = random.randint(1, 40)
+    size = random.randint(1, 4)
     res = ""
     for i in range(size):
         res = res + random.choice(possible)
@@ -161,6 +161,7 @@ def generateFloatHex():
 
 
 def generateFloat():
+    # Warning : Float can be considere as Infinite in deca !
     val = random.randint(0, 1)
     if (val == 0):
         return(generateFloatDec())
@@ -208,6 +209,10 @@ def generateIdent():
     size = random.randint(0, 40)
     for i in range(size):
         res = res + random.choice(letter + number)
+    
+    if (TOKENS_SAME_VALUE.count(res) != 0):
+        # Ident can't be a reserved word
+        res = generateIdent()
 
     return(res)
 
