@@ -53,7 +53,7 @@ public class Greater extends AbstractOpIneq {
         }
     }
 
-    protected void codeCond(DecacCompiler compiler, Label label){
+    protected void codeGenCond(DecacCompiler compiler, Label label){
         // TODO push et pop
         if (compiler.getRegM().hasFreeGPRegister()) {
             GPRegister reg_left_op = compiler.getRegM().findFreeGPRegister();
