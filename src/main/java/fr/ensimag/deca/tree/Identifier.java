@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.instructions.*;
 import org.apache.commons.lang.Validate;
 
 import fr.ensimag.deca.DecacCompiler;
@@ -22,11 +23,6 @@ import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.BNE;
-import fr.ensimag.ima.pseudocode.instructions.CMP;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
-import fr.ensimag.ima.pseudocode.instructions.WINT;
 
 /**
  * Deca Identifier
@@ -261,6 +257,22 @@ public class Identifier extends AbstractIdentifier {
         if (this.getType().isFloat()){
         	compiler.addInstruction(new LOAD(addr, Register.R1));
             compiler.addInstruction(new WFLOAT());
+        }
+    }
+
+    @Override
+    protected void codeGenPrintx(DecacCompiler compiler) {
+        // we can't print(x) if x if of type string
+        DAddr addr = this.getVariableDefinition().getOperand();
+
+        if (this.getType().isInt()){
+            compiler.addInstruction(new LOAD(addr, Register.R1));
+            compiler.addInstruction(new FLOAT(Register.R1, Register.R1));
+            compiler.addInstruction(new WFLOATX());
+        }
+        if (this.getType().isFloat()){
+            compiler.addInstruction(new LOAD(addr, Register.R1));
+            compiler.addInstruction(new WFLOATX());
         }
     }
 

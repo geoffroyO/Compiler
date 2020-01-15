@@ -37,6 +37,8 @@ public abstract class AbstractPrint extends AbstractInst {
         return arguments;
     }
 
+
+
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
@@ -66,7 +68,11 @@ public abstract class AbstractPrint extends AbstractInst {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         for (AbstractExpr a : getArguments().getList()) {
-            a.codeGenPrint(compiler);
+            if (!this.getPrintHex()) {
+                a.codeGenPrint(compiler);
+            } else {
+                a.codeGenPrintx(compiler);
+            }
         }
     }
 
