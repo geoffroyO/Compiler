@@ -1,6 +1,17 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.ADD;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.SHR;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -39,5 +50,21 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         this.setType(leftOpType);
         return leftOpType;
     }
-
+    
+    protected void codeGenCond(DecacCompiler compiler, Label label){
+    	if (compiler.getRegM().hasFreeGPRegister()) {
+            GPRegister left = compiler.getRegM().findFreeGPRegister();
+            GPRegister right = compiler.getRegM().findFreeGPRegister();
+            getLeftOperand().codeGenExpr(compiler, left);
+            getRightOperand().codeGenExpr(compiler, right);
+            codeGenOp(compiler, left, right);
+            compiler.addInstruction(new CMP(new ImmediateInteger(1), right));
+            compiler.addInstruction(new BEQ(label));
+            compiler.getRegM().freeRegister(left);
+            compiler.getRegM().freeRegister(right);
+        }   
+    	else {
+    		// TODO 
+    	}
+    }
 }

@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.*;
@@ -24,29 +25,14 @@ public class Divide extends AbstractOpArith {
     }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
-
-        if (compiler.getRegM().hasFreeGPRegister()) {
-            GPRegister reg_right_op = compiler.getRegM().findFreeGPRegister();
-
-            this.getLeftOperand().codeGenExpr(compiler, register);
-            this.getRightOperand().codeGenExpr(compiler, reg_right_op);
-
-            compiler.addInstruction(new DIV(reg_right_op, register));
-            compiler.getRegM().freeRegister(reg_right_op);
-        } else {
-            GPRegister reg_left_op = Register.getR(compiler.getRegM().getNb_registers());
-
-            this.getRightOperand().codeGenExpr(compiler, register);
-
-            compiler.addInstruction(new PUSH(reg_left_op));
-
-            this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
-
-            compiler.addInstruction(new LOAD(reg_left_op, Register.R0));
-            compiler.addInstruction(new POP(reg_left_op));
-
-            compiler.addInstruction(new DIV(Register.R0, register));
+    	super.codeGenExpr(compiler, register);
+        if (!compiler.getRegM().hasFreeGPRegister()) {       
             compiler.addInstruction(new BOV(new Label("Zero_division")));
         }
     }
+    
+	@Override
+	protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
+		compiler.addInstruction(new DIV(register, result));
+	}
 }
