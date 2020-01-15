@@ -22,6 +22,7 @@ public class Minus extends AbstractOpArith {
     }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+    	super.codeGenExpr(compiler, register);
 
         if (compiler.getRegM().hasFreeGPRegister()) {
             GPRegister reg_right_op = compiler.getRegM().findFreeGPRegister();
