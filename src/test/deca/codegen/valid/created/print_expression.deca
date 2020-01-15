@@ -1,0 +1,26 @@
+// Description:
+//    Affiche le resultat d'expressions.
+//
+// Resultats:
+//    576 + 787 = 1363
+//    x = 676
+//    y = 5.67652e+04
+//    x + y = 5.74412e+04
+//    x - y = -5.60892e+04
+//    x * y = 3.83733e+07
+//    x / y = 1.19087e-02
+
+{
+    int x = 676;
+    float y = 56765.2334;
+
+    println("576 + 787 = ", 576 + 787);
+    
+    println("x = ", x);
+    println("y = ", y);
+
+    println("x + y = ", x + y);
+    println("x - y = ", x - y);
+    println("x * y = ", x * y);
+    println("x / y = ", x / y);
+}

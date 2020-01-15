@@ -31,11 +31,21 @@ public abstract class AbstractOpIneq extends AbstractOpCmp {
         // - if operands are NOT numeric numbers
         if ((!leftOpType.isInt()&&!leftOpType.isFloat())||(!rightOpType.isInt()&&!rightOpType.isFloat())) {
             throw new ContextualError("Operands must be numeric numbers", getLocation());
+
+        } else if (leftOpType.isFloat() && rightOpType.isInt()){
+            // - convert right operand to float
+            this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, leftOpType));
+
+            // - if left operand is int and right operand is float
+        } else if (leftOpType.isInt() && rightOpType.isFloat()) {
+            // - convert left operand to float
+            this.setLeftOperand(this.getLeftOperand().verifyRValue(compiler, localEnv, currentClass, rightOpType));
+
+        } else {
+            // no need to throw an error since we are sure that both operands
+            // are the same type.
         }
-        // - if operands types are not the same
-        if (!leftOpType.sameType(rightOpType)) {
-            throw new ContextualError("Operands should be the same type", getLocation());
-        }
+
         Type type = new BooleanType(compiler.getSymbols().create("boolean"));
         this.setType(type);
         return type;

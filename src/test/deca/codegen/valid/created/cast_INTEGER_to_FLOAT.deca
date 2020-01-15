@@ -1,0 +1,15 @@
+// Description:
+//    Affectation d'entier dans des floats
+// Resultat:
+//  2.00000e+00 3.40000e+01 3.45678e+05
+//
+// Historique:
+//    cree le 09/01/2020
+
+{
+    float x = 2;
+    float y = 34;
+    float z = 345678;
+
+    println(x, " ", y, " ", z);
+}
