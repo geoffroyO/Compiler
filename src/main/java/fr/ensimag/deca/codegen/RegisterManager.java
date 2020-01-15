@@ -36,6 +36,10 @@ public class RegisterManager {
         this.SP++;
     }
 
+    public void incrSP(int n){
+        this.SP = this.SP + n;
+    }
+
     public void incrGB(){
         this.GB++;
     }

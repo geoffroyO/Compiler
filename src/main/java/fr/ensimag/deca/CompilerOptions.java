@@ -112,7 +112,10 @@ public class CompilerOptions {
                     default:
                         // - create a file and add it to source files
                         File file = new File(arg);
-                        sourceFiles.add(file);
+                        if (!sourceFiles.contains(file)){
+                            // Each file is compile once
+                            sourceFiles.add(file);
+                        }
                         break;
 
                 }

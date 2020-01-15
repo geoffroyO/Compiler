@@ -1,0 +1,9 @@
+// Description :
+// Opération unaire MINUS (-) sur un booleen
+//
+// Resultats :
+// Error Contextuelle ->
+
+{
+    boolean b = - true;
+}

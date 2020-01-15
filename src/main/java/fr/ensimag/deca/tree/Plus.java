@@ -32,9 +32,13 @@ public class Plus extends AbstractOpArith {
             this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
             this.getRightOperand().codeGenExpr(compiler, register);
 
-            compiler.addInstruction(new ADD(reg_left_op, register));
-            compiler.getRegM().freeRegister(reg_left_op);
-            
+
+
+            compiler.addInstruction(new ADD(regLeftOp, register));
+
+            compiler.getRegM().freeRegister(regLeftOp);
+
+
         } else {
             GPRegister reg_left_op = Register.getR(compiler.getRegM().getNb_registers());
 

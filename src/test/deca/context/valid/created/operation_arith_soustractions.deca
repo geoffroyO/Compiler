@@ -1,0 +1,26 @@
+// Description :
+// Test toutes les types d'opérations arithmétique de soustraction
+//
+// Resultats :
+// OK (Resultat dans synt)
+
+{
+    int a, b;
+    a = 5;
+    b = 6;
+
+    int c = a - b;
+    // (int, int) -> int
+
+    int d = 8;
+    float e = -5.;
+
+    float f = d - e;
+    // (int, float) -> float
+
+    float g = e - d;
+    // (float, int) -> float
+
+    float h = f - g;
+    // (float, float) -> float
+}

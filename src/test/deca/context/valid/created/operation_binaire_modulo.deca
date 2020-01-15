@@ -1,0 +1,14 @@
+// Description :
+// Test opérateurs modulo
+//
+// Resultats :
+// OK (Resultat dans synt)
+
+{
+    int a, b;
+    a = 5;
+    b = 6;
+
+    int c = a % b;
+    // (int, int) -> int
+}

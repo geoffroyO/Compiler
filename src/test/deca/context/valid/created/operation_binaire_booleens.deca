@@ -1,0 +1,53 @@
+// Description :
+// Test tous les types d'opérations binaire sur des booleens
+//
+// Resultats :
+// OK (Resultat dans synt)
+
+{
+    boolean a = true;
+    boolean b = !true;
+
+    int c = 2;
+    boolean d = (5 == c);
+    d = (5.0 == c);
+    d = (5.0 == true);
+    // (eq)
+
+    boolean e = (9.3 != d);
+    e = (9.3 != 9.3);
+    e = (9.3 != true);
+    // (neq)
+
+    boolean f = (5 < b);
+    f = (5 < 5);
+    f = (5 < 5.9);
+    // (lt)
+
+    boolean g = (a > b);
+    g = (5 > 5);
+    g = (5 > 5.9);
+    // (gt)
+
+    f = (5 <= b);
+    f = (5 <= 5);
+    f = (5 <= 5.9);
+    // (leq)
+
+    g = (a >= b);
+    g = (5 >= 5);
+    g = (5 >= 5.9);
+    // (geq)
+
+    boolean i = a && b;
+    // (and)
+    
+    i = a || b;
+    // (or)
+    
+    i = a == b;
+    // (eq)
+
+    i = a != b;
+    // (neq)
+}
