@@ -1,0 +1,4 @@
+{
+float x = -0.05;
+println(x);
+}

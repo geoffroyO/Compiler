@@ -6,6 +6,7 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateFloat;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.ADD;
@@ -49,10 +50,13 @@ public class UnaryMinus extends AbstractUnaryExpr {
     }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
-
         this.getOperand().codeGenExpr(compiler, register);
 
-        compiler.addInstruction(new MUL(new ImmediateInteger(-1), register));
+        if (this.getOperand().getType().isInt()) {
+            compiler.addInstruction(new MUL(new ImmediateInteger(-1), register));
+        } else if (this.getOperand().getType().isFloat()){
+            compiler.addInstruction(new MUL(new ImmediateFloat(-1), register));
+        }
 
 
     }
