@@ -4,10 +4,8 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.CMP;
-import fr.ensimag.ima.pseudocode.instructions.POP;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
-import fr.ensimag.ima.pseudocode.instructions.SGE;
+import fr.ensimag.ima.pseudocode.instructions.*;
+import fr.ensimag.ima.pseudocode.Label;
 
 /**
  * Operator "x >= y"
@@ -28,18 +26,18 @@ public class GreaterOrEqual extends AbstractOpIneq {
     }
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
 
-        if (compiler.regM.hasFreeGPRegister()) {
-            GPRegister reg_left_op = compiler.regM.findFreeGPRegister();
+        if (compiler.getRegM().hasFreeGPRegister()) {
+            GPRegister reg_left_op = compiler.getRegM().findFreeGPRegister();
 
             this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
             this.getRightOperand().codeGenExpr(compiler, register);
 
-            compiler.addInstruction(new CMP(reg_left_op, register));
+            compiler.addInstruction(new CMP(register, reg_left_op));
             compiler.addInstruction(new SGE(register));
 
-            compiler.regM.freeRegister(reg_left_op);
+            compiler.getRegM().freeRegister(reg_left_op);
         } else {
-            GPRegister reg_left_op = Register.getR(compiler.regM.getNb_registers());
+            GPRegister reg_left_op = Register.getR(compiler.getRegM().getNb_registers());
 
             this.getRightOperand().codeGenExpr(compiler, register);
 
@@ -47,11 +45,28 @@ public class GreaterOrEqual extends AbstractOpIneq {
 
             this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
 
-            compiler.addInstruction(new CMP(reg_left_op, Register.R0));
+            compiler.addInstruction(new LOAD(reg_left_op, Register.R0));
             compiler.addInstruction(new POP(reg_left_op));
 
-            compiler.addInstruction(new CMP(Register.R0, register));
+            compiler.addInstruction(new CMP(register, Register.R0));
             compiler.addInstruction(new SGE(register));
+        }
+    }
+
+    protected void codeGenCond(DecacCompiler compiler, Label label){
+        // TODO push et pop
+        if (compiler.getRegM().hasFreeGPRegister()) {
+            GPRegister reg_left_op = compiler.getRegM().findFreeGPRegister();
+            GPRegister reg_right_op = compiler.getRegM().findFreeGPRegister();
+
+            this.getLeftOperand().codeGenExpr(compiler, reg_left_op);
+            this.getRightOperand().codeGenExpr(compiler, reg_right_op);
+
+            compiler.addInstruction(new CMP(reg_right_op, reg_left_op));
+            compiler.addInstruction(new BLT(label));
+
+            compiler.getRegM().freeRegister(reg_left_op);
+            compiler.getRegM().freeRegister(reg_right_op);
         }
     }
 }

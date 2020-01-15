@@ -16,8 +16,6 @@ import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
-import fr.ensimag.ima.pseudocode.instructions.POP;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
 
 /**
@@ -101,25 +99,13 @@ public class DeclVar extends AbstractDeclVar {
     }
 
     public void codeGenDeclVar(DecacCompiler compiler) {
-
-
-        // TODO gérer rattrapage stack_overflow
-
-        compiler.addComment("Test Stack_overflow");
-        compiler.addInstruction(new TSTO(new ImmediateInteger(1)));
-        //compiler.addInstruction(new BOV( ????? ));
-
-
-        compiler.regM.incrSP();
-        compiler.addInstruction(new ADDSP(1));
-
-        GPRegister register = compiler.regM.findFreeGPRegister();
+        GPRegister register = compiler.getRegM().findFreeGPRegister();
         this.initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
 
 
-        compiler.regM.incrGB();
-        this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.regM.getGB(), Register.GB));
+        compiler.getRegM().incrGB();
+        this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.getRegM().getGB(), Register.GB));
         this.initialization.codeGenStInit(compiler, register);
-        compiler.regM.freeRegister(register);
+        compiler.getRegM().freeRegister(register);
     }
 }

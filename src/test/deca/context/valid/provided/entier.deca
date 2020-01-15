@@ -1,8 +1,7 @@
 {
-int x = 3;
-int y = 3;
-boolean z = (x == y);
-int p = -y;
-boolean e = !z;
-boolean r = x > 5;
+int x = 2;
+float z = 3.0;
+float p;
+p = z + x;
+println(p);
 }
