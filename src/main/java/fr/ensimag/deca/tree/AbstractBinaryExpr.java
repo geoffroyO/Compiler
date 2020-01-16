@@ -5,6 +5,16 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Instruction;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+
 import org.apache.commons.lang.Validate;
 
 /**
@@ -69,8 +79,25 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
         rightOperand.prettyPrint(s, prefix, true);
     }
 
-    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
-
+    protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
+    };
+    
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister result){
+        if (compiler.getRegM().hasFreeGPRegister()) {
+            GPRegister right = compiler.getRegM().findFreeGPRegister();
+            this.getLeftOperand().codeGenExpr(compiler, result);
+            this.getRightOperand().codeGenExpr(compiler, right);
+            this.codeGenOp(compiler, right, result);
+            compiler.getRegM().freeRegister(right);
+        } 
+        else {
+            GPRegister right = Register.getR(compiler.getRegM().getNb_registers());
+            this.getLeftOperand().codeGenExpr(compiler, result);
+            compiler.addInstruction(new PUSH(right));
+            this.getRightOperand().codeGenExpr(compiler, right);
+            compiler.addInstruction(new LOAD(right, Register.R0));
+            compiler.addInstruction(new POP(right));
+            this.codeGenOp(compiler, Register.R0, result);
+        }
     }
-
 }

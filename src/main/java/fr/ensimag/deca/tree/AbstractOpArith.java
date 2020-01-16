@@ -5,7 +5,19 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Instruction;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.ADD;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.SUB;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
 
 /**
  * Arithmetic binary operations (+, -, /, ...)
@@ -57,10 +69,30 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         }
         this.setType(leftOpType);
         return leftOpType;
+    }  
+    
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+    	GPRegister result = compiler.getRegM().findFreeGPRegister();
+    	this.codeGenExpr(compiler, result);
+    	
+    	 if (this.getType().isInt()){
+             compiler.addInstruction(new LOAD(result, Register.R1));
+             if (printHex) {
+             	compiler.addInstruction(new FLOAT(Register.R1, Register.R1));
+                 compiler.addInstruction(new WFLOATX());
+             } else {
+             	compiler.addInstruction(new WINT());
+             }
+         }
+         if (this.getType().isFloat()){
+         	compiler.addInstruction(new LOAD(result, Register.R1));
+         	if (printHex) {
+         		compiler.addInstruction(new WFLOATX());
+         	} else {
+         		compiler.addInstruction(new WFLOAT());
+         	}
+         }   	  	    
+    	compiler.getRegM().freeRegister(result);    	
     }
-
-    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
-
-    }
-
-    }
+}

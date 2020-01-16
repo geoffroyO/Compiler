@@ -68,13 +68,8 @@ public class IntLiteral extends AbstractExpr {
     }
 
     @Override
-    protected void codeGenPrint(DecacCompiler compiler) {
-    	compiler.addInstruction(new LOAD(new ImmediateInteger(this.getValue()), Register.R1));
-        compiler.addInstruction(new WINT());
-    }
-
-    protected void codeGenPrintx(DecacCompiler compiler) {
-        compiler.addInstruction(new FLOAT(this.value, Register.R1));
-        compiler.addInstruction(new WFLOATX());
+    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+	    compiler.addInstruction(new LOAD(new ImmediateInteger(this.getValue()), Register.R1));
+	    compiler.addInstruction(new WINT());
     }
 }

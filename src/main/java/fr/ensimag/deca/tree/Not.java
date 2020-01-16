@@ -54,19 +54,15 @@ public class Not extends AbstractUnaryExpr {
 
     }
 
-    protected void codeGenCond(DecacCompiler compiler, Label label){
+    protected void codeGenInst(DecacCompiler compiler, Label label){
         // TODO push et pop
         if (compiler.getRegM().hasFreeGPRegister()) {
             GPRegister register = compiler.getRegM().findFreeGPRegister();
-
             this.getOperand().codeGenExpr(compiler, register);
-
             compiler.addInstruction(new ADD(new ImmediateInteger(1), register));
             compiler.addInstruction(new REM(new ImmediateInteger(2), register));
-
             compiler.addInstruction(new CMP(new ImmediateInteger(1),register));
-            compiler.addInstruction(new BEQ(label));
-
+            compiler.addInstruction(new BNE(label));
             compiler.getRegM().freeRegister(register);
         }
     }
