@@ -154,27 +154,22 @@ public abstract class AbstractExpr extends AbstractInst {
      *
      * @param compiler
      */
+    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+    }
+    
     protected void codeGenPrint(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
     }
 
-    protected void codeGenPrintx(DecacCompiler compiler) {
-
-    }
-
-    @Override
     protected void codeGenInst(DecacCompiler compiler) {
-//        throw new UnsupportedOperationException("not yet implemented");
-        // - TODO
     }
-
+    
+    protected void codeGenInst(DecacCompiler compiler, Label label){
+    }
+    
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
-
     }
 
-    protected void codeGenCond(DecacCompiler compiler, Label label){
-
-    }
+    
 
 
     

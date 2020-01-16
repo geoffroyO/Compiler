@@ -21,9 +21,4 @@ public class Print extends AbstractPrint {
 
         return "";
     }
-
-    @Override
-    protected void codeGenInst(DecacCompiler compiler){
-        super.codeGenInst(compiler);
-    }
 }
