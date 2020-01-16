@@ -14,7 +14,7 @@ import fr.ensimag.ima.pseudocode.instructions.MUL;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
-
+import java.lang.Math;
 /**
  * @author gl13
  * @date 01/01/2020

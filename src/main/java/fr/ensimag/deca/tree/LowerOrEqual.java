@@ -68,5 +68,4 @@ public class LowerOrEqual extends AbstractOpIneq {
             compiler.getRegM().freeRegister(reg_right_op);
         }
     }
-
 }

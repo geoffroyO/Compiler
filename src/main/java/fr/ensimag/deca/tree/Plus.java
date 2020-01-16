@@ -48,7 +48,7 @@ public class Plus extends AbstractOpArith {
             compiler.addInstruction(new LOAD(reg_left_op, Register.R0));
             compiler.addInstruction(new POP(reg_left_op));
 
-            compiler.addInstruction(new ADD(Register.R0, register));
+            compiler.addInstruction(new ADD(Register.R0,  !çop));
         }
     }
 }
