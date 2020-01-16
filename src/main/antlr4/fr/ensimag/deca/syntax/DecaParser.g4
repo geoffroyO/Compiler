@@ -87,8 +87,10 @@ decl_var_set[ListDeclVar l]
 list_decl_var[ListDeclVar l, AbstractIdentifier t]
 
     : dv1=decl_var[$t] {
+    	assert($dv1.tree != null);
         $l.add($dv1.tree);
         } (COMMA dv2=decl_var[$t] {
+        	assert($dv2.tree != null);
         	$l.add($dv2.tree);
         }
       )*
@@ -100,13 +102,14 @@ decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
         }
     : i=ident {
         	initialization = new NoInitialization();
-
         }
       (EQUALS e=expr {
+      		assert($e.tree != null);
             initialization = new Initialization($e.tree);
             setLocation(initialization, $EQUALS);
         }
       )? {
+      		assert($i.tree != null);
             $tree = new DeclVar(t, $i.tree, initialization);
             setLocation($tree, $i.start);
         }
@@ -174,13 +177,16 @@ if_then_else returns[IfThenElse tree]
         
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
-    
+    		assert($condition.tree != null);
+    		assert($li_if.tree != null);
             $tree = new IfThenElse($condition.tree, $li_if.tree, else1);
             setLocation($tree, $if1);
             
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
-
+			
+			assert($elsif_cond.tree != null);
+			assert($elsif_li.tree != null);
             AbstractInst n = new IfThenElse($elsif_cond.tree, $elsif_li.tree, else2);
             setLocation(n, $ELSE);
             else1.add(n);
@@ -190,6 +196,7 @@ if_then_else returns[IfThenElse tree]
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
+      		assert($li_else.tree.getList() != null);
       	    if (!$li_else.tree.getList().isEmpty()){
       	    	else1.add($li_else.tree.getList().get(0));
       	    }
@@ -417,10 +424,12 @@ select_expr returns[AbstractExpr tree]
     | e1=select_expr DOT i=ident {
             assert($e1.tree != null);
             assert($i.tree != null);
+            // TO DO
         }
         (o=OPARENT args=list_expr CPARENT {
             // we matched "e1.i(args)"
             assert($args.tree != null);
+            // TO DO
 
         }
         | /* epsilon */ {
@@ -438,6 +447,7 @@ primary_expr returns[AbstractExpr tree]
     | m=ident OPARENT args=list_expr CPARENT {
             assert($args.tree != null);
             assert($m.tree != null);
+            // TO DO
             
         }
     | OPARENT expr CPARENT {
@@ -534,6 +544,8 @@ list_classes returns[ListDeclClass tree]
 	}
 	: (c1=class_decl {
 			// System.out.println("list classes");
+			assert($c1.tree != null);
+			$tree.add($c1.tree);
 		}
 	)*
 	;
