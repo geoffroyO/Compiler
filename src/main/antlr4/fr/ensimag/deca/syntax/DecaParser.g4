@@ -343,12 +343,9 @@ inequality_expr returns[AbstractExpr tree]
             /* 
             $tree = new IsInstanceOf($e1.tree, $type.tree);
             setLocation($tree, $e1.start);
-			 */
-			 
-
+			 */			 
         }
     ;
-
 
 sum_expr returns[AbstractExpr tree]
     : e=mult_expr {
@@ -568,7 +565,6 @@ class_extension returns[AbstractIdentifier tree]
         }
     | /* epsilon */ {
     		$tree = new Identifier(getDecacCompiler().getSymbols().create("Object"));
-    		// setLocation($tree, );
         }
     ;
 
@@ -589,17 +585,6 @@ decl_field_set[ListDeclField fields]
     : v=visibility t=type list_decl_field[$fields.tree, $v.visib, $t.tree] SEMI
     ;
 
-//visibility[AbstractIdentifier tree]
-//    : /* epsilon */ {
-//    	$tree = new Identifier(getDecacCompiler().getSymbols().create("public"));
-//    	setLocation($tree, $visibility.start);
-//        }
-//    | PROTECTED {
-//    	$tree = new Identifier(getDecacCompiler().getSymbols().create("protected"));
-//    	setLocation($tree, $PROTECTED);
-//        }
-//    ;
-
 visibility returns[Visibility visib]
     : /* epsilon */ {
     	$visib = Visibility.PUBLIC;
@@ -609,35 +594,75 @@ visibility returns[Visibility visib]
         }
     ;
     
-list_decl_field[ListDeclField fields, Visibility visib, AbstractIdentifier type]
-    : dv1=decl_field
-        (COMMA dv2=decl_field
+list_decl_field[ListDeclField fields, Visibility visib, AbstractIdentifier t]
+
+    : dv1=decl_field[$visib, $t] {
+    		assert($dv1.tree != null);
+    		fields.add($dv1.tree);
+    	}
+        (COMMA dv2=decl_field[$visib, $t] {
+        	assert($dv2.tree != null);
+        	fields.add($dv2.tree);
+        }
       )*
     ;
 
-decl_field
+decl_field[Visibility visib, AbstractIdentifier t] returns[AbstractDeclField tree]
+	@init {
+			AbstractInitialization initialization;
+	}
     : i=ident {
+    		initialization = new noInitilization();
+    		
         }
       (EQUALS e=expr {
+      		assert($e.tree != null);
+      		initialization = new Initialization($e.tree);
+      		setLocation(initialization, $EQUALS);
         }
       )? {
+      		assert($i.tree != null);
+      		$tree = new DeclField(visib, t, $i.tree, initialization);
+      		setLocation($tree, $i.start);
         }
     ;
 
-decl_method
-@init {
-}
+
+decl_method returns[AbstractDeclMethod tree]
+	@init {
+		AbstractMethodBody body;
+	}
     : type ident OPARENT params=list_params CPARENT (block {
+    		assert($block.decls != null);
+    		assert($block.insts != null);
+    		body = new MethodBody($block.decls, $block.insts);
+    		setLocation(body, $block.start);
+    		
         }
       | ASM OPARENT code=multi_line_string CPARENT SEMI {
+      		assert($code.text != null);
+      		body = new MethodAsmBody($code.text, $code.location);
+      		setLocation(body, $ASM);
         }
       ) {
+      		assert($type.tree != null);
+      		assert($ident.tree != null);
+      		assert($params.tree != null);
+      		$tree = new DeclMethod($type.tree, $ident.tree, $params.tree, body);
+      		setLocation($tree, $type.start);
         }
     ;
 
-list_params
+list_params returns[tree]
+	@init {
+			params = new ListDeclParam();
+	}
     : (p1=param {
+    		assert(p1.tree != null);
+    		params.add(p1.tree);
         } (COMMA p2=param {
+        	assert(p2.tree != null);
+        	params.add(p2.tree);
         }
       )*)?
     ;
@@ -653,8 +678,12 @@ multi_line_string returns[String text, Location location]
         }
     ;
 
-param
+param returns[tree]
     : type ident {
+    		assert($type.tree != null);
+    		assert($ident.tree != null);
+    		$tree = new DeclParam($type.tree, $ident.tree);
+    		setLocation($tree, $type.start);  		
         }
     ;
 
