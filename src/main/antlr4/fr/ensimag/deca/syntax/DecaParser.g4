@@ -568,10 +568,10 @@ class_extension returns[AbstractIdentifier tree]
         }
     ;
 
-class_body returns[ListDeclMethod methods, ListDeclfField fields]
+class_body returns[ListDeclMethod methods, ListDeclField fields]
 	@init {
 		$methods = new ListDeclMethod();
-		$fields = new ListDeclFields();
+		$fields = new ListDeclField();
 		
 	}
     : (m=decl_method {
@@ -582,7 +582,7 @@ class_body returns[ListDeclMethod methods, ListDeclfField fields]
     ;
 
 decl_field_set[ListDeclField fields]
-    : v=visibility t=type list_decl_field[$fields.tree, $v.visib, $t.tree] SEMI
+    : v=visibility t=type list_decl_field[fields, $v.visib, $t.tree] SEMI
     ;
 
 visibility returns[Visibility visib]
@@ -596,11 +596,11 @@ visibility returns[Visibility visib]
     
 list_decl_field[ListDeclField fields, Visibility visib, AbstractIdentifier t]
 
-    : dv1=decl_field[$visib, $t] {
+    : dv1=decl_field[visib, t] {
     		assert($dv1.tree != null);
     		fields.add($dv1.tree);
     	}
-        (COMMA dv2=decl_field[$visib, $t] {
+        (COMMA dv2=decl_field[visib, t] {
         	assert($dv2.tree != null);
         	fields.add($dv2.tree);
         }
@@ -612,7 +612,7 @@ decl_field[Visibility visib, AbstractIdentifier t] returns[AbstractDeclField tre
 			AbstractInitialization initialization;
 	}
     : i=ident {
-    		initialization = new noInitilization();
+    		initialization = new NoInitialization();
     		
         }
       (EQUALS e=expr {
@@ -653,16 +653,16 @@ decl_method returns[AbstractDeclMethod tree]
         }
     ;
 
-list_params returns[tree]
+list_params returns[ListDeclParam tree]
 	@init {
-			params = new ListDeclParam();
+			$tree = new ListDeclParam();
 	}
     : (p1=param {
-    		assert(p1.tree != null);
-    		params.add(p1.tree);
+    		assert($p1.tree != null);
+    		$tree.add($p1.tree);
         } (COMMA p2=param {
-        	assert(p2.tree != null);
-        	params.add(p2.tree);
+        	assert($p2.tree != null);
+        	$tree.add($p2.tree);
         }
       )*)?
     ;
@@ -678,7 +678,7 @@ multi_line_string returns[String text, Location location]
         }
     ;
 
-param returns[tree]
+param returns[AbstractDeclParam tree]
     : type ident {
     		assert($type.tree != null);
     		assert($ident.tree != null);
