@@ -16,18 +16,18 @@
     int y;
 
     y = x;
-    println("valeur 1 : ", y);
+    println("valeur 0 : ", y);
 
     y = x + 4;
-    println("valeur 2 : ", y);
+    println("valeur 4 : ", y);
 
     y = y - 2;
-    println("valeur 3 : ", y);
+    println("valeur 2 : ", y);
 
     y = y * 2;
-    println("valeur 5 : ", y);
+    println("valeur 4 : ", y);
 
     y = y % 2;
-    println("valeur 6 : ", y);
+    println("valeur 0 : ", y);
 
 }
