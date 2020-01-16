@@ -247,7 +247,7 @@ public class DecacCompiler {
         addInstruction(new WNL());
         addInstruction(new ERROR());
         addLabel(new Label("Zero_division"));
-        addInstruction(new WSTR(new ImmediateString("Error: Zero_division")));
+        addInstruction(new WSTR(new ImmediateString("Error: Zero_division ")));
         addInstruction(new WNL());
         addInstruction(new ERROR());
         addComment("end main program");

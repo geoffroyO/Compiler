@@ -26,11 +26,8 @@ public class Or extends AbstractOpBool {
 
     @Override
     protected void codeGenOp(DecacCompiler compiler, GPRegister regResult, GPRegister reg) {
-    	GPRegister tmp = compiler.getRegM().findFreeGPRegister();  
-    	compiler.addInstruction(new LOAD(regResult, tmp));
-        compiler.addInstruction(new ADD(reg, regResult));      
-        compiler.addInstruction(new MUL(tmp, reg));
-        compiler.addInstruction(new SUB(reg, regResult));   
-        compiler.getRegM().freeRegister(tmp);
+        compiler.addInstruction(new ADD(reg, regResult));
+        compiler.addInstruction(new CMP(new ImmediateInteger(1), regResult));
+        compiler.addInstruction(new SGE(regResult));
     }
 }
