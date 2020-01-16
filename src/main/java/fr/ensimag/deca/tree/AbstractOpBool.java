@@ -53,19 +53,16 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
     }
     
     protected void codeGenInst(DecacCompiler compiler, Label label){
-    	if (compiler.getRegM().hasFreeGPRegister()) {
+    	if (compiler.getRegM().hasMultFreeGPRegister(2)) {
             GPRegister left = compiler.getRegM().findFreeGPRegister();
-            GPRegister right = compiler.getRegM().findFreeGPRegister();
             getLeftOperand().codeGenExpr(compiler, left);
+            GPRegister right = compiler.getRegM().findFreeGPRegister();
             getRightOperand().codeGenExpr(compiler, right);
             codeGenOp(compiler, left, right);
             compiler.addInstruction(new CMP(new ImmediateInteger(1), left));
             compiler.addInstruction(new BNE(label));
             compiler.getRegM().freeRegister(left);
             compiler.getRegM().freeRegister(right);
-        }   
-    	else {
-    		// TODO 
-    	}
+        }
     }
 }

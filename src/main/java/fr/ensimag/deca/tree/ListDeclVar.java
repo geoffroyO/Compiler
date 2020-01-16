@@ -53,7 +53,6 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
 
     public void codeGenDeclVar(DecacCompiler compiler) {
         int nb_var = this.size();
-        // TODO gérer rattrapage stack_overflow BOV
 
         compiler.addComment("Test Stack_overflow");
         compiler.addInstruction(new TSTO(new ImmediateInteger(nb_var)));

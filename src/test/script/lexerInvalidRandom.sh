@@ -32,7 +32,7 @@ do
     nameDeca=$common.deca
     nameLog=$common.log
 
-    python $path/stepA/lexerInvalid.py $nameDeca > $pathLog/logs/$nameLog
+    python $path/generator/lexerInvalid.py $nameDeca > $pathLog/logs/$nameLog
 
     if echo $(cat $pathLog/logs/$nameLog) 2>&1 | grep -q -e 'OK'
     then
