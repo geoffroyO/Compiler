@@ -33,5 +33,5 @@ public class LowerOrEqual extends AbstractOpIneq {
     protected void codeGenLoopOp(DecacCompiler compiler, Label label, GPRegister left, GPRegister right) {
         compiler.addInstruction(new CMP(right, left));
         compiler.addInstruction(new BGT(label));
-    }    
+    }
 }

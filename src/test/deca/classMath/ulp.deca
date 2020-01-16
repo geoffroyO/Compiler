@@ -1,0 +1,52 @@
+{
+float x;
+float val_min = 0.00000000000000000000000000000000000001175494351;
+
+int exp = -127;
+float puiss_2 = 0.00000000000000000000000000000000000001175494351;
+
+float res = 0.00000000000000000000000000000000000001175494351; //init à val min
+int k = -125;
+int i = 1;
+
+println("Choisissez votre x: ");
+x = readFloat();
+//trouver l'exposant:
+while (puiss_2 < x){
+    puiss_2 = puiss_2 * 2; //faire un SHL
+    exp = exp + 1;
+}
+puiss_2 = puiss_2 / 2; //faire un SHR
+
+if (exp == 128) { //on a l'infini
+    println("Le résultat est: ");
+    res = x;
+    println(res);
+}
+if (exp == -127) { //on a 0
+    println("Le résultat est: ");
+    println(res);
+}
+
+exp = exp - 23;
+
+if (exp >= -126) {
+    while (k <= exp) { //calcul de la puissance de 2
+        res = res*2; //faire SHR
+        k = k + 1;
+    }
+    println("Le résultat est: ");
+    println(res);
+}
+
+if (exp < -126) {
+    res = 1;
+    k = exp - 103;
+    while (i <= k){
+        res = res/2; //faire SHL
+        i = i + 1;
+    }
+    println("Le résultat est: ");
+    println(res);
+}
+}

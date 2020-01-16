@@ -156,23 +156,16 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
     }
-    
-    protected void codeGenPrint(DecacCompiler compiler) {
-    }
 
     protected void codeGenInst(DecacCompiler compiler) {
     }
     
     protected void codeGenInst(DecacCompiler compiler, Label label){
     }
-    
+
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
     }
 
-    
-
-
-    
     @Override
     protected void decompileInst(IndentPrintStream s) {
         decompile(s);

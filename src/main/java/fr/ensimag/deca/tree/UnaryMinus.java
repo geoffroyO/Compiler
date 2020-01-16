@@ -14,7 +14,7 @@ import fr.ensimag.ima.pseudocode.instructions.MUL;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
-
+import java.lang.Math;
 /**
  * @author gl13
  * @date 01/01/2020
@@ -50,15 +50,13 @@ public class UnaryMinus extends AbstractUnaryExpr {
     }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
-
         this.getOperand().codeGenExpr(compiler, register);
         
         if (this.getType().isInt()) {
         	compiler.addInstruction(new MUL(new ImmediateInteger(-1), register));
         } else {
         	compiler.addInstruction(new MUL(new ImmediateFloat(-1), register));
+
         }
-
-
     }
 }
