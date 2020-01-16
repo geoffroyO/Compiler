@@ -5,6 +5,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import org.apache.log4j.Logger;
 
+import java.util.Iterator;
+
 /**
  *
  * @author gl13
@@ -29,6 +31,12 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
         // TODO
         System.out.println("[ ListDeclClass -> verifyListClass should be implemented later ]");
         // LOG.debug("verify listClass: end");
+
+        // - we verify each class declaration
+//        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
+//        while (iterDeclClass.hasNext()){
+//            iterDeclClass.next().verifyClass(compiler);
+//        }
     }
 
     /**

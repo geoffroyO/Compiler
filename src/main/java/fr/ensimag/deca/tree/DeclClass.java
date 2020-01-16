@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
@@ -14,6 +15,20 @@ import java.io.PrintStream;
  */
 public class DeclClass extends AbstractDeclClass {
 
+    private AbstractIdentifier className;
+    private AbstractIdentifier superClass;
+    private ListDeclField fields;
+    private ListDeclMethod methods;
+
+    // - constructor
+    public DeclClass(AbstractIdentifier className, AbstractIdentifier superClass,
+                    ListDeclField fields, ListDeclMethod methods) {
+        this.className = className;
+        this.superClass = superClass;
+        this.fields = fields;
+        this.methods  = methods;
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
@@ -21,7 +36,10 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+//        throw new UnsupportedOperationException("not yet implemented");
+        Type superType = this.superClass.verifyType(compiler);
+//        System.out.println("--->>>>> This is a class declaration!!!");
+
     }
 
     @Override
