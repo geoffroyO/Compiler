@@ -58,7 +58,5 @@ public class UnaryMinus extends AbstractUnaryExpr {
         	compiler.addInstruction(new MUL(new ImmediateFloat(-1), register));
 
         }
-
-
     }
 }

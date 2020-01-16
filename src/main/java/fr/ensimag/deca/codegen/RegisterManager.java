@@ -16,7 +16,7 @@ public class RegisterManager {
     private int GB;
     private int LB;
     private boolean[] freeRegister;
-    private int nb_registers = 16;
+    private int nb_registers = 15;
 
     public RegisterManager() {
         this.SP = 0;
@@ -96,6 +96,22 @@ public class RegisterManager {
             }
         }
         return false;
+    }
+
+    public boolean hasMultFreeGPRegister(int n){
+        int freeCount = 0;
+        for (int i = 15; i >= 2; i--){
+
+            if (this.freeRegister[i]){
+                freeCount++;
+            }
+        }
+
+        if (freeCount >= n) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void freeRegister(GPRegister register){
