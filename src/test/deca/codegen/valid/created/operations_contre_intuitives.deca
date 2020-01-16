@@ -1,0 +1,18 @@
+// Description:
+//    Quelques operations contre intuitives. Expression vide.
+// Resultat:
+//        RIEN
+
+{
+    int x = 5;
+
+    x + 3;
+    x * 3;
+    x - 3;
+    x / 3;
+
+    679 - 75.655e+1;
+    6 + 1;
+    1678 / 766.467;
+    6768 * 65.567f;
+}
