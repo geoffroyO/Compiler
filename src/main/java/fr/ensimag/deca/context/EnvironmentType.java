@@ -7,6 +7,7 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.LabelOperand;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class EnvironmentType {
@@ -38,6 +39,10 @@ public class EnvironmentType {
 //        TypeDefinition nullDefinition = new TypeDefinition(new NullType(nullSymbol), Location.BUILTIN);
         TypeDefinition voidDefinition = new TypeDefinition(new VoidType(voidSymbol), Location.BUILTIN);
 
+        ClassType objectType = new ClassType(objectSymbol, Location.BUILTIN, null);
+        ClassDefinition objectDefinition = new ClassDefinition(objectType, Location.BUILTIN, null);
+
+
         // - Add types to envTypes
         this.envTypes.put(intSymbol, intDefinition);
         this.envTypes.put(boolSymbol, boolDefinition);
@@ -45,6 +50,13 @@ public class EnvironmentType {
 //        this.envTypes.put(stringSymbol, stringDefinition);
 //        this.envTypes.put(nullSymbol, nullDefinition);
         this.envTypes.put(voidSymbol, voidDefinition);
+        this.envTypes.put(objectSymbol, objectDefinition);
+
+//        Iterator it = this.envTypes.entrySet().iterator();
+//        while (it.hasNext()) {
+//            Map.Entry i = (Map.Entry)it.next();
+//            System.out.println(i.getValue().getClass().getName());
+//        }
 
     }
 
