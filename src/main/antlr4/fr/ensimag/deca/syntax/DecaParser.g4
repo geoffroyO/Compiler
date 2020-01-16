@@ -550,38 +550,66 @@ list_classes returns[ListDeclClass tree]
 	)*
 	;
 
-class_decl
+class_decl returns[DeclClass tree]
     : CLASS name=ident superclass=class_extension OBRACE class_body CBRACE {   
+    		assert($name.tree != null);
+    		assert($superclass.tree != null);
+    		assert($class_body.fields != null);
+    		assert($class_body.methods != null);
+    		$tree = new DeclClass($name.tree, $superclass.tree, $class_body.fields, $class_body.methods);
+    		setLocation($tree, $CLASS);
         }
     ;
 
 class_extension returns[AbstractIdentifier tree]
     : EXTENDS ident {
+    		assert($ident.tree != null);
+    		$tree = $ident.tree;
         }
     | /* epsilon */ {
+    		$tree = new Identifier(getDecacCompiler().getSymbols().create("Object"));
+    		// setLocation($tree, );
         }
     ;
 
-class_body
+class_body returns[ListDeclMethod methods, ListDeclfField fields]
+	@init {
+		$methods = new ListDeclMethod();
+		$fields = new ListDeclFields();
+		
+	}
     : (m=decl_method {
+    		$methods.add($m.tree);
         }
-      | decl_field_set
+      | decl_field_set[$fields]
       )*
     ;
 
-decl_field_set
-    : v=visibility t=type list_decl_field
-      SEMI
+decl_field_set[ListDeclField fields]
+    : v=visibility t=type list_decl_field[$fields.tree, $v.visib, $t.tree] SEMI
     ;
 
-visibility
+//visibility[AbstractIdentifier tree]
+//    : /* epsilon */ {
+//    	$tree = new Identifier(getDecacCompiler().getSymbols().create("public"));
+//    	setLocation($tree, $visibility.start);
+//        }
+//    | PROTECTED {
+//    	$tree = new Identifier(getDecacCompiler().getSymbols().create("protected"));
+//    	setLocation($tree, $PROTECTED);
+//        }
+//    ;
+
+visibility returns[Visibility visib]
     : /* epsilon */ {
+    	$visib = Visibility.PUBLIC;
         }
     | PROTECTED {
+    	$visib = Visibility.PROTECTED;
         }
     ;
-
-list_decl_field
+    
+list_decl_field[ListDeclField fields, Visibility visib, AbstractIdentifier type]
     : dv1=decl_field
         (COMMA dv2=decl_field
       )*
