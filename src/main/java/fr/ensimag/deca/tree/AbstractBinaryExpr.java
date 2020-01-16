@@ -87,7 +87,7 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
             GPRegister right = compiler.getRegM().findFreeGPRegister();
             this.getLeftOperand().codeGenExpr(compiler, result);
             this.getRightOperand().codeGenExpr(compiler, right);
-            codeGenOp(compiler, right, result);
+            this.codeGenOp(compiler, right, result);
             compiler.getRegM().freeRegister(right);
         } 
         else {
@@ -97,7 +97,7 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
             this.getRightOperand().codeGenExpr(compiler, right);
             compiler.addInstruction(new LOAD(right, Register.R0));
             compiler.addInstruction(new POP(right));
-            codeGenOp(compiler, Register.R0, result);
+            this.codeGenOp(compiler, Register.R0, result);
         }
     }
 }

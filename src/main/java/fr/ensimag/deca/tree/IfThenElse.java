@@ -59,7 +59,7 @@ public class IfThenElse extends AbstractInst {
             Label fin_else = compiler.getLabM().genEndElseLabel();    
             
 	        compiler.addLabel(debut_if);
-	        this.condition.codeGenCond(compiler, debut_else);
+	        this.condition.codeGenInst(compiler, debut_else);
 	        this.thenBranch.codeGenListInst(compiler);
 	        compiler.addInstruction(new BRA(fin_else));
 	       
@@ -71,7 +71,7 @@ public class IfThenElse extends AbstractInst {
         else {        	
 
 	        compiler.addLabel(debut_if);
-	        this.condition.codeGenCond(compiler, fin_if);
+	        this.condition.codeGenInst(compiler, fin_if);
 	        this.thenBranch.codeGenListInst(compiler);     	
 	        compiler.addLabel(fin_if);       	        
         }       

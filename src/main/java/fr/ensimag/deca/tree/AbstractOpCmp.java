@@ -27,7 +27,7 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
 
     abstract protected void codeGenLoopOp(DecacCompiler compiler, Label label, GPRegister left, GPRegister right);
     
-    protected void codeGenCond(DecacCompiler compiler, Label label){
+    protected void codeGenInst(DecacCompiler compiler, Label label){
         if (compiler.getRegM().hasFreeGPRegister()) {
             GPRegister left = compiler.getRegM().findFreeGPRegister();
             GPRegister right = compiler.getRegM().findFreeGPRegister();

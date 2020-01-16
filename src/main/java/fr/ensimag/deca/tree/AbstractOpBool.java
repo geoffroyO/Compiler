@@ -7,6 +7,7 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.ADD;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.POP;
@@ -51,15 +52,15 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         return leftOpType;
     }
     
-    protected void codeGenCond(DecacCompiler compiler, Label label){
+    protected void codeGenInst(DecacCompiler compiler, Label label){
     	if (compiler.getRegM().hasFreeGPRegister()) {
             GPRegister left = compiler.getRegM().findFreeGPRegister();
             GPRegister right = compiler.getRegM().findFreeGPRegister();
             getLeftOperand().codeGenExpr(compiler, left);
             getRightOperand().codeGenExpr(compiler, right);
             codeGenOp(compiler, left, right);
-            compiler.addInstruction(new CMP(new ImmediateInteger(1), right));
-            compiler.addInstruction(new BEQ(label));
+            compiler.addInstruction(new CMP(new ImmediateInteger(1), left));
+            compiler.addInstruction(new BNE(label));
             compiler.getRegM().freeRegister(left);
             compiler.getRegM().freeRegister(right);
         }   

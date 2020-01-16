@@ -25,7 +25,7 @@ public class And extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenOp(DecacCompiler compiler, GPRegister reg, GPRegister regResult) {
+    protected void codeGenOp(DecacCompiler compiler, GPRegister regResult, GPRegister reg) {
     	compiler.addInstruction(new MUL(reg, regResult));	
     }
 }

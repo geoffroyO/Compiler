@@ -246,42 +246,30 @@ public class Identifier extends AbstractIdentifier {
     }
 
     @Override
-    protected void codeGenPrint(DecacCompiler compiler) {
-        // we can't print(x) if x if of type string 
+    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
         DAddr addr = this.getVariableDefinition().getOperand();
+        compiler.addInstruction(new LOAD(addr, Register.R1));
 
         if (this.getType().isInt()){
-            compiler.addInstruction(new LOAD(addr, Register.R1));
             compiler.addInstruction(new WINT());
-        }
+            }
+        
         if (this.getType().isFloat()){
-        	compiler.addInstruction(new LOAD(addr, Register.R1));
-            compiler.addInstruction(new WFLOAT());
+        	if (printHex) {
+        		compiler.addInstruction(new WFLOATX());
+        	} else {
+        		compiler.addInstruction(new WFLOAT());
+        	}
         }
     }
 
-    @Override
-    protected void codeGenPrintx(DecacCompiler compiler) {
-        // we can't print(x) if x if of type string
-        DAddr addr = this.getVariableDefinition().getOperand();
-
-        if (this.getType().isInt()){
-            compiler.addInstruction(new LOAD(addr, Register.R1));
-            compiler.addInstruction(new FLOAT(Register.R1, Register.R1));
-            compiler.addInstruction(new WFLOATX());
-        }
-        if (this.getType().isFloat()){
-            compiler.addInstruction(new LOAD(addr, Register.R1));
-            compiler.addInstruction(new WFLOATX());
-        }
-    }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
         DAddr addr = this.getVariableDefinition().getOperand();
         compiler.addInstruction(new LOAD(addr, register));
     }
 
-    protected void codeGenCond(DecacCompiler compiler, Label label){
+    protected void codeGenInst(DecacCompiler compiler, Label label){
     	if (this.getType().isBoolean()) {
             if (compiler.getRegM().hasFreeGPRegister()) {
             	DAddr addr = this.getVariableDefinition().getOperand();

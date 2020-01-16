@@ -14,7 +14,7 @@ import fr.ensimag.ima.pseudocode.instructions.*;
  * @date 01/01/2020
  */
 public class Or extends AbstractOpBool {
-
+	
     public Or(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
@@ -25,8 +25,12 @@ public class Or extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenOp(DecacCompiler compiler, GPRegister reg, GPRegister regResult) {
-        compiler.addInstruction(new ADD(reg, regResult));
-        compiler.addInstruction(new SHR(regResult));   	
+    protected void codeGenOp(DecacCompiler compiler, GPRegister regResult, GPRegister reg) {
+    	GPRegister tmp = compiler.getRegM().findFreeGPRegister();  
+    	compiler.addInstruction(new LOAD(regResult, tmp));
+        compiler.addInstruction(new ADD(reg, regResult));      
+        compiler.addInstruction(new MUL(tmp, reg));
+        compiler.addInstruction(new SUB(reg, regResult));   
+        compiler.getRegM().freeRegister(tmp);
     }
 }
