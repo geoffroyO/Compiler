@@ -6,6 +6,11 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LEA;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+
 import java.io.PrintStream;
 
 /**
@@ -58,6 +63,26 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
         throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    @Override
+    protected void codeGenDeclClass(DecacCompiler compiler) {
+        /* TODO utile pour l'héritage, CLASS OBJECT
+        * int offGb = compiler.getRegM().getGB();
+        *
+        * int defSupClass = offGb - superClass.getClassDefinition().getNumberOfMethods();
+        * compiler.addInstruction(new LEA(new RegisterOffset(defSupClass, Register.GB), Register.R0));
+        * compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(offGb, Register.GB)));
+        *
+        * compiler.getRegM().incrGB();
+        * compiler.getRegM().incrSP();
+        */
+        int offGb = compiler.getRegM().getGB();
+        compiler.addInstruction(new LEA(new RegisterOffset(1, Register.GB), Register.R0)); //Hérite toujours de object
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(offGb, Register.GB)));
+        compiler.getRegM().incrGB();
+        compiler.getRegM().incrSP();
+        methods.codeGenListDeclMethod(compiler);
     }
 
 

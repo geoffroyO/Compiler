@@ -19,6 +19,11 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
         while (iterDeclParam.hasNext()){
             iterDeclParam.next().verifyParam(compiler);
         }
+    }
 
+    public void codeGenListDeclParam(DecacCompiler compiler) {
+        for (AbstractDeclParam declParam : getList()) {
+            declParam.codeGenDeclParam(compiler);
+        }
     }
 }
