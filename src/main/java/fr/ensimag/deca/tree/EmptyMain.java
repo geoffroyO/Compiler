@@ -14,12 +14,10 @@ import java.io.PrintStream;
 public class EmptyMain extends AbstractMain {
     @Override
     protected void verifyMain(DecacCompiler compiler) throws ContextualError {
-        
     }
 
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
-
     }
 
     /**

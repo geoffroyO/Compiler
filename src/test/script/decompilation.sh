@@ -2,6 +2,7 @@
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
+BLUE='\033[0;34m'
 COLORLESS='\033[0m'
 
 pFailure()
@@ -14,6 +15,10 @@ pSuccess()
     echo -e "$GREEN $1 $COLORLESS"
 }
 
+pInfo()
+{
+    echo -e "$BLUE$1$COLORLESS"
+}
 
 ## Function decompilation
 decompilation()
@@ -28,32 +33,132 @@ decompilation()
 
 cd "$(dirname "$0")"/../../.. || exit 1
 
-path=./src/test/deca/context/valid/created
-pathLogs=../../../../logs
+pathRootProject=$(pwd)
+pathLogs='./src/test/logs/'
+pathTests='./src/test/deca'
 
-cd $path
-mkdir $pathLogs
+LOGS=$pathRootProject$pathLogs
+mkdir $LOGS #Create LOGS folder
 
-echo "## DECOMPILATION ##"
+# On se place dans le repertoire des tests
+cd $pathRootProject$pathTests
+
+pInfo "## DECOMPILATION ##"
 echo
 
+pInfo "Syntax valid"
+echo
 
-for i in *.deca
+# Syntax Valid
+cd "./syntax"
+cd "./valid/created"
+
+for i in $(find . -name "*.deca")
 do 
-    decompilation $i $pathLogs/$i.v1
-    decompilation $pathLogs/$i.v1 $pathLogs/$i.v2
+    cTime="`date "+%m_%d_%H_%M_%S"`"
+    # Current time
 
-    valDiff=$(diff -q $pathLogs/$i.v1 $pathLogs/$i.v2 2>&1)
+    nameFile=$(basename "$i" .deca)
+    nameFileOutput=$nameFile"_$cTime"
+
+    # get only the name of the file, without .deca and path
+    # add the current time
+
+    decompilation $i $LOGS/$nameFileOutput.v1
+    decompilation $LOGS/$nameFileOutput.v1 $LOGS/$nameFileOutput.v2
+
+    valDiff=$(diff -q $LOGS/$nameFileOutput.v1 $LOGS/$nameFileOutput.v2 2>&1)
 
     if ["$valDiff" = ""] 
     then
         pSuccess "DECOMPILATION $i"
-        rm $pathLogs/$i.v*
+        rm $LOGS/$nameFileOutput.v*
 
     else
         pFailure "DECOMPILATION KO"
         pFailure "FICHIER $i"
-        pFailure "LOGS $i.v1 $i.v2"
+        pFailure "LOGS $LOGS/$nameFileOutput.v1"
+        pFailure "LOGS $LOGS/$nameFileOutput.v2"
+
+        exit 1
+    fi
+
+done
+
+# Context Valid
+cd "../../../"
+cd "./context"
+cd "./valid/created"
+
+pInfo "Context valid"
+echo
+
+for i in $(find . -name "*.deca")
+do 
+    cTime="`date "+%m_%d_%H_%M_%S"`"
+    # Current time
+
+    nameFile=$(basename "$i" .deca)
+    nameFileOutput=$nameFile"_$cTime"
+
+    # get only the name of the file, without .deca and path
+    # add the current time
+
+    decompilation $i $LOGS/$nameFileOutput.v1
+    decompilation $LOGS/$nameFileOutput.v1 $LOGS/$nameFileOutput.v2
+
+    valDiff=$(diff -q $LOGS/$nameFileOutput.v1 $LOGS/$nameFileOutput.v2 2>&1)
+
+    if ["$valDiff" = ""] 
+    then
+        pSuccess "DECOMPILATION $i"
+        rm $LOGS/$nameFileOutput.v*
+
+    else
+        pFailure "DECOMPILATION KO"
+        pFailure "FICHIER $i"
+        pFailure "LOGS $LOGS/$nameFileOutput.v1"
+        pFailure "LOGS $LOGS/$nameFileOutput.v2"
+
+        exit 1
+    fi
+
+done
+
+# Codegen Valid
+cd "../../../"
+cd "./codegen"
+cd "./valid/created"
+
+pInfo "Codegen valid"
+echo
+
+for i in $(find . -name "*.deca")
+do 
+    cTime="`date "+%m_%d_%H_%M_%S"`"
+    # Current time
+
+    nameFile=$(basename "$i" .deca)
+    nameFileOutput=$nameFile"_$cTime"
+
+    # get only the name of the file, without .deca and path
+    # add the current time
+
+    decompilation $i $LOGS/$nameFileOutput.v1
+    decompilation $LOGS/$nameFileOutput.v1 $LOGS/$nameFileOutput.v2
+
+    valDiff=$(diff -q $LOGS/$nameFileOutput.v1 $LOGS/$nameFileOutput.v2 2>&1)
+
+    if ["$valDiff" = ""] 
+    then
+        pSuccess "DECOMPILATION $i"
+        rm $LOGS/$nameFileOutput.v*
+
+    else
+        pFailure "DECOMPILATION KO"
+        pFailure "FICHIER $i"
+        pFailure "LOGS $LOGS/$nameFileOutput.v1"
+        pFailure "LOGS $LOGS/$nameFileOutput.v2"
 
         exit 1
     fi

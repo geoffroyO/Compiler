@@ -133,107 +133,34 @@
         <executions>
           <!-- One <execution> per executable to launch. Execution
                failure (exit status != 0) will stop the tests. -->
+
           <execution>
-            <id>lexerRegression</id>
+            <id>all_tests</id>
             <configuration>
-              <executable>./src/test/script/lexer.sh</executable>
-              <!-- If we need to pass arguments :
-                   <arguments>
-                   <argument>...</argument>
-                   </arguments>
-              -->
+              <executable>./src/test/script/all_tests.sh</executable>
             </configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
-	  <execution>
-            <id>parserRegression</id>
-            <configuration>
-              <executable>./src/test/script/parser.sh</executable>
-              <!-- If we need to pass arguments :
-                   <arguments>
-                   <argument>...</argument>
-                   </arguments>
-              -->
-            </configuration>
-            <phase>test</phase>
-            <goals><goal>exec</goal></goals>
-          </execution>
-          <execution>
-            <id>lexerValid</id>
-            <configuration>
-              <executable>./src/test/script/lexerValidRandom.sh</executable>
-              <!-- If we need to pass arguments :
-                   <arguments>
-                   <argument>...</argument>
-                   </arguments>
-              -->
-            </configuration>
-            <phase>test</phase>
-            <goals><goal>exec</goal></goals>
-          </execution>
-          <execution>
-            <id>lexerInvalid</id>
-            <configuration>
-              <executable>./src/test/script/lexerInvalidRandom.sh</executable>
-              <!-- If we need to pass arguments :
-                   <arguments>
-                   <argument>...</argument>
-                   </arguments>
-              -->
-            </configuration>
-            <phase>test</phase>
-            <goals><goal>exec</goal></goals>
-          </execution>
-          <execution>
-            <id>multiCompilation</id>
-            <configuration>
-              <executable>./src/test/script/multi_compile.sh</executable>
-              <!-- If we need to pass arguments :
-                   <arguments>
-                   <argument>...</argument>
-                   </arguments>
-              -->
-            </configuration>
-            <phase>test</phase>
-            <goals><goal>exec</goal></goals>
-          </execution>
-          <execution>
-            <id>decompilation</id>
-            <configuration>
-              <executable>./src/test/script/decompilation.sh</executable>
-              <!-- If we need to pass arguments :
-                   <arguments>
-                   <argument>...</argument>
-                   </arguments>
-              -->
-            </configuration>
-            <phase>test</phase>
-            <goals><goal>exec</goal></goals>
-          </execution>
-          <execution>
+            <!-- <execution>
             <id>basic-synt</id>
             <configuration><executable>./src/test/script/basic-synt.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>basic-lex</id>
             <configuration>
               <executable>./src/test/script/basic-lex.sh</executable>
-              <!-- If we need to pass arguments :
-                   <arguments>
-                   <argument>...</argument>
-                   </arguments>
-              -->
+
             </configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
-            <!-- run a unit test by defining our own class with a main
-                 function -->
-            <!-- warning: java assertions are not enabled -->
+
             <id>unit-test-symbol</id>
             <configuration>
               <mainClass>fr.ensimag.deca.tools.ManualTestSymbol</mainClass>
@@ -242,30 +169,34 @@
             <phase>test</phase>
             <goals><goal>java</goal></goals>
           </execution>
+
           <execution>
             <id>basic-context</id>
             <configuration><executable>./src/test/script/basic-context.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>basic-gencode</id>
             <configuration><executable>./src/test/script/basic-gencode.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>basic-decac</id>
             <configuration><executable>./src/test/script/basic-decac.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>common-tests</id>
             <configuration><executable>./src/test/script/common-tests.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
-          </execution>
+          </execution>  -->
         </executions>
       </plugin>
 
@@ -337,11 +268,11 @@
               <!--
                   Build an uber-jar that is packaged with all the other dependencies,
                   such as the antlr-runtime and so on. You can run this as:
-                  
+
                   java -jar Deca-0.0.1-jar-with-dependencies.jar foo.deca
-                  
+
                   assuming you have a file called foo.deca to attempt a parse.
-                  
+
                   Not really useful for developers, but may be useful for
                   users.
               -->
@@ -474,7 +405,7 @@
           <threshold>Exp</threshold>
         </configuration>
       </plugin>
-      
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -489,7 +420,7 @@
                 <additionalparam>-Xdoclint:none</additionalparam>
             </configuration>
         </execution>
-    </executions>          
+    </executions>
           <tags>
             <tag>
               <name>date</name>
