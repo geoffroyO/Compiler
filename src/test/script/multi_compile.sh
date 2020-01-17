@@ -1,5 +1,20 @@
 #! /bin/sh
 
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+COLORLESS='\033[0m'
+
+pFailure()
+{
+    echo -e "$RED $1 $COLORLESS"
+}
+
+pSuccess()
+{
+    echo -e "$GREEN $1 $COLORLESS"
+}
+
 # On se place dans le répertoire du projet (quel que soit le
 # répertoire d'où est lancé le script) :
 cd "$(dirname "$0")"/../../.. || exit 1
@@ -25,10 +40,11 @@ rm *.ass
 if echo $(cat $pathLogs/integer.parallel.valid.$cDate.logs ) 2>&1 | grep -q -e 'random_10000_INTEGER_ASSIGN_'
 then
     # Error raise
-    echo "\e[31mERROR DETECTED\e[39m"
-    echo "\e[31mSHOW LOGS integer.parallel.valid.$cDate.logs\e[39m"
+    pFailure "ERROR DETECTED"
+    pFailure "SHOW LOGS integer.parallel.valid.$cDate.logs"
+    exit 1
 else 
-    echo "\e[32mOK\e[39m"
+    pSuccess "OK"
     rm $pathLogs/integer.parallel.valid.$cDate.logs
 fi
 
@@ -44,10 +60,11 @@ rm *.ass
 if echo $(cat $pathLogs/float.parallel.valid.$cDate.logs ) 2>&1 | grep -q -e 'random_10000_FLOAT_ASSIGN_'
 then
     # Error raise
-    echo "\e[31mERROR DETECTED\e[39m"
-    echo "\e[31mSHOW LOGS float.parallel.valid.$cDate.logs\e[39m"
+    pFailure "ERROR DETECTED"
+    pFailure "SHOW LOGS float.parallel.valid.$cDate.logs"
+    exit 1
 else 
-    echo "\e[32mOK\e[39m"
+    pSuccess "OK"
     rm $pathLogs/float.parallel.valid.$cDate.logs
 fi
 
@@ -63,11 +80,12 @@ rm *.ass
 
 if echo $(cat $pathLogs/integer.parallel.invalid.$cDate.logs ) 2>&1 | grep -q -e 'random_10000_INTEGER_ASSIGN_19.deca:10002:'
 then
-    echo "\e[32mOK\e[39m"
+    pSuccess "OK"
     rm $pathLogs/integer.parallel.invalid.$cDate.logs
 else
-    echo "\e[31mERROR DETECTED\e[39m"
-    echo "\e[31mSHOW LOGS integer.parallel.invalid.$cDate.logs\e[39m"
+    pFailure "ERROR DETECTED"
+    pFailure "SHOW LOGS integer.parallel.invalid.$cDate.logs"
+    exit 1
 fi
 
 
@@ -82,11 +100,12 @@ rm *.ass
 
 if echo $(cat $pathLogs/float.parallel.invalid.$cDate.logs ) 2>&1 | grep -q -e 'random_10000_FLOAT_ASSIGN_19.deca:10002:'
 then
-    echo "\e[32mOK\e[39m"
+    pSuccess "OK"
     rm $pathLogs/float.parallel.invalid.$cDate.logs
 else
-    echo "\e[31mERROR DETECTED\e[39m"
-    echo "\e[31mSHOW LOGS float.parallel.invalid.$cDate.logs\e[39m"
+    pFailure "ERROR DETECTED"
+    pFailure "SHOW LOGS float.parallel.invalid.$cDate.logs"
+    exit 1
 fi
 
 echo
@@ -106,10 +125,11 @@ rm *.ass
 if echo $(cat $pathLogs/integer.sequential.valid.$cDate.logs ) 2>&1 | grep -q -e 'random_10000_INTEGER_ASSIGN_'
 then
     # Error raise
-    echo "\e[31mERROR DETECTED\e[39m"
-    echo "\e[31mSHOW LOGS integer.sequential.valid.$cDate.logs\e[39m"
+    pFailure "ERROR DETECTED"
+    pFailure "SHOW LOGS integer.sequential.valid.$cDate.logs"
+    exit 1
 else 
-    echo "\e[32mOK\e[39m"
+    pSuccess "OK"
     rm $pathLogs/integer.sequential.valid.$cDate.logs
 fi
 
@@ -125,10 +145,11 @@ rm *.ass
 if echo $(cat $pathLogs/float.sequential.valid.$cDate.logs ) 2>&1 | grep -q -e 'random_10000_FLOAT_ASSIGN_'
 then
     # Error raise
-    echo "\e[31mERROR DETECTED\e[39m"
-    echo "\e[31mSHOW LOGS float.parallel.valid.$cDate.logs\e[39m"
+    pFailure "ERROR DETECTED"
+    pFailure "SHOW LOGS float.sequential.valid.$cDate.logs"
+    exit 1
 else 
-    echo "\e[32mOK\e[39m"
+    pSuccess "OK"
     rm $pathLogs/float.sequential.valid.$cDate.logs
 fi
 
@@ -144,11 +165,12 @@ rm *.ass
 
 if echo $(cat $pathLogs/integer.sequential.invalid.$cDate.logs ) 2>&1 | grep -q -e 'random_10000_INTEGER_ASSIGN_19.deca:10002:'
 then
-    echo "\e[32mOK\e[39m"
+    pSuccess "OK"
     rm $pathLogs/integer.sequential.invalid.$cDate.logs
 else
-    echo "\e[31mERROR DETECTED\e[39m"
-    echo "\e[31mSHOW LOGS integer.sequential.invalid.$cDate.logs\e[39m"
+    pFailure "ERROR DETECTED"
+    pFailure "SHOW LOGS integer.sequential.invalid.$cDate.logs"
+    exit 1
 fi
 
 
@@ -163,9 +185,12 @@ rm *.ass
 
 if echo $(cat $pathLogs/float.sequential.invalid.$cDate.logs ) 2>&1 | grep -q -e 'random_10000_FLOAT_ASSIGN_19.deca:10002:'
 then
-    echo "\e[32mOK\e[39m"
+    pSuccess "OK"
     rm $pathLogs/float.sequential.invalid.$cDate.logs
 else
-    echo "\e[31mERROR DETECTED\e[39m"
-    echo "\e[31mSHOW LOGS float.sequential.invalid.$cDate.logs\e[39m"
+    pFailure "ERROR DETECTED"
+    pFailure "SHOW LOGS float.sequential.invalid.$cDate.logs"
+    exit 1
 fi
+
+exit 0
