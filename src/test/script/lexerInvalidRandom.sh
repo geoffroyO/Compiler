@@ -1,5 +1,19 @@
 #! /bin/sh
 
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+COLORLESS='\033[0m'
+
+pFailure()
+{
+    echo -e "$RED $1 $COLORLESS"
+}
+
+pSuccess()
+{
+    echo -e "$GREEN $1 $COLORLESS"
+}
+
 # Test N fichiers
 # Tous les fichiers crées sont invalides
 
@@ -36,14 +50,14 @@ do
 
     if echo $(cat $pathLog/logs/$nameLog) 2>&1 | grep -q -e 'OK'
     then
-        echo "\e[32mDETECTE INVALIDE\e[39m"
+        pSuccess "DETECTE INVALIDE"
         rm $pathLog/logs/$common.*
 
     else
 
         #Stop the test and display the error
-        echo "\e[31mDETECTE VALIDE\e[39m"
-        echo "\e[31mCF fichier log $nameLog\e[39m"
+        pFailure "DETECTE VALIDE"
+        pFailure "CF fichier log $nameLog"
 
         #Stop the test 
         exit 1

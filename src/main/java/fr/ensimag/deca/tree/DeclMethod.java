@@ -23,7 +23,7 @@ public class DeclMethod extends AbstractDeclMethod {
     }
 
     @Override
-    protected void verifyMethod(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
+    protected void verifyDeclMethod(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
         // TODO
     }
 
@@ -34,12 +34,18 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        // TODO
+        this.type.prettyPrint(s, prefix, false);
+        this.name.prettyPrint(s, prefix, false);
+        this.listDeclParam.prettyPrint(s, prefix, false);
+        this.body.prettyPrint(s, prefix, true);
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        // TODO
+        this.type.iter(f);
+        this.name.iter(f);
+        this.listDeclParam.iter(f);
+        this.body.iter(f);
     }
 
     @Override

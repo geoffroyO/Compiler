@@ -29,7 +29,7 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
     void verifyListClass(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify listClass: start");
         // TODO
-        System.out.println("[ ListDeclClass -> verifyListClass should be implemented later ]");
+//        System.out.println("[ ListDeclClass -> verifyListClass should be implemented later ]");
         // LOG.debug("verify listClass: end");
 
         // - we verify each class declaration

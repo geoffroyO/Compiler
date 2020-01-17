@@ -1,0 +1,49 @@
+{
+	float x = 2;
+	int y = 2;
+	int counter = 0;
+	float z = 3.5;
+	boolean finish = false;
+	boolean test = true;
+
+	z = y;
+
+	println("1) x = ", x, " y = ", y, " counter = ", counter, "x = ", x);
+
+	while (counter <= 10){
+		println("test while 10 times");
+		counter = counter + 1;
+		if ( counter > 10){
+			finish = true;
+			printlnx("while finished");
+		}
+	}
+
+	readInt();
+
+	println("2) x = ", x, " y = ", y, " counter = ", counter, " x = ", x);
+
+	x = y % counter * 1;
+
+	println("3) x = ", x, " y = ", y, " counter = ", counter, " x = ", x);
+
+	x = 9.4/3.4;
+
+	println("4) x = ", x, " y = ", y, " counter = ", counter, " x = ", x);
+	x = 0;
+	if (x+1 > 10.0){
+		println("-> x is greater than 10.0 and x = ", x);
+	} else if (x+8 <= 8.0){
+		println("-> x is less or equal to 8.0 and x = ", x);
+		x = 12;
+		x = 10;
+	} else {
+		println("-> [Test else] and x = ", x);
+		x = 12;
+		x = 10 + 12 * 5;
+	}
+
+	if(test){
+		println("[Test is vaild]");
+	}
+}

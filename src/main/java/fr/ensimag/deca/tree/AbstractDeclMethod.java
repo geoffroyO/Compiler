@@ -9,7 +9,7 @@ public abstract class AbstractDeclMethod  extends Tree {
     /**
      * Pass 2 of [SyntaxeContextuelle]. Verify that the method declaration is OK and Initialize it.
      */
-    protected abstract void verifyMethod(DecacCompiler compiler, ClassDefinition memberOf)
+    protected abstract void verifyDeclMethod(DecacCompiler compiler, ClassDefinition memberOf)
             throws ContextualError;
 
     /**
