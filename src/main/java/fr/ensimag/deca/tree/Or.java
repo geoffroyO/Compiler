@@ -30,4 +30,11 @@ public class Or extends AbstractOpBool {
         compiler.addInstruction(new CMP(new ImmediateInteger(1), regResult));
         compiler.addInstruction(new SGE(regResult));
     }
+
+    @Override
+    protected void codeGenBoolLazy(DecacCompiler compiler, Label label, GPRegister result) {
+        compiler.addInstruction(new CMP(new ImmediateInteger(1), result));
+        compiler.addInstruction(new BEQ(label));
+    }
+
 }

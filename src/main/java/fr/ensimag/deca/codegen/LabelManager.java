@@ -8,19 +8,22 @@ public class LabelManager {
 	private int ifLabelIndex;
 	private int elseLabelIndex;
 	private int methodLabelIndex;
+	private int opBoolIndex;
 	
 	static private String whileLabel = "while";
 	static private String endWhileLabel= "end_while";
 	static private String ifLabel = "if";
-	static private String endIfLabel = "end_if";;
+	static private String endIfLabel = "end_if";
 	static private String elseLabel = "else";
-	static private String endElseLabel = "end_else";;
+	static private String endElseLabel = "end_else";
 	static private String methodLabel = "method";
+	static private String opBoolLabel = "end_cond";
 	
     public LabelManager() {
     	whileLabelIndex = 0;
     	ifLabelIndex = 0;
     	methodLabelIndex = 0;
+    	opBoolIndex = 0;
     }
     
     public Label genWhileLabel() {
@@ -53,5 +56,10 @@ public class LabelManager {
     	String name = endElseLabel + "_" + elseLabelIndex;
     	elseLabelIndex++;
     	return(new Label(name));
-    }  
+    }
+    public Label genEndOpBoolLabel() {
+    	String name =  opBoolLabel + "_" + opBoolIndex;
+    	opBoolIndex++;
+    	return(new Label(name));
+	}
 }

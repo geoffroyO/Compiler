@@ -51,4 +51,31 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         this.setType(leftOpType);
         return leftOpType;
     }
+
+    // TODO Doc
+    protected abstract void codeGenBoolLazy(DecacCompiler compiler, Label label, GPRegister result);
+
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister result){
+        Label label = compiler.getLabM().genEndOpBoolLabel();
+        if (compiler.getRegM().hasFreeGPRegister()) {
+            GPRegister right = compiler.getRegM().findFreeGPRegister();
+            getLeftOperand().codeGenExpr(compiler, result); //boolean litteral
+            codeGenBoolLazy(compiler, label, result);
+            getRightOperand().codeGenExpr(compiler, right);
+            codeGenOp(compiler, right, result);
+            compiler.getRegM().freeRegister(right);
+        } else {
+            GPRegister right = Register.getR(compiler.getRegM().getNb_registers());
+            getLeftOperand().codeGenExpr(compiler, result);
+            codeGenBoolLazy(compiler, label, result);
+            compiler.addInstruction(new PUSH(right));
+            getRightOperand().codeGenExpr(compiler, right);
+            compiler.addInstruction(new LOAD(right, Register.R0));
+            compiler.addInstruction(new POP(right));
+            codeGenOp(compiler, Register.R0, result);
+        }
+        compiler.addLabel(label);
+    }
+
+
 }

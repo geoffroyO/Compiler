@@ -1,5 +1,5 @@
 {
 int x = 4, y = 6;
 println("4:", x);
-println("6: ", y);
+println("6:", y);
 }

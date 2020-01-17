@@ -1,0 +1,16 @@
+{
+float x = 1;
+int N;
+float a;
+println("Choisissez le nombre d'itérations: ");
+N = readInt();
+println("Rentrez en quel nombre vous voulez évaluer la racine: ");
+a = readFloat();
+
+while (N>=0){
+    x = 0.5*(x+a/x);
+    N = N - 1;
+}
+println("Le résultat est: ");
+println(x);
+}

@@ -5,19 +5,8 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.Instruction;
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.ADD;
-import fr.ensimag.ima.pseudocode.instructions.FLOAT;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.POP;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
-import fr.ensimag.ima.pseudocode.instructions.SUB;
-import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
-import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
-import fr.ensimag.ima.pseudocode.instructions.WINT;
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 /**
  * Arithmetic binary operations (+, -, /, ...)
@@ -94,5 +83,10 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
          	}
          }   	  	    
     	compiler.getRegM().freeRegister(result);    	
+    }
+
+    protected  void codeGenExpr(DecacCompiler compiler, GPRegister register){
+        super.codeGenExpr(compiler, register);
+        compiler.addInstruction(new BOV(new Label("Float_overflow")));
     }
 }
