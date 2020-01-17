@@ -1,0 +1,24 @@
+// Description:
+//    Programme minimaliste utilisant unary minus
+//
+//
+// Historique:
+//    cree le 17/01/2020
+
+{
+	float x = -5;
+	float y = 2;
+	int z = 4;
+
+
+	println("x = ", x);
+
+	x  = -6;
+	println("x = ", x);
+
+	x = x + y;
+	println("x = ", x);
+
+	x = x + z;
+	println("x = ", x);
+}

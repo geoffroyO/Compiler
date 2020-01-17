@@ -1,0 +1,5 @@
+{
+    int x;
+    x = 4%2;
+    println(x);
+}
