@@ -8,23 +8,25 @@
     boolean a = true;
     boolean b = !true;
 
+    boolean d, e, f, g, i;
+
     int c = 2;
-    boolean d = (5 == c);
+    d = (5 == c);
     d = (5.0 == c);
     d = (5.0 == true);
     // (eq)
 
-    boolean e = (9.3 != d);
+    e = (9.3 != d);
     e = (9.3 != 9.3);
     e = (9.3 != true);
     // (neq)
 
-    boolean f = (5 < b);
+    f = (5 < b);
     f = (5 < 5);
     f = (5 < 5.9);
     // (lt)
 
-    boolean g = (a > b);
+    g = (a > b);
     g = (5 > 5);
     g = (5 > 5.9);
     // (gt)
@@ -39,7 +41,7 @@
     g = (5 >= 5.9);
     // (geq)
 
-    boolean i = a && b;
+    i = a && b;
     // (and)
     
     i = a || b;

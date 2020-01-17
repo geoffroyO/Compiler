@@ -1,0 +1,38 @@
+// Description :
+// Test les différentes compatibilités d'affectations
+//
+// Resultats :
+// OK (Resultat dans synt)
+
+class X {
+
+}
+
+class Y extends X {
+    
+}
+
+class Z extends X {
+
+}
+
+{
+    int a = 5;
+    float b = a;
+    // float prend valeur int
+
+    // Sous type
+    
+    Object o = null;
+    // null sous type universel
+
+    o = new Y();
+    o = new Z();
+    // Y et Z sous types de X sous types de object
+
+    o = new X();
+    // X sous type de object
+
+    o = new Object();
+    // Meme type
+}

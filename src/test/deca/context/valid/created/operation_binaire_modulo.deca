@@ -5,10 +5,10 @@
 // OK (Resultat dans synt)
 
 {
-    int a, b;
+    int a, b, c;
     a = 5;
     b = 6;
 
-    int c = a % b;
+    c = a % b;
     // (int, int) -> int
 }

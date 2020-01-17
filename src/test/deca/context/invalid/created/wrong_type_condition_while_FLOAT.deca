@@ -1,0 +1,7 @@
+{
+    while (5.6) {
+        println("true");
+    } else {
+        println("false");
+    }
+}

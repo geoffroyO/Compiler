@@ -1,0 +1,29 @@
+// Description:
+//    Utilisation d'expression dans une condition
+//
+// Resultats: 
+//      20
+//      18
+//      16
+//      14
+//      12
+//      10
+//      8
+//      6
+//      4
+//      2
+//      0
+
+{
+    int _ = 20;
+
+    while ( _ >= 0)
+    {
+        if ( _ % 2 == 0 )
+        {
+            println(_);
+        }
+        _ = _ - 1;
+    }
+
+}

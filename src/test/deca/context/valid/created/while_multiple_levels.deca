@@ -1,0 +1,54 @@
+// Description:
+//    Affiche les mots binaires sur 3 bits.
+// Resultat:
+//  000 , val = 0
+//  001 , val = 1
+//  010 , val = 2
+//  011 , val = 3
+//  100 , val = 4
+//  101 , val = 5
+//  110 , val = 6
+//  111 , val = 7
+//  000 , val = 8
+//  001 , val = 9
+//  010 , val = 10
+//  011 , val = 11
+//  100 , val = 12
+//  101 , val = 13
+//  110 , val = 14
+//  111 , val = 15
+
+
+{
+    int w = 0;
+    int x = 0;
+    int z = 0;
+    int y = 0;
+    int val = 0;
+
+    int res = 2;
+
+    while ( w < res )
+    {
+        x = 0;
+        while ( x < res )
+        {
+
+            y = 0;
+            while ( y < res )
+            {
+
+                z = 0;
+                while ( z < res)
+                {
+                    println(x, y, z, " , val = ", val);
+                    z = z + 1;
+                    val = val + 1;
+                }
+                y = y + 1;
+            }
+            x = x + 1;
+        }
+        w = w + 1;
+    }
+}
