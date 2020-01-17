@@ -45,8 +45,6 @@ public class DeclClass extends AbstractDeclClass {
             throw new ContextualError("class already declared", getLocation());
         }
 
-
-
 //        System.out.println("--->>>>> This is a class declaration!!!");
 
     }
@@ -65,12 +63,18 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        this.className.prettyPrint(s, prefix, false);
+        this.superClass.prettyPrint(s, prefix, false);
+        this.fields.prettyPrint(s, prefix, false);
+        this.methods.prettyPrint(s, prefix, false);
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        this.className.iter(f);
+        this.superClass.iter(f);
+        this.methods.iter(f);
+        this.fields.iter(f);
     }
 
 }

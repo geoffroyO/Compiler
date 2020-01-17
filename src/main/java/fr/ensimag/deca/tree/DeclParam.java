@@ -29,12 +29,14 @@ public class DeclParam extends AbstractDeclParam {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        // TODO
+        this.type.prettyPrintChildren(s, prefix);
+        this.paramName.prettyPrintChildren(s, prefix);
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        // TODO
+        this.type.iter(f);
+        this.paramName.iter(f);
     }
 
     @Override
