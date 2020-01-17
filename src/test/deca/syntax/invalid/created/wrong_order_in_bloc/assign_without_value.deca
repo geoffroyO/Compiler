@@ -1,0 +1,14 @@
+// Description :
+// Fichier 3 declarations de variables.
+//
+// Resultats :
+// Lexer -> OK (resultat dans lexer)
+// Parser -> Error: no_init_but_assign.deca:13:12: mismatched input ';' expecting ...
+
+
+
+{
+    int a, c = 5;
+    boolean k = !true;
+    int v = ;
+}

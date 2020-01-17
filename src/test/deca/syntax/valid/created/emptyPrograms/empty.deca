@@ -1,0 +1,6 @@
+// Description :
+// Fichier vide.
+//
+// Resultats :
+// Lexer -> OK (resultat dans lexer) Fichier vide
+// Parser -> OK (resultat dans parser) Fichier vide

@@ -1,0 +1,115 @@
+// Description:
+//      Operations boolean.
+//
+// Resultats:
+//  true  true
+//  false  false
+//  
+//  !false  true
+//  !true  false
+//  
+//  true || true true
+//  true || false true
+//  false || true true
+//  false || false false
+//  
+//  true && true true
+//  true && false false
+//  false && true false
+//  false && false false
+
+
+{
+    // a
+    print("true ");
+    if ( true ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    print("false ");
+    if ( false ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    // !a
+    println();
+    print("!false ");
+    if ( !false ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    print("!true ");
+    if ( ! true ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    // a || b
+    println();
+    print("true || true");
+    if ( true || true ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    print("true || false");
+    if ( true || false ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    print("false || true");
+    if ( false || true ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    print("false || false");
+    if ( false || false ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+
+    // a && b
+    println();
+    print("true && true");
+    if ( true && true ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    print("true && false");
+    if ( true && false ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    print("false && true");
+    if ( false && true ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+    print("false && false");
+    if ( false && false ){
+        println(" true");
+    } else {
+        println(" false");
+    }
+
+}
