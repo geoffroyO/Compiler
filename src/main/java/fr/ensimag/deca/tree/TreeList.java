@@ -26,6 +26,15 @@ public abstract class TreeList<TreeType extends Tree> extends Tree {
         Validate.notNull(i);
         list.add(i);
     }
+    
+    public void addAll(TreeList<TreeType> list) {
+    	Iterator<TreeType> it = list.iterator();
+    	while (it.hasNext()) {
+    		TreeType element = it.next();
+    		Validate.notNull(element);
+    		this.add(element);
+    	}
+    }
 
     /**
      * @return the list contained in the class, read-only. Use getModifiableList()
@@ -50,6 +59,7 @@ public abstract class TreeList<TreeType extends Tree> extends Tree {
     public int size() {
         return list.size();
     }
+    
 
     /**
      * Do not check anything about the location.
