@@ -133,6 +133,7 @@
         <executions>
           <!-- One <execution> per executable to launch. Execution
                failure (exit status != 0) will stop the tests. -->
+
           <execution>
             <id>all_tests</id>
             <configuration>
@@ -147,6 +148,7 @@
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>basic-lex</id>
             <configuration>
@@ -156,6 +158,7 @@
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
 
             <id>unit-test-symbol</id>
@@ -166,24 +169,28 @@
             <phase>test</phase>
             <goals><goal>java</goal></goals>
           </execution>
+
           <execution>
             <id>basic-context</id>
             <configuration><executable>./src/test/script/basic-context.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>basic-gencode</id>
             <configuration><executable>./src/test/script/basic-gencode.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>basic-decac</id>
             <configuration><executable>./src/test/script/basic-decac.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>common-tests</id>
             <configuration><executable>./src/test/script/common-tests.sh</executable></configuration>
