@@ -1,5 +1,20 @@
 #! /bin/sh
 
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+COLORLESS='\033[0m'
+
+pFailure()
+{
+    echo -e "$RED $1 $COLORLESS"
+}
+
+pSuccess()
+{
+    echo -e "$GREEN $1 $COLORLESS"
+}
+
+
 # On se place dans le répertoire du projet (quel que soit le
 # répertoire d'où est lancé le script) :
 
@@ -29,16 +44,13 @@ do
 
     if ["$valDiff" = ""] 
     then
-
-        echo "\e[32mCODEGEN $i\e[39m"
+        pSuccess "CODEGEN $i"
         rm $pathLogs/$i.codegen.$cDate.logs
 
     else
-
-        echo "\e[31mCODEGEN KO"
-        echo "FICHIER $i"
-        echo "LOGS $pathLogs/$i.codegen.$cDate.logs"
-        echo "\e[39m"
+        pFailure "CODEGEN KO"
+        pFailure "FICHIER $i"
+        pFailure "LOGS $pathLogs/$i.codegen.$cDate.logs"
 
         exit 1
     fi

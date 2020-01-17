@@ -1,5 +1,19 @@
 #! /bin/sh
 
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+COLORLESS='\033[0m'
+
+pFailure()
+{
+    echo -e "$RED $1 $COLORLESS"
+}
+
+pSuccess()
+{
+    echo -e "$GREEN $1 $COLORLESS"
+}
+
 
 ## Function decompilation
 decompilation()
@@ -33,16 +47,13 @@ do
 
     if ["$valDiff" = ""] 
     then
-
-        echo "\e[32mDECOMPILATION $i\e[39m"
+        pSuccess "DECOMPILATION $i"
         rm $pathLogs/$i.v*
 
     else
-
-        echo "\e[31mDECOMPILATION KO"
-        echo "FICHIER $i"
-        echo "LOGS $i.v1 $i.v2"
-        echo "\e[39m"
+        pFailure "DECOMPILATION KO"
+        pFailure "FICHIER $i"
+        pFailure "LOGS $i.v1 $i.v2"
 
         exit 1
     fi
