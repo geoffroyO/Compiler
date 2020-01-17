@@ -1,5 +1,20 @@
 #! /bin/sh
 
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+COLORLESS='\033[0m'
+
+pFailure()
+{
+    echo -e "$RED $1 $COLORLESS"
+}
+
+pSuccess()
+{
+    echo -e "$GREEN $1 $COLORLESS"
+}
+
+
 # On se place dans le répertoire du projet (quel que soit le
 # répertoire d'où est lancé le script) :
 cd "$(dirname "$0")"/../../.. || exit 1
@@ -25,14 +40,13 @@ do
 
     if ["$valDiff" = ""] 
     then
-
-        echo "\e[32mVALID \t $i.deca\e[39m"
+        pSuccess "VALID \t $i.deca"
         rm $pathLogs/$i.$cDate.lex.logs
 
     else
-        echo "\e[31mDETECTE INVALIDE\e[39m"
-        echo "\e[31mERROR IN FILE $i\e[39m"
-        echo "\e[31mSHOW LOGS $i.$cDate.lex.logs\e[39m"
+        pFailure "DETECTE INVALIDE"
+        pFailure "ERROR IN FILE $i"
+        pFailure "SHOW LOGS $i.$cDate.lex.logs"
         exit 1
     fi
 
@@ -50,13 +64,13 @@ do
 
     if ["$valDiff" = ""] 
     then
-        echo "\e[32mVALID \t $i.deca\e[39m"
+        pSuccess "VALID \t $i.deca"
         rm $pathLogs/$i.$cDate.lex.logs
 
     else
-        echo "\e[31mDETECTE VALID\e[39m"
-        echo "\e[31mERROR IN FILE $i\e[39m"
-        echo "\e[31mSHOW LOGS $i.$cDate.lex.logs\e[39m"
+        pFailure "DETECTE VALIDE"
+        pFailure "ERROR IN FILE $i"
+        pFailure "SHOW LOGS $i.$cDate.lex.logs"
         exit 1
     fi
 
