@@ -50,10 +50,16 @@ public class Assign extends AbstractBinaryExpr {
         return "=";
     }
 
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+        DAddr addr = ((AbstractIdentifier) this.getLeftOperand()).getVariableDefinition().getOperand();
+        this.getRightOperand().codeGenExpr(compiler, register);
+        compiler.addInstruction(new STORE(register, addr));
+    }
+
     protected void codeGenInst(DecacCompiler compiler) {
         DAddr addr = ((AbstractIdentifier) this.getLeftOperand()).getVariableDefinition().getOperand();
         GPRegister register = compiler.getRegM().findFreeGPRegister();
-        this.getRightOperand().codeGenExpr(compiler, register);
+        getRightOperand().codeGenExpr(compiler, register);
         compiler.addInstruction(new STORE(register, addr));
         compiler.getRegM().freeRegister(register);
     }

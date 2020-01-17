@@ -25,13 +25,7 @@ public class LowerOrEqual extends AbstractOpIneq {
 
     @Override
     protected void codeGenOp(DecacCompiler compiler, GPRegister reg, GPRegister regResult) {
-        compiler.addInstruction(new CMP(regResult, reg));
+        compiler.addInstruction(new CMP(reg, regResult));
         compiler.addInstruction(new SLE(regResult));
-    }
-    
-    @Override    
-    protected void codeGenLoopOp(DecacCompiler compiler, Label label, GPRegister left, GPRegister right) {
-        compiler.addInstruction(new CMP(right, left));
-        compiler.addInstruction(new BGT(label));
     }
 }

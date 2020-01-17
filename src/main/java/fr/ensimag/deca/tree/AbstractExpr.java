@@ -8,10 +8,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
-
-import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -158,9 +155,6 @@ public abstract class AbstractExpr extends AbstractInst {
     }
 
     protected void codeGenInst(DecacCompiler compiler) {
-    }
-    
-    protected void codeGenInst(DecacCompiler compiler, Label label){
     }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){

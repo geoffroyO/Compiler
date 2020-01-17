@@ -7,10 +7,12 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 
-import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.*;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -42,10 +44,20 @@ public class While extends AbstractInst {
         Label debut_while = compiler.getLabM().genWhileLabel();
         Label fin_while = compiler.getLabM().genEndWhileLabel();
         compiler.addLabel(debut_while);
-
-        this.condition.codeGenInst(compiler, fin_while);
-        this.body.codeGenListInst(compiler);
-
+        if (compiler.getRegM().hasFreeGPRegister()) {
+            GPRegister register = compiler.getRegM().findFreeGPRegister();
+            condition.codeGenExpr(compiler, register);
+            compiler.addInstruction(new CMP(new ImmediateInteger(0), register));
+            compiler.addInstruction(new BEQ(fin_while));
+        } else {
+            GPRegister register = Register.getR(compiler.getRegM().getNb_registers());
+            compiler.addInstruction(new PUSH(register));
+            condition.codeGenExpr(compiler, register);
+            compiler.addInstruction(new CMP(new ImmediateInteger(0), register));
+            compiler.addInstruction(new BEQ(fin_while));
+            compiler.addInstruction(new POP(register));
+            }
+        body.codeGenListInst(compiler);
         compiler.addInstruction(new BRA(debut_while));
         compiler.addLabel(fin_while);
 
