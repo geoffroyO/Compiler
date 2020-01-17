@@ -80,7 +80,7 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
     }
 
     protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
-    };
+    }
     
     protected void codeGenExpr(DecacCompiler compiler, GPRegister result){
         if (compiler.getRegM().hasFreeGPRegister()) {
