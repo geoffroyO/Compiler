@@ -1,0 +1,89 @@
+// Description:
+//    Differentes conditions sur les boucles while.
+// Resultat:
+//  x < 5
+//  x = 0
+//  x = 1
+//  x = 2
+//  x = 3
+//  x = 4
+//  
+//  x > 5
+//  x = 10
+//  x = 9
+//  x = 8
+//  x = 7
+//  x = 6
+//  
+//  x <= 5
+//  x = 0
+//  x = 1
+//  x = 2
+//  x = 3
+//  x = 4
+//  x = 5
+//  
+//  x >= 5
+//  x = 10
+//  x = 9
+//  x = 8
+//  x = 7
+//  x = 6
+//  x = 5
+//  
+//  x != 5
+//  x = 0
+//  x = 1
+//  x = 2
+//  x = 3
+//  x = 4
+
+
+{
+    int x = 0;
+    int res = 5;
+
+    x = 0;
+    println("x < ", res);
+    while (x < res)
+    {
+        println("x = ", x);
+        x = x + 1;
+    }
+
+    x = 10;
+    println();
+    println("x > ", res);
+    while (x > res )
+    {
+        println("x = ", x);
+        x = x - 1;
+    }
+
+    x = 0;
+    println();
+    println("x <= ", res);
+    while (x <= res)
+    {
+        println("x = ", x);
+        x = x + 1;
+    }
+
+    x = 10;
+    println();
+    println("x >= ", res);
+    while (x >= res )
+    {
+        println("x = ", x);
+        x = x - 1;
+    }
+
+    x = 0;
+    println();
+    println("x != ", res);
+    while (x != res)
+    {
+        println("x = ", x);
+        x = x + 1;   
+    }
+}

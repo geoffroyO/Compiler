@@ -5,22 +5,24 @@
 // OK (Resultat dans synt)
 
 {
-    int a, b;
+    int a, b, c, d;
+    float e, f, g, h;
+    
     a = 5;
     b = 6;
 
-    int c = a + b;
+    c = a + b;
     // (int, int) -> int
 
-    int d = 8;
-    float e = -5.;
+    d = 8;
+    e = -5.4;
 
-    float f = d + e;
+    f = d + e;
     // (int, float) -> float
 
-    float g = e + d;
+    g = e + d;
     // (float, int) -> float
 
-    float h = f + g;
+    h = f + g;
     // (float, float) -> float
 }

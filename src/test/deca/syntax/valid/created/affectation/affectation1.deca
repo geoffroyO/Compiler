@@ -1,0 +1,13 @@
+// Description:
+//    Programme minimaliste utilisant une affectation.
+//
+// Resultats:
+//    associer 3 à x
+//    int x = 3;
+//
+// Historique:
+//    cree le 09/01/2020
+
+{
+    int ;
+}

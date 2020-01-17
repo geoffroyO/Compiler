@@ -1,0 +1,49 @@
+// Description :
+// Fichier contenant tous les mots réservés.
+//
+// Resultats :
+// Lexer -> OK (resultat dans lexer)
+// Parser -> Error: all_reserved_tokens.deca:8:0: no viable alternative at input 'asm'
+
+asm
+class
+extends
+else
+false
+if
+instanceof
+new
+null
+readInt
+readFloat
+print
+println
+printlnx
+printx
+protected
+return
+this
+true
+while
+=
++
+-
+*
+%
+/
+.
+,
+;
+(
+)
+{
+}
+<
+>
+>=
+<=
+==
+!=
+!
+&&
+||
