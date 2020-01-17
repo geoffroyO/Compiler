@@ -1,0 +1,29 @@
+Exception in thread "main" java.lang.VerifyError: Expecting a stackmap frame at branch target 44
+Exception Details:
+  Location:
+    fr/ensimag/deca/syntax/AbstractDecaLexer.createLexerFromArgs([Ljava/lang/String;)Lfr/ensimag/deca/syntax/DecaLexer; @25: if_icmpgt
+  Reason:
+    Expected stackmap frame at this location.
+  Bytecode:
+    0x0000000: 033c 11ff ff3d 121c 1100 72b8 0022 2abe
+    0x0000010: 0411 0072 3c11 0000 3da3 0013 121c 1b1c
+    0x0000020: 04b8 003b 11ff ff3d 04a7 0014 1c9b 000f
+    0x0000030: 121c 1b1c 03b8 003b 11ff ff3d 0312 b8b8
+    0x0000040: 00be 121c 1100 74b8 0022 2abe 0411 0074
+    0x0000050: 3c11 0000 3da0 004c 1b11 0074 a000 161c
+    0x0000060: 1100 00a0 000f 121c 1b1c 04b8 003b 11ff
+    0x0000070: ff3d 121c 1100 75b8 0022 bb00 c059 2a03
+    0x0000080: 32b8 00c6 b700 c74e 121c 1100 76b8 0022
+    0x0000090: 2dbb 00c9 592a 0332 b700 cbb6 00cd a700
+    0x00000a0: 391c 9b00 0f12 1c1b 1c03 b800 3b11 ffff
+    0x00000b0: 3d12 1c11 0078 b800 22b2 0087 12cf b600
+    0x00000c0: 7e12 1c11 0079 b800 22bb 00c0 59b2 00d3
+    0x00000d0: b800 d7b7 00c7 4e12 1c11 007b b800 222d
+    0x00000e0: b0                                     
+  Stackmap Table:
+    same_frame(@60)
+    same_locals_1_stack_item_frame(@61,Integer)
+    same_frame_extended(@185)
+    append_frame(@223,Object[#192])
+
+	at fr.ensimag.deca.syntax.ManualTestLex.main(ManualTestLex.java:18)
