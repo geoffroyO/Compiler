@@ -196,11 +196,8 @@ if_then_else returns[IfThenElse tree]
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
-      		assert($li_else.tree.getList() != null);
-      	    if (!$li_else.tree.getList().isEmpty()){
-      	    	else1.add($li_else.tree.getList().get(0));
-      	    }
-            
+      		assert($li_else.tree != null);
+      	    else1.addAll($li_else.tree);     	       
         }
       )?
     ;
