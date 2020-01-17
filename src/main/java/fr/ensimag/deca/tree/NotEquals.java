@@ -29,10 +29,4 @@ public class NotEquals extends AbstractOpExactCmp {
         compiler.addInstruction(new CMP(regResult, reg));
         compiler.addInstruction(new SNE(regResult));
     }
-    
-    @Override
-    protected void codeGenLoopOp(DecacCompiler compiler, Label label, GPRegister left, GPRegister right) {
-        compiler.addInstruction(new CMP(right, left));
-        compiler.addInstruction(new BEQ(label));
-    }
 }

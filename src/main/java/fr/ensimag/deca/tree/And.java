@@ -22,8 +22,7 @@ public class And extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenOp(DecacCompiler compiler, GPRegister regResult, GPRegister reg) {
-
+    protected void codeGenOp(DecacCompiler compiler, GPRegister reg, GPRegister regResult) {
         compiler.addInstruction(new ADD(reg, regResult));
         compiler.addInstruction((new SHR(regResult)));
     }

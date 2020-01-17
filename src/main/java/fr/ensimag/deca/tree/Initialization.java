@@ -67,7 +67,7 @@ public class Initialization extends AbstractInitialization {
     }
 
     protected void codeGenInit(DecacCompiler compiler, GPRegister register, Type type) {
-        this.expression.codeGenExpr(compiler, register);
+        expression.codeGenExpr(compiler, register);
     }
 
     protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {

@@ -100,12 +100,12 @@ public class DeclVar extends AbstractDeclVar {
 
     public void codeGenDeclVar(DecacCompiler compiler) {
         GPRegister register = compiler.getRegM().findFreeGPRegister();
-        this.initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
+        initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
 
 
         compiler.getRegM().incrGB();
-        this.varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.getRegM().getGB(), Register.GB));
-        this.initialization.codeGenStInit(compiler, register);
+        varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.getRegM().getGB(), Register.GB));
+        initialization.codeGenStInit(compiler, register);
         compiler.getRegM().freeRegister(register);
     }
 }

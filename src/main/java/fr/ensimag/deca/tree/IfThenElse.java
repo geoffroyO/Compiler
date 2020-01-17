@@ -7,11 +7,13 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.instructions.ADD;
-import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
+
 import org.apache.commons.lang.Validate;
 
 /**
@@ -53,27 +55,46 @@ public class IfThenElse extends AbstractInst {
     protected void codeGenInst(DecacCompiler compiler) { 	
         Label debut_if = compiler.getLabM().genIfLabel();
         Label fin_if = compiler.getLabM().genEndIfLabel();
+        compiler.addLabel(debut_if);
 
         if (!elseBranch.getList().isEmpty()) {       	
             Label debut_else = compiler.getLabM().genElseLabel();
-            Label fin_else = compiler.getLabM().genEndElseLabel();    
-            
-	        compiler.addLabel(debut_if);
-	        this.condition.codeGenInst(compiler, debut_else);
-	        this.thenBranch.codeGenListInst(compiler);
-	        compiler.addInstruction(new BRA(fin_else));
-	       
-	        compiler.addLabel(debut_else); 
-	        this.elseBranch.codeGenListInst(compiler);    	
-	        compiler.addLabel(fin_else);
+            Label fin_else = compiler.getLabM().genEndElseLabel();
+	        if (compiler.getRegM().hasFreeGPRegister()) {
+                GPRegister register = compiler.getRegM().findFreeGPRegister();
+                condition.codeGenExpr(compiler, register);
+                compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
+                compiler.addInstruction(new BNE(debut_else));
+            } else {
+                GPRegister register = Register.getR(compiler.getRegM().getNb_registers());
+                compiler.addInstruction(new PUSH(register));
+                condition.codeGenExpr(compiler, register);
+                compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
+                compiler.addInstruction(new BNE(debut_else));
+                compiler.addInstruction(new POP(register));
+            }
+            thenBranch.codeGenListInst(compiler);
+            compiler.addInstruction(new BRA(fin_else));
             compiler.addLabel(fin_if);
-        }
-        else {        	
-
-	        compiler.addLabel(debut_if);
-	        this.condition.codeGenInst(compiler, fin_if);
-	        this.thenBranch.codeGenListInst(compiler);     	
-	        compiler.addLabel(fin_if);       	        
+            compiler.addLabel(debut_else);
+            elseBranch.codeGenListInst(compiler);
+            compiler.addLabel(fin_else);
+        } else {
+            if (compiler.getRegM().hasFreeGPRegister()) {
+                GPRegister register = compiler.getRegM().findFreeGPRegister();
+                condition.codeGenExpr(compiler, register);
+                compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
+                compiler.addInstruction(new BNE(fin_if));
+            } else {
+                GPRegister register = Register.getR(compiler.getRegM().getNb_registers());
+                compiler.addInstruction(new PUSH(register));
+                condition.codeGenExpr(compiler, register);
+                compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
+                compiler.addInstruction(new BNE(fin_if));
+                compiler.addInstruction(new POP(register));
+            }
+            thenBranch.codeGenListInst(compiler);
+            compiler.addLabel(fin_if);
         }       
     }
 
