@@ -2,7 +2,7 @@
 //    tests de programme incorrect lexicalement (chaine non terminee)
 //
 // Resultats:
-//    ligne 10 : Erreur, chaine non terminee (sur fin de fichier)
+//    Ligne 10 : Erreur, chaine non terminee (sur fin de fichier)
 //
 // Historique:
 //    cree le 01/01/2020

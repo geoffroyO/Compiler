@@ -3,6 +3,7 @@
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
+BLUE='\033[0;34m'
 COLORLESS='\033[0m'
 
 pFailure()
@@ -15,6 +16,11 @@ pSuccess()
     echo -e "$GREEN $1 $COLORLESS"
 }
 
+pInfo()
+{
+    echo -e "$BLUE$1$COLORLESS"
+}
+
 # On se place dans le répertoire du projet (quel que soit le
 # répertoire d'où est lancé le script) :
 cd "$(dirname "$0")"/../../.. || exit 1
@@ -25,12 +31,12 @@ pathLogs=../../../../logs
 cd $path || exit 1
 mkdir $pathLogs
 
-echo "#################"
-echo "## PARALLELISM ##"
-echo "#################"
+pInfo "#################"
+pInfo "## PARALLELISM ##"
+pInfo "#################"
 
 echo
-echo "INTEGER VALID"
+pInfo "INTEGER VALID"
 echo
 
 cDate="`date "+%Y_%m_%d_%H_%M_%S"`"
@@ -70,7 +76,7 @@ fi
 
 
 echo
-echo "INTEGER INVALID"
+pInfo "INTEGER INVALID"
 echo
 cd ../../invalid/INT
 
@@ -90,7 +96,7 @@ fi
 
 
 echo
-echo "FLOAT INVALID"
+pInfo "FLOAT INVALID"
 echo
 cd ../FLOAT
 
@@ -109,12 +115,12 @@ else
 fi
 
 echo
-echo "################"
-echo "## SEQUENTIAL ##"
-echo "################"
+pInfo "################"
+pInfo "## SEQUENTIAL ##"
+pInfo "################"
 
 echo
-echo "INTEGER VALID"
+pInfo "INTEGER VALID"
 echo
 cd ../../valid/INT
 
@@ -134,7 +140,7 @@ else
 fi
 
 echo
-echo "FLOAT VALID"
+pInfo "FLOAT VALID"
 echo
 cd ../FLOAT
 
@@ -155,7 +161,7 @@ fi
 
 
 echo
-echo "INTEGER INVALID"
+pInfo "INTEGER INVALID"
 echo
 cd ../../invalid/INT
 
@@ -175,7 +181,7 @@ fi
 
 
 echo
-echo "FLOAT INVALID"
+pInfo "FLOAT INVALID"
 echo
 cd ../FLOAT
 

@@ -2,61 +2,127 @@
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
+BLUE='\033[0;34m'
 COLORLESS='\033[0m'
 
 pFailure()
 {
-    echo -e "$RED $1 $COLORLESS"
+    echo -e "$RED$1$COLORLESS"
 }
 
 pSuccess()
 {
-    echo -e "$GREEN $1 $COLORLESS"
+    echo -e "$GREEN$1$COLORLESS"
 }
 
+pInfo()
+{
+    echo -e "$BLUE$1$COLORLESS"
+}
 
 # On se place dans le répertoire du projet (quel que soit le
 # répertoire d'où est lancé le script) :
 
 cd "$(dirname "$0")"/../../.. || exit 1
 
+pathRootProject=$(pwd)
+pathLogs='./src/test/logs/'
+pathTests='./src/test/deca/codegen'
 
-path=./src/test/deca/codegen/valid/created
-pathLogs=../../../../logs
+LOGS=$pathRootProject$pathLogs
+mkdir $LOGS #Create LOGS folder
 
-cd $path
-mkdir $pathLogs
+# On se place dans le repertoire de l'etape C
+cd $pathRootProject$pathTests
 
+# CODEGEND Valid
+pathProvided="./valid/created"
+cd $pathProvided
 
-echo "## CODEGEN ##"
+pathRes=$pathRootProject$pathTests$pathProvided"/res"
+
+echo
+pInfo "## CONDEGEN VALID ##"
 echo
 
-for i in *.deca
+for i in $(find . -name "*.deca")
+# Iterate over all file .deca in sub-repository
 do 
-    cDate="`date "+%Y_%m_%d_%H_%M_%S"`"
 
-    decac $i
-    ima ${i%.*}.ass > $pathLogs/$i.codegen.$cDate.logs  # Remove .deca from .ass file
+    cTime="`date "+%m_%d_%H_%M_%S"`"
+    # Current time
 
-    rm ${i%.*}.ass
+    nameFile=$(basename "$i" .deca)
+    nameFileOutput=$nameFile"_$cTime"
 
-    valDiff=$(diff -q $pathLogs/$i.codegen.$cDate.logs res/$i.res 2>&1)
+    # get only the name of the file, without .deca and path
+    # add the current time
+
+    decac $i > $LOGS/$nameFileOutput.compilation.output 2> $LOGS/$nameFileOutput.compilation.error
+    # Redirect the standard output to log .output
+    # Redirect the error output to log .error
+
+    if [ -s $LOGS/$nameFileOutput.compilation.output ]
+    # Check if the output file is empty (empty by default)
+    then
+        pFailure "OUTPUT DETECTED"
+        pFailure "SHOW LOGS FOR $nameFile"
+        pFailure "$LOGS/$nameFileOutput.compilation.error"
+        pFailure "$LOGS/$nameFileOutput.compilation.output"
+
+        exit 1
+    fi
+    # No output detected
+
+    if [ -s $LOGS/$nameFileOutput.error ]
+    # Check for errors in the compilation
+    then
+        pFailure "ERROR DETECTED"
+        pFailure "SHOW LOGS FOR $nameFile"
+        pFailure "$LOGS/$nameFileOutput.compilation.error"
+        pFailure "$LOGS/$nameFileOutput.compilation.output"
+
+        exit 1
+    fi
+    # No error detected
+
+    pSuccess "OK COMPILATION \t $nameFile"
+    rm $LOGS/$nameFileOutput.*
+
+    ima ${i%.*}.ass > $LOGS/$nameFileOutput.execution.output 2> $LOGS/$nameFileOutput.execution.error
+    # Execute the file and store the output and error
+
+    if [ -s $LOGS/$nameFileOutput.execution.error ]
+    # Check for errors
+    then
+        pFailure "ERROR DETECTED"
+        pFailure "SHOW LOGS FOR $nameFile"
+        pFailure "$LOGS/$nameFileOutput.execution.error"
+        pFailure "$LOGS/$nameFileOutput.execution.output"
+
+        exit 1
+    fi
+    # No error detected
+
+    valDiff=$(diff -q $LOGS/$nameFileOutput.execution.output $pathRes/$nameFile.res 2>&1)
+    # Check if the res is the right one
 
     if ["$valDiff" = ""] 
     then
-        pSuccess "CODEGEN $i"
-        rm $pathLogs/$i.codegen.$cDate.logs
+        pSuccess "OK EXECUTION \t $nameFile"
+        rm $LOGS/$nameFileOutput.*
 
     else
-        pFailure "CODEGEN KO"
-        pFailure "FICHIER $i"
-        pFailure "LOGS $pathLogs/$i.codegen.$cDate.logs"
+        pFailure "EXECUTION KO"
+        pFailure "SHOW LOGS FOR $nameFile"
+        pFailure "$LOGS/$nameFileOutput.execution.error"
+        pFailure "$LOGS/$nameFileOutput.execution.output"
 
         exit 1
     fi
 
+    rm ${i%.*}.ass
+
 done
 
-
 exit 0
-
