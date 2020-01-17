@@ -20,6 +20,7 @@
 	}
 
 	readInt();
+	readFloat();
 
 	println("2) x = ", x, " y = ", y, " counter = ", counter, " x = ", x);
 
