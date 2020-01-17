@@ -85,11 +85,7 @@ public abstract class AbstractExpr extends AbstractInst {
 
         // - verify Right value
         Type obtainedType;
-        try {
-            obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
-        } catch (ContextualError e){
-            throw e;
-        }
+        obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
 
         // TODO
         // - verify expectedType and obtainedType values types are the same (verify when they are classes)

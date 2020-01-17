@@ -8,6 +8,7 @@
 .project
 .metadata
 .settings
+.vscode
 ./global
 ./.idea
 ./.DS_Store

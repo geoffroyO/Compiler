@@ -12,9 +12,18 @@
 
 #DECAC_HOME=$(cd "$(dirname "$0")"/../../.. && pwd) 
 
-echo "lu"
-
-#"$DECAC_HOME"/tp/projet_gl/Projet_GL/src/test/script/basic-synt.sh
-#"$DECAC_HOME"/tp/projet_gl/Projet_GL/src/test/script/basic-lex.sh
 
 
+basic-synt.sh
+basic-lex.sh
+basic-context.sh
+basic-decac.sh
+basic-gencode.sh
+codegen.sh
+compilationOptions.sh
+context.sh
+decompilation.sh
+lexerInvalidRandom.sh
+lexerValidRandom.sh
+multi_compile.sh
+syntax.sh

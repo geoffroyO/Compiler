@@ -56,7 +56,7 @@
            runtime -->
       <groupId>net.sourceforge.cobertura</groupId>
       <artifactId>cobertura</artifactId>
-      <version>1.9.4.1</version>
+      <version>2.1.1</version>
       <!-- we do not want to include Cobertura in generated packages
            (e.g. jar-with-dependencies) -->
       <scope>test</scope>
@@ -102,7 +102,7 @@
         <!-- mvn cobertura:cobertura to generate coverage report (instrument, test and report)
              mvn cobertura:instrument to instrument classes.
         -->
-        <version>2.5.2</version>
+        <version>2.7</version>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <configuration>
