@@ -133,10 +133,11 @@
         <executions>
           <!-- One <execution> per executable to launch. Execution
                failure (exit status != 0) will stop the tests. -->
+
           <execution>
-            <id>lexerRegression</id>
+            <id>Syntax</id>
             <configuration>
-              <executable>./src/test/script/lexer.sh</executable>
+              <executable>./src/test/script/syntax.sh</executable>
               <!-- If we need to pass arguments :
                    <arguments>
                    <argument>...</argument>
@@ -146,21 +147,9 @@
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
-	  <execution>
-            <id>parserRegression</id>
-            <configuration>
-              <executable>./src/test/script/parser.sh</executable>
-              <!-- If we need to pass arguments :
-                   <arguments>
-                   <argument>...</argument>
-                   </arguments>
-              -->
-            </configuration>
-            <phase>test</phase>
-            <goals><goal>exec</goal></goals>
-          </execution>
+
           <execution>
-            <id>lexerValid</id>
+            <id>lexerValidRandom</id>
             <configuration>
               <executable>./src/test/script/lexerValidRandom.sh</executable>
               <!-- If we need to pass arguments :
@@ -172,8 +161,9 @@
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
-            <id>lexerInvalid</id>
+            <id>lexerInvalidRandom</id>
             <configuration>
               <executable>./src/test/script/lexerInvalidRandom.sh</executable>
               <!-- If we need to pass arguments :
@@ -185,6 +175,35 @@
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
+          <execution>
+            <id>Context</id>
+            <configuration>
+              <executable>./src/test/script/context.sh</executable>
+              <!-- If we need to pass arguments :
+                   <arguments>
+                   <argument>...</argument>
+                   </arguments>
+              -->
+            </configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
+          <execution>
+            <id>Codegen</id>
+            <configuration>
+              <executable>./src/test/script/codegen.sh</executable>
+              <!-- If we need to pass arguments :
+                   <arguments>
+                   <argument>...</argument>
+                   </arguments>
+              -->
+            </configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
           <execution>
             <id>multiCompilation</id>
             <configuration>
@@ -198,6 +217,21 @@
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
+          <execution>
+            <id>compilationOptions</id>
+            <configuration>
+              <executable>./src/test/script/compilationOptions.sh</executable>
+              <!-- If we need to pass arguments :
+                   <arguments>
+                   <argument>...</argument>
+                   </arguments>
+              -->
+            </configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
           <execution>
             <id>decompilation</id>
             <configuration>
@@ -211,12 +245,16 @@
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
+
+
           <execution>
             <id>basic-synt</id>
             <configuration><executable>./src/test/script/basic-synt.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>basic-lex</id>
             <configuration>
@@ -230,6 +268,7 @@
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <!-- run a unit test by defining our own class with a main
                  function -->
@@ -242,24 +281,28 @@
             <phase>test</phase>
             <goals><goal>java</goal></goals>
           </execution>
+
           <execution>
             <id>basic-context</id>
             <configuration><executable>./src/test/script/basic-context.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>basic-gencode</id>
             <configuration><executable>./src/test/script/basic-gencode.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>basic-decac</id>
             <configuration><executable>./src/test/script/basic-decac.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
           </execution>
+
           <execution>
             <id>common-tests</id>
             <configuration><executable>./src/test/script/common-tests.sh</executable></configuration>
