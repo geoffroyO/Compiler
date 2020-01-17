@@ -1,1 +1,3 @@
+// example using "include" lib.decah which contains example_without_objects.deca
+
 #include "lib.decah"
