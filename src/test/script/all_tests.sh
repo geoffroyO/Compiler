@@ -19,7 +19,9 @@ basic-lex.sh
 basic-context.sh
 basic-decac.sh
 basic-gencode.sh
+
 codegen.sh
+common-test.sh
 compilationOptions.sh
 context.sh
 decompilation.sh
