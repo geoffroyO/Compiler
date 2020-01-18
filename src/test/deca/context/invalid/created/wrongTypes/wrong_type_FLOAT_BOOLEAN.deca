@@ -1,0 +1,9 @@
+// Description:
+//  Assign un bool to float
+// 
+// Resultats:
+//    Ligne 8 : types don't match!
+{
+    float a;
+    a = true;
+}

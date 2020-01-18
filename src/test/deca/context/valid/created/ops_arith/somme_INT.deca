@@ -1,5 +1,5 @@
 // Description:
-//    Programme minimaliste utilisant - de 2 entiers.
+//    Programme minimaliste utilisant une affectation et une somme.
 //
 // Resultats :
 // 		OK
@@ -10,6 +10,6 @@
 
 {
     int x;
-    x = 2 - 1;
+    x = 2 + 1;
     println(x);
 }

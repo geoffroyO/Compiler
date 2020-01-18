@@ -1,0 +1,9 @@
+// Description:
+//  Assign un float sans identier
+// 
+// Resultats:
+//    Ligne 8 : identifier not defined
+
+{
+    float;
+}

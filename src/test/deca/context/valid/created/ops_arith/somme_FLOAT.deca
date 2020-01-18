@@ -1,5 +1,5 @@
 // Description:
-//    Programme minimaliste utilisant - de 2 floats.
+//    Programme minimaliste utilisant une affectation et une somme.
 //
 // Resultats :
 // 		OK
@@ -10,6 +10,7 @@
 
 {
     float x;
-    x = 2.1 - 1.0;
+    float y;
+    x = y + 1.0;
     println(x);
 }

@@ -1,10 +1,11 @@
 // Description:
-//  division flottants
+//  operation multiplier sur flottant
 // Resultats :
 // 		OK
 
+
 {
     float x;
-    x = 5.0/3.0;
+    x = 4.0*2.0;
     println(x);
 }

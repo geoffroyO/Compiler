@@ -1,0 +1,9 @@
+// Description:
+//  Assign un bool to int
+// 
+// Resultats:
+//    Ligne 8 : types don't match!
+{
+    int a;
+    a = true;
+}

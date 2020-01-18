@@ -1,0 +1,167 @@
+// Description:
+//    if else if avec 50 branches
+// Resultat:
+//  x = 47
+
+{
+	int x = 47;
+
+	println("x = ", x);
+
+	if (x == 0) {
+		print("x = 0");
+	}
+	else if (x == 0) { 
+		print("x = 0");
+	}
+	else if (x == 1) { 
+		print("x = 1");
+	}
+	else if (x == 2) { 
+		print("x = 2");
+	}
+	else if (x == 3) { 
+		print("x = 3");
+	}
+	else if (x == 4) { 
+		print("x = 4");
+	}
+	else if (x == 5) { 
+		print("x = 5");
+	}
+	else if (x == 6) { 
+		print("x = 6");
+	}
+	else if (x == 7) { 
+		print("x = 7");
+	}
+	else if (x == 8) { 
+		print("x = 8");
+	}
+	else if (x == 9) { 
+		print("x = 9");
+	}
+	else if (x == 10) { 
+		print("x = 10");
+	}
+	else if (x == 11) { 
+		print("x = 11");
+	}
+	else if (x == 12) { 
+		print("x = 12");
+	}
+	else if (x == 13) { 
+		print("x = 13");
+	}
+	else if (x == 14) { 
+		print("x = 14");
+	}
+	else if (x == 15) { 
+		print("x = 15");
+	}
+	else if (x == 16) { 
+		print("x = 16");
+	}
+	else if (x == 17) { 
+		print("x = 17");
+	}
+	else if (x == 18) { 
+		print("x = 18");
+	}
+	else if (x == 19) { 
+		print("x = 19");
+	}
+	else if (x == 20) { 
+		print("x = 20");
+	}
+	else if (x == 21) { 
+		print("x = 21");
+	}
+	else if (x == 22) { 
+		print("x = 22");
+	}
+	else if (x == 23) { 
+		print("x = 23");
+	}
+	else if (x == 24) { 
+		print("x = 24");
+	}
+	else if (x == 25) { 
+		print("x = 25");
+	}
+	else if (x == 26) { 
+		print("x = 26");
+	}
+	else if (x == 27) { 
+		print("x = 27");
+	}
+	else if (x == 28) { 
+		print("x = 28");
+	}
+	else if (x == 29) { 
+		print("x = 29");
+	}
+	else if (x == 30) { 
+		print("x = 30");
+	}
+	else if (x == 31) { 
+		print("x = 31");
+	}
+	else if (x == 32) { 
+		print("x = 32");
+	}
+	else if (x == 33) { 
+		print("x = 33");
+	}
+	else if (x == 34) { 
+		print("x = 34");
+	}
+	else if (x == 35) { 
+		print("x = 35");
+	}
+	else if (x == 36) { 
+		print("x = 36");
+	}
+	else if (x == 37) { 
+		print("x = 37");
+	}
+	else if (x == 38) { 
+		print("x = 38");
+	}
+	else if (x == 39) { 
+		print("x = 39");
+	}
+	else if (x == 40) { 
+		print("x = 40");
+	}
+	else if (x == 41) { 
+		print("x = 41");
+	}
+	else if (x == 42) { 
+		print("x = 42");
+	}
+	else if (x == 43) { 
+		print("x = 43");
+	}
+	else if (x == 44) { 
+		print("x = 44");
+	}
+	else if (x == 45) { 
+		print("x = 45");
+	}
+	else if (x == 46) { 
+		print("x = 46");
+	}
+	else if (x == 47) { 
+		print("x = 47");
+	}
+	else if (x == 48) { 
+		print("x = 48");
+	}
+	else if (x == 49) { 
+		print("x = 49");
+	}
+	else {
+		print("cas par defaut");
+	}
+}

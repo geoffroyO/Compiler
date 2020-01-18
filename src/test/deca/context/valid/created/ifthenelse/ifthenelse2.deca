@@ -1,3 +1,12 @@
+// Description:
+//    Programme utilisant une condition sur des entiers
+//
+// 	Resultats:
+//	      OK
+//
+// Historique:
+//    cree le 09/01/2020
+
 { 
  
     if (1 == 0) {

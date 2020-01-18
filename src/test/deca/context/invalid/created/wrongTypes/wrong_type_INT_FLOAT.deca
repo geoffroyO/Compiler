@@ -1,0 +1,9 @@
+// Description:
+//  Assign un float to int
+// 
+// Resultats:
+//    Ligne 8 : types don't match!
+{
+    int x;
+    x = 5.6;
+}
