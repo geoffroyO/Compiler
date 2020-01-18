@@ -19,6 +19,7 @@ fi
 # http://code.google.com/p/cobertura-it-maven-plugin/wiki/HowToUse
 
 defaultargs="--datafile ./target/cobertura/cobertura.ser"
+defaultargs="$defaultargs --format html"
 defaultargs="$defaultargs --destination target/site/cobertura/"
 defaultargs="$defaultargs --source src/main/java"
 defaultargs="$defaultargs --source target/generated-sources/antlr4"
@@ -30,4 +31,4 @@ fi
 
 # Cobertura runtime is in classpath only with scope=test.
 mvn -q exec:java -Dexec.classpathScope=test \
-    -Dexec.mainClass=net.sourceforge.cobertura.reporting.Main -Dexec.args="$args"
+    -Dexec.mainClass=net.sourceforge.cobertura.reporting.ReportMain -Dexec.args="$args"

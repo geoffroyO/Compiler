@@ -1,0 +1,8 @@
+// Résultat:
+// 16:16
+{
+int x = 4;
+int y = 5 + x;
+int z = x + y;
+println("13:", 13);
+}

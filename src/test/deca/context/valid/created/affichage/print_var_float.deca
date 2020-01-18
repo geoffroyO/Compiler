@@ -1,0 +1,10 @@
+// Description:
+//  affiche variable float
+// Resultats :
+// 		OK
+
+
+{
+   float x = 3.0;
+   println(x);
+}

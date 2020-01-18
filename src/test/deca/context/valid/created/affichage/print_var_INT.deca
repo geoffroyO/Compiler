@@ -1,0 +1,9 @@
+// Description:
+//  affiche variable int
+// Resultats :
+// 		OK
+
+{
+   int x = 3;
+   println(x);
+}

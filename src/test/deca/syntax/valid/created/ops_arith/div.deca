@@ -1,3 +1,8 @@
+// Description:
+//  division flottants
+// Resultats :
+// 		OK
+
 {
     float x;
     x = 5.0/3.0;

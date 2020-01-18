@@ -1,0 +1,12 @@
+// Description:
+//    Affectation int to boolean
+//
+// Resultats:
+//  Erreur Ligne 11 : Types fon't match!
+//
+// Historique:
+//    cree le 09/01/2020
+
+{
+    boolean x = 0;
+}

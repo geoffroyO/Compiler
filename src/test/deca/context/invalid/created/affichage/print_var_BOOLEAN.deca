@@ -1,0 +1,11 @@
+// Description:
+//  Affiche boolean
+// 
+// Resultats:
+//    Ligne 10 : Error expr should be Int, Float or String
+
+
+{
+   boolean x = true;
+   println(x);
+}

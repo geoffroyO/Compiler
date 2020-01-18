@@ -1,0 +1,9 @@
+// Description :
+// Opération unaire MINUS (-) sur un booleen
+//
+// Resultats :
+// Error Contextuelle -> Ligne 8 : Unary Minus Operand should be boolean
+
+{
+    boolean b = - true;
+}

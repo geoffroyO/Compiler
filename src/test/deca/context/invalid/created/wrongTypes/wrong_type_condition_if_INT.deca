@@ -1,0 +1,12 @@
+// Description:
+//  Condition non boolean
+// 
+// Resultats:
+//    Ligne 7 : Condition should be a boolean
+{
+    if (56) {
+        println("true");
+    } else {
+        println("false");
+    }
+}

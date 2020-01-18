@@ -1,7 +1,0 @@
-{
-if (true || false || true) {
-    println("OK");
-} else {
-    println("NON");
-}
-}

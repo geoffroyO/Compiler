@@ -36,9 +36,8 @@ public class IntLiteral extends AbstractExpr {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         // - create or get the int type
-        Type type = new IntType(compiler.getSymbols().create("int"));
-        setType(type);
-        return type;
+        setType(compiler.getEnvTypes().get(compiler.getSymbols().create("int")).getType());
+        return getType();
     }
 
 

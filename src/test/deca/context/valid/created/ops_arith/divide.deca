@@ -1,3 +1,9 @@
+// Description:
+//  division entier -> flottants
+// Resultats :
+// 		OK
+
+
 {
 	int x = 1;
 	float y;

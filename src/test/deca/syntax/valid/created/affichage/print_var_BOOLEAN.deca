@@ -1,0 +1,10 @@
+// Description:
+//  affiche variable boolean
+// Resultats :
+// 		OK
+
+
+{
+   boolean x = true;
+   println(x);
+}

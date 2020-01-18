@@ -26,4 +26,10 @@ public class And extends AbstractOpBool {
         compiler.addInstruction(new ADD(reg, regResult));
         compiler.addInstruction((new SHR(regResult)));
     }
+
+    @Override
+    protected void codeGenBoolLazy(DecacCompiler compiler, Label label, GPRegister result) {
+        compiler.addInstruction(new CMP(new ImmediateInteger(0), result));
+        compiler.addInstruction(new BEQ(label));
+    }
 }

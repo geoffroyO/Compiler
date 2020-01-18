@@ -1,0 +1,9 @@
+// Description:
+//  Assign un float to boolean
+// 
+// Resultats:
+//    Ligne 8 : types don't match!
+{
+    boolean a;
+    a = 6.9;
+}

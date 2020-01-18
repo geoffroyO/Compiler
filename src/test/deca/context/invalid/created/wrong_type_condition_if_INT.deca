@@ -1,7 +1,0 @@
-{
-    if (56) {
-        println("true");
-    } else {
-        println("false");
-    }
-}

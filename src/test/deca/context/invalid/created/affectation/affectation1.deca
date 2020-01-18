@@ -1,0 +1,13 @@
+// Description:
+//    Programme minimaliste utilisant une affectation.
+//
+// Resultats:
+//    Ligne 12 : identifier not defined
+
+//
+// Historique:
+//    cree le 09/01/2020
+
+{
+    int ;
+}

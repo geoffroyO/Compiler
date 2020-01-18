@@ -1,0 +1,11 @@
+// Description :
+//  If else avec OR boolean arith
+// Resultats:
+//  OK
+{
+    if (true || false || true) {
+        println("true");
+    } else {
+        println("false");
+    }
+}

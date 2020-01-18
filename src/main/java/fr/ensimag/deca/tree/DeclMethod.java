@@ -4,6 +4,12 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.LabelOperand;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 import java.io.PrintStream;
 
@@ -49,8 +55,12 @@ public class DeclMethod extends AbstractDeclMethod {
     }
 
     @Override
-    protected void codeGenDeclMethod(DecacCompiler compiler) {
-        // TODO
+    protected void codeGenFpDeclMethod(DecacCompiler compiler) {
+        Label labelCodeMethod = new Label("code" + name.getMethodDefinition().getLabel().toString());
+        compiler.addInstruction(new LOAD(new LabelOperand(labelCodeMethod), Register.R0));
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
+        compiler.getRegM().incrGB();
+        compiler.getRegM().incrSP();
     }
 
 }

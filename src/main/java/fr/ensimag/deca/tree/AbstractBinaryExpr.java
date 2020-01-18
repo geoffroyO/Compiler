@@ -81,7 +81,8 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
 
     protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
     }
-    
+
+    @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister result){
         if (compiler.getRegM().hasFreeGPRegister()) {
             GPRegister right = compiler.getRegM().findFreeGPRegister();
@@ -89,15 +90,14 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
             getRightOperand().codeGenExpr(compiler, right);
             codeGenOp(compiler, right, result);
             compiler.getRegM().freeRegister(right);
-        } 
-        else {
+        } else {
             GPRegister right = Register.getR(compiler.getRegM().getNb_registers());
-            this.getLeftOperand().codeGenExpr(compiler, result);
+            getLeftOperand().codeGenExpr(compiler, result);
             compiler.addInstruction(new PUSH(right));
-            this.getRightOperand().codeGenExpr(compiler, right);
+            getRightOperand().codeGenExpr(compiler, right);
             compiler.addInstruction(new LOAD(right, Register.R0));
             compiler.addInstruction(new POP(right));
-            this.codeGenOp(compiler, Register.R0, result);
+            codeGenOp(compiler, Register.R0, result);
         }
     }
 }

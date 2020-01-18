@@ -65,13 +65,14 @@ public class IfThenElse extends AbstractInst {
                 condition.codeGenExpr(compiler, register);
                 compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
                 compiler.addInstruction(new BNE(debut_else));
+                compiler.getRegM().freeRegister(register);
             } else {
                 GPRegister register = Register.getR(compiler.getRegM().getNb_registers());
                 compiler.addInstruction(new PUSH(register));
                 condition.codeGenExpr(compiler, register);
                 compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
-                compiler.addInstruction(new BNE(debut_else));
                 compiler.addInstruction(new POP(register));
+                compiler.addInstruction(new BNE(debut_else));
             }
             thenBranch.codeGenListInst(compiler);
             compiler.addInstruction(new BRA(fin_else));
@@ -79,19 +80,21 @@ public class IfThenElse extends AbstractInst {
             compiler.addLabel(debut_else);
             elseBranch.codeGenListInst(compiler);
             compiler.addLabel(fin_else);
+
         } else {
             if (compiler.getRegM().hasFreeGPRegister()) {
                 GPRegister register = compiler.getRegM().findFreeGPRegister();
                 condition.codeGenExpr(compiler, register);
                 compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
                 compiler.addInstruction(new BNE(fin_if));
+                compiler.getRegM().freeRegister(register);
             } else {
                 GPRegister register = Register.getR(compiler.getRegM().getNb_registers());
                 compiler.addInstruction(new PUSH(register));
                 condition.codeGenExpr(compiler, register);
                 compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
-                compiler.addInstruction(new BNE(fin_if));
                 compiler.addInstruction(new POP(register));
+                compiler.addInstruction(new BNE(fin_if));
             }
             thenBranch.codeGenListInst(compiler);
             compiler.addLabel(fin_if);
