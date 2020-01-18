@@ -9,6 +9,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 import java.io.PrintStream;
@@ -97,6 +98,17 @@ public class DeclClass extends AbstractDeclClass {
              */
             methods.codeGenListFpDeclMethod(compiler);
         }
+    }
+
+    protected void codeGenDeclClass(DecacCompiler compiler) {
+        compiler.addComment("Initialisation des champs de la classe de " + className.getName());
+        compiler.addLabel(new Label("init." + className.getName()));
+        fields.codeGenListDeclField(compiler);
+        compiler.addInstruction(new RTS());
+
+        compiler.addComment("Code des méthodes de la classe de " + className.getName());
+        methods.codeGenListDeclMethod(compiler);
+
     }
 
 

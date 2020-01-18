@@ -33,4 +33,6 @@ public abstract class AbstractDeclClass extends Tree {
             throws ContextualError;
 
     protected  abstract void codeGenFpDeclClass(DecacCompiler compiler);
+
+    protected  abstract void codeGenDeclClass(DecacCompiler compiler);
 }
