@@ -1,0 +1,8 @@
+// Description:
+//      Affiche entier
+// Resultats :
+// 		OK
+
+{
+    println(3);
+}

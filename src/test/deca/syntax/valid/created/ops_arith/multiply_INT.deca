@@ -1,0 +1,10 @@
+// Description:
+//  operation multiplier sur entier
+// Resultats :
+// 		OK
+
+{
+    int x;
+    x = 4*2;
+    println(x);
+}

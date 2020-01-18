@@ -2,8 +2,7 @@
 // Fichier contenant que des caractères non imprimables 
 //
 // Resultats :
-// Lexer -> OK (resultat dans lexer)
-// Parser -> OK (resultat dans parser)
+//      OK
 
 
 

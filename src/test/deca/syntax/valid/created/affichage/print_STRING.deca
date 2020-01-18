@@ -1,0 +1,8 @@
+// Description:
+//  affiche chaine de caractere
+// Resultats :
+// 		OK
+
+{
+    println("Hello");
+}

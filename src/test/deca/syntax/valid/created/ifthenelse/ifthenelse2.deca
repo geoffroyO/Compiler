@@ -1,3 +1,9 @@
+// Description:
+//  programme utilisant un if else
+// Resultats :
+// 		OK
+
+
 { 
  
     if (1 == 0) {

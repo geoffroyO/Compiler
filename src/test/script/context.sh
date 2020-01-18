@@ -117,7 +117,7 @@ do
     # Redirect the standard output to log .output
     # Redirect the error output to log .error
 
-    lineError=$(grep "Ligne " $i | tr -dc '[:digit:]')
+    lineError=$(python $pathRootProject/src/test/script/findLineError.py $i)
     # Use the convention Ligne : <nbLigne> : Erreur
 
     if [ -s $LOGS/$nameFileOutput.output ]

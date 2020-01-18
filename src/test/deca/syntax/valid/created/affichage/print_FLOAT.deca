@@ -1,0 +1,8 @@
+// Description:
+//  affiche float
+// Resultats :
+// 		OK
+
+{
+    println(3.0);
+}

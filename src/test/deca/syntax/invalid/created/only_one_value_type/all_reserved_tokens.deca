@@ -2,8 +2,7 @@
 // Fichier contenant tous les mots réservés.
 //
 // Resultats :
-// Lexer -> OK (resultat dans lexer)
-// Parser -> Error: all_reserved_tokens.deca:8:0: no viable alternative at input 'asm'
+//    Ligne 7 : no viable alternative at input 'asm'
 
 asm
 class
