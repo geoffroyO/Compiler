@@ -26,7 +26,7 @@ public class ListExpr extends TreeList<AbstractExpr> {
             itrExprs.next().decompile(s);
             // - print ',' between expressions
             if(itrExprs.hasNext()){
-                s.print(",");
+                s.print(", ");
             }
         }
 
