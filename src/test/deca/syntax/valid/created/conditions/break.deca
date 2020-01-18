@@ -1,0 +1,19 @@
+// Description:
+//    Stop une boucle while apres une condition definie dans le while.
+// Resultat:
+//  i = 50
+{
+    int i = 0; 
+    boolean t = true;
+
+    while (t)
+    {
+        i = i + 1;
+
+        if (i == 50)
+        {
+            t = false;
+        }
+    }
+    println("i = ", i);
+}

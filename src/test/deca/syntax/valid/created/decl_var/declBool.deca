@@ -1,0 +1,14 @@
+// résultat
+// OK
+{
+boolean x = true;
+boolean y = false;
+boolean z = true;
+boolean p = true;
+boolean g = x && y && z && p;
+if (!g) {
+    println("OK");
+} else {
+    println("NON");
+}
+}

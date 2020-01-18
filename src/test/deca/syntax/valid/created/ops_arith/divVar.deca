@@ -1,0 +1,8 @@
+// Résultat
+// 0.25:0.25
+{
+float x =2.5;
+float p = 10;
+float z = x/p;
+println("0.25:",z);
+}

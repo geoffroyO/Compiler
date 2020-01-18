@@ -1,0 +1,8 @@
+// Description:
+//  Declaration int avec identifier int
+// Resultats:
+//  OK
+
+{
+    int int = 3;
+}

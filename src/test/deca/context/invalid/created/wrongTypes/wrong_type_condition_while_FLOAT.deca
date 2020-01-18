@@ -2,7 +2,7 @@
 //  Condition non boolean
 // 
 // Resultats:
-//    Ligne 7 : Condition should be a boolean
+//    Ligne 9 : mismatched input 'else' expecting 
 {
     while (5.6) {
         println("true");

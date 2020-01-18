@@ -1,0 +1,4 @@
+{
+   float x = 3.0;
+   println(x);
+}

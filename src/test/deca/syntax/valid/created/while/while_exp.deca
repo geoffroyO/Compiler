@@ -1,0 +1,19 @@
+// Description:
+//    Affiche les mots binaires sur 3 bits.
+// Resultat:
+//      0
+//      1
+//      2
+//      3
+//      4
+//      5
+//      6
+
+{
+    int x = 0;
+
+    while (x < 7 + 2*2 - 4) {
+        println(x);
+        x = x + 1;
+    }
+}

@@ -1,0 +1,22 @@
+// Description:
+//    Utilisation de variable a valeur negative.
+//
+// Resultats:
+//  x = -5
+//  k = -5.00000e+00
+//  x = -8
+//  k = -2.00000e+00
+
+
+{
+    int x = -5;
+    float k = -5;
+    
+    println("x = ", x);
+    println("k = ", k);
+
+    x = x - 3;
+    k = k + 3;
+    println("x = ", x);
+    println("k = ", k);
+}

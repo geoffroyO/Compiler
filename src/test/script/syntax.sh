@@ -26,8 +26,8 @@ pInfo()
 cd "$(dirname "$0")"/../../.. || exit 1
 
 pathRootProject=$(pwd)
-pathLogs='./src/test/logs/'
-pathTests='./src/test/deca/syntax'
+pathLogs='/src/test/logs'
+pathTests='/src/test/deca/syntax'
 
 LOGS=$pathRootProject$pathLogs
 mkdir $LOGS #Create LOGS folder
