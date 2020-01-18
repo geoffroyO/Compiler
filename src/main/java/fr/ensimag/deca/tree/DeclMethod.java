@@ -55,8 +55,9 @@ public class DeclMethod extends AbstractDeclMethod {
     }
 
     @Override
-    protected void codeGenDeclMethod(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(new LabelOperand(name.getMethodDefinition().getLabel()), Register.R0));
+    protected void codeGenFpDeclMethod(DecacCompiler compiler) {
+        Label labelCodeMethod = new Label("code" + name.getMethodDefinition().getLabel().toString());
+        compiler.addInstruction(new LOAD(new LabelOperand(labelCodeMethod), Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
         compiler.getRegM().incrGB();
         compiler.getRegM().incrSP();
