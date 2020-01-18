@@ -63,4 +63,9 @@ public class DeclMethod extends AbstractDeclMethod {
         compiler.getRegM().incrSP();
     }
 
+    @Override
+    protected void codeGenDeclMethod(DecacCompiler compiler) {
+        // TODO
+    }
+
 }

@@ -15,4 +15,10 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
             method.codeGenFpDeclMethod(compiler);
         }
     }
+
+    public void codeGenListDeclMethod(DecacCompiler compiler){
+        for (AbstractDeclMethod method : getList()){
+            method.codeGenDeclMethod(compiler);
+        }
+    }
 }
