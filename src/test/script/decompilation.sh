@@ -34,8 +34,8 @@ decompilation()
 cd "$(dirname "$0")"/../../.. || exit 1
 
 pathRootProject=$(pwd)
-pathLogs='./src/test/logs/'
-pathTests='./src/test/deca'
+pathLogs='/src/test/logs/'
+pathTests='/src/test/deca'
 
 LOGS=$pathRootProject$pathLogs
 mkdir $LOGS #Create LOGS folder
