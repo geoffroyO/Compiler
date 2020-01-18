@@ -1,0 +1,12 @@
+// Resultat
+// 9:9
+{
+int x = 2;
+int p = 10;
+if (x == 2) {
+    if ((p%4) == 2) {
+        p = p - 1;
+    }
+}
+println("9:",p);
+}
