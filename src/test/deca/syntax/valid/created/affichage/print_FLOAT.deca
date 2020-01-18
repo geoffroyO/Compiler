@@ -1,8 +1,30 @@
 // Description:
-//  affiche float
-// Resultats :
-// 		OK
+//    Affiche FLOAT. Utilisation des différentes définitions d'un FLOAT
+//
+// Resultat:
+//  2.00000e+00
+//  2.37810e+06
+//  9.89000e+01
+//  1.53257e+01
+//  1.02866e+06
+//  8.44450e-02
 
 {
-    println(3.0);
+    float x = 2.0;
+    println(x);
+
+    x = 2378096.9f;
+    println(x);
+
+    x = 98.9F;
+    println(x);
+
+    x = 0X7A.9Bp-3f;
+    println(x);
+
+    x = 0xfb2.32d2P8;
+    println(x);
+
+    x = 0x5678.BCEAp-18;
+    println(x);
 }

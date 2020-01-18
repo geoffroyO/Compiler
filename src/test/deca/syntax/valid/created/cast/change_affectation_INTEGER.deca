@@ -1,0 +1,15 @@
+// Description:
+// Modifie une affectation entiere
+//
+// Resultats:
+//    3
+//
+// Historique:
+//    cree le 09/01/2020
+
+{
+    int x = 0;
+    x = 3;
+
+    print(x);
+}

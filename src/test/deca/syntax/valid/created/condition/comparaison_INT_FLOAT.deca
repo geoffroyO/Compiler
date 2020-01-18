@@ -1,0 +1,50 @@
+// Description:
+//    Comparaison entre un INT et un FLOAT
+//
+// Resultat:
+//  true  5 == 5.00000e+00
+//  false 5 > 5.00000e+00
+//  true  5 >= 5.00000e+00
+//  false 5 < 5.00000e+00
+//  true  5 <= 5.00000e+00
+
+{
+    int x = 5;
+    float z = 5.0;
+  
+    if ( x == z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " == ", z);
+
+    if ( x > z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " > ", z);
+
+    if ( x >= z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " >= ", z);
+
+    if ( x < z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " < ", z);
+
+    if ( x <= z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " <= ", z);
+
+}

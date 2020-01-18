@@ -1,0 +1,38 @@
+// Description:
+//    Test if / else if / else
+//
+// Resultats:
+//	x = 2
+//	TEST x > 1
+//	OUI
+//	TEST else if
+//	Cas x = 2
+
+{
+    int x = 2;
+    
+	println("x = ", x);
+	println("TEST x > 1");
+    
+   	if (x > 1){
+   		println("OUI");
+   	} 
+   	else {
+ 		println("NON");
+    }
+    
+	println("TEST else if");
+
+    if (x == 0) {
+   		println("Cas x = 0");
+   	} 
+   	else if (x == 1) {
+   		println("Cas x = 1");
+    } 
+    else if (x == 2) {
+   		println("Cas x = 2");
+    }
+	else {
+   		println("Cas par defaut");
+	}
+}
