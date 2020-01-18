@@ -1,16 +1,18 @@
 // Description:
 //    Programme minimaliste utilisant une affectation et une somme.
 //
+// Resultats :
+// 		OK
+
 //
 // Historique:
-//    cree le 17/01/2020
+//    cree le 09/01/2020
 
 {
-    int x = 0;
+
+    int x = 2;
     int y = 2;
-    int z = 3;
+    int z;
     z = x + y;
-
     println(z);
-
 }

@@ -1,3 +1,8 @@
+// Description:
+//      Assign apres une instruction
+// Resultats :
+//      Error Ligne 12 : no viable alternative at input 'c'
+
 {
     int a;
     int b = 8;

@@ -2,8 +2,8 @@
 // Fichier contenant uniquement des identificateurs
 //
 // Resultats :
-// Lexer -> OK (resultat dans lexer) uniquement des tokens IDENT
-// Parser -> Error: only_idents.deca:8:0: no viable alternative at input 'uHcWaSdh3uiOPGvdF$HS'
+// Lexer -> OK 
+// Parser -> Ligne 8 : no viable alternative at input '
 
 uHcWaSdh3uiOPGvdF$HS
 YOM0AIkiKC0QRKVcll

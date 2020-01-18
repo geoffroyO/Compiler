@@ -1,3 +1,8 @@
+// Description : 
+// 		Test d'un exemple complet sans objet
+// Resultats :
+//		OK 
+
 {
 	float x = 2;
 	int y = 2;

@@ -2,8 +2,8 @@
 // Fichier contenant uniquement des nombres entiers
 //
 // Resultats :
-// Lexer -> OK (resultat dans lexer) uniquement des tokens INTEGER
-// Parser -> Error: only_INTEGER.deca:8:0: no viable alternative at input '1793447822'
+// Lexer -> OK 
+// Parser -> Error Ligne 8 : no viable alternative at input '
 
 1793447822
 1764961972
