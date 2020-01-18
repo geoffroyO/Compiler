@@ -1,0 +1,38 @@
+{
+	boolean value;
+	value = true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true;
+	print("true || 50 * true = ");
+	if (value) {
+		println("true");
+	}
+	else {
+		println("false");
+	}
+
+	value = true || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false;
+	print("true || 50 * false = ");
+	if (value) {
+		println("true");
+	}
+	else {
+		println("false");
+	}
+
+	value = false || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true || true;
+	print("false || 50 * true = ");
+	if (value) {
+		println("true");
+	}
+	else {
+		println("false");
+	}
+
+	value = false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false || false;
+	print("false || 50 * false = ");
+	if (value) {
+		println("true");
+	}
+	else {
+		println("false");
+	}
+}

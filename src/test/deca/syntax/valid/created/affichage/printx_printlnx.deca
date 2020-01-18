@@ -1,0 +1,51 @@
+// Description:
+//    Equivalence de printx / print et printlnx / println dans le cas INTEGER et String.
+//    Affichage specifique des FLOAT
+//
+// Resultats:
+//  print x = 56764
+//  println x = 56764
+//  print y = 5.76877e+02
+//  println y = 5.76877e+02
+//  print z = 6.76568e+00
+//  println z = 6.76568e+00
+//  printx x = 56764
+//  printlnx x = 56764
+//  printx y = 0x1.207032p+9
+//  printlnx y = 0x1.207032p+9
+//  printx z = 0x1.b100ep+2
+//  printlnx z = 0x1.b100ep+2
+
+{
+    int x = 56764;
+    float y = 576.8765;
+    float z = 6765678.3e-6f;
+
+
+    print("print x = ", x);
+    println();
+    println("println x = ", x);
+
+    print("print y = ", y);
+    println();
+    println("println y = ", y);
+
+    print("print z = ", z);
+    println();
+    println("println z = ", z);
+
+
+
+    printx("printx x = ", x);
+    printlnx();
+    printlnx("printlnx x = ", x);
+
+    printx("printx y = ", y);
+    printlnx();
+    printlnx("printlnx y = ", y);
+
+    printx("printx z = ", z);
+    printlnx();
+    printlnx("printlnx z = ", z);
+
+}

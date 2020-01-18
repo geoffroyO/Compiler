@@ -1,0 +1,17 @@
+{
+int x = 5;
+int z = 4;
+int p = 10;
+while (x >= 0) {
+    println(x);
+    x = x - 1;
+    while(z >= 0) {
+        println(z);
+        z = z - 1;
+        while (p > 0) {
+            println(p);
+            p = p - 1;
+        }
+    }
+}
+}

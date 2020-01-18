@@ -1,0 +1,9 @@
+// Description :
+// Affiche des entier et flottants
+//
+// Resultats :
+// OK (Resultat dans synt)
+
+{
+    print(12, 32, 3.6f, 89.0);
+}

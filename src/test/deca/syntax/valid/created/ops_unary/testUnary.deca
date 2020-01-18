@@ -1,0 +1,10 @@
+// Description:
+//      Test du !
+// Resultats:
+//      OK
+{
+    int c = 5;
+    int a;
+    boolean k = !true;
+    //int v = ;
+}

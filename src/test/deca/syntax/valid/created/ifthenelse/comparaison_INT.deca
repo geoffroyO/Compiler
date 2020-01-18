@@ -1,0 +1,51 @@
+// Description:
+//    Comparaison entre deux INT
+//
+// Resultat:
+//  true  5 == 5
+//  false 5 > 5
+//  true  5 >= 5
+//  false 5 < 5
+//  true  5 <= 5
+
+
+{
+    int x = 5;
+    int z = 5;
+  
+    if ( x == z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " == ", z);
+
+    if ( x > z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " > ", z);
+
+    if ( x >= z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " >= ", z);
+
+    if ( x < z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " < ", z);
+
+    if ( x <= z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " <= ", z);
+
+}

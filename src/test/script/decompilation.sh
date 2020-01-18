@@ -34,7 +34,7 @@ decompilation()
 cd "$(dirname "$0")"/../../.. || exit 1
 
 pathRootProject=$(pwd)
-pathLogs='/src/test/logs/'
+pathLogs='/src/test/logs'
 pathTests='/src/test/deca'
 
 LOGS=$pathRootProject$pathLogs

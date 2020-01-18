@@ -1,0 +1,10 @@
+// Description:
+//  Affectation de float avec identifier float
+// Resultats:
+//  OK
+
+{
+    int a, float, b;
+    float x;
+    float = 5;
+}

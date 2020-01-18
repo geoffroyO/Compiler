@@ -1,0 +1,50 @@
+// Description:
+//    Comparaison entre deux INT
+//
+// Resultat:
+//  true  5.00000e+00 == 5.00000e+00
+//  false 5.00000e+00 > 5.00000e+00
+//  true  5.00000e+00 >= 5.00000e+00
+//  false 5.00000e+00 < 5.00000e+00
+//  true  5.00000e+00 <= 5.00000e+00
+
+{
+    float x = 5.0;
+    float z = 5.0;
+  
+    if ( x == z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " == ", z);
+
+    if ( x > z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " > ", z);
+
+    if ( x >= z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " >= ", z);
+
+    if ( x < z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " < ", z);
+
+    if ( x <= z ){
+        print("true  ");
+    } else {
+        print("false ");
+    }
+    println(x , " <= ", z);
+
+}
