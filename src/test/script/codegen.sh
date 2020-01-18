@@ -26,8 +26,8 @@ pInfo()
 cd "$(dirname "$0")"/../../.. || exit 1
 
 pathRootProject=$(pwd)
-pathLogs='./src/test/logs/'
-pathTests='./src/test/deca/codegen'
+pathLogs='/src/test/logs'
+pathTests='/src/test/deca/codegen'
 
 LOGS=$pathRootProject$pathLogs
 mkdir $LOGS #Create LOGS folder
@@ -36,8 +36,8 @@ mkdir $LOGS #Create LOGS folder
 cd $pathRootProject$pathTests
 
 # CODEGEND Valid
-pathProvided="./valid/created"
-cd $pathProvided
+pathProvided="/valid/created"
+cd '.'$pathProvided
 
 pathRes=$pathRootProject$pathTests$pathProvided"/res"
 
