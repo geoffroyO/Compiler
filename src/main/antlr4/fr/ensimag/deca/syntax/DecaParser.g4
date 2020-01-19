@@ -550,6 +550,7 @@ class_decl returns[DeclClass tree]
     		assert($class_body.methods != null);
     		$tree = new DeclClass($name.tree, $superclass.tree, $class_body.fields, $class_body.methods);
     		setLocation($tree, $CLASS);
+    		setLocation($superclass.tree, $superclass.start);
         }
     ;
 

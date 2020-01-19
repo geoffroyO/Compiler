@@ -4,7 +4,7 @@
 // Resultats :
 //  Error, double class declaration
 
-class A {
+class A extends A {
 
 }
 

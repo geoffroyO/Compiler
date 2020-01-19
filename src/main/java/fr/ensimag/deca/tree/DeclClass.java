@@ -73,7 +73,7 @@ public class DeclClass extends AbstractDeclClass {
         this.className.setDefinition(definition);
 
         // - if the extends class is empty, set the super location to Object's location
-        if (superClass.getLocation() == null){
+        if (superClass.getName().getName() == "Object"){
             superClass.setLocation(superDefinition.getLocation());
         }
 
