@@ -26,31 +26,47 @@ public class EnvironmentType {
         Symbol intSymbol = symbols.create("int");
         Symbol floatSymbol = symbols.create("float");
         Symbol voidSymbol = symbols.create("void");
-//        Symbol stringSymbol = symbols.create("string");
-//        Symbol nullSymbol = symbols.create("null");
         Symbol objectSymbol = symbols.create("Object");
+        Symbol equalsSymbol = symbols.create("equals");
 
         // - create definitions from symbols
-        // Location.BUILTIN is for predefined types
+        // Location.BUILTIN is for ** PREDEFINED ** types
         TypeDefinition boolDefinition = new TypeDefinition(new BooleanType(boolSymbol), Location.BUILTIN);
         TypeDefinition intDefinition = new TypeDefinition(new IntType(intSymbol), Location.BUILTIN);
         TypeDefinition floatDefinition = new TypeDefinition(new FloatType(floatSymbol), Location.BUILTIN);
-//        TypeDefinition stringDefinition = new TypeDefinition(new StringType(stringSymbol), Location.BUILTIN);
-//        TypeDefinition nullDefinition = new TypeDefinition(new NullType(nullSymbol), Location.BUILTIN);
         TypeDefinition voidDefinition = new TypeDefinition(new VoidType(voidSymbol), Location.BUILTIN);
 
+        // - ** Object **
+        // - create a classType for object and then create a TypeDefinition (ClassDefinition) for it
         ClassType objectType = new ClassType(objectSymbol, Location.BUILTIN, null);
-        ClassDefinition objectDefinition = new ClassDefinition(objectType, Location.BUILTIN, null);
+        ClassDefinition objectDefinition = objectType.getDefinition();
 
+        // - create a signature for method equals(Object o) method of Object
+        Signature equalsSignature = new Signature();
+        // - add an argument (objectType) for this method since equals(Object o)
+        equalsSignature.add(objectType);
 
-        // - Add types to envTypes
-        this.envTypes.put(intSymbol, intDefinition);
-        this.envTypes.put(boolSymbol, boolDefinition);
-        this.envTypes.put(floatSymbol, floatDefinition);
-//        this.envTypes.put(stringSymbol, stringDefinition);
-//        this.envTypes.put(nullSymbol, nullDefinition);
-        this.envTypes.put(voidSymbol, voidDefinition);
-        this.envTypes.put(objectSymbol, objectDefinition);
+        // - create a method definition for 'boolean Object.equals(Object o)' using the type and signature
+        MethodDefinition equalsDefinition = new MethodDefinition(new BooleanType(boolSymbol), Location.BUILTIN, equalsSignature, 0);
+        equalsDefinition.setLabel(new Label("code.Object.equals"));
+
+        try{
+            // - add equals method to env_exp of Object
+            objectDefinition.getMembers().declare(equalsSymbol, equalsDefinition);
+            // - increase the number of methods for Object class
+            objectDefinition.incNumberOfMethods();
+
+        } catch (EnvironmentExp.DoubleDefException doubleDef){}
+
+        try {
+            // - Add types to envTypes
+            declare(intSymbol, intDefinition);
+            declare(boolSymbol, boolDefinition);
+            declare(floatSymbol, floatDefinition);
+            declare(voidSymbol, voidDefinition);
+            declare(objectSymbol, objectDefinition);
+        } catch (EnvironmentType.DoubleDefException doubleDef){}
+
 
 //        Iterator it = this.envTypes.entrySet().iterator();
 //        while (it.hasNext()) {

@@ -1,16 +1,14 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.ClassType;
+import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.io.PrintStream;
 
 /**
@@ -42,15 +40,41 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
-//        throw new UnsupportedOperationException("not yet implemented");
+
+        // - verify that super's type exists in env_types
         Type superType = this.superClass.verifyType(compiler);
+
+        // - FOR DEBBUGING ONLY | DO NOT DELETE THIS | WE BE REMOVED LATER
+//        System.out.println("Current class is : " + className.getName().getName());
+//        System.out.println("Super class is : " + superClass.getName().getName());
+//        System.out.println("Super class definition is : " + compiler.getEnvTypes().get(superType.getName()));
+
+        // if the super class is not a class
         if(!superType.isClass()){
             throw new ContextualError("super is not a class", getLocation());
-        } else if (compiler.getEnvTypes().get(this.className.getName()) != null){
-            throw new ContextualError("class already declared", getLocation());
         }
 
-//        System.out.println("--->>>>> This is a class declaration!!!");
+        // - get the super class definition from env_types to create the definition of the son
+        ClassDefinition superDefinition = (ClassDefinition)compiler.getEnvTypes().get(this.superClass.getName());
+        // - create the type and definition for the son
+        ClassType type = new ClassType(className.getName(), this.getLocation(), superDefinition);
+        ClassDefinition definition = type.getDefinition();
+
+        // - declare the new class in env_types
+        try {
+            compiler.getEnvTypes().declare(this.className.getName(), definition);
+        } catch (EnvironmentType.DoubleDefException d){
+            throw new ContextualError("Class name was already defined", this.getLocation());
+        }
+
+        // - set the type and definition for the new class
+        this.className.setType(type);
+        this.className.setDefinition(definition);
+
+        // - if the extends class is empty, set the super location to Object's location
+        if (superClass.getLocation() == null){
+            superClass.setLocation(superDefinition.getLocation());
+        }
 
     }
 
