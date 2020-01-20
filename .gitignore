@@ -19,4 +19,4 @@
 ./Deca.iml
 ./src/test/deca/easy_tests/all.sh
 .DS_Store
-./src/test/logs/**
+./src/test/logs/*
