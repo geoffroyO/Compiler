@@ -1,33 +1,32 @@
 package fr.ensimag.deca;
 
-import fr.ensimag.deca.codegen.LabelManager;
-import fr.ensimag.deca.codegen.RegisterManager;
-import fr.ensimag.deca.context.*;
-import fr.ensimag.deca.syntax.DecaLexer;
-import fr.ensimag.deca.syntax.DecaParser;
-import fr.ensimag.deca.tools.DecacInternalError;
-import fr.ensimag.deca.tools.SymbolTable;
-import fr.ensimag.deca.tools.SymbolTable.Symbol;
-import fr.ensimag.deca.tree.AbstractProgram;
-import fr.ensimag.deca.tree.Location;
-import fr.ensimag.deca.tree.LocationException;
-import fr.ensimag.ima.pseudocode.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
 
-import fr.ensimag.ima.pseudocode.instructions.ERROR;
-import fr.ensimag.ima.pseudocode.instructions.HALT;
-import fr.ensimag.ima.pseudocode.instructions.WNL;
-import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
+
+import fr.ensimag.deca.codegen.LabelManager;
+import fr.ensimag.deca.codegen.RegisterManager;
+import fr.ensimag.deca.context.EnvironmentType;
+import fr.ensimag.deca.syntax.DecaLexer;
+import fr.ensimag.deca.syntax.DecaParser;
+import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.deca.tree.AbstractProgram;
+import fr.ensimag.deca.tree.LocationException;
+import fr.ensimag.ima.pseudocode.AbstractLine;
+import fr.ensimag.ima.pseudocode.IMAProgram;
+import fr.ensimag.ima.pseudocode.ImmediateString;
+import fr.ensimag.ima.pseudocode.Instruction;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.ERROR;
+import fr.ensimag.ima.pseudocode.instructions.WNL;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
 
 /**
  * Decac compiler instance.
@@ -45,263 +44,264 @@ import org.apache.log4j.Logger;
  * @date 01/01/2020
  */
 public class DecacCompiler {
-    private static final Logger LOG = Logger.getLogger(DecacCompiler.class);
-    
-    /**
-     * Portable newline character.
-     */
-    private static final String nl = System.getProperty("line.separator", "\n");
-    /**
-     * Manager for registers
-     */
+	private static final Logger LOG = Logger.getLogger(DecacCompiler.class);
 
-    private RegisterManager regM = new RegisterManager(16);
+	/**
+	 * Portable newline character.
+	 */
+	private static final String nl = System.getProperty("line.separator", "\n");
+	/**
+	 * Manager for registers
+	 */
 
-    private LabelManager  labM;
+	private RegisterManager regM;
 
-    public LabelManager getLabM(){
-        return this.labM;
-    }
+	private LabelManager labM;
 
-    public RegisterManager getRegM() { return this.regM; }
+	public LabelManager getLabM() {
+		return this.labM;
+	}
 
-    public DecacCompiler(CompilerOptions compilerOptions, File source) {
-        super();
-        this.compilerOptions = compilerOptions;
-        this.source = source;
-        this.symbols = new SymbolTable();
-        this.envTypes = new EnvironmentType(this.symbols);
-//        this.regM = new RegisterManager(compilerOptions.getRegistersNumber());
-        this.labM = new LabelManager();
-    }
+	public RegisterManager getRegM() {
+		return this.regM;
+	}
 
-    /**
-     * // - Symbols table for the entier program
-     */
-    private SymbolTable symbols;
+	public DecacCompiler(CompilerOptions compilerOptions, File source) {
+		super();
+		this.compilerOptions = compilerOptions;
+		this.source = source;
+		this.symbols = new SymbolTable();
+		this.envTypes = new EnvironmentType(this.symbols);
+		if (compilerOptions != null) {
+			this.regM = new RegisterManager(compilerOptions.getRegistersNumber());
+		}
+		this.labM = new LabelManager();
+	}
 
-    public SymbolTable getSymbols() {
-        return symbols;
-    }
+	/**
+	 * // - Symbols table for the entier program
+	 */
+	private SymbolTable symbols;
 
-    /**
-     * // - EnvTypes for the entire program
-     */
-    private EnvironmentType envTypes;
+	public SymbolTable getSymbols() {
+		return symbols;
+	}
 
-    public EnvironmentType getEnvTypes() {
-        return envTypes;
-    }
+	/**
+	 * // - EnvTypes for the entire program
+	 */
+	private EnvironmentType envTypes;
 
-    /**
-     * Source file associated with this compiler instance.
-     */
-    public File getSource() {
-        return source;
-    }
+	public EnvironmentType getEnvTypes() {
+		return envTypes;
+	}
 
-    /**
-     * Compilation options (e.g. when to stop compilation, number of registers
-     * to use, ...).
-     */
-    public CompilerOptions getCompilerOptions() {
-        return compilerOptions;
-    }
+	/**
+	 * Source file associated with this compiler instance.
+	 */
+	public File getSource() {
+		return source;
+	}
 
-    /**
-     * @see
-     * fr.ensimag.ima.pseudocode.IMAProgram#add(fr.ensimag.ima.pseudocode.AbstractLine)
-     */
-    public void add(AbstractLine line) {
-        program.add(line);
-    }
+	/**
+	 * Compilation options (e.g. when to stop compilation, number of registers to
+	 * use, ...).
+	 */
+	public CompilerOptions getCompilerOptions() {
+		return compilerOptions;
+	}
 
-    /**
-     * @see fr.ensimag.ima.pseudocode.IMAProgram#addComment(java.lang.String)
-     */
-    public void addComment(String comment) {
-        program.addComment(comment);
-    }
+	/**
+	 * @see fr.ensimag.ima.pseudocode.IMAProgram#add(fr.ensimag.ima.pseudocode.AbstractLine)
+	 */
+	public void add(AbstractLine line) {
+		program.add(line);
+	}
 
-    /**
-     * @see
-     * fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label)
-     */
-    public void addLabel(Label label) {
-        program.addLabel(label);
-    }
+	/**
+	 * @see fr.ensimag.ima.pseudocode.IMAProgram#addComment(java.lang.String)
+	 */
+	public void addComment(String comment) {
+		program.addComment(comment);
+	}
 
-    /**
-     * @see
-     * fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
-     */
-    public void addInstruction(Instruction instruction) {
-        program.addInstruction(instruction);
-    }
+	/**
+	 * @see fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label)
+	 */
+	public void addLabel(Label label) {
+		program.addLabel(label);
+	}
 
-    /**
-     * @see
-     * fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
-     * java.lang.String)
-     */
-    public void addInstruction(Instruction instruction, String comment) {
-        program.addInstruction(instruction, comment);
-    }
-    
-    /**
-     * @see 
-     * fr.ensimag.ima.pseudocode.IMAProgram#display()
-     */
-    public String displayIMAProgram() {
-        return program.display();
-    }
-    
-    private final CompilerOptions compilerOptions;
-    private final File source;
-    /**
-     * The main program. Every instruction generated will eventually end up here.
-     */
-    private final IMAProgram program = new IMAProgram();
- 
+	/**
+	 * @see fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
+	 */
+	public void addInstruction(Instruction instruction) {
+		program.addInstruction(instruction);
+	}
 
-    /**
-     * Run the compiler (parse source file, generate code)
-     *
-     * @return true on error
-     */
-    public boolean compile() {
-        String sourceFile = source.getAbsolutePath();
-        String destFile = sourceFile.substring(0, sourceFile.lastIndexOf('.'));
-        destFile += ".ass";
-        // A FAIRE: calculer le nom du fichier .ass à partir du nom du
-        // A FAIRE: fichier .deca.
-        PrintStream err = System.err;
-        PrintStream out = System.out;
-        LOG.debug("Compiling file " + sourceFile + " to assembly file " + destFile);
-        try {
-            return doCompile(sourceFile, destFile, out, err);
-        } catch (LocationException e) {
-            e.display(err);
-            return true;
-        } catch (DecacFatalError e) {
-            err.println(e.getMessage());
-            return true;
-        } catch (StackOverflowError e) {
-            LOG.debug("stack overflow", e);
-            err.println("Stack overflow while compiling file " + sourceFile + ".");
-            return true;
-        } catch (Exception e) {
-            LOG.fatal("Exception raised while compiling file " + sourceFile
-                    + ":", e);
-            err.println("Internal compiler error while compiling file " + sourceFile + ", sorry.");
-            return true;
-        } catch (AssertionError e) {
-            LOG.fatal("Assertion failed while compiling file " + sourceFile
-                    + ":", e);
-            err.println("Internal compiler error while compiling file " + sourceFile + ", sorry.");
-            return true;
-        }
-    }
+	/**
+	 * @see fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
+	 *      java.lang.String)
+	 */
+	public void addInstruction(Instruction instruction, String comment) {
+		program.addInstruction(instruction, comment);
+	}
 
-    /**
-     * Internal function that does the job of compiling (i.e. calling lexer,
-     * verification and code generation).
-     *
-     * @param sourceName name of the source (deca) file
-     * @param destName name of the destination (assembly) file
-     * @param out stream to use for standard output (output of decac -p)
-     * @param err stream to use to display compilation errors
-     *
-     * @return true on error
-     */
-    private boolean doCompile(String sourceName, String destName,
-            PrintStream out, PrintStream err)
-            throws DecacFatalError, LocationException {
-        AbstractProgram prog = doLexingAndParsing(sourceName, err);
+	/**
+	 * @see fr.ensimag.ima.pseudocode.IMAProgram#display()
+	 */
+	public String displayIMAProgram() {
+		return program.display();
+	}
 
-        if (prog == null) {
-            LOG.info("Parsing failed");
-            return true;
-        }
-        assert(prog.checkAllLocations());
+	private final CompilerOptions compilerOptions;
+	private final File source;
+	/**
+	 * The main program. Every instruction generated will eventually end up here.
+	 */
+	private final IMAProgram program = new IMAProgram();
 
-        // - if '-p' option is used, stop after parsing stage and print the tree
-        if (getCompilerOptions().getParse()) {
-            System.out.print(prog.decompile());
-            return false;
-        }
+	/**
+	 * Run the compiler (parse source file, generate code)
+	 *
+	 * @return true on error
+	 */
+	public boolean compile() {
+		String sourceFile = source.getAbsolutePath();
+		String destFile = sourceFile.substring(0, sourceFile.lastIndexOf('.'));
+		destFile += ".ass";
+		// A FAIRE: calculer le nom du fichier .ass à partir du nom du
+		// A FAIRE: fichier .deca.
+		PrintStream err = System.err;
+		PrintStream out = System.out;
+		LOG.debug("Compiling file " + sourceFile + " to assembly file " + destFile);
+		try {
+			return doCompile(sourceFile, destFile, out, err);
+		} catch (LocationException e) {
+			e.display(err);
+			return true;
+		} catch (DecacFatalError e) {
+			err.println(e.getMessage());
+			return true;
+		} catch (StackOverflowError e) {
+			LOG.debug("stack overflow", e);
+			err.println("Stack overflow while compiling file " + sourceFile + ".");
+			return true;
+		} catch (Exception e) {
+			LOG.fatal("Exception raised while compiling file " + sourceFile + ":", e);
+			err.println("Internal compiler error while compiling file " + sourceFile + ", sorry.");
+			return true;
+		} catch (AssertionError e) {
+			LOG.fatal("Assertion failed while compiling file " + sourceFile + ":", e);
+			err.println("Internal compiler error while compiling file " + sourceFile + ", sorry.");
+			return true;
+		}
+	}
 
-        prog.verifyProgram(this);
-        assert(prog.checkAllDecorations());
+	/**
+	 * Internal function that does the job of compiling (i.e. calling lexer,
+	 * verification and code generation).
+	 *
+	 * @param sourceName
+	 *            name of the source (deca) file
+	 * @param destName
+	 *            name of the destination (assembly) file
+	 * @param out
+	 *            stream to use for standard output (output of decac -p)
+	 * @param err
+	 *            stream to use to display compilation errors
+	 *
+	 * @return true on error
+	 */
+	private boolean doCompile(String sourceName, String destName, PrintStream out, PrintStream err)
+			throws DecacFatalError, LocationException {
+		AbstractProgram prog = doLexingAndParsing(sourceName, err);
 
-        // if '-v' option used, stop after verification
-        if (getCompilerOptions().isVerification())
-        {
-            return false;
-        }
+		if (prog == null) {
+			LOG.info("Parsing failed");
+			return true;
+		}
+		assert (prog.checkAllLocations());
 
-        addComment("start main program");
-        prog.codeGenProgram(this);
+		// - if '-p' option is used, stop after parsing stage and print the tree
+		if (getCompilerOptions().getParse()) {
+			System.out.print(prog.decompile());
+			return false;
+		}
 
-        addLabel(new Label("Float_overflow"));
-        addInstruction(new WSTR(new ImmediateString("Error: Float_overflow")));
-        addInstruction(new WNL());
-        addInstruction(new ERROR());
+		prog.verifyProgram(this);
+		assert (prog.checkAllDecorations());
 
-        addLabel(new Label("stack_overflow"));
-        addInstruction(new WSTR(new ImmediateString("Error: stack_overflowed")));
-        addInstruction(new WNL());
-        addInstruction(new ERROR());
+		// if '-v' option used, stop after verification
+		if (getCompilerOptions().isVerification()) {
+			return false;
+		}
 
-        addLabel(new Label("Zero_division"));
-        addInstruction(new WSTR(new ImmediateString("Error: Zero_division ")));
-        addInstruction(new WNL());
-        addInstruction(new ERROR());
+		addComment("start main program");
+		prog.codeGenProgram(this);
 
-        addComment("end main program");
-        LOG.debug("Generated assembly code:" + nl + program.display());
-        LOG.info("Output file assembly file is: " + destName);
+		addLabel(new Label("Float_overflow"));
+		addInstruction(new WSTR(new ImmediateString("Error: Float_overflow")));
+		addInstruction(new WNL());
+		addInstruction(new ERROR());
 
-        FileOutputStream fstream = null;
-        try {
-            fstream = new FileOutputStream(destName);
-        } catch (FileNotFoundException e) {
-            throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
-        }
+		addLabel(new Label("stack_overflow"));
+		addInstruction(new WSTR(new ImmediateString("Error: stack_overflowed")));
+		addInstruction(new WNL());
+		addInstruction(new ERROR());
 
-        LOG.info("Writing assembler file ...");
+		addLabel(new Label("Zero_division"));
+		addInstruction(new WSTR(new ImmediateString("Error: Zero_division ")));
+		addInstruction(new WNL());
+		addInstruction(new ERROR());
 
-        program.display(new PrintStream(fstream));
-        LOG.info("Compilation of " + sourceName + " successful.");
-        return false;
-    }
+		addComment("end main program");
+		LOG.debug("Generated assembly code:" + nl + program.display());
+		LOG.info("Output file assembly file is: " + destName);
 
-    /**
-     * Build and call the lexer and parser to build the primitive abstract
-     * syntax tree.
-     *
-     * @param sourceName Name of the file to parse
-     * @param err Stream to send error messages to
-     * @return the abstract syntax tree
-     * @throws DecacFatalError When an error prevented opening the source file
-     * @throws DecacInternalError When an inconsistency was detected in the
-     * compiler.
-     * @throws LocationException When a compilation error (incorrect program)
-     * occurs.
-     */
-    protected AbstractProgram doLexingAndParsing(String sourceName, PrintStream err)
-            throws DecacFatalError, DecacInternalError {
-        DecaLexer lex;
-        try {
-            lex = new DecaLexer(CharStreams.fromFileName(sourceName));
-        } catch (IOException ex) {
-            throw new DecacFatalError("Failed to open input file: " + ex.getLocalizedMessage());
-        }
-        lex.setDecacCompiler(this);
-        CommonTokenStream tokens = new CommonTokenStream(lex);
-        DecaParser parser = new DecaParser(tokens);
-        parser.setDecacCompiler(this);
-        return parser.parseProgramAndManageErrors(err);
-    }
+		FileOutputStream fstream = null;
+		try {
+			fstream = new FileOutputStream(destName);
+		} catch (FileNotFoundException e) {
+			throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
+		}
+
+		LOG.info("Writing assembler file ...");
+
+		program.display(new PrintStream(fstream));
+		LOG.info("Compilation of " + sourceName + " successful.");
+		return false;
+	}
+
+	/**
+	 * Build and call the lexer and parser to build the primitive abstract syntax
+	 * tree.
+	 *
+	 * @param sourceName
+	 *            Name of the file to parse
+	 * @param err
+	 *            Stream to send error messages to
+	 * @return the abstract syntax tree
+	 * @throws DecacFatalError
+	 *             When an error prevented opening the source file
+	 * @throws DecacInternalError
+	 *             When an inconsistency was detected in the compiler.
+	 * @throws LocationException
+	 *             When a compilation error (incorrect program) occurs.
+	 */
+	protected AbstractProgram doLexingAndParsing(String sourceName, PrintStream err)
+			throws DecacFatalError, DecacInternalError {
+		DecaLexer lex;
+		try {
+			lex = new DecaLexer(CharStreams.fromFileName(sourceName));
+		} catch (IOException ex) {
+			throw new DecacFatalError("Failed to open input file: " + ex.getLocalizedMessage());
+		}
+		lex.setDecacCompiler(this);
+		CommonTokenStream tokens = new CommonTokenStream(lex);
+		DecaParser parser = new DecaParser(tokens);
+		parser.setDecacCompiler(this);
+		return parser.parseProgramAndManageErrors(err);
+	}
 
 }
