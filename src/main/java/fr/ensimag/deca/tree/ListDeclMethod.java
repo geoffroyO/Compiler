@@ -7,7 +7,12 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        // TODO
+        for(AbstractDeclMethod m: this.getList())
+        {
+            s.print("\t");
+            m.decompile(s);
+            s.println();
+        }
     }
 
     public void codeGenListFpDeclMethod(DecacCompiler compiler){

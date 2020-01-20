@@ -73,7 +73,7 @@ public class DeclField extends AbstractDeclField {
         }
         s.print(this.type.getName().getName() + " " + this.fieldName.getName().getName());
         s.print(initialization.decompile());
-        s.println(";");
+        s.print(";");
     }
 
     @Override
