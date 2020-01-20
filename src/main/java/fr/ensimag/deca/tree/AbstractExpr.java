@@ -1,10 +1,7 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ClassDefinition;
-import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.GPRegister;
@@ -85,7 +82,6 @@ public abstract class AbstractExpr extends AbstractInst {
 
         // - verify Right value
         Type obtainedType;
-//        obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
         try {
             obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
         } catch (ContextualError e){
@@ -93,11 +89,20 @@ public abstract class AbstractExpr extends AbstractInst {
         }
 
 
-        // TODO
         // - verify expectedType and obtainedType values types are the same (verify when they are classes)
+        if (obtainedType.isClass()) {
+            if (!expectedType.isClass()) {
+                throw new ContextualError("Types incompatible, expecting a class type on the left side",this.getLocation());
+            } else {
+                ClassType currentType = (ClassType)obtainedType;
+                // - check if the obtainedType is a child for the expectedType
+                if (!currentType.checkIsChild(expectedType)) {
+                    throw new ContextualError("incompatible class types",this.getLocation());
+                }
+            }
 
         // - if obtainedType is not the same as expectedType
-        if (!obtainedType.sameType(expectedType)){
+        } else if (!obtainedType.sameType(expectedType)){
             // - if expectedType is float and obtainedType is int
             if (expectedType.isFloat() && obtainedType.isInt()){
                 // - create conversion to float
