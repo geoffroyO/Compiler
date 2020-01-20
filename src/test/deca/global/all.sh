@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE="classA"
+FILE="readfloat"
 read -n 1 -s -r -p " Press any key to start"
 echo -e "\ntest_lex -----------------------------"
 test_lex $FILE".deca"
