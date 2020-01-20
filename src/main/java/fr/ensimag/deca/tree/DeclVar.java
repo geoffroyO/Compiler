@@ -103,9 +103,9 @@ public class DeclVar extends AbstractDeclVar {
         initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
 
 
-        compiler.getRegM().incrGB();
         varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.getRegM().getGB(), Register.GB));
         initialization.codeGenStInit(compiler, register);
+        compiler.getRegM().incrGB();
         compiler.getRegM().freeRegister(register);
     }
 }

@@ -4,10 +4,8 @@ import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.*;
-import fr.ensimag.ima.pseudocode.instructions.LEA;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.RTS;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.io.PrintStream;
@@ -99,42 +97,41 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void codeGenFpDeclClass(DecacCompiler compiler) {
-        if (superClass == null){
-            className.getClassDefinition().setAddrClass(new RegisterOffset(1, Register.GB));
-            compiler.addComment("Code de la table des méthodes de la classe Object");
-            compiler.addInstruction(new LOAD(new NullOperand(), Register.R0));
-            compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
-            compiler.getRegM().incrSP();
-            compiler.getRegM().incrGB();
-            compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")), Register.R0));
-            compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
-            compiler.getRegM().incrSP();
-            compiler.getRegM().incrGB();
+        DAddr addrClass = new RegisterOffset(compiler.getRegM().getGB(), Register.GB);
+        className.getClassDefinition().setAddrClass(addrClass);
+        DAddr addrSuperClass = superClass.getClassDefinition().getAddrClass();
+        compiler.addComment("Code de la table des méthodes de la classe " + className.getName());
+        compiler.addInstruction(new LEA(addrSuperClass, Register.R0));
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
+        compiler.getRegM().incrGB();
+        compiler.getRegM().incrSP();
+        codeGenFpDeclObjectMethod(compiler);
+        methods.codeGenListFpDeclMethod(compiler);
+    }
 
-        } else {
-            DAddr addrClass = new RegisterOffset(compiler.getRegM().getGB(), Register.GB);
-            className.getClassDefinition().setAddrClass(addrClass);
-            DAddr addrSuperClass = superClass.getClassDefinition().getAddrClass();
-            compiler.addComment("Code de la table des méthodes de la classe " + className.getName());
-            compiler.addInstruction(new LEA(addrSuperClass, Register.R0));
-            compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
-            compiler.getRegM().incrGB();
-            compiler.getRegM().incrSP();
-            /* A rajouter si la méthode equals n'est pas dans la liste des méthodes
-            Label labelCodeMethod = new Label("code.Object.equals");
-            compiler.addInstruction(new LOAD(new LabelOperand(labelCodeMethod), Register.R0));
-            compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
-            compiler.getRegM().incrGB();
-            compiler.getRegM().incrSP();
-             */
-            methods.codeGenListFpDeclMethod(compiler);
-        }
+    private void codeGenFpDeclObjectMethod(DecacCompiler compiler) {
+        Label labelCodeMethod = new Label("code.Object.equals");
+        compiler.addInstruction(new LOAD(new LabelOperand(labelCodeMethod), Register.R0));
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
+        compiler.getRegM().incrGB();
+        compiler.getRegM().incrSP();
     }
 
     protected void codeGenDeclClass(DecacCompiler compiler) {
         compiler.addComment("Initialisation des champs de la classe de " + className.getName());
+
         compiler.addLabel(new Label("init." + className.getName()));
+
+        if (superClass != null) {
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R0));
+            compiler.addInstruction(new PUSH(Register.R0));
+            compiler.addInstruction(new BSR(new Label("init." + superClass.getName())));
+            compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
+            compiler.getRegM().incrSP(-1);
+        }
+
         fields.codeGenListDeclField(compiler);
+
         compiler.addInstruction(new RTS());
 
         compiler.addComment("Code des méthodes de la classe de " + className.getName());

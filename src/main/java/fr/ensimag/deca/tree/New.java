@@ -67,8 +67,6 @@ public class New extends AbstractExpr{
         compiler.addInstruction(new PUSH(register));
         compiler.addInstruction(new BSR(new Label("init." + className.getName())));
         compiler.addInstruction(new POP(register));
-        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
-        compiler.getRegM().incrGB();
-        compiler.getRegM().incrSP();
+
     }
 }

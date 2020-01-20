@@ -70,7 +70,8 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void codeGenDeclMethod(DecacCompiler compiler) {
-        // TODO
+        Label labelCodeMethod = new Label("code" + name.getMethodDefinition().getLabel().toString());
+        compiler.addLabel(labelCodeMethod);
     }
 
 }
