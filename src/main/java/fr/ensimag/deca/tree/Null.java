@@ -16,7 +16,7 @@ public class Null extends AbstractExpr {
             ClassDefinition currentClass) throws ContextualError {
         // - create or get the null type
         Type type = new NullType(compiler.getSymbols().create("null"));
-        // - set this terminal's type to boolean
+        // - set this terminal's type
         this.setType(type);
         return type;
     }
@@ -29,6 +29,8 @@ public class Null extends AbstractExpr {
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         // -
+        s.print(prefix);
+        s.println();
     }
 
     @Override

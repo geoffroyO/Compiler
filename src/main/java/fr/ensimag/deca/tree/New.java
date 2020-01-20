@@ -17,7 +17,20 @@ public class New extends AbstractExpr{
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-        return null;
+        // - get class type
+        Type identType;
+        try {
+            identType = className.verifyType(compiler);
+        } catch (ContextualError e) {
+            throw e;
+        }
+        // - check if the class is defined
+        if (!identType.isClass()) {
+            throw new ContextualError("The identifier is not a class", this.className.getLocation());
+        }
+
+        this.setType(identType);
+        return identType;
     }
 
     public New(AbstractIdentifier classe) {

@@ -17,8 +17,8 @@ public class NullType extends Type {
 
     @Override
     public boolean sameType(Type otherType) {
-        // - checks if the 2 types are the same
-        return (otherType.isNull());
+        // - checks if the 2 types are null or the other type is a class
+        return (otherType.isClassOrNull());
     }
 
     @Override
