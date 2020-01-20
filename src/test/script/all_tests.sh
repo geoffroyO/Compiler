@@ -1,2 +1,0 @@
-testsCobertura/codegen.sh
-testsCobertura/context.sh
