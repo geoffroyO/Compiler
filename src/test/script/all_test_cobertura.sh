@@ -2,7 +2,17 @@
 
 # All tests for cobertura
 
-PATH="./src/test/script"
+#PATH="./src/test/deca/"
+
+cd "$(dirname "$0")"/../../.. || exit 1
+
+cd ./src/test/deca/
+
+find . -name '*.deca' -exec decac {} \;
+find . -name '*.deca' -exec decac -p {} \;
+find . -name '*.deca' -exec decac -v {} \;
+
+cd ./../script
 
 #$PATH/testsCobertura/syntax.sh
 #$PATH/testsCobertura/context.sh
