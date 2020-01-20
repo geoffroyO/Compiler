@@ -1,0 +1,8 @@
+// Description :
+// simple declaration of a variable with an undefined type
+//
+// Resultats :
+//  Error, variable type not found
+{
+	A a;
+}

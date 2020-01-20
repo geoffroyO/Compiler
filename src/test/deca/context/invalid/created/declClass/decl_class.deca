@@ -1,0 +1,9 @@
+// Description :
+// simple declaration for 2 classes, and 2 variables of theses classes
+//
+// Resultats :
+//  everything should be working, nothing will be printed.
+
+class A extends A {
+
+}

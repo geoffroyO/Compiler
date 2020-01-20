@@ -1,0 +1,19 @@
+// Description :
+// simple declaration for 2 classes with the same name
+//
+// Resultats :
+//  Error, double class declaration
+
+class A extends A {
+
+}
+
+
+class A {
+
+}
+
+{
+	A a;
+	B b;
+}

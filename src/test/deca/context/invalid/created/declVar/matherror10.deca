@@ -1,0 +1,8 @@
+// Description:
+//  Affectation de float avec identifier float
+// Resultats:
+//  OK
+
+{
+float a = 3. ;
+}
