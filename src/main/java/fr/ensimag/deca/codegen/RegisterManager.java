@@ -31,9 +31,8 @@ public class RegisterManager {
     }
 
     public int getNb_registers(){
-        return this.nb_registers;
+        return this.nb_registers - 1;
     }
-    public void setNb_registers(int n) { nb_registers = n; }
 
     public void incrSP(){
         this.SP++;
@@ -63,21 +62,6 @@ public class RegisterManager {
         return this.LB;
     }
 
-    public GPRegister findFreeRegister(){
-        // TODO faire un bon rattrapage d'erreur
-        int j = -1;
-
-        for (int i = nb_registers; i <= 0; i--) {
-
-            if (this.freeRegister[i]) {
-                j = i;
-            }
-        }
-
-        this.freeRegister[j] = false;
-        return Register.getR(j);
-    }
-
     public GPRegister findFreeGPRegister(){
         // TODO faire un bon rattrapage d'erreur
         int j = -1;
@@ -99,22 +83,6 @@ public class RegisterManager {
             }
         }
         return false;
-    }
-
-    public boolean hasMultFreeGPRegister(int n){
-        int freeCount = 0;
-        for (int i = nb_registers - 1; i >= 2; i--){
-
-            if (this.freeRegister[i]){
-                freeCount++;
-            }
-        }
-
-        if (freeCount >= n) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public void freeRegister(GPRegister register){
