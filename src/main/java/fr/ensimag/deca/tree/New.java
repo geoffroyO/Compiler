@@ -45,6 +45,6 @@ public class New extends AbstractExpr{
 
     @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
-        
+
     }
 }
