@@ -39,8 +39,10 @@ public class DeclClass extends AbstractDeclClass {
         s.print(" extends ");
         s.print(superClass.getName().getName());
         s.println(" {");
+        s.indent();
         fields.decompile(s);
         methods.decompile(s);
+        s.unindent();
         s.println("}");
     }
 
@@ -87,7 +89,10 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+
+        // Verify the fiels declaration
+        this.fields.verifyListDeclField(compiler, className.getClassDefinition());
+
     }
     
     @Override

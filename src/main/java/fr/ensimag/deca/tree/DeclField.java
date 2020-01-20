@@ -29,7 +29,7 @@ public class DeclField extends AbstractDeclField {
     }
 
     @Override
-    protected void verifyField(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
+    protected void verifyDeclField(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
 
         Type type;
         EnvironmentExp envExpSuper = memberOf.getMembers();
@@ -39,8 +39,8 @@ public class DeclField extends AbstractDeclField {
             type = this.type.verifyType(compiler);
 
             // - create definition for the field using the type and location
-            int index = 1;
-            FieldDefinition definition = new FieldDefinition(type, this.type.getLocation(), this.visibility, memberOf, index);
+            memberOf.incNumberOfFields(); // Add a new field
+            FieldDefinition definition = new FieldDefinition(type, this.type.getLocation(), this.visibility, memberOf, memberOf.getNumberOfFields());
 
             this.fieldName.setDefinition(definition);
 
@@ -50,7 +50,7 @@ public class DeclField extends AbstractDeclField {
         } catch (ContextualError e) {
             throw e;
         } catch (EnvironmentExp.DoubleDefException doubleDefinition) {
-            throw new ContextualError("field already defined", this.getLocation());
+            throw new ContextualError("Field already defined in this class", this.getLocation());
         }
 
         if (type.isVoid()) {

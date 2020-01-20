@@ -39,7 +39,9 @@ public class DeclMethod extends AbstractDeclMethod {
         listDeclParam.decompile(s);
         s.print(") {");
         s.println();
+        s.indent();
         body.decompile(s);
+        s.unindent();
         s.println("}");
     }
 

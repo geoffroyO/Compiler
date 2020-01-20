@@ -8,7 +8,7 @@ public abstract class AbstractDeclField extends Tree{
     /**
      * Pass 2 of [SyntaxeContextuelle]. Verify that the field declaration is OK and Initialize it.
      */
-    protected abstract void verifyField(DecacCompiler compiler, ClassDefinition memberOf)
+    protected abstract void verifyDeclField(DecacCompiler compiler, ClassDefinition memberOf)
             throws ContextualError;
 
     /**
