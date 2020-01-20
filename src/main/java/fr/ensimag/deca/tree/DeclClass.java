@@ -89,14 +89,15 @@ public class DeclClass extends AbstractDeclClass {
     }
 
     @Override
-    protected void verifyClassMembers(DecacCompiler compiler, ClassDefinition current, ClassDefinition superClass)
+    protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
 
-        // Verify the fiels declaration
+        ClassDefinition superClass = this.className.getClassDefinition().getSuperClass();
+        // Verify the fields declaration
         this.fields.verifyListDeclField(compiler, className.getClassDefinition());
-
-        System.out.println(">>>> START MEMBERS VERIFICATION FOR CLASSES");
-//        this.methods.verifyListDeclMethod(compiler, current, superClass);
+        // Verify the methods declaration
+//        System.out.println(">>>> START MEMBERS VERIFICATION FOR CLASSES");
+        this.methods.verifyListDeclMethod(compiler, className.getClassDefinition(), superClass);
 
     }
     

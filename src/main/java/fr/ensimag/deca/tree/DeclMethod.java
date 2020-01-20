@@ -31,7 +31,7 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void verifyDeclMethod(DecacCompiler compiler, ClassDefinition current, ClassDefinition superClass)
-            throws ContextualError, EnvironmentExp.DoubleDefException {
+            throws ContextualError {
 
         // - verify method type
         Type returnType = this.type.verifyType(compiler);

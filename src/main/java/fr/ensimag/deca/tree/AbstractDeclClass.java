@@ -23,7 +23,7 @@ public abstract class AbstractDeclClass extends Tree {
      * Pass 2 of [SyntaxeContextuelle]. Verify that the class members (fields and
      * methods) are OK, without looking at method body and field initialization.
      */
-    protected abstract void verifyClassMembers(DecacCompiler compiler, ClassDefinition current, ClassDefinition superClass)
+    protected abstract void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError;
 
     /**

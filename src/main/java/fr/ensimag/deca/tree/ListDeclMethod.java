@@ -21,13 +21,13 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
 
 
     public void verifyListDeclMethod(DecacCompiler compiler, ClassDefinition current, ClassDefinition superClass)
-            throws EnvironmentExp.DoubleDefException {
+            throws ContextualError {
         Iterator<AbstractDeclMethod> iterDeclMethod = this.iterator();
         while (iterDeclMethod.hasNext()){
                 try {
                     iterDeclMethod.next().verifyDeclMethod(compiler, current, superClass);
-                } catch (ContextualError contextualError) {
-                    contextualError.printStackTrace();
+                } catch (EnvironmentExp.DoubleDefException d) {
+                    throw new ContextualError("Method already defined in the class", this.getLocation());
                 }
         }
     }
