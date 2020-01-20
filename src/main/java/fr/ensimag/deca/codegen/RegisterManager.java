@@ -16,15 +16,16 @@ public class RegisterManager {
     private int GB;
     private int LB;
     private boolean[] freeRegister;
-    private int nb_registers = 15;
+    private int nb_registers = 16;
 
-    public RegisterManager() {
+    public RegisterManager(int nb_registers) {
         this.SP = 0;
         this.GB = 0;
         this.LB = 0;
-        this.freeRegister = new boolean[16];
+        this.nb_registers = nb_registers;
+        this.freeRegister = new boolean[nb_registers];
 
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < nb_registers ; i++) {
             this.freeRegister[i] = true;
         }
     }
@@ -32,6 +33,8 @@ public class RegisterManager {
     public int getNb_registers(){
         return this.nb_registers;
     }
+    public void setNb_registers(int n) { nb_registers = n; }
+
     public void incrSP(){
         this.SP++;
     }
@@ -64,7 +67,7 @@ public class RegisterManager {
         // TODO faire un bon rattrapage d'erreur
         int j = -1;
 
-        for (int i = 15; i <= 0; i--) {
+        for (int i = nb_registers; i <= 0; i--) {
 
             if (this.freeRegister[i]) {
                 j = i;
@@ -79,7 +82,7 @@ public class RegisterManager {
         // TODO faire un bon rattrapage d'erreur
         int j = -1;
 
-        for (int i = 15; i >= 2; i--) {
+        for (int i = nb_registers - 1; i >= 2; i--) {
             if (this.freeRegister[i]) {
                 j = i;
             }
@@ -89,7 +92,7 @@ public class RegisterManager {
     }
 
     public boolean hasFreeGPRegister(){
-        for (int i = 15; i >= 2; i--){
+        for (int i = nb_registers - 1; i >= 2; i--){
 
             if (this.freeRegister[i]){
                 return true;
@@ -100,7 +103,7 @@ public class RegisterManager {
 
     public boolean hasMultFreeGPRegister(int n){
         int freeCount = 0;
-        for (int i = 15; i >= 2; i--){
+        for (int i = nb_registers - 1; i >= 2; i--){
 
             if (this.freeRegister[i]){
                 freeCount++;

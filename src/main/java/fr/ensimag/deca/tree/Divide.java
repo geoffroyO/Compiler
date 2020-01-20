@@ -3,10 +3,7 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.*;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.Instruction;
-import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.*;
 
 /**
@@ -72,16 +69,11 @@ public class Divide extends AbstractOpArith {
     protected String getOperatorName() {
         return "/";
     }
-
-    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
-    	super.codeGenExpr(compiler, register);
-        if (!compiler.getRegM().hasFreeGPRegister()) {       
-            compiler.addInstruction(new BOV(new Label("Zero_division")));
-        }
-    }
     
 	@Override
 	protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
+        compiler.addInstruction(new CMP(new ImmediateFloat( (float) 0), register));
+        compiler.addInstruction(new BEQ(new Label("Zero_division")));
 		compiler.addInstruction(new DIV(register, result));
 	}
 }

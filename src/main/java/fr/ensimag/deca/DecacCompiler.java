@@ -71,7 +71,7 @@ public class DecacCompiler {
         this.source = source;
         this.symbols = new SymbolTable();
         this.envTypes = new EnvironmentType(this.symbols);
-        this.regM = new RegisterManager();
+        this.regM = new RegisterManager(compilerOptions.getRegistersNumber());
         this.labM = new LabelManager();
     }
 
