@@ -134,33 +134,11 @@
           <!-- One <execution> per executable to launch. Execution
                failure (exit status != 0) will stop the tests. -->
 
-          <execution>
-            <id>all_tests</id>
-            <configuration>
-              <executable>./src/test/script/all_tests.sh</executable>
-            </configuration>
-            <phase>test</phase>
-            <goals><goal>exec</goal></goals>
-          </execution>
-            <!-- <execution>
-            <id>basic-synt</id>
-            <configuration><executable>./src/test/script/basic-synt.sh</executable></configuration>
-            <phase>test</phase>
-            <goals><goal>exec</goal></goals>
-          </execution>
+            <!-- run a unit test by defining our own class with a main
+                 function -->
+            <!-- warning: java assertions are not enabled -->
 
           <execution>
-            <id>basic-lex</id>
-            <configuration>
-              <executable>./src/test/script/basic-lex.sh</executable>
-
-            </configuration>
-            <phase>test</phase>
-            <goals><goal>exec</goal></goals>
-          </execution>
-
-          <execution>
-
             <id>unit-test-symbol</id>
             <configuration>
               <mainClass>fr.ensimag.deca.tools.ManualTestSymbol</mainClass>
@@ -169,6 +147,29 @@
             <phase>test</phase>
             <goals><goal>java</goal></goals>
           </execution>
+
+
+          <execution>
+            <id>basic-lex</id>
+            <configuration>
+              <executable>./src/test/script/basic-lex.sh</executable>
+              <!-- If we need to pass arguments :
+                   <arguments>
+                   <argument>...</argument>
+                   </arguments>
+              -->
+            </configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
+          <execution>
+            <id>basic-synt</id>
+            <configuration><executable>./src/test/script/basic-synt.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
 
           <execution>
             <id>basic-context</id>
@@ -196,7 +197,67 @@
             <configuration><executable>./src/test/script/common-tests.sh</executable></configuration>
             <phase>test</phase>
             <goals><goal>exec</goal></goals>
-          </execution>  -->
+          </execution>
+
+
+          <execution>
+            <id>syntax</id>
+            <configuration><executable>./src/test/script/syntax.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
+          <execution>
+            <id>context</id>
+            <configuration><executable>./src/test/script/context.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+          
+          <execution>
+            <id>codegen</id>
+            <configuration><executable>./src/test/script/codegen.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
+          <execution>
+            <id>multi_compile</id>
+            <configuration><executable>./src/test/script/multi_compile.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
+          <execution>
+            <id>lexerValidRandom</id>
+            <configuration><executable>./src/test/script/lexerValidRandom.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
+          <execution>
+            <id>lexerInvalidRandom</id>
+            <configuration><executable>./src/test/script/lexerInvalidRandom.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
+          <execution>
+            <id>decompilation</id>
+            <configuration><executable>./src/test/script/decompilation.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
+          <execution>
+            <id>compilationOptions</id>
+            <configuration><executable>./src/test/script/compilationOptions.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
+
+
+
         </executions>
       </plugin>
 
@@ -355,17 +416,17 @@
                   </action>
                 </pluginExecution>
                 <pluginExecution>
-                        <pluginExecutionFilter>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-dependency-plugin</artifactId>
-                                <versionRange>[2.5.1,)</versionRange>
-                                <goals>
-                                        <goal>build-classpath</goal>
-                                </goals>
-                        </pluginExecutionFilter>
-                        <action>
-                                <ignore></ignore>
-                        </action>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <versionRange>[2.5.1,)</versionRange>
+                    <goals>
+                      <goal>build-classpath</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore></ignore>
+                  </action>
                 </pluginExecution>
               </pluginExecutions>
             </lifecycleMappingMetadata>
@@ -413,14 +474,14 @@
         <configuration>
           <minmemory>128m</minmemory>
           <maxmemory>1g</maxmemory>
-  <executions>
-        <execution>
-            <id>attach-javadocs</id>
-            <configuration>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <configuration>
                 <additionalparam>-Xdoclint:none</additionalparam>
-            </configuration>
-        </execution>
-    </executions>
+              </configuration>
+            </execution>
+          </executions>
           <tags>
             <tag>
               <name>date</name>

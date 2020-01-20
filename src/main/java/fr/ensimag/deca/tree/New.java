@@ -6,7 +6,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
 
@@ -47,7 +48,7 @@ public class New extends AbstractExpr{
     }
 
     String prettyPrintNode() {
-        return "new " + className.getClassDefinition();
+        return "new " + className.getName();
 
     }
 
@@ -58,6 +59,16 @@ public class New extends AbstractExpr{
 
     @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
-        
+        // TODO manque héritage
+        compiler.addInstruction(new NEW(new ImmediateInteger(className.getClassDefinition().getNumberOfFields() + 1), register), " on crée le tas");
+        compiler.addInstruction(new BOV(new Label("heap_overflow")));
+        compiler.addInstruction(new LEA(className.getClassDefinition().getAddrClass(), Register.R0));
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(0, register)));
+        compiler.addInstruction(new PUSH(register));
+        compiler.addInstruction(new BSR(new Label("init." + className.getName())));
+        compiler.addInstruction(new POP(register));
+        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
+        compiler.getRegM().incrGB();
+        compiler.getRegM().incrSP();
     }
 }
