@@ -48,7 +48,7 @@ public class DeclVar extends AbstractDeclVar {
             // - verify that type exists in envtypes (verifyType available in Identifier.java)
             type = this.type.verifyType(compiler);
             // - create definition for the variable using the type and location
-            VariableDefinition definition = new VariableDefinition(type, this.type.getLocation());
+            VariableDefinition definition = new VariableDefinition(type, this.getLocation());
             this.varName.setDefinition(definition);
             // - add the variable to the local environment (Symbol -> definition)
             localEnv.declare(this.varName.getName(), definition);
