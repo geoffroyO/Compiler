@@ -35,7 +35,7 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
             iterDeclClass.next().verifyClass(compiler);
         }
         verifyListClassMembers(compiler);
-         LOG.debug("verify listClass: end");
+        LOG.debug("verify listClass: end");
     }
 
     /**
@@ -45,10 +45,10 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
         LOG.debug("verify listClassMembers: start");
         // TODO
         // - we verify each class declaration
-//        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
-//        while (iterDeclClass.hasNext()){
-//            iterDeclClass.next().verifyClass(compiler);
-//        }
+        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
+        while (iterDeclClass.hasNext()){
+            iterDeclClass.next().verifyClassMembers(compiler);
+        }
 
         LOG.debug("verify listClassMembers: end");
     }

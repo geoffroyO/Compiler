@@ -91,7 +91,10 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+
+        // Verify the fiels declaration
+        this.fields.verifyListDeclField(compiler, className.getClassDefinition());
+
     }
     
     @Override

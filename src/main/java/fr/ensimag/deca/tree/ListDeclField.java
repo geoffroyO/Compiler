@@ -17,12 +17,11 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
         }
     }
 
-    public void verifyListField(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
+    public void verifyListDeclField(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
         Iterator<AbstractDeclField> iterDeclField = this.iterator();
         while (iterDeclField.hasNext()){
-            iterDeclField.next().verifyField(compiler, memberOf);
+            iterDeclField.next().verifyDeclField(compiler, memberOf);
         }
-
     }
 
     public void codeGenListDeclField(DecacCompiler compiler){
