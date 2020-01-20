@@ -1,0 +1,13 @@
+// Description :
+// simple declaration for a variable of type A
+//
+// Resultats :
+//  nothing happens, declaration of a variable of type A
+
+class A {
+
+}
+
+{
+	A a;
+}

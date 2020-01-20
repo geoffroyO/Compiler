@@ -28,22 +28,25 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
      */
     void verifyListClass(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify listClass: start");
-        // TODO
-//        System.out.println("[ ListDeclClass -> verifyListClass should be implemented later ]");
-        // LOG.debug("verify listClass: end");
 
         // - we verify each class declaration
-//        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
-//        while (iterDeclClass.hasNext()){
-//            iterDeclClass.next().verifyClass(compiler);
-//        }
+        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
+        while (iterDeclClass.hasNext()){
+            iterDeclClass.next().verifyClass(compiler);
+        }
+        verifyListClassMembers(compiler);
+         LOG.debug("verify listClass: end");
     }
 
     /**
      * Pass 2 of [SyntaxeContextuelle]
      */
     public void verifyListClassMembers(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+//        throw new UnsupportedOperationException("not yet implemented");
+        LOG.debug("verify listClassMembers: start");
+        // TODO
+
+        LOG.debug("verify listClassMembers: end");
     }
     
     /**
@@ -58,6 +61,14 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
             A.codeGenFpDeclClass(compiler);
         }
     }
+
+    public void codeGenListDeclClass(DecacCompiler compiler){
+        for (AbstractDeclClass A : getList()) {
+            A.codeGenDeclClass(compiler);
+        }
+    }
+
+
 
 
 }

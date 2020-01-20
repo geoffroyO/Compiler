@@ -66,7 +66,10 @@ public class Program extends AbstractProgram {
     public void codeGenProgram(DecacCompiler compiler) {
         compiler.addComment("Class program");
         compiler.getRegM().incrGB(); //On commence à 1(GB)
+        compiler.addComment("Table des méthodes");
         classes.codeGenListFpDeclClass(compiler);
+        compiler.addComment("Début seconde passe");
+        classes.codeGenListDeclClass(compiler);
         compiler.addComment("Main program");
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());

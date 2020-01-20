@@ -458,10 +458,8 @@ primary_expr returns[AbstractExpr tree]
         }
     | NEW ident OPARENT CPARENT {
             assert($ident.tree != null);
-            /*
             $tree = new New($ident.tree);
             setLocation($tree, $NEW);
-             */
         }
     | cast=OPARENT type CPARENT OPARENT expr CPARENT {
             assert($type.tree != null);
@@ -545,13 +543,14 @@ list_classes returns[ListDeclClass tree]
 	;
 
 class_decl returns[DeclClass tree]
-    : CLASS name=ident superclass=class_extension OBRACE class_body CBRACE {   
+    : CLASS name=ident superclass=class_extension OBRACE class_body CBRACE {
     		assert($name.tree != null);
     		assert($superclass.tree != null);
     		assert($class_body.fields != null);
     		assert($class_body.methods != null);
     		$tree = new DeclClass($name.tree, $superclass.tree, $class_body.fields, $class_body.methods);
     		setLocation($tree, $CLASS);
+    		setLocation($superclass.tree, $superclass.start);
         }
     ;
 
@@ -559,6 +558,7 @@ class_extension returns[AbstractIdentifier tree]
     : EXTENDS ident {
     		assert($ident.tree != null);
     		$tree = $ident.tree;
+    		setLocation($tree, $ident.start);
         }
     | /* epsilon */ {
     		$tree = new Identifier(getDecacCompiler().getSymbols().create("Object"));
