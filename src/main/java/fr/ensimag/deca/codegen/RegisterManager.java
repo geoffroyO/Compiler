@@ -16,7 +16,7 @@ public class RegisterManager {
     private int GB;
     private int LB;
     private boolean[] freeRegister;
-    private int nb_registers = 16;
+    private int nb_registers;
 
     public RegisterManager(int nb_registers) {
         this.SP = 0;

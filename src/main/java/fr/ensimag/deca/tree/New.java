@@ -46,6 +46,7 @@ public class New extends AbstractExpr{
 
     @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+        // TODO manque héritage
         compiler.addInstruction(new NEW(new ImmediateInteger(className.getClassDefinition().getNumberOfFields() + 1), register), " on crée le tas");
         compiler.addInstruction(new BOV(new Label("heap_overflow")));
         compiler.addInstruction(new LEA(className.getClassDefinition().getAddrClass(), Register.R0));
