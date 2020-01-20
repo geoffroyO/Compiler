@@ -41,8 +41,10 @@ public class DeclClass extends AbstractDeclClass {
         s.print(" extends ");
         s.print(superClass.getName().getName());
         s.println(" {");
+        s.indent();
         fields.decompile(s);
         methods.decompile(s);
+        s.unindent();
         s.println("}");
     }
 
