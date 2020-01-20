@@ -1,15 +1,16 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ClassDefinition;
-import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.LabelOperand;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import javafx.scene.ImageCursor;
 
 import java.io.PrintStream;
 
@@ -29,9 +30,78 @@ public class DeclMethod extends AbstractDeclMethod {
     }
 
     @Override
-    protected void verifyDeclMethod(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
-        // TODO
+    protected void verifyDeclMethod(DecacCompiler compiler, ClassDefinition current, ClassDefinition superClass)
+            throws ContextualError, EnvironmentExp.DoubleDefException {
+
+        // - verify method type
+        Type returnType = this.type.verifyType(compiler);
+        Signature signature;
+        MethodDefinition newMethodDefinition;
+
+        try {
+            // - get the class environment and verify if the method already in the environment
+            EnvironmentExp members = current.getMembers();
+            ExpDefinition superDefinition = members.get(this.name.getName());
+
+            // - create localEnv and verify the signature of the method
+            EnvironmentExp localEnv = new EnvironmentExp(members);
+            signature = this.listDeclParam.verifyListDeclParam(compiler, localEnv);
+
+            // - method index
+            int methodIndex = current.incNumberOfMethods() + superClass.getNumberOfMethods();
+
+            // - if method already exist in the environment
+            if (superDefinition != null && superDefinition.isMethod()){
+                int superDefinitionIndex = ((MethodDefinition)superDefinition).getIndex();
+                newMethodDefinition = new MethodDefinition(returnType, this.type.getLocation(), signature, superDefinitionIndex);
+            } else {
+                newMethodDefinition = new MethodDefinition(returnType, this.type.getLocation(), signature, methodIndex);
+            }
+
+            // - set Label for the new method
+            newMethodDefinition.setLabel(new Label(("code."+current.getType().getName().getName()) + "." + this.name.getName().getName()));
+
+            // - declare the new method in the environment and set this
+            members.declare(name.getName(), newMethodDefinition);
+            // - set type and definition for this method
+            this.name.setType(returnType);
+            this.name.setDefinition(newMethodDefinition);
+
+        } catch (ContextualError e) {
+            throw e;
+        } catch (EnvironmentExp.DoubleDefException d) {
+            throw new ContextualError("Method already defined in the class", this.name.getLocation());
+        }
+        // - verify if there is an @override by checking if the signatures of same methods in different levels
+        EnvironmentExp superMembers = current.getSuperClass().getMembers();
+        if (superMembers.get(this.name.getName()) != null && superMembers.get(this.name.getName()).isMethod()) {
+
+            MethodDefinition definitionInSuper = (MethodDefinition) superMembers.get(this.name.getName());
+
+            // - compare the 2 methods types and signatures size
+            if ((!newMethodDefinition.getType().sameType(definitionInSuper.getType()))
+                    || (newMethodDefinition.getSignature().size() != definitionInSuper.getSignature().size())) {
+                throw new ContextualError("Override method with different signature",this.getLocation());
+
+            } else {
+                // - compare arguments in the 2 methods
+                for (int i = 0; i < newMethodDefinition.getSignature().size();i++) {
+                    if (!newMethodDefinition.getSignature().paramNumber(i).sameType(definitionInSuper.getSignature().paramNumber(i))) {
+                        throw new ContextualError("Override method with different signature", this.getLocation());
+                    }
+                }
+            }
+        }
     }
+
+    @Override
+    protected void verifyMethodBody(DecacCompiler compiler, ClassDefinition current) throws ContextualError{
+        EnvironmentExp methodEnv = new EnvironmentExp(current.getMembers());
+        this.listDeclParam.verifyListDeclParam(compiler, methodEnv);
+        Type returnType = this.type.verifyType(compiler);
+        this.body.verifyBody(compiler, current, methodEnv, returnType);
+    }
+
 
     @Override
     public void decompile(IndentPrintStream s) {

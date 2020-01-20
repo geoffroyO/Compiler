@@ -9,6 +9,7 @@ import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.io.PrintStream;
 
@@ -89,9 +90,12 @@ public class DeclClass extends AbstractDeclClass {
     }
 
     @Override
-    protected void verifyClassMembers(DecacCompiler compiler)
+    protected void verifyClassMembers(DecacCompiler compiler, ClassDefinition current, ClassDefinition superClass)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println(">>>> START MEMBERS VERIFICATION FOR CLASSES");
+
+//        this.methods.verifyListDeclMethod(compiler, current, superClass);
+
     }
     
     @Override

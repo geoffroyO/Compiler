@@ -1,8 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ClassDefinition;
-import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
 import java.io.PrintStream;
@@ -18,8 +17,32 @@ public class DeclParam extends AbstractDeclParam {
     }
 
     @Override
-    protected void verifyParam(DecacCompiler compiler) throws ContextualError {
-        // TODO
+    protected Type verifyDeclParam(DecacCompiler compiler, EnvironmentExp localEnv)
+            throws ContextualError {
+
+        Type paramType;
+        try {
+            paramType = this.type.verifyType(compiler);
+
+            if (paramType.isVoid()){
+                throw new ContextualError("parameter can't be (void)", getLocation());
+            }
+
+            ParamDefinition paramDefinition = new ParamDefinition(paramType, this.getLocation());
+
+            // - declare parameter to local environment
+            localEnv.declare(this.paramName.getName(), paramDefinition);
+
+            // - set type and definition
+            this.paramName.setType(paramType);
+            this.paramName.setDefinition(paramDefinition);
+
+        } catch (EnvironmentExp.DoubleDefException d) {
+            throw new ContextualError("parameter already defined",this.paramName.getLocation());
+        }
+
+        return paramType;
+
     }
 
     @Override
