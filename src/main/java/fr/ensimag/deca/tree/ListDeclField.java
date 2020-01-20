@@ -18,6 +18,9 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
     }
 
     public void verifyListDeclField(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
+        if (memberOf.getSuperClass() != null) {
+            memberOf.setNumberOfFields(memberOf.getSuperClass().getNumberOfFields() + memberOf.getNumberOfFields());
+        }
         Iterator<AbstractDeclField> iterDeclField = this.iterator();
         while (iterDeclField.hasNext()){
             iterDeclField.next().verifyDeclField(compiler, memberOf);
@@ -28,6 +31,7 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
 
         for (AbstractDeclField field : getList()){
             field.codeGenDeclField(compiler);
+
         }
     }
 }

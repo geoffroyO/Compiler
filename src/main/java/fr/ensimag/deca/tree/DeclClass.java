@@ -92,7 +92,6 @@ public class DeclClass extends AbstractDeclClass {
 
         // Verify the fiels declaration
         this.fields.verifyListDeclField(compiler, className.getClassDefinition());
-
     }
     
     @Override
@@ -102,6 +101,11 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void codeGenFpDeclClass(DecacCompiler compiler) {
+        int maxIndex = methods.getMaxIndex();
+        compiler.addInstruction(new TSTO(new ImmediateInteger(maxIndex)));
+        compiler.addInstruction(new BOV(new Label("stack_overflow")));
+        compiler.addInstruction(new ADDSP(new ImmediateInteger(maxIndex)));
+
         DAddr addrClass = new RegisterOffset(compiler.getRegM().getGB(), Register.GB);
         className.getClassDefinition().setAddrClass(addrClass);
         DAddr addrSuperClass = superClass.getClassDefinition().getAddrClass();
@@ -109,9 +113,14 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addInstruction(new LEA(addrSuperClass, Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
         compiler.getRegM().incrGB();
-        compiler.getRegM().incrSP();
+
+        ClassDefinition inhClass = superClass.getClassDefinition();
+        while (inhClass != compiler.getEnvTypes().get(compiler.getSymbols().create("Object"))) {
+
+        }
         codeGenFpDeclObjectMethod(compiler);
         methods.codeGenListFpDeclMethod(compiler);
+        compiler.getRegM().incrGB(maxIndex);
     }
 
     private void codeGenFpDeclObjectMethod(DecacCompiler compiler) {
@@ -124,24 +133,19 @@ public class DeclClass extends AbstractDeclClass {
 
     protected void codeGenDeclClass(DecacCompiler compiler) {
         compiler.addComment("Initialisation des champs de la classe de " + className.getName());
-
         compiler.addLabel(new Label("init." + className.getName()));
-
-        if (superClass != null) {
-            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R0));
-            compiler.addInstruction(new PUSH(Register.R0));
-            compiler.addInstruction(new BSR(new Label("init." + superClass.getName())));
-            compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
-            compiler.getRegM().incrSP(-1);
-        }
-
+        compiler.addInstruction(new TSTO(new ImmediateInteger(3)), "test stack_overflow");
+        compiler.addInstruction(new BOV(new Label("stack_overflow")));
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R0));
+        compiler.addInstruction(new PUSH(Register.R0));
+        compiler.addComment("Initialisation de " + superClass.getName());
+        compiler.addInstruction(new BSR(new Label("init." + superClass.getName())));
+        compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
         fields.codeGenListDeclField(compiler);
-
         compiler.addInstruction(new RTS());
 
         compiler.addComment("Code des méthodes de la classe de " + className.getName());
         methods.codeGenListDeclMethod(compiler);
-
     }
 
 

@@ -92,8 +92,9 @@ public class DeclField extends AbstractDeclField {
 
     @Override
     protected void codeGenDeclField(DecacCompiler compiler) {
-        initialization.codeGenInit(compiler, Register.R0, fieldName.getVariableDefinition().getType());
+        compiler.addComment("initialisation de " + fieldName.getName());
+        initialization.codeGenInit(compiler, Register.R0, fieldName.getFieldDefinition().getType());
         compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R1));
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(1, Register.R1)));
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(fieldName.getFieldDefinition().getIndex(), Register.R1)));
     }
 }

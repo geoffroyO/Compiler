@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.LabelOperand;
@@ -19,6 +20,8 @@ public class DeclMethod extends AbstractDeclMethod {
     final private AbstractIdentifier name;
     final private ListDeclParam listDeclParam;
     final private AbstractMethodBody body;
+
+    public int getDeclMethodIndex() { return name.getMethodDefinition().getIndex(); }
 
     public DeclMethod(AbstractIdentifier type, AbstractIdentifier name, ListDeclParam listDeclParam, AbstractMethodBody body){
         this.type = type;
@@ -65,15 +68,14 @@ public class DeclMethod extends AbstractDeclMethod {
     protected void codeGenFpDeclMethod(DecacCompiler compiler) {
         Label labelCodeMethod = new Label("code" + name.getMethodDefinition().getLabel().toString());
         compiler.addInstruction(new LOAD(new LabelOperand(labelCodeMethod), Register.R0));
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
-        compiler.getRegM().incrGB();
-        compiler.getRegM().incrSP();
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB() + name.getMethodDefinition().getIndex() - 1, Register.GB)));
     }
 
     @Override
     protected void codeGenDeclMethod(DecacCompiler compiler) {
         Label labelCodeMethod = new Label("code" + name.getMethodDefinition().getLabel().toString());
         compiler.addLabel(labelCodeMethod);
+        //TODO
     }
 
 }

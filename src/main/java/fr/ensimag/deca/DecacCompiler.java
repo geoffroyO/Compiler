@@ -255,6 +255,11 @@ public class DecacCompiler {
 		addInstruction(new WNL());
 		addInstruction(new ERROR());
 
+		addLabel(new Label("heap_overflow"));
+		addInstruction(new WSTR(new ImmediateString("Error: heap_overflow ")));
+		addInstruction(new WNL());
+		addInstruction(new ERROR());
+
 		addComment("end main program");
 		LOG.debug("Generated assembly code:" + nl + program.display());
 		LOG.info("Output file assembly file is: " + destName);

@@ -21,4 +21,6 @@ public abstract class AbstractDeclMethod  extends Tree {
 
     protected abstract void codeGenDeclMethod(DecacCompiler compiler);
 
+    public abstract int getDeclMethodIndex();
+
 }

@@ -112,12 +112,13 @@ public class Program extends AbstractProgram {
         compiler.addComment("Table des méthodes");
         codeGenFPDeclObjectClass(compiler);
         classes.codeGenListFpDeclClass(compiler);
-
+        compiler.addInstruction(new BSR(new Label("MAIN")));
         compiler.addComment("Début seconde passe");
         codeGenDeclObjectMethod(compiler);
         classes.codeGenListDeclClass(compiler);
 
         compiler.addComment("Main program");
+        compiler.addLabel(new Label("MAIN"));
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
     }
