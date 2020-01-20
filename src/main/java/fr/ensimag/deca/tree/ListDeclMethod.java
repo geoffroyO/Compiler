@@ -13,7 +13,6 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
     public void decompile(IndentPrintStream s) {
         for(AbstractDeclMethod m: this.getList())
         {
-            s.print("\t");
             m.decompile(s);
             s.println();
         }
