@@ -1,0 +1,13 @@
+// Description:
+//    Programme minimaliste utilisant une affectation et une somme.
+//
+//
+// Historique:
+//    cree le 17/01/2020
+
+{
+    int x = 10;
+    float z;
+    z = 10/0;
+
+}
