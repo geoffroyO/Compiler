@@ -11,7 +11,9 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        // TODO
+        for (AbstractDeclParam p : this.getList()) {
+           // TODO
+        }
     }
 
     public void verifyListParam(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
