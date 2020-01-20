@@ -22,9 +22,6 @@ pInfo()
 
 # On se place dans le répertoire du projet (quel que soit le
 # répertoire d'où est lancé le script) :
-
-cd "$(dirname "$0")"/../../../.. || exit 1
-
 pathRootProject=$(pwd)
 pathLogs='/src/test/logs'
 pathTests='/src/test/deca/syntax'
