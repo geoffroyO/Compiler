@@ -1,0 +1,13 @@
+// Description :
+// double virgule.
+//
+// Resultats :
+//    ## TEST LEX : OK
+//## TEST SYN
+// Exception in thread "main" java.lang.AssertionError
+
+
+
+{
+    float x = 1..2;
+}

@@ -1,0 +1,8 @@
+// Description:
+//    Programme minimaliste utilisant un readfoat.
+
+{	
+	float x;
+	x = readFloat();
+	println(x);
+}
