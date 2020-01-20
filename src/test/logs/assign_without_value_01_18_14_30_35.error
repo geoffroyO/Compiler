@@ -1,1 +1,0 @@
-/user/0/.base/morinl/home/Documents/2A/tp/projet_gl/Projet_GL/src/test/deca/syntax/invalid/created/./wrong_order_in_bloc/assign_without_value.deca:13:12: mismatched input ';' expecting {'false', 'new', 'null', 'readInt', 'readFloat', 'this', 'true', IDENT, '-', '(', '!', INT, FLOAT, STRING}
