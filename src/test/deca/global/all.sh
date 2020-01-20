@@ -1,6 +1,7 @@
 #!/bin/bash
 
-FILE="readfloat"
+FILE=$(basename $1 ".deca")
+echo $FILE
 read -n 1 -s -r -p " Press any key to start"
 echo -e "\ntest_lex -----------------------------"
 test_lex $FILE".deca"
