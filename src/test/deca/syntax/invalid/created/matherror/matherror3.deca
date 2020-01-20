@@ -1,0 +1,9 @@
+
+//DESCRIPTION : oublie du signe multiplier
+//## TEST SYN
+//  Exception in thread "main" java.lang.AssertionError
+
+{
+ int w = 2;
+ int a = 42w;
+}
