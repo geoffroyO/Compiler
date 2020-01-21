@@ -69,7 +69,14 @@ public class ClassDefinition extends TypeDefinition {
     }
 
     private final EnvironmentExp members;
-    private final ClassDefinition superClass; 
+    private final ClassDefinition superClass;
+
+    // - Methods Table
+    private final MethodsTable MT;
+
+    public MethodsTable getMT() {
+        return MT;
+    }
 
     public EnvironmentExp getMembers() {
         return members;
@@ -85,6 +92,7 @@ public class ClassDefinition extends TypeDefinition {
         }
         members = new EnvironmentExp(parent);
         this.superClass = superClass;
+        this.MT = new MethodsTable();
     }
     
 }

@@ -63,6 +63,10 @@ public class DeclMethod extends AbstractDeclMethod {
 
             // - declare the new method in the environment and set this
             members.declare(name.getName(), newMethodDefinition);
+
+            // - add the method to methods table (MT)
+            current.getMT().putInMT(newMethodDefinition);
+
             // - set type and definition for this method
             this.name.setType(returnType);
             this.name.setDefinition(newMethodDefinition);

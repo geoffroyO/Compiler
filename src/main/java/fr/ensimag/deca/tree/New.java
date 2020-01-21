@@ -13,20 +13,20 @@ import java.io.PrintStream;
 
 public class New extends AbstractExpr{
 
-    AbstractIdentifier className;
+    AbstractIdentifier type;
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
         // - get class type
         Type identType;
         try {
-            identType = className.verifyType(compiler);
+            identType = type.verifyType(compiler);
         } catch (ContextualError e) {
             throw e;
         }
         // - check if the class is defined
         if (!identType.isClass()) {
-            throw new ContextualError("The identifier is not a class", this.className.getLocation());
+            throw new ContextualError("The identifier is not a class", this.type.getLocation());
         }
 
         this.setType(identType);
@@ -34,7 +34,7 @@ public class New extends AbstractExpr{
     }
 
     public New(AbstractIdentifier classe) {
-        this.className = classe;
+        this.type = classe;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class New extends AbstractExpr{
     }
 
     String prettyPrintNode() {
-        return "new " + className.getName();
+        return "new " + type.getName();
 
     }
 
@@ -60,12 +60,12 @@ public class New extends AbstractExpr{
     @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
         // TODO manque héritage
-        compiler.addInstruction(new NEW(new ImmediateInteger(className.getClassDefinition().getNumberOfFields() + 1), register), " on crée le tas");
+        compiler.addInstruction(new NEW(new ImmediateInteger(type.getClassDefinition().getNumberOfFields() + 1), register), " on crée le tas");
         compiler.addInstruction(new BOV(new Label("heap_overflow")));
-        compiler.addInstruction(new LEA(className.getClassDefinition().getAddrClass(), Register.R0));
+        compiler.addInstruction(new LEA(type.getClassDefinition().getAddrClass(), Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(0, register)));
         compiler.addInstruction(new PUSH(register));
-        compiler.addInstruction(new BSR(new Label("init." + className.getName())));
+        compiler.addInstruction(new BSR(new Label("init." + type.getName())));
         compiler.addInstruction(new POP(register));
 
     }

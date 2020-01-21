@@ -30,6 +30,14 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
                     throw new ContextualError("Method already defined in the class", this.getLocation());
                 }
         }
+        current.getMT().superUpdateMT(superClass);
+        System.out.println(current.getMT());
+        /** DON"T DELETE THIS
+         *  it's just for testing, We will remove it later
+            System.out.println("################");
+
+            System.out.println("################");
+         */
     }
 
     protected void verifyListMethodBody(DecacCompiler compiler, ClassDefinition current) throws ContextualError{
