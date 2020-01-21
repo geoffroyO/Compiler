@@ -1,15 +1,19 @@
 class A {
 	int x;
 	int y;
-	
-
-
-	void getX() {
-		return this.x;
+	void set(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }
 
+
 {
-	A a = new A();
-	a.getX();
+
+	a.x = 3;
+	if (a+1 instanceof A) {
+		println("super");
+	}
+	
+	
 }

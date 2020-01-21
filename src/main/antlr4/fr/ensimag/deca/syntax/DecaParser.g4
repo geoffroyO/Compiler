@@ -338,7 +338,8 @@ inequality_expr returns[AbstractExpr tree]
     | e1=inequality_expr INSTANCEOF type {
             assert($e1.tree != null);
             assert($type.tree != null);
-            
+
+        
             $tree = new InstanceOf($e1.tree, $type.tree);
             setLocation($tree, $e1.start);
 			 		 
@@ -419,7 +420,9 @@ select_expr returns[AbstractExpr tree]
     | e1=select_expr DOT i=ident {
             assert($e1.tree != null);
             assert($i.tree != null);
-            
+            if (! ($e1.tree instanceof AbstractLValue)) {
+                throw new InvalidLValue(this, $ctx);
+            }
         }
         (o=OPARENT args=list_expr CPARENT {
             // we matched "e1.i(args)"       
@@ -427,10 +430,11 @@ select_expr returns[AbstractExpr tree]
             $tree = new MethodCall($e1.tree, $i.tree, $args.tree);
         }
         | /* epsilon */ {
-        	$tree = new Selection($e1.tree, $i.tree);
+        	// we matched "e1.i"
+        	$tree = new Selection((AbstractLValue)$e1.tree, $i.tree);
         	setLocation($tree, $e1.start);
-            // we matched "e.i"
-            // TO DO
+            
+           
             
         }
         )
@@ -445,8 +449,9 @@ primary_expr returns[AbstractExpr tree]
             assert($args.tree != null);
             assert($m.tree != null);
             // We matched "m(args)"
-            $tree = new MethodCall(null, $m.tree, $args.tree);
-            
+            AbstractLValue t = new This();
+            setLocation(t, $m.start);
+            $tree = new MethodCall(t, $m.tree, $args.tree);          
         }
     | OPARENT expr CPARENT {
             assert($expr.tree != null);
