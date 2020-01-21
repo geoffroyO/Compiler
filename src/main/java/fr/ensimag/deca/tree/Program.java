@@ -14,7 +14,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
-import sun.awt.Symbol;
+
 
 /**
  * Deca complete program (class definition plus main block)
