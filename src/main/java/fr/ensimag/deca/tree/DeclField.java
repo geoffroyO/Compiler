@@ -77,6 +77,15 @@ public class DeclField extends AbstractDeclField {
     }
 
     @Override
+    /**
+     * Generate the name of the node and add the visibility
+     * @return String that contains visibility and the name DeclField
+     */
+    String prettyPrintNode() {
+        return ("[visibility = " + visibility.name() + "] " + this.getClass().getSimpleName());
+    }
+
+    @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         type.prettyPrint(s, prefix, false);
         fieldName.prettyPrint(s, prefix, false);

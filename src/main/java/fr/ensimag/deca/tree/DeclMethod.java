@@ -59,7 +59,7 @@ public class DeclMethod extends AbstractDeclMethod {
             }
 
             // - set Label for the new method
-            newMethodDefinition.setLabel(new Label(("code."+current.getType().getName().getName()) + "." + this.name.getName().getName()));
+            newMethodDefinition.setLabel(new Label((current.getType().getName().getName()) + "." + this.name.getName().getName()));
 
             // - declare the new method in the environment and set this
             members.declare(name.getName(), newMethodDefinition);
@@ -96,9 +96,14 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void verifyMethodBody(DecacCompiler compiler, ClassDefinition current) throws ContextualError{
+        // - create a Local Environment Local and add to it current class members and method parameters
         EnvironmentExp methodEnv = new EnvironmentExp(current.getMembers());
         this.listDeclParam.verifyListDeclParam(compiler, methodEnv);
+
+        // - get method return type (void, int, float...)
         Type returnType = this.type.verifyType(compiler);
+
+        // - verify the body of the method (function in MethodBody)
         this.body.verifyBody(compiler, current, methodEnv, returnType);
     }
 
