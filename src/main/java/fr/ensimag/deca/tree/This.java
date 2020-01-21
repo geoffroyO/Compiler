@@ -28,7 +28,8 @@ public class This extends AbstractExpr{
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        s.print(prefix + " This");
+        s.println(prefix + this.prettyPrintNode());
+        
     }
 
     @Override

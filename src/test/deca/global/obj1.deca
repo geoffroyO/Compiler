@@ -11,5 +11,5 @@ class A {
 
 {
 	A a = new A();
-	a.getX()
+	a.getX();
 }
