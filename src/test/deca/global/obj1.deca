@@ -1,15 +1,18 @@
 class A
 {
 	int x;
-	
-	int getX() {
-		return this.x;
-	}
-
-	
 }
 
+class B extends A
+{
+	A nouvel_obj;
+
+}
 {
 
-	A a = new A();
+	B b = new B();
+	b.nouvel_obj = new A();
+	b.nouvel_obj.x = 3;
+
+
 }
