@@ -109,6 +109,8 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void codeGenFpDeclClass(DecacCompiler compiler) {
         int maxIndex = methods.getMaxIndex();
+
+        compiler.addComment("Code de la table des méthodes de la classe " + className.getName());
         compiler.addInstruction(new TSTO(new ImmediateInteger(maxIndex)));
         compiler.addInstruction(new BOV(new Label("stack_overflow")));
         compiler.addInstruction(new ADDSP(new ImmediateInteger(maxIndex)));
@@ -116,18 +118,23 @@ public class DeclClass extends AbstractDeclClass {
         DAddr addrClass = new RegisterOffset(compiler.getRegM().getGB(), Register.GB);
         className.getClassDefinition().setAddrClass(addrClass);
         DAddr addrSuperClass = superClass.getClassDefinition().getAddrClass();
-        compiler.addComment("Code de la table des méthodes de la classe " + className.getName());
+
+
         compiler.addInstruction(new LEA(addrSuperClass, Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
         compiler.getRegM().incrGB();
 
-        ClassDefinition inhClass = superClass.getClassDefinition();
-        while (inhClass != compiler.getEnvTypes().get(compiler.getSymbols().create("Object"))) {
-
-        }
         codeGenFpDeclObjectMethod(compiler);
-        methods.codeGenListFpDeclMethod(compiler);
-        compiler.getRegM().incrGB(maxIndex);
+
+        MethodsTable tableMethods = className.getClassDefinition().getMT();
+
+        for (int index = 2; index <= maxIndex; index++) {
+            Label labelCodeMethod = tableMethods.getFromMT(index).getLabel();
+            compiler.addInstruction(new LOAD(new LabelOperand( new Label("code." + labelCodeMethod)), Register.R0));
+            compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB() + index - 2, Register.GB)));
+        }
+
+        compiler.getRegM().incrGB(maxIndex -1);
     }
 
     private void codeGenFpDeclObjectMethod(DecacCompiler compiler) {
@@ -135,7 +142,6 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addInstruction(new LOAD(new LabelOperand(labelCodeMethod), Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
         compiler.getRegM().incrGB();
-        compiler.getRegM().incrSP();
     }
 
     protected void codeGenDeclClass(DecacCompiler compiler) {
