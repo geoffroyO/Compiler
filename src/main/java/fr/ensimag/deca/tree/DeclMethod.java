@@ -47,14 +47,14 @@ public class DeclMethod extends AbstractDeclMethod {
             EnvironmentExp localEnv = new EnvironmentExp(members);
             signature = this.listDeclParam.verifyListDeclParam(compiler, localEnv);
 
-            // - method index
-            int methodIndex = current.incNumberOfMethods() + superClass.getNumberOfMethods();
 
             // - if method already exist in the environment
             if (superDefinition != null && superDefinition.isMethod()){
                 int superDefinitionIndex = ((MethodDefinition)superDefinition).getIndex();
                 newMethodDefinition = new MethodDefinition(returnType, this.type.getLocation(), signature, superDefinitionIndex);
             } else {
+                // - method index
+                int methodIndex = current.incNumberOfMethods() + superClass.getNumberOfMethods();
                 newMethodDefinition = new MethodDefinition(returnType, this.type.getLocation(), signature, methodIndex);
             }
 

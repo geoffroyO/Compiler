@@ -82,6 +82,14 @@ public class ClassDefinition extends TypeDefinition {
         return members;
     }
 
+    public int getAllLevelsMembersNumber(){
+        if (superClass != null){
+            return superClass.numberOfMethods + superClass.getAllLevelsMembersNumber();
+        } else {
+            return 0;
+        }
+    }
+
     public ClassDefinition(ClassType type, Location location, ClassDefinition superClass) {
         super(type, location);
         EnvironmentExp parent;
