@@ -96,7 +96,7 @@ public abstract class AbstractExpr extends AbstractInst {
             } else {
                 ClassType currentType = (ClassType)obtainedType;
                 // - check if the obtainedType is a child for the expectedType
-                if (!currentType.checkIsChild(expectedType)) {
+                if (!currentType.isSubClassOf((ClassType)expectedType)) {
                     throw new ContextualError("incompatible class types",this.getLocation());
                 }
             }

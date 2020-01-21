@@ -5,25 +5,20 @@ class A
 
 class B extends A
 {
-	void setC(C c) {
-		c.y;
+	void afficher(){
+		println(this.x);
 	}
-	
-	void setA(A a) {
-		a.x;
-	} 
+
 	
 }
-class C extends B
-{
-	protected int y;
-}
+
 
 
 
 
 {
-
+	B b = new B();
+	b.afficher();
 
 
 }

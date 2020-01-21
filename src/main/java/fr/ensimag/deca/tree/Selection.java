@@ -23,39 +23,23 @@ public class Selection extends AbstractLValue{
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-    	
-    	// We match e1.a.y
-    	
-        Type instanceType = instance.verifyExpr(compiler, localEnv, currentClass);
-        
-        ClassDefinition instanceDef = (ClassDefinition)(compiler.getEnvTypes().get(instanceType.getName()));
-        EnvironmentExp instanceEnv = instanceDef.getMembers();
-        
+        Type instanceType = instance.verifyExpr(compiler, localEnv, currentClass);      
+        EnvironmentExp instanceEnv = ((ClassDefinition)(compiler.getEnvTypes().get(instanceType.getName()))).getMembers();
         Type fieldType = field.verifyExpr(compiler, instanceEnv, currentClass);
-          
+             
+//        if (field.getFieldDefinition().getVisibility() ==  Visibility.PROTECTED) {
+//        	if (! currentClass.getType().isSubClassOf((ClassType)fieldType)) {
+//        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
+//        				+ "'field is protected and the current class (where instance.field is called) is not a subClass of the class where 'field' is declared", this.getLocation());
+//        	}
+      	
+//        	if (!((ClassType)(instanceType)).isSubClassOf(currentClass.getType())) {
+//        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
+//        				+ "'field is protected and the class of 'instance' is not a subClass of the current class (where instance.field is called)", this.getLocation());
+//        	}
+//        }
         
-        FieldDefinition fieldDef = field.getFieldDefinition();
-        if (fieldDef.getVisibility() ==  Visibility.PROTECTED) {
-
-        	if (! currentClass.getType().checkIsChild(fieldType)) {
-        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
-        				+ "'field is protected and the current class (where instance.field is called) is not a subClass of the class where 'field' is declared", this.getLocation());
-        	}
-        	
-        	if (!((ClassType)(instanceType)).checkIsChild(currentClass.getType())) {
-        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
-        				+ "'field is protected and the class of 'instance' is not a subClass of the current class (where instance.field is called)", this.getLocation());
-        	}
-
-        		
-        	
-        	
-        	
-        }
-        
-        
-        this.setType(fieldType);
-      
+        this.setType(fieldType);  
         return(this.getType());
     }
 
