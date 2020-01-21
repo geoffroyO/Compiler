@@ -38,12 +38,14 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        // TODO
+        this.ListInst.prettyPrint(s, prefix, false);
+        this.ListDeclVar.prettyPrint(s, prefix, true);
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        // TODO
+        this.ListDeclVar.iter(f);
+        this.ListInst.iter(f);
     }
 
     @Override
