@@ -1,18 +1,29 @@
 class A
 {
-	int x;
+	protected int x;
 }
 
 class B extends A
 {
-	A nouvel_obj;
-
+	void setC(C c) {
+		c.y;
+	}
+	
+	void setA(A a) {
+		a.x;
+	} 
+	
 }
+class C extends B
+{
+	protected int y;
+}
+
+
+
+
 {
 
-	B b = new B();
-	b.nouvel_obj = new A();
-	b.nouvel_obj.x = 3;
 
 
 }

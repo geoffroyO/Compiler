@@ -1,19 +1,21 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
-import java.io.PrintStream;
-
 public class Selection extends AbstractLValue{
-    private AbstractLValue instance;
+    private AbstractExpr instance;
     private AbstractIdentifier field;
 
-    public Selection(AbstractLValue instance, AbstractIdentifier field)
+    public Selection(AbstractExpr instance, AbstractIdentifier field)
     {
         this.instance = instance;
         this.field = field;
@@ -22,14 +24,36 @@ public class Selection extends AbstractLValue{
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
     	
-    	// We match this.x
+    	// We match e1.a.y
     	
         Type instanceType = instance.verifyExpr(compiler, localEnv, currentClass);
+        
         ClassDefinition instanceDef = (ClassDefinition)(compiler.getEnvTypes().get(instanceType.getName()));
         EnvironmentExp instanceEnv = instanceDef.getMembers();
         
         Type fieldType = field.verifyExpr(compiler, instanceEnv, currentClass);
           
+        
+        FieldDefinition fieldDef = field.getFieldDefinition();
+        if (fieldDef.getVisibility() ==  Visibility.PROTECTED) {
+
+        	if (! currentClass.getType().checkIsChild(fieldType)) {
+        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
+        				+ "'field is protected and the current class (where instance.field is called) is not a subClass of the class where 'field' is declared", this.getLocation());
+        	}
+        	
+        	if (!((ClassType)(instanceType)).checkIsChild(currentClass.getType())) {
+        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
+        				+ "'field is protected and the class of 'instance' is not a subClass of the current class (where instance.field is called)", this.getLocation());
+        	}
+
+        		
+        	
+        	
+        	
+        }
+        
+        
         this.setType(fieldType);
       
         return(this.getType());

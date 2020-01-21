@@ -28,6 +28,7 @@ public class EnvironmentExp {
     // d'empilement).
 
     EnvironmentExp parentEnvironment;
+    
 
     // - Structure to store the environment (Name -> Definition)
     private Map<Symbol, ExpDefinition> env;
@@ -80,6 +81,7 @@ public class EnvironmentExp {
             this.env.put(name, def);
         }
     }
+    
 
 
 }
