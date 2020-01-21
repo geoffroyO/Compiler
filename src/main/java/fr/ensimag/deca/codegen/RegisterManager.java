@@ -46,6 +46,10 @@ public class RegisterManager {
         this.GB++;
     }
 
+    public void incrGB( int n ){
+        this.GB = this.GB + n;
+    }
+
     public void incrLB(){
         this.LB++;
     }

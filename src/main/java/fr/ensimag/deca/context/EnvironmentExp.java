@@ -48,7 +48,12 @@ public class EnvironmentExp {
     public ExpDefinition get(Symbol key) {
 
         // - return the definition of the symbol in the environment
-        return this.env.get(key);
+//        return this.env.get(key);
+        ExpDefinition definition = this.env.get(key);
+        if (definition == null && parentEnvironment != null) {
+            return parentEnvironment.get(key);
+        }
+        return definition;
     }
 
     /**

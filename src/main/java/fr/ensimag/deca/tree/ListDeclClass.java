@@ -35,7 +35,7 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
             iterDeclClass.next().verifyClass(compiler);
         }
         verifyListClassMembers(compiler);
-         LOG.debug("verify listClass: end");
+        LOG.debug("verify listClass: end");
     }
 
     /**
@@ -43,12 +43,11 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
      */
     public void verifyListClassMembers(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify listClassMembers: start");
-        // TODO
-        // - we verify each class declaration
-//        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
-//        while (iterDeclClass.hasNext()){
-//            iterDeclClass.next().verifyClass(compiler);
-//        }
+        // - we verify each class members (fields and methods)
+        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
+        while (iterDeclClass.hasNext()){
+            iterDeclClass.next().verifyClassMembers(compiler);
+        }
 
         LOG.debug("verify listClassMembers: end");
     }

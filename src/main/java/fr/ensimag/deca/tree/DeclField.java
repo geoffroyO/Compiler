@@ -29,7 +29,7 @@ public class DeclField extends AbstractDeclField {
     }
 
     @Override
-    protected void verifyField(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
+    protected void verifyDeclField(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
 
         Type type;
         EnvironmentExp envExpSuper = memberOf.getMembers();
@@ -39,8 +39,8 @@ public class DeclField extends AbstractDeclField {
             type = this.type.verifyType(compiler);
 
             // - create definition for the field using the type and location
-            int index = 1;
-            FieldDefinition definition = new FieldDefinition(type, this.type.getLocation(), this.visibility, memberOf, index);
+            memberOf.incNumberOfFields(); // Add a new field
+            FieldDefinition definition = new FieldDefinition(type, this.type.getLocation(), this.visibility, memberOf, memberOf.getNumberOfFields());
 
             this.fieldName.setDefinition(definition);
 
@@ -50,7 +50,7 @@ public class DeclField extends AbstractDeclField {
         } catch (ContextualError e) {
             throw e;
         } catch (EnvironmentExp.DoubleDefException doubleDefinition) {
-            throw new ContextualError("field already defined", this.getLocation());
+            throw new ContextualError("Field already defined in this class", this.getLocation());
         }
 
         if (type.isVoid()) {
@@ -77,6 +77,15 @@ public class DeclField extends AbstractDeclField {
     }
 
     @Override
+    /**
+     * Generate the name of the node and add the visibility
+     * @return String that contains visibility and the name DeclField
+     */
+    String prettyPrintNode() {
+        return ("[visibility = " + visibility.name() + "] " + this.getClass().getSimpleName());
+    }
+
+    @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         type.prettyPrint(s, prefix, false);
         fieldName.prettyPrint(s, prefix, false);
@@ -92,8 +101,9 @@ public class DeclField extends AbstractDeclField {
 
     @Override
     protected void codeGenDeclField(DecacCompiler compiler) {
-        initialization.codeGenInit(compiler, Register.R0, fieldName.getVariableDefinition().getType());
+        compiler.addComment("initialisation de " + fieldName.getName());
+        initialization.codeGenInit(compiler, Register.R0, fieldName.getFieldDefinition().getType());
         compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R1));
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(1, Register.R1)));
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(fieldName.getFieldDefinition().getIndex(), Register.R1)));
     }
 }

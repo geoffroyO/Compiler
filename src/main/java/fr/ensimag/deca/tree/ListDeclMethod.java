@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
 import java.util.Iterator;
@@ -18,12 +19,37 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
         }
     }
 
-    public void verifyListMethod(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
+
+    public void verifyListDeclMethod(DecacCompiler compiler, ClassDefinition current, ClassDefinition superClass)
+            throws ContextualError {
         Iterator<AbstractDeclMethod> iterDeclMethod = this.iterator();
         while (iterDeclMethod.hasNext()){
-            iterDeclMethod.next().verifyDeclMethod(compiler, memberOf);
+                try {
+                    iterDeclMethod.next().verifyDeclMethod(compiler, current, superClass);
+                } catch (EnvironmentExp.DoubleDefException d) {
+                    throw new ContextualError("Method already defined in the class", this.getLocation());
+                }
         }
+    }
 
+    protected void verifyListMethodBody(DecacCompiler compiler, ClassDefinition current) throws ContextualError{
+        Iterator<AbstractDeclMethod> it = this.iterator();
+        while (it.hasNext()) {
+            try {
+                it.next().verifyMethodBody(compiler, current);
+            } catch (ContextualError e) {
+                throw e;
+            }
+        }
+    }
+
+    public int getMaxIndex() {
+        int maxIndex = 0;
+        for (AbstractDeclMethod method : getList()) {
+            int index = method.getDeclMethodIndex();
+            if (index > maxIndex) { maxIndex = index; }
+        }
+        return maxIndex;
     }
 
     public void codeGenListFpDeclMethod(DecacCompiler compiler){
