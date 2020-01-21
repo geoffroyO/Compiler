@@ -9,11 +9,11 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 
 import java.io.PrintStream;
 
-public class Selection extends AbstractExpr{
-    private AbstractExpr instance;
+public class Selection extends AbstractLValue{
+    private AbstractLValue instance;
     private AbstractIdentifier field;
 
-    public Selection(AbstractExpr instance, AbstractIdentifier field)
+    public Selection(AbstractLValue instance, AbstractIdentifier field)
     {
         this.instance = instance;
         this.field = field;
@@ -33,8 +33,8 @@ public class Selection extends AbstractExpr{
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        instance.prettyPrintChildren(s, prefix);
-        field.prettyPrintChildren(s, prefix);
+        instance.prettyPrint(s, prefix, false);
+        field.prettyPrint(s, prefix, true);
     }
 
     @Override

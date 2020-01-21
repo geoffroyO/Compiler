@@ -9,7 +9,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 
 import java.io.PrintStream;
 
-public class This extends AbstractExpr{
+public class This extends AbstractLValue{
 
     public This()
     {
@@ -27,8 +27,7 @@ public class This extends AbstractExpr{
     }
 
     @Override
-    protected void prettyPrintChildren(PrintStream s, String prefix) {
-        s.print(prefix + " This");
+    protected void prettyPrintChildren(PrintStream s, String prefix) {        
     }
 
     @Override

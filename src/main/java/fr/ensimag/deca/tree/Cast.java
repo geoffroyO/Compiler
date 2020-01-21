@@ -34,8 +34,8 @@ public class Cast extends  AbstractExpr{
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        type.prettyPrintChildren(s, prefix);
-        nameVar.prettyPrintChildren(s, prefix);
+        type.prettyPrint(s, prefix, false);
+        nameVar.prettyPrint(s, prefix, true);
     }
 
     @Override
