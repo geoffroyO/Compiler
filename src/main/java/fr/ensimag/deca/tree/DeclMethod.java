@@ -83,8 +83,17 @@ public class DeclMethod extends AbstractDeclMethod {
             MethodDefinition definitionInSuper = (MethodDefinition) superMembers.get(this.name.getName());
 
             // - compare the 2 methods types and signatures size
-            if ((!newMethodDefinition.getType().sameType(definitionInSuper.getType()))
-                    || (newMethodDefinition.getSignature().size() != definitionInSuper.getSignature().size())) {
+            Type type1 = newMethodDefinition.getType();
+            Type type2 = definitionInSuper.getType();
+
+            if (type1.isClass() && type2.isClass()){
+                if (!((ClassType)type1).isSubClassOf((ClassType)type2)){
+                    throw new ContextualError("Return type should be subtype of the super class method",this.getLocation());
+                }
+            }else if (!newMethodDefinition.getType().sameType(definitionInSuper.getType())){
+                throw new ContextualError("Return type should be the same or subtype of the super class method",this.getLocation());
+            }
+            if (newMethodDefinition.getSignature().size() != definitionInSuper.getSignature().size()) {
                 throw new ContextualError("Override method with different signature",this.getLocation());
 
             } else {
