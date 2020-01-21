@@ -18,12 +18,8 @@ public class New extends AbstractExpr{
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
         // - get class type
-        Type identType;
-        try {
-            identType = type.verifyType(compiler);
-        } catch (ContextualError e) {
-            throw e;
-        }
+        Type identType = type.verifyType(compiler);
+
         // - check if the class is defined
         if (!identType.isClass()) {
             throw new ContextualError("The identifier is not a class", this.type.getLocation());
@@ -44,13 +40,13 @@ public class New extends AbstractExpr{
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-
+    	type.prettyPrint(s, prefix, true);
     }
 
-    String prettyPrintNode() {
-        return "new " + type.getName();
-
-    }
+    
+    
+    
+    
 
     @Override
     protected void iterChildren(TreeFunction f) {
