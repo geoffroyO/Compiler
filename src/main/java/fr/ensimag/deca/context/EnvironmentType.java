@@ -47,8 +47,11 @@ public class EnvironmentType {
         equalsSignature.add(objectType);
 
         // - create a method definition for 'boolean Object.equals(Object o)' using the type and signature
-        MethodDefinition equalsDefinition = new MethodDefinition(new BooleanType(boolSymbol), Location.BUILTIN, equalsSignature, 0);
+        MethodDefinition equalsDefinition = new MethodDefinition(new BooleanType(boolSymbol), Location.BUILTIN, equalsSignature, 1);
         equalsDefinition.setLabel(new Label("code.Object.equals"));
+
+        // - add method "equals" to methods table of Object
+        objectDefinition.getMT().putInMT(equalsDefinition);
 
         try{
             // - add equals method to env_exp of Object
