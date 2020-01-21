@@ -48,7 +48,6 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
         while (iterDeclClass.hasNext()){
             iterDeclClass.next().verifyClassMembers(compiler);
         }
-
         LOG.debug("verify listClassMembers: end");
     }
     
@@ -56,7 +55,15 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
      * Pass 3 of [SyntaxeContextuelle]
      */
     public void verifyListClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        LOG.debug("verify verifyListClassBody: start");
+
+        // - we verify each class methods body
+        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
+        while (iterDeclClass.hasNext()){
+            iterDeclClass.next().verifyClassBody(compiler);
+        }
+
+        LOG.debug("verify verifyListClassBody: end");
     }
 
     public void codeGenListFpDeclClass(DecacCompiler compiler){
