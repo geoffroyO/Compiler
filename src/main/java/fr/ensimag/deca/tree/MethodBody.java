@@ -50,7 +50,7 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
-        
+
         ListDeclVar.codeGenDeclVar(compiler);
         ListInst.codeGenListInst(compiler);
     }

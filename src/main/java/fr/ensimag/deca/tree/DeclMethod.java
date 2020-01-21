@@ -152,14 +152,30 @@ public class DeclMethod extends AbstractDeclMethod {
         int nbMaxRegister = compiler.getRegM().getNb_registers();
         compiler.addComment("Sauvegarde des registres utilisés");
 
-
+        for (int k = 2; k < nbMaxRegister; k++) {
+            if (!compiler.getRegM().isFreeRegister(Register.getR(k))){
+                compiler.addInstruction(new TSTO(new ImmediateInteger(1)));
+                compiler.addInstruction(new PUSH( Register.getR(k)));
+                compiler.addInstruction(new BOV(new Label("stack_overflow")));
+            }
+        }
+        boolean[] oldFreeRegister = compiler.getRegM().setFreeRegister();
 
         listDeclParam.codeGenListDeclParam(compiler);
         body.codeGenMethodBody(compiler);
 
         compiler.addLabel(new Label("fin." + name.getMethodDefinition().getLabel()));
         compiler.addComment("Restauration des registres");
-
+        for (int k = 2; k < nbMaxRegister; k++){
+            if (oldFreeRegister[k]){
+                if (!compiler.getRegM().isFreeRegister(Register.getR(k))) {
+                    compiler.getRegM().freeRegister(Register.getR(k));
+                }
+            } else {
+                compiler.addInstruction(new POP(Register.getR(k)));
+                compiler.getRegM().unFreeRegister(Register.getR(k));
+            }
+        }
         compiler.addInstruction(new RTS());
     }
 
