@@ -7,12 +7,8 @@ import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
-import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.LabelOperand;
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.RegisterOffset;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
 
@@ -146,7 +142,36 @@ public class DeclMethod extends AbstractDeclMethod {
     protected void codeGenDeclMethod(DecacCompiler compiler) {
         Label labelCodeMethod = new Label("code" + name.getMethodDefinition().getLabel().toString());
         compiler.addLabel(labelCodeMethod);
-        //TODO
+
+
+        int nbMaxRegister = compiler.getRegM().getNb_registers();
+        compiler.addComment("Sauvegarde des registres utilisés");
+
+        for (int k = 2; k < nbMaxRegister; k++) {
+            if (!compiler.getRegM().isFreeRegister(Register.getR(k))){
+                compiler.addInstruction(new TSTO(new ImmediateInteger(1)));
+                compiler.addInstruction(new PUSH( Register.getR(k)));
+                compiler.addInstruction(new BOV(new Label("stack_overflow")));
+            }
+        }
+        boolean[] oldFreeRegister = compiler.getRegM().setFreeRegister();
+
+        listDeclParam.codeGenListDeclParam(compiler);
+        body.codeGenMethodBody(compiler);
+
+        compiler.addLabel(new Label("fin." + name.getMethodDefinition().getLabel()));
+        compiler.addComment("Restauration des registres");
+        for (int k = 2; k < nbMaxRegister; k++){
+            if (oldFreeRegister[k]){
+                if (!compiler.getRegM().isFreeRegister(Register.getR(k))) {
+                    compiler.getRegM().freeRegister(Register.getR(k));
+                }
+            } else {
+                compiler.addInstruction(new POP(Register.getR(k)));
+                compiler.getRegM().unFreeRegister(Register.getR(k));
+            }
+        }
+        compiler.addInstruction(new RTS());
     }
 
 }
