@@ -1,8 +1,7 @@
 // Description:
 //  	Utilisant identifiant de bloc seul
 // Resultats :
-// 		Ligne 8 : mismatched input 'else' expecting ...
-
+// 	Ligne 7 : mismatched input 'else' expecting ...
 
 {
 	else;

@@ -2,11 +2,8 @@
 // double virgule.
 //
 // Resultats :
-//    ## TEST LEX : OK
-//## TEST SYN
-// Exception in thread "main" java.lang.AssertionError
-
-
+// ## TEST LEX : OK
+// ## TEST SYN : Ligne 9 : Exception in thread "main" java.lang.AssertionError
 
 {
     float x = 1..2;

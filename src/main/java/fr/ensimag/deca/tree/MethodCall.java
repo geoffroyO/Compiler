@@ -39,9 +39,9 @@ public class MethodCall extends AbstractExpr{
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        instance.prettyPrintChildren(s, prefix);
-        nameMethod.prettyPrintChildren(s, prefix);
-        params.prettyPrintChildren(s, prefix);
+        instance.prettyPrint(s, prefix, false);
+        nameMethod.prettyPrint(s, prefix, false);
+        params.prettyPrint(s, prefix, true);
     }
 
     @Override

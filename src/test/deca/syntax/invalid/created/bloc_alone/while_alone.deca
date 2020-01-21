@@ -1,8 +1,7 @@
 // Description:
 //  	Utilisant identifiant de bloc seul
 // Resultats :
-// 		Ligne 8 : mismatched input ';' expecting '('
-
+// 	Ligne 7 : mismatched input ';' expecting '('
 
 {
 	while;

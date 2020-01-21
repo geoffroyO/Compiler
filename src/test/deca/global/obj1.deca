@@ -1,0 +1,19 @@
+class A {
+	int x;
+	int y;
+	void set(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+}
+
+
+{
+
+	a.x = 3;
+	if (a+1 instanceof A) {
+		println("super");
+	}
+	
+	
+}
