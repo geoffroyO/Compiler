@@ -8,10 +8,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.*;
-import fr.ensimag.ima.pseudocode.instructions.BEQ;
-import fr.ensimag.ima.pseudocode.instructions.CMP;
-import fr.ensimag.ima.pseudocode.instructions.LEA;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
 
@@ -61,5 +58,27 @@ public class Selection extends AbstractLValue{
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
         instance.codeGenExpr(compiler, register);
+        compiler.addInstruction( new LEA(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
+    }
+
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+        GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
+        instance.codeGenExpr(compiler, addrReg);
+        compiler.addInstruction(new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), addrReg), Register.R1));
+
+        if (field.getFieldDefinition().getType().isInt()){
+            compiler.addInstruction(new WINT());
+        }
+
+        if (this.getType().isFloat()){
+            if (printHex) {
+                compiler.addInstruction(new WFLOATX());
+            } else {
+                compiler.addInstruction(new WFLOAT());
+            }
+        }
+
+        compiler.getRegM().freeRegister(addrReg);
     }
 }
