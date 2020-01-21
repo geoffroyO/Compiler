@@ -7,6 +7,7 @@ import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.io.PrintStream;
 
@@ -100,7 +101,9 @@ public class DeclClass extends AbstractDeclClass {
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        // - call a function in (ListDeclMethod) that create an iterator and call
+        //   "verifyBody" for each method in the class
+        this.methods.verifyListMethodBody(compiler, this.className.getClassDefinition());
     }
 
     @Override
