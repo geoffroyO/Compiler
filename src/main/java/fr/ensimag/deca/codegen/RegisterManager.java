@@ -3,6 +3,9 @@ package fr.ensimag.deca.codegen;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * Class that manages the free and occupied registers.
  *
@@ -92,5 +95,21 @@ public class RegisterManager {
     public void freeRegister(GPRegister register){
         int i = register.getNumber();
         this.freeRegister[i] = true;
+    }
+
+    public boolean isFreeRegister(GPRegister register){
+        return freeRegister[register.getNumber()];
+    }
+
+    public void unFreeRegister(GPRegister register){
+        freeRegister[register.getNumber()] = false;
+    }
+
+    public boolean[] setFreeRegister() {
+        boolean[] oldFreeRegister = Arrays.copyOf(freeRegister, freeRegister.length);
+        for (int i = 0; i < nb_registers ; i++) {
+            this.freeRegister[i] = true;
+        }
+        return oldFreeRegister;
     }
 }
