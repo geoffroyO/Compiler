@@ -1,4 +1,15 @@
+class A
 {
+	int x;
 	
-	X x = (A)(b + 1);	
+	int getX() {
+		return this.x;
+	}
+
+	
+}
+
+{
+
+	A a = new A();
 }
