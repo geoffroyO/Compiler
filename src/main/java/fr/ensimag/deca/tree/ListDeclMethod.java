@@ -22,6 +22,7 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
 
     public void verifyListDeclMethod(DecacCompiler compiler, ClassDefinition current, ClassDefinition superClass)
             throws ContextualError {
+
         Iterator<AbstractDeclMethod> iterDeclMethod = this.iterator();
         while (iterDeclMethod.hasNext()){
                 try {
@@ -30,8 +31,12 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
                     throw new ContextualError("Method already defined in the class", this.getLocation());
                 }
         }
+        // - update current class number of method (add super class number of methods)
+        current.setNumberOfMethods(current.getNumberOfMethods()+current.getSuperClass().getNumberOfMethods());
+        // - update current class methods table
         current.getMT().superUpdateMT(superClass);
 
+        System.out.println(current.getMT());
         /** DON"T DELETE THIS
          *  it's just for testing, We will remove it later
             System.out.println("################");

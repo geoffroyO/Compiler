@@ -1,22 +1,23 @@
 package fr.ensimag.deca.tree;
 
 
+import java.io.PrintStream;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.*;
 
-import java.io.PrintStream;
-
 public class Selection extends AbstractLValue{
-    private AbstractLValue instance;
+    private AbstractExpr instance;
     private AbstractIdentifier field;
 
-    public Selection(AbstractLValue instance, AbstractIdentifier field)
+    public Selection(AbstractExpr instance, AbstractIdentifier field)
     {
         this.instance = instance;
         this.field = field;
@@ -24,17 +25,28 @@ public class Selection extends AbstractLValue{
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-    	
-    	// We match this.x
-    	
-        Type instanceType = instance.verifyExpr(compiler, localEnv, currentClass);
-        ClassDefinition instanceDef = (ClassDefinition)(compiler.getEnvTypes().get(instanceType.getName()));
-        EnvironmentExp instanceEnv = instanceDef.getMembers();
-        
+        ClassType instanceType = instance.verifyExpr(compiler, localEnv, currentClass).asClassType("error", getLocation());    
+        EnvironmentExp instanceEnv = instanceType.getDefinition().getMembers();
         Type fieldType = field.verifyExpr(compiler, instanceEnv, currentClass);
-          
-        this.setType(fieldType);
-      
+             
+        // 3.70 oubliée ici
+        
+        if (field.getFieldDefinition().getVisibility() ==  Visibility.PROTECTED) {
+//        	if (currentClass == null) {
+//        		throw new 
+//        	}
+        	if (! currentClass.getType().isSubClassOf((ClassType)fieldType)) {
+        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
+        				+ "'field is protected and the current class (where instance.field is called) is not a subClass of the class where 'field' is declared", this.getLocation());
+        	}
+      	// getContainingClass
+        	if (!((instanceType)).isSubClassOf(currentClass.getType())) {
+        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
+        				+ "'field is protected and the class of 'instance' is not a subClass of the current class (where instance.field is called)", this.getLocation());
+        	}
+        }
+        
+        this.setType(fieldType);  
         return(this.getType());
     }
 

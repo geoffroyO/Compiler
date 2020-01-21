@@ -1,18 +1,24 @@
 class A
 {
-	int x;
+	protected int x;
 }
 
 class B extends A
 {
-	A nouvel_obj;
+	void afficher(){
+		println(this.x);
+	}
 
+	
 }
-{
 
+
+
+
+
+{
 	B b = new B();
-	b.nouvel_obj = new A();
-	b.nouvel_obj.x = 3;
+	b.afficher();
 
 
 }
