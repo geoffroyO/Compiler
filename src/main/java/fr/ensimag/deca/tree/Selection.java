@@ -21,7 +21,12 @@ public class Selection extends AbstractLValue{
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-        return null;
+        Type tInstance = instance.verifyExpr(compiler, localEnv, currentClass);
+        Type tField = field.verifyExpr(compiler, localEnv, currentClass);
+        
+        this.setType(tField);
+      
+        return(tField);
     }
 
     @Override
