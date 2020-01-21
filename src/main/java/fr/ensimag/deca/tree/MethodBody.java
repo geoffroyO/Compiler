@@ -38,8 +38,8 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        this.ListInst.prettyPrint(s, prefix, false);
-        this.ListDeclVar.prettyPrint(s, prefix, true);
+        this.ListDeclVar.prettyPrint(s, prefix, false);
+        this.ListInst.prettyPrint(s, prefix, true);
     }
 
     @Override
