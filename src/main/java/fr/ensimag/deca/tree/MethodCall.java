@@ -13,9 +13,9 @@ public class MethodCall extends AbstractExpr{
 
         private AbstractExpr instance ;
         private AbstractIdentifier nameMethod;
-        private ListDeclParam params;
+        private ListExpr params;
 
-    public MethodCall(AbstractExpr instance, AbstractIdentifier nameMethod, ListDeclParam params){
+    public MethodCall(AbstractExpr instance, AbstractIdentifier nameMethod, ListExpr params){
         // instance can be null if match method(params)
         this.instance = instance;
         this.nameMethod = nameMethod;
