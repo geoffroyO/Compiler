@@ -21,10 +21,8 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     public void decompile(IndentPrintStream s) {
-//        s.println("{");
         ListDeclVar.decompile(s);
         ListInst.decompile(s);
-//        s.println("}");
     }
 
     @Override
