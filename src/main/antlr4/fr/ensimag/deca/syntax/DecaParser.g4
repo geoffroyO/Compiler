@@ -338,10 +338,10 @@ inequality_expr returns[AbstractExpr tree]
     | e1=inequality_expr INSTANCEOF type {
             assert($e1.tree != null);
             assert($type.tree != null);
-            /* 
-            $tree = new IsInstanceOf($e1.tree, $type.tree);
+            
+            $tree = new InstanceOf($e1.tree, $type.tree);
             setLocation($tree, $e1.start);
-			 */			 
+			 		 
         }
     ;
 
@@ -419,17 +419,19 @@ select_expr returns[AbstractExpr tree]
     | e1=select_expr DOT i=ident {
             assert($e1.tree != null);
             assert($i.tree != null);
-            // TO DO
+            
         }
         (o=OPARENT args=list_expr CPARENT {
-            // we matched "e1.i(args)"
+            // we matched "e1.i(args)"       
             assert($args.tree != null);
-            // TO DO
-
+            $tree = new MethodCall($e1.tree, $i.tree, $args.tree);
         }
         | /* epsilon */ {
+        	$tree = new Selection($e1.tree, $i.tree);
+        	setLocation($tree, $e1.start);
             // we matched "e.i"
             // TO DO
+            
         }
         )
     ;
@@ -442,7 +444,8 @@ primary_expr returns[AbstractExpr tree]
     | m=ident OPARENT args=list_expr CPARENT {
             assert($args.tree != null);
             assert($m.tree != null);
-            // TO DO
+            // We matched "m(args)"
+            $tree = new MethodCall(null, $m.tree, $args.tree);
             
         }
     | OPARENT expr CPARENT {
@@ -465,10 +468,10 @@ primary_expr returns[AbstractExpr tree]
     | cast=OPARENT type CPARENT OPARENT expr CPARENT {
             assert($type.tree != null);
             assert($expr.tree != null);
-            /*
+            
             $tree = new Cast($type.tree, $expr.tree);
             setLocation($tree, $cast);
-             */
+            
         }
     | literal {
     		// System.out.println("### literal ###");
@@ -510,10 +513,8 @@ literal returns[AbstractExpr tree]
     		setLocation($tree, $FALSE);
       	}
     | THIS {
-    		/*
     		$tree = new This();
     		setLocation($tree, $THIS); 
-    		 */
         }
     | NULL {
     		$tree = new Null();

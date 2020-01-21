@@ -1,0 +1,15 @@
+class A {
+	int x;
+	int y;
+	
+
+
+	void getX() {
+		return this.x;
+	}
+}
+
+{
+	A a = new A();
+	a.getX()
+}
