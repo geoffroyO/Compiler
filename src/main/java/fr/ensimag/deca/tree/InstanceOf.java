@@ -1,10 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ClassDefinition;
-import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
 import java.io.PrintStream;
@@ -18,9 +15,25 @@ public class InstanceOf extends AbstractExpr{
         this.className = className;
     }
 
+
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-        return null;
+        instance.verifyExpr(compiler, localEnv, currentClass);
+        className.verifyExpr(compiler, localEnv, currentClass);
+
+        this.setType( compiler.getEnvTypes().get(compiler.getSymbols().create("boolean")).getType() );
+        return(this.getType());
+
+        /*
+        if ((instanceType.isNull() || instanceType.isClass()) && (classNameType.isClass()))
+        {
+           // Case Type x Type -> boolean
+            if (instanceType.asClassType("Error TODO", this.getLocation()).isSubClassOf(classNameType.asClassType("Error TODO", this.getLocation())))
+            {
+
+            }
+        }
+        */
     }
 
     @Override
