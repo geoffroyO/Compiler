@@ -1,0 +1,11 @@
+// Description:
+//      Importation circulaire.
+//      fA importe fB 
+//      fB importe fA
+// Resultat :
+//      Ligne 1 :  Circular include for file fA.decah
+
+#include "fA.decah"
+
+{
+}

@@ -1,0 +1,9 @@
+// Description:
+//      Multiple definition of a field
+// Resultats:
+//      OK
+
+class A{
+    int x;
+    int x;
+}

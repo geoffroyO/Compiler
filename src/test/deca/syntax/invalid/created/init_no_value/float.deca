@@ -1,0 +1,8 @@
+// Description:
+//      Affectation sans valeur
+//  Resultats:
+//      Error Ligne 7 : mismatched input ';' expecting {'false', 'new', 'null', 'readInt', 'readFloat', 'this', 'true', IDENT, '-', '(', '!', INT, FLOAT, STRING}
+
+{
+    float x =;
+}

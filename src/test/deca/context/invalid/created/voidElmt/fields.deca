@@ -1,0 +1,8 @@
+// Description:
+//      Utilisation d'un champ void
+// Resultat:
+//      Ligne 7 : Field can't be void
+
+class A {
+    void x;
+}

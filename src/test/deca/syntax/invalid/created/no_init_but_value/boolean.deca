@@ -1,0 +1,8 @@
+// Description:
+//      Pas d'initialisation mais valeur donnee
+// Resultats:
+//      Error Ligne 7 : extraneous input 'true' expecting ';'
+
+{
+    boolean x true;
+}

@@ -1,0 +1,9 @@
+// Description:
+//      Multiple definition of a method
+// Resultats:
+//      OK
+
+class A {
+    void get(){}
+    void get(){}
+}

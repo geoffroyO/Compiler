@@ -1,0 +1,8 @@
+// Description:
+//      Utilisation d'un champ void
+// Resultat:
+//      OK
+
+class A {
+    void x;
+}

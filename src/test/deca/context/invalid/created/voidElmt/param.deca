@@ -1,0 +1,8 @@
+// Description:
+//      Utilisation d'un parametre de methode void
+// Resultat:
+//      Ligne 7 : Parameter can't be void
+
+class A {
+    int g(void a){}
+}

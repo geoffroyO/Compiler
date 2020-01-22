@@ -1,7 +1,7 @@
 // Description:
 //  Affectation de float avec identifier float
 // Resultats:
-//  OK
+//  Ligne 7 : missing IDENT at ';'
 
 {
 float a = 3. ;

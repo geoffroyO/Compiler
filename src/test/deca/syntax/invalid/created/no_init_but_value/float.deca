@@ -1,0 +1,8 @@
+// Description:
+//      Pas d'initialisation mais valeur donnee
+// Resultats:
+//      Error Ligne 7 : extraneous input '8.9' expecting ';'
+
+{
+    float x 8.9;
+}

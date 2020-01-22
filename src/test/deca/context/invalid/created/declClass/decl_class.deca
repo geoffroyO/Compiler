@@ -1,8 +1,8 @@
 // Description :
-// simple declaration for 2 classes, and 2 variables of theses classes
+//      Class herite d'elle meme
 //
 // Resultats :
-//  everything should be working, nothing will be printed.
+//      Ligne 7 : Type not defined
 
 class A extends A {
 
