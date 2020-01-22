@@ -18,7 +18,10 @@ public class Cast extends  AbstractExpr{
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-        Type castType = type.verifyExpr(compiler, localEnv, currentClass);
+        
+    	Type castType = type.verifyType(compiler);
+    	
+    	
         Type varType = nameVar.verifyExpr(compiler, localEnv, currentClass);
 
         EnvironmentType env = compiler.getEnvTypes();
