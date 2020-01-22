@@ -158,6 +158,7 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void codeGenDeclMethod(DecacCompiler compiler) {
+        // created a branch for object codegen
         Label labelCodeMethod = new Label("code" + name.getMethodDefinition().getLabel().toString());
         compiler.addLabel(labelCodeMethod);
 

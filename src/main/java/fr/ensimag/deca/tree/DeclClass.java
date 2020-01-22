@@ -166,7 +166,6 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        // this is remote
         this.className.iter(f);
         this.superClass.iter(f);
         this.methods.iter(f);
