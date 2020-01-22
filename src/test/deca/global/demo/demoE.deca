@@ -1,0 +1,20 @@
+class A {
+	int x;
+    int getX(){
+        return(this.x);
+    }
+}
+
+class B {
+    A a = new A();
+    
+    A getA(){
+        return(a);
+    }
+
+}
+
+{
+    B b = new B();
+    b.getA().getX();
+}

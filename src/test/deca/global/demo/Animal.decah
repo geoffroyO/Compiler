@@ -1,0 +1,23 @@
+class Animal {
+
+    int age;
+    float taille;
+    float poids;
+
+    void set(int a, float t, float p)
+    {
+        age = a;
+        taille = t;
+        poids = p;
+    }
+
+    void affiche() {
+        println("Age :", age);
+        println("Taille :", taille);
+        println("Poids :", poids);
+    }
+
+    void crier(){
+        
+    }
+}
