@@ -13,7 +13,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.*;
 
-public class MethodCall extends AbstractExpr{
+public class MethodCall extends AbstractLValue{
 
         private AbstractExpr instance ;
         private AbstractIdentifier methodName;
