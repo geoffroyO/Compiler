@@ -1,24 +1,32 @@
 class A
 {
-	protected int x;
+ 	protected int x;
+
+
 }
 
 class B extends A
 {
-	void afficher(){
-		println(this.x);
-	}
 
+
+	int getX(A a) {
+		return a.x;
+	}
 	
+}
+
+class X
+{
+	void m() {
+		A a = new A();
+		B b = new B();
+		println(b.getX(a));
+	}
 }
 
 
 
-
-
 {
-	B b = new B();
-	b.afficher();
 
 
 }

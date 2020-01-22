@@ -23,10 +23,10 @@ public class This extends AbstractLValue{
         this.setType(type);
         
     	if (!currentClass.isClass()) {
-            throw new ContextualError("this must be used inside a class", this.getLocation());
+            throw new ContextualError("'this' must be used inside a class", this.getLocation());
         }
     	
-        return type;
+        return this.getType();
     }
 
     @Override
