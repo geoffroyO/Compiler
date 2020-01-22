@@ -102,7 +102,7 @@ public class MethodCall extends AbstractExpr{
         compiler.addInstruction(new CMP(new NullOperand(), register));
         compiler.addInstruction(new BEQ(new Label("deferencement.null")));
         compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register), "on récupère l'adresse de la table des méthodes");
-        compiler.addInstruction(new BSR(new RegisterOffset(nameMethod.getMethodDefinition().getIndex(), register)), "on saute à la méthode");
+        compiler.addInstruction(new BSR(new RegisterOffset(methodName.getMethodDefinition().getIndex(), register)), "on saute à la méthode");
         compiler.addInstruction(new SUBSP(new ImmediateInteger(nbParams)));
     }
 }

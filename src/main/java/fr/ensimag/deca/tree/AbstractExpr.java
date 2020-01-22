@@ -164,6 +164,11 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     public boolean assignCompatible(EnvironmentType env, Type T1, Type T2) throws ContextualError
     {
+        if (T1.sameType(T2))
+        {
+            return(true);
+        }
+
         if (T1.isFloat() && T2.isInt())
         {
             // Case 1
