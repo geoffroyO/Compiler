@@ -86,17 +86,36 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
     protected void codeGenExpr(DecacCompiler compiler, GPRegister result){
         if (compiler.getRegM().hasFreeGPRegister()) {
             GPRegister right = compiler.getRegM().findFreeGPRegister();
+
+            // - the result of the left expression is in the register result
             getLeftOperand().codeGenExpr(compiler, result);
+
+            // - the result of the right expression is in the register right
             getRightOperand().codeGenExpr(compiler, right);
+
+            // - proceed to the final operation
             codeGenOp(compiler, right, result);
+
+            // - free the register
             compiler.getRegM().freeRegister(right);
         } else {
             GPRegister right = Register.getR(compiler.getRegM().getNb_registers());
+
             getLeftOperand().codeGenExpr(compiler, result);
+
+            // - save the register right at the top of the stack
             compiler.addInstruction(new PUSH(right));
+
+            // - evaluation of the expression and result in the register right
             getRightOperand().codeGenExpr(compiler, right);
+
+            // - load the right register in R0 so as to get the primary result in the right register
             compiler.addInstruction(new LOAD(right, Register.R0));
+
+            // - backup for the right register pushed before
             compiler.addInstruction(new POP(right));
+
+            // - proceed to the final operation
             codeGenOp(compiler, Register.R0, result);
         }
     }

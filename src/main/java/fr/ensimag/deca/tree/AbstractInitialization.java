@@ -6,6 +6,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 /**
  * Initialization (of variable, field, ...)
@@ -33,13 +36,17 @@ public abstract class AbstractInitialization extends Tree {
      * @param register
      * @param type
      */
-    protected abstract void codeGenInit(DecacCompiler compiler, GPRegister register, Type type);
+    protected abstract void codeGenInit(DecacCompiler compiler, GPRegister register, AbstractIdentifier type);
 
     /**
      * Stores the expression into the stack if Initialization
      * @param compiler
      * @param register
      */
-    protected abstract void codeGenStInit(DecacCompiler compiler, GPRegister register);
+    protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
+
+        // - store the result at the top of the stack
+        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
+    }
 
 }

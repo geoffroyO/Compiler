@@ -1,0 +1,8 @@
+// Description:
+//      Declaration d'une variable void
+// Resultat:
+//      Ligne 7 : Variable can't be void
+
+{
+    void a;
+}

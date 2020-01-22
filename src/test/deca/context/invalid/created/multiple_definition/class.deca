@@ -1,0 +1,7 @@
+// Description:
+//      Multiple definition of a class
+// Resultats:
+//      Error Ligne 7 : Class name was already defined
+
+class A {}
+class A {}

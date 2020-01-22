@@ -1,0 +1,9 @@
+// Description:
+//      Multiple definition of a field
+// Resultats:
+//      Error Ligne 8 : Field already definid in this class
+
+class A{
+    int x;
+    int x;
+}

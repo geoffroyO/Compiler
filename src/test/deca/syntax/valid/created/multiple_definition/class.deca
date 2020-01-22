@@ -1,0 +1,7 @@
+// Description:
+//      Multiple definition of a class
+// Resultats:
+//      OK
+
+class A {}
+class A {}

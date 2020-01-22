@@ -55,13 +55,24 @@ public class New extends AbstractExpr{
 
     @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
-        // TODO manque héritage
+
+        // - heap creation
         compiler.addInstruction(new NEW(new ImmediateInteger(type.getClassDefinition().getNumberOfFields() + 1), register), " on crée le tas");
+
+        // - heap overflow
         compiler.addInstruction(new BOV(new Label("heap_overflow")));
+
+        // - get addrClass
         compiler.addInstruction(new LEA(type.getClassDefinition().getAddrClass(), Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(0, register)));
+
+        // - save the register
         compiler.addInstruction(new PUSH(register));
+
+        // - jump
         compiler.addInstruction(new BSR(new Label("init." + type.getName())));
+
+        // - restore the register saved before
         compiler.addInstruction(new POP(register));
 
     }

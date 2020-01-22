@@ -57,7 +57,7 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
     }
 
     public int getMaxIndex() {
-        int maxIndex = 0;
+        int maxIndex = 1;
         for (AbstractDeclMethod method : getList()) {
             int index = method.getDeclMethodIndex();
             if (index > maxIndex) { maxIndex = index; }
@@ -65,15 +65,7 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
         return maxIndex;
     }
 
-    public void codeGenListFpDeclMethod(DecacCompiler compiler){
-        for (AbstractDeclMethod method : getList()){
-            method.codeGenFpDeclMethod(compiler);
-        }
-    }
-
     public void codeGenListDeclMethod(DecacCompiler compiler){
-        for (AbstractDeclMethod method : getList()){
-            method.codeGenDeclMethod(compiler);
-        }
+        //TODO
     }
 }

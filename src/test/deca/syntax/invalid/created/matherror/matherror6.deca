@@ -1,1 +1,8 @@
+// Description :
+// double virgule.
+//
+// Resultats :
+// ## TEST LEX : OK
+// ## TEST SYN : Ligne 8 : extraneous input '+' expecting {'false', 'new', 'null', 'readInt', 'readFloat', 'this', 'true', IDENT, '-', '(', '!', INT, FLOAT, STRING}
+
 { int a = -+3;}

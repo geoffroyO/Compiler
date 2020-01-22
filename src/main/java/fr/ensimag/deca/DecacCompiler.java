@@ -240,7 +240,6 @@ public class DecacCompiler {
 		addComment("start main program");
 		prog.codeGenProgram(this);
 
-
 		addComment("end main program");
 		LOG.debug("Generated assembly code:" + nl + program.display());
 		LOG.info("Output file assembly file is: " + destName);

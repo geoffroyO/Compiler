@@ -1,0 +1,9 @@
+// Description:
+//		Affection d'un flottant qui depasse la limite
+// Resultat:
+//		Ligne 8 : 
+
+
+{
+	int value = 456784567895678567896789;
+}

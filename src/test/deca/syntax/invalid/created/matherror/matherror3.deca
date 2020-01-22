@@ -1,7 +1,7 @@
 
 //DESCRIPTION : oublie du signe multiplier
 //## TEST SYN
-//  Exception in thread "main" java.lang.AssertionError
+//  Ligne 8 : no viable alternative at input 'w'
 
 {
  int w = 2;

@@ -6,6 +6,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
 import org.apache.commons.lang.Validate;
 import org.mockito.exceptions.misusing.CannotVerifyStubOnlyMock;
 
@@ -51,8 +53,7 @@ public class Return extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        // TODO
-        throw new UnsupportedOperationException("not yet implemented");
+        expr.codeGenExpr(compiler, Register.R0); // on retourne le résultat dans R0
     }
 
     @Override

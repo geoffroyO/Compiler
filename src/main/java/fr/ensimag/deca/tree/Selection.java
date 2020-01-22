@@ -1,7 +1,7 @@
 package fr.ensimag.deca.tree;
 
-import java.io.PrintStream;
 
+import java.io.PrintStream;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
@@ -10,6 +10,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 public class Selection extends AbstractLValue{
     private AbstractExpr instance;
@@ -59,5 +61,35 @@ public class Selection extends AbstractLValue{
     @Override
     protected void iterChildren(TreeFunction f) {
 
+    }
+
+
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+        instance.codeGenExpr(compiler, register);
+        compiler.addInstruction( new LEA(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
+        if (field.getType().isClass()) {
+            compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register));
+        }
+    }
+
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+        GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
+        instance.codeGenExpr(compiler, addrReg);
+        compiler.addInstruction(new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), addrReg), Register.R1));
+
+        if (field.getFieldDefinition().getType().isInt()){
+            compiler.addInstruction(new WINT());
+        }
+
+        if (this.getType().isFloat()){
+            if (printHex) {
+                compiler.addInstruction(new WFLOATX());
+            } else {
+                compiler.addInstruction(new WFLOAT());
+            }
+        }
+
+        compiler.getRegM().freeRegister(addrReg);
     }
 }

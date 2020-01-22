@@ -1,0 +1,9 @@
+// Description:
+//    Cast dans deux types identiques
+// Resultat:
+//  OK
+
+{
+    int x;
+    x = (int)(6789);
+}

@@ -1,7 +1,7 @@
 // Description:
 //  Affectation de float avec identifier float
 // Resultats:
-//  OK
+//  Ligne 7 :  extraneous input '.' expecting {'false', 'new', 'null', 'readInt', 'readFloat', 'this', 'true', IDENT, '-', '(', '!', INT, FLOAT, STRING}
 
 {
 float a = .5;

@@ -30,6 +30,8 @@ public class And extends AbstractOpBool {
     @Override
     protected void codeGenBoolLazy(DecacCompiler compiler, Label label, GPRegister result) {
         compiler.addInstruction(new CMP(new ImmediateInteger(0), result));
+
+        // - we jump to false if the comparison before is true
         compiler.addInstruction(new BEQ(label));
     }
 }

@@ -1,0 +1,9 @@
+// Description:
+//      Multiple definition of a variable
+// Resultats:
+//      OK
+
+{
+    int x, x;
+    int x;
+}
