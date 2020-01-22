@@ -106,6 +106,7 @@ public class Program extends AbstractProgram {
 
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
+ 
         compiler.addComment("Class program");
         compiler.getRegM().incrGB(); //On commence à 1(GB)
 
@@ -121,6 +122,32 @@ public class Program extends AbstractProgram {
         compiler.addLabel(new Label("MAIN"));
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
+        
+        //Errors management
+        compiler.addLabel(new Label("Float_overflow"));
+        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: Float_overflow")));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+
+        compiler.addLabel(new Label("stack_overflow"));
+        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: stack_overflowed")));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+
+        compiler.addLabel(new Label("Zero_division"));
+        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: Zero_division ")));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+
+        compiler.addLabel(new Label("heap_overflow"));
+        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: heap_overflow ")));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+        
+        compiler.addLabel(new Label("invalid_input"));
+        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: invalid_input ")));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
     }
 
     @Override

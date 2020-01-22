@@ -240,25 +240,6 @@ public class DecacCompiler {
 		addComment("start main program");
 		prog.codeGenProgram(this);
 
-		addLabel(new Label("Float_overflow"));
-		addInstruction(new WSTR(new ImmediateString("Error: Float_overflow")));
-		addInstruction(new WNL());
-		addInstruction(new ERROR());
-
-		addLabel(new Label("stack_overflow"));
-		addInstruction(new WSTR(new ImmediateString("Error: stack_overflowed")));
-		addInstruction(new WNL());
-		addInstruction(new ERROR());
-
-		addLabel(new Label("Zero_division"));
-		addInstruction(new WSTR(new ImmediateString("Error: Zero_division ")));
-		addInstruction(new WNL());
-		addInstruction(new ERROR());
-
-		addLabel(new Label("heap_overflow"));
-		addInstruction(new WSTR(new ImmediateString("Error: heap_overflow ")));
-		addInstruction(new WNL());
-		addInstruction(new ERROR());
 
 		addComment("end main program");
 		LOG.debug("Generated assembly code:" + nl + program.display());

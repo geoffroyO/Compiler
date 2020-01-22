@@ -133,6 +133,8 @@ inst returns[AbstractInst tree]
             $tree = $e1.tree;
         }
     | SEMI {
+            $tree = new NoOperation();
+            setLocation($tree, $SEMI);
         }
     | PRINT OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null);
@@ -498,12 +500,21 @@ type returns[AbstractIdentifier tree]
 
 literal returns[AbstractExpr tree]
     : i=INT {
-    		$tree = new IntLiteral(Integer.parseInt($i.text));
-    		setLocation($tree, $i);
+            try {
+                $tree = new IntLiteral(Integer.parseInt($i.text));
+                setLocation($tree, $i);
+            } catch (java.lang.NumberFormatException e) {
+                throw new InvalidNumberValue(this, $ctx);
+            } 
         }
     | fd=FLOAT {
-    		$tree = new FloatLiteral(Float.parseFloat($fd.text));
-    		setLocation($tree, $fd);
+			try {
+	    		$tree = new FloatLiteral(Float.parseFloat($fd.text));
+	    		setLocation($tree, $fd);
+	    	} catch (java.lang.IllegalArgumentException e) {
+	    		throw new InvalidNumberValue(this, $ctx);
+	    	}
+	    		
         }
     | str=STRING {
    			// Method substring to remove " " from the STRING TOKEN
