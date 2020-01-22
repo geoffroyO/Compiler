@@ -60,6 +60,9 @@ public abstract class Definition {
         return false;
     }
 
+    public boolean isVariable() {
+        return false;
+    }
     /**
      * Return the same object, as type MethodDefinition, if possible. Throws
      * ContextualError(errorMessage, l) otherwise.

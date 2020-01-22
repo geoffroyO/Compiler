@@ -22,4 +22,10 @@ public class VariableDefinition extends ExpDefinition {
     public boolean isExpression() {
         return true;
     }
+
+    @Override
+    public boolean isVariable() {
+        return true;
+    }
+
 }

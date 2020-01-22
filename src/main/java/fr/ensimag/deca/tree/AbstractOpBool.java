@@ -52,28 +52,52 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         return leftOpType;
     }
 
-    // TODO Doc
+
     protected abstract void codeGenBoolLazy(DecacCompiler compiler, Label label, GPRegister result);
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister result){
+        // - boolean label for the begining of the expression
         Label label = compiler.getLabM().genEndOpBoolLabel();
+
         if (compiler.getRegM().hasFreeGPRegister()) {
             GPRegister right = compiler.getRegM().findFreeGPRegister();
-            getLeftOperand().codeGenExpr(compiler, result); //boolean litteral
+
+            // - the value of the left operand is in the register result
+            getLeftOperand().codeGenExpr(compiler, result);
+
+            // - lazy evalutation of boolean expression
             codeGenBoolLazy(compiler, label, result);
+
+            // - result of the right operand in the register right
             getRightOperand().codeGenExpr(compiler, right);
+
+            // - proceed to the final operation
             codeGenOp(compiler, right, result);
+
+            // - free the register
             compiler.getRegM().freeRegister(right);
         } else {
             GPRegister right = Register.getR(compiler.getRegM().getNb_registers());
             getLeftOperand().codeGenExpr(compiler, result);
             codeGenBoolLazy(compiler, label, result);
+
+            // - push the right register at the top of the stack
             compiler.addInstruction(new PUSH(right));
+
+            // - the result of the expression is in the register right
             getRightOperand().codeGenExpr(compiler, right);
+
+            // -  load the result in R0
             compiler.addInstruction(new LOAD(right, Register.R0));
+
+            // - backup of the register
             compiler.addInstruction(new POP(right));
+
+            // - proceed to the final evaluation
             codeGenOp(compiler, Register.R0, result);
         }
+
+        // - end label - where we jump if we have the result before the end of the evaluation
         compiler.addLabel(label);
     }
 

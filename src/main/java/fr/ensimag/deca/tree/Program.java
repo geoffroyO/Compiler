@@ -74,11 +74,9 @@ public class Program extends AbstractProgram {
         compiler.addComment("Code de la table des méthodes de la classe Object");
         compiler.addInstruction(new LOAD(new NullOperand(), Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
-        compiler.getRegM().incrSP();
         compiler.getRegM().incrGB();
         compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")), Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
-        compiler.getRegM().incrSP();
         compiler.getRegM().incrGB();
 
     }
@@ -107,14 +105,28 @@ public class Program extends AbstractProgram {
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
         compiler.addComment("Class program");
-        compiler.getRegM().incrGB(); //On commence à 1(GB)
+
+        // - begin at 1(GB)
+        compiler.getRegM().incrGB();
 
         compiler.addComment("Table des méthodes");
+
+        // - declaration of objectClass
         codeGenFPDeclObjectClass(compiler);
+
+        // - first pass for class declaration
         classes.codeGenListFpDeclClass(compiler);
+
+        // - jump at main program
         compiler.addInstruction(new BSR(new Label("MAIN")));
+
+        // - second pass
         compiler.addComment("Début seconde passe");
+
+        // - write the code for Object.equals
         codeGenDeclObjectMethod(compiler);
+
+        // - write the code for the others methods
         classes.codeGenListDeclClass(compiler);
 
         compiler.addComment("Main program");

@@ -240,6 +240,12 @@ public class DecacCompiler {
 		addComment("start main program");
 		prog.codeGenProgram(this);
 
+
+		addLabel(new Label("dereferencement.null"));
+		addInstruction(new WSTR(new ImmediateString("Error: dereferencement.null")));
+		addInstruction(new WNL());
+		addInstruction(new ERROR());
+
 		addLabel(new Label("Float_overflow"));
 		addInstruction(new WSTR(new ImmediateString("Error: Float_overflow")));
 		addInstruction(new WNL());

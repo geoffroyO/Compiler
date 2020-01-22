@@ -6,13 +6,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateFloat;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.RegisterOffset;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
 
@@ -58,20 +53,16 @@ public class NoInitialization extends AbstractInitialization {
     }
 
     @Override
-    protected void codeGenInit(DecacCompiler compiler, GPRegister register, Type type) {
-    	if (type.isInt()) {
+    protected void codeGenInit(DecacCompiler compiler, GPRegister register, AbstractIdentifier type) {
+
+        // - cf documentation for the no initialization case
+    	if (type.getType().isInt()) {
     		compiler.addInstruction(new LOAD(new ImmediateInteger(0), register));
     	}
-    	else if (type.isFloat()) {
+    	else if (type.getType().isFloat()) {
     		compiler.addInstruction(new LOAD(new ImmediateFloat(0), register));
-    	}
+    	} else {
+    	    compiler.addInstruction(new LOAD(new NullOperand(), register));
+        }
     }
-
-
-
-
-	@Override
-	protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
-        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
-	}
 }

@@ -99,13 +99,22 @@ public class DeclVar extends AbstractDeclVar {
     }
 
     public void codeGenDeclVar(DecacCompiler compiler) {
+        // - find a register to store the value of the initialization
         GPRegister register = compiler.getRegM().findFreeGPRegister();
-        initialization.codeGenInit(compiler, register, varName.getVariableDefinition().getType());
 
+        // - initialization or not
+        initialization.codeGenInit(compiler, register, type);
 
+        // - set an adress to the new variable and store it in the variable definition
         varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.getRegM().getGB(), Register.GB));
+
+        // - store the variable in the stack
         initialization.codeGenStInit(compiler, register);
+
+        // - incr GB
         compiler.getRegM().incrGB();
+
+        // - free the register
         compiler.getRegM().freeRegister(register);
     }
 }

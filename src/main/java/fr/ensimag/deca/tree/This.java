@@ -6,6 +6,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DAddr;
 
 import java.io.PrintStream;
 
@@ -44,4 +45,5 @@ public class This extends AbstractLValue{
     protected void iterChildren(TreeFunction f) {
 
     }
+
 }

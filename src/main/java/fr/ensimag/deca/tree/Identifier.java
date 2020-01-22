@@ -263,9 +263,8 @@ public class Identifier extends AbstractIdentifier {
         }
     }
 
-
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
-        DAddr addr = this.getVariableDefinition().getOperand();
+        DAddr addr = getExpDefinition().getOperand();
         compiler.addInstruction(new LOAD(addr, register));
     }
 }
