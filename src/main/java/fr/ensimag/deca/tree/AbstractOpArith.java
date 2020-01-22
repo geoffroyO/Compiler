@@ -69,8 +69,11 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     @Override
     protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
     	GPRegister result = compiler.getRegM().findFreeGPRegister();
+
+    	// - the result of the expression is in the register result
     	this.codeGenExpr(compiler, result);
-    	
+
+    	// - distinction of type
     	 if (this.getType().isInt()){
              compiler.addInstruction(new LOAD(result, Register.R1));
              if (printHex) {
@@ -93,6 +96,8 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
     protected  void codeGenExpr(DecacCompiler compiler, GPRegister register){
         super.codeGenExpr(compiler, register);
+
+        // - error of stack overflow catched
         compiler.addInstruction(new BOV(new Label("Float_overflow")));
     }
 }

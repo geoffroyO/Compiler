@@ -108,33 +108,41 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void codeGenFpDeclClass(DecacCompiler compiler) {
+        // - get max index
         int maxIndex = methods.getMaxIndex();
 
         compiler.addComment("Code de la table des méthodes de la classe " + className.getName());
+
+        // - prepare the stack for declaration
         compiler.addInstruction(new TSTO(new ImmediateInteger(maxIndex)));
         compiler.addInstruction(new BOV(new Label("stack_overflow")));
         compiler.addInstruction(new ADDSP(new ImmediateInteger(maxIndex)));
 
+        // - set and adress to the current class
         DAddr addrClass = new RegisterOffset(compiler.getRegM().getGB(), Register.GB);
         className.getClassDefinition().setAddrClass(addrClass);
+
+        // - fill the stack, entering the address of the super class
         DAddr addrSuperClass = superClass.getClassDefinition().getAddrClass();
-
-
         compiler.addInstruction(new LEA(addrSuperClass, Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
         compiler.getRegM().incrGB();
 
+        // - code for the object method
         codeGenFpDeclObjectMethod(compiler);
 
         MethodsTable tableMethods = className.getClassDefinition().getMT();
 
+
+        // - code for the other methods
         for (int index = 2; index <= maxIndex; index++) {
             Label labelCodeMethod = tableMethods.getFromMT(index).getLabel();
             compiler.addInstruction(new LOAD(new LabelOperand( new Label("code." + labelCodeMethod)), Register.R0));
             compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB() + index - 2, Register.GB)));
         }
 
-        compiler.getRegM().incrGB(maxIndex -1);
+        // - increment GB
+        compiler.getRegM().incrGB(maxIndex-1);
     }
 
     private void codeGenFpDeclObjectMethod(DecacCompiler compiler) {
@@ -145,20 +153,32 @@ public class DeclClass extends AbstractDeclClass {
     }
 
     protected void codeGenDeclClass(DecacCompiler compiler) {
+        // - initialization of the constructor
         compiler.addComment("Initialisation des champs de la classe de " + className.getName());
         compiler.addLabel(new Label("init." + className.getName()));
+
+        // - prepare the stack
         compiler.addInstruction(new TSTO(new ImmediateInteger(3)), "test stack_overflow");
         compiler.addInstruction(new BOV(new Label("stack_overflow")));
         compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R0));
         compiler.addInstruction(new PUSH(Register.R0));
+
+        // - jump to the constructor of the superClass
         compiler.addComment("Initialisation de " + superClass.getName());
         compiler.addInstruction(new BSR(new Label("init." + superClass.getName())));
         compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
+
+        // - fields declaration
         fields.codeGenListDeclField(compiler);
+
+        // - return
         compiler.addInstruction(new RTS());
 
+        // - code of the methods TODO
         compiler.addComment("Code des méthodes de la classe de " + className.getName());
         methods.codeGenListDeclMethod(compiler);
+
+
     }
 
 
