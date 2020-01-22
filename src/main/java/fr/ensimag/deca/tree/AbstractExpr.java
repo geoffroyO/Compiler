@@ -154,6 +154,31 @@ public abstract class AbstractExpr extends AbstractInst {
     }
 
     /**
+     * Check if assign_compatible(env, T1, T2)
+     * @param env
+     * @param T1
+     * @param T2
+     * @return
+     */
+    public boolean assignCompatible(EnvironmentType env, Type T1, Type T2) throws ContextualError
+    {
+        if (T1.isFloat() && T2.isInt())
+        {
+            // Case 1
+            return(true);
+        }
+
+        // Case we cast Objects
+
+        if (!(T1.isClass() && T2.isClass())){
+            // We don't have 2 objects
+            return(false);
+        }
+
+        return( env.get(T2.getName()).getType().asClassType("Error to use T2 as classType", getLocation()).isSubClassOf(env.get(T1.getName()).getType().asClassType("Error to use T1 as classType", getLocation())) );
+    }
+
+    /**
      * Generate code to print the expression
      *
      * @param compiler

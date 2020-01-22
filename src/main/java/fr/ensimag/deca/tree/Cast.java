@@ -1,10 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ClassDefinition;
-import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
 import java.io.PrintStream;
@@ -21,14 +18,26 @@ public class Cast extends  AbstractExpr{
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-    	
-    	Type castType = type.verifyExpr(compiler, localEnv, currentClass);
-    	Type varType = nameVar.verifyExpr(compiler, localEnv, currentClass);
-    	
-    	
+        Type castType = type.verifyExpr(compiler, localEnv, currentClass);
+        Type varType = nameVar.verifyExpr(compiler, localEnv, currentClass);
 
-    	this.setType(castType);
-    	return this.getType();
+        EnvironmentType env = compiler.getEnvTypes();
+
+        if (varType.isVoid())
+        {
+            // Can't cast void element
+            throw new ContextualError ("Object can't be void", getLocation());
+        }
+
+        if (!(this.assignCompatible(env , castType, varType) || this.assignCompatible(env, varType, castType)))
+        {
+            // not cast_compatible
+             throw new ContextualError ("The elements aren't cast compatible.", getLocation());
+        }
+
+        this.setType(varType);
+        return(this.getType());
+
     }
 
     @Override
