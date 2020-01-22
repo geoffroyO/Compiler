@@ -1,23 +1,25 @@
 class A
 {
- 	protected int x;
+ 	int x;
 
-	int getX() {
-		return x;
-	}
-
-	void setX(int x) {
+	void setX() {
 		this.x = x;
 	}
 }
 
+class B extends A
+{
+	int y;
+}
 
 
 {
-	int x;
-	float y;
-	int z;
 	A a = new A();
-	z(x);
+	B b = new B();
+	
+	A a2;
+	a.setX(2);
+	a2 = a
+	
 
 }

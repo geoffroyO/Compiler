@@ -35,7 +35,7 @@ public class MethodCall extends AbstractExpr{
           //methodName.verifyExpr() verifies that 'methodName' exists in the instance's class environment
           methodName.verifyExpr(compiler, classInstanceEnv, currentClass);
          
-          Signature sig = classInstanceEnv.get(methodName.getName()).asMethodDefinition("error TO DO", getLocation()).getSignature();
+          Signature sig = classInstanceEnv.get(methodName.getName()).asMethodDefinition("Contextual error", getLocation()).getSignature();
           
           if (sig.size() != params.getList().size()) {
   	  			throw new ContextualError("Contextual error, the method called expected " + sig.size() + " arguments but " + params.getList().size() + " were given",getLocation());

@@ -88,6 +88,7 @@ public abstract class AbstractExpr extends AbstractInst {
             throw e;
         }
 
+        // TODO factorisation "assign compatible"
 
         // - verify expectedType and obtainedType values types are the same (verify when they are classes)
         if (obtainedType.isClass()) {
