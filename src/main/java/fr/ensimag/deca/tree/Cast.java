@@ -31,6 +31,7 @@ public class Cast extends  AbstractExpr{
 
         this.setType(varType);
         return(this.getType());
+
     }
 
     @Override
