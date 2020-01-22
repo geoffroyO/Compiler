@@ -24,4 +24,7 @@ public class Signature {
         return args.size();
     }
 
+    public List<Type> getList() {
+    	return this.args;
+    }
 }

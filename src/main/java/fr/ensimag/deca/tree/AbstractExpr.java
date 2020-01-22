@@ -94,9 +94,9 @@ public abstract class AbstractExpr extends AbstractInst {
             if (!expectedType.isClass()) {
                 throw new ContextualError("Types incompatible, expecting a class type on the left side",this.getLocation());
             } else {
-                ClassType currentType = (ClassType)obtainedType;
+                ClassType currentType = obtainedType.asClassType("error TO DO", getLocation());
                 // - check if the obtainedType is a child for the expectedType
-                if (!currentType.isSubClassOf((ClassType)expectedType)) {
+                if (!currentType.isSubClassOf(expectedType.asClassType("error TO DO", getLocation()))) {
                     throw new ContextualError("incompatible class types",this.getLocation());
                 }
             }

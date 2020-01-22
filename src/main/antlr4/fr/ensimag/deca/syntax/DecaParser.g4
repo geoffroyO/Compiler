@@ -428,6 +428,7 @@ select_expr returns[AbstractExpr tree]
             // we matched "e1.i(args)"       
             assert($args.tree != null);
             $tree = new MethodCall($e1.tree, $i.tree, $args.tree);
+            setLocation($tree, $o);
         }
         | /* epsilon */ {
         	// we matched "e1.i"
