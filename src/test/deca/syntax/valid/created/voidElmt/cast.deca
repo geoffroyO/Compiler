@@ -1,0 +1,8 @@
+// Description:
+//      Cast avec un type void
+// Resultat:
+//      OK
+
+{
+    int x = (void)(8);
+}
