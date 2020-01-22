@@ -1,0 +1,8 @@
+#include "Animal.decah"
+
+class Chien extends Animal {
+    void crier(){
+        println("Waouuf");
+    }
+
+}
