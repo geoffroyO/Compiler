@@ -1,0 +1,7 @@
+#include "Chien.decah"
+
+{
+    Animal chien = new Chien();
+    chien.set(5, 45.3, 23.6);
+    chien.crier();
+}

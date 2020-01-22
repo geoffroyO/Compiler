@@ -82,6 +82,9 @@ public class EnvironmentExp {
         }
     }
     
+    public boolean contains(Symbol key) {
+    	return env.containsKey(key);
+    }
 
 
 }

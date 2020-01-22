@@ -95,9 +95,9 @@ public abstract class AbstractExpr extends AbstractInst {
             if (!expectedType.isClass()) {
                 throw new ContextualError("Types incompatible, expecting a class type on the left side",this.getLocation());
             } else {
-                ClassType currentType = (ClassType)obtainedType;
+                ClassType currentType = obtainedType.asClassType("error TO DO", getLocation());
                 // - check if the obtainedType is a child for the expectedType
-                if (!currentType.isSubClassOf((ClassType)expectedType)) {
+                if (!currentType.isSubClassOf(expectedType.asClassType("error TO DO", getLocation()))) {
                     throw new ContextualError("incompatible class types",this.getLocation());
                 }
             }
@@ -152,6 +152,31 @@ public abstract class AbstractExpr extends AbstractInst {
         if (!condType.isBoolean() ) {
             throw new ContextualError("Condition should be a boolean", getLocation());
         }
+    }
+
+    /**
+     * Check if assign_compatible(env, T1, T2)
+     * @param env
+     * @param T1
+     * @param T2
+     * @return
+     */
+    public boolean assignCompatible(EnvironmentType env, Type T1, Type T2) throws ContextualError
+    {
+        if (T1.isFloat() && T2.isInt())
+        {
+            // Case 1
+            return(true);
+        }
+
+        // Case we cast Objects
+
+        if (!(T1.isClass() && T2.isClass())){
+            // We don't have 2 objects
+            return(false);
+        }
+
+        return( env.get(T2.getName()).getType().asClassType("Error to use T2 as classType", getLocation()).isSubClassOf(env.get(T1.getName()).getType().asClassType("Error to use T1 as classType", getLocation())) );
     }
 
     /**
