@@ -35,6 +35,7 @@ public class New extends AbstractExpr{
 
     @Override
     public void decompile(IndentPrintStream s) {
+        s.print("new " + this.type.getName().getName() + "()");
 
     }
 

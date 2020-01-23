@@ -1,0 +1,10 @@
+// Description:
+//		Test instanceof sur null
+// Resultats:
+//		OK
+
+class A{}
+
+{
+    null instanceof A;
+}

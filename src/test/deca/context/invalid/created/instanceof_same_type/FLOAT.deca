@@ -1,0 +1,8 @@
+// Description:
+//		instanceof sur deux types egaux primitif
+// Resultats:
+// 		Erreur contexte : Ligne 7 : Contextual error, instanceof must be called with an instance and a class
+
+{
+	5.3 instanceof float;
+}
