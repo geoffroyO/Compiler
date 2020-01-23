@@ -1,0 +1,21 @@
+// Description:
+//      Affectation sur un champ prive
+//      Appel avec un getter
+// Resultats:
+//      3
+
+class A {
+    int x;
+    void setX(int x){
+        this.x = x;
+    }
+    int getX(){
+        return(this.x);
+    }
+}
+
+{
+    A a = new A();
+    a.setX(3);
+    println(a.getX());
+}
