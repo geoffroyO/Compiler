@@ -1,0 +1,9 @@
+// Description:
+//		Definir un champ comme protected de maniere explicite
+// Resultats:
+//		OK
+
+class A {
+	protected int x;
+}
+

@@ -15,7 +15,7 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.apache.log4j.Logger;
 
 /**
- * Error listener that stops the compilation at the first error usuing
+ * Error listener that stops the compilation at the first error using
  * ParseCancellationException.
  *
  * @author Ensimag

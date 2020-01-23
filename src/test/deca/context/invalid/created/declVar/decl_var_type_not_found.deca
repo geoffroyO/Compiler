@@ -2,7 +2,7 @@
 // simple declaration of a variable with an undefined type
 //
 // Resultats :
-//  Error, variable type not found
+//  Error Ligne 7 : Type not defined
 {
 	A a;
 }

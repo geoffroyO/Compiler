@@ -1,0 +1,14 @@
+// Description:
+//    Affectation d'entier dans des floats
+// Resultat:
+//      Erreur contexte Ligne 9 : Types don't match! 
+
+
+
+{
+    int x = 2.0;
+    int y = 3.04;
+    int z = 3.045678;
+
+    println(x, " ", y, " ", z);
+}

@@ -1,0 +1,8 @@
+// Description:
+//		Affecter null a un boolean
+// Resultats:
+//		Erreur contexte Ligne 7 : Types don't match!
+
+{
+	boolean x = null;
+}

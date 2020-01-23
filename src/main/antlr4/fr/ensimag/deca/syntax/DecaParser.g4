@@ -133,6 +133,8 @@ inst returns[AbstractInst tree]
             $tree = $e1.tree;
         }
     | SEMI {
+            $tree = new NoOperation();
+            setLocation($tree, $SEMI);
         }
     | PRINT OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null);
@@ -338,8 +340,6 @@ inequality_expr returns[AbstractExpr tree]
     | e1=inequality_expr INSTANCEOF type {
             assert($e1.tree != null);
             assert($type.tree != null);
-
-        
             $tree = new InstanceOf($e1.tree, $type.tree);
             setLocation($tree, $e1.start);
 			 		 
@@ -432,11 +432,8 @@ select_expr returns[AbstractExpr tree]
         }
         | /* epsilon */ {
         	// we matched "e1.i"
-        	$tree = new Selection((AbstractLValue)$e1.tree, $i.tree);
-        	setLocation($tree, $e1.start);
-            
-           
-            
+        	$tree = new Selection($e1.tree, $i.tree);
+        	setLocation($tree, $e1.start); 
         }
         )
     ;
@@ -452,7 +449,8 @@ primary_expr returns[AbstractExpr tree]
             // We matched "m(args)"
             AbstractLValue t = new This();
             setLocation(t, $m.start);
-            $tree = new MethodCall(t, $m.tree, $args.tree);          
+            $tree = new MethodCall(t, $m.tree, $args.tree);       
+            setLocation($tree, $m.start);   
         }
     | OPARENT expr CPARENT {
             assert($expr.tree != null);
@@ -498,12 +496,21 @@ type returns[AbstractIdentifier tree]
 
 literal returns[AbstractExpr tree]
     : i=INT {
-    		$tree = new IntLiteral(Integer.parseInt($i.text));
-    		setLocation($tree, $i);
+            try {
+                $tree = new IntLiteral(Integer.parseInt($i.text));
+                setLocation($tree, $i);
+            } catch (java.lang.NumberFormatException e) {
+                throw new InvalidNumberValue(this, $ctx);
+            } 
         }
     | fd=FLOAT {
-    		$tree = new FloatLiteral(Float.parseFloat($fd.text));
-    		setLocation($tree, $fd);
+			try {
+	    		$tree = new FloatLiteral(Float.parseFloat($fd.text));
+	    		setLocation($tree, $fd);
+	    	} catch (java.lang.IllegalArgumentException e) {
+	    		throw new InvalidNumberValue(this, $ctx);
+	    	}
+	    		
         }
     | str=STRING {
    			// Method substring to remove " " from the STRING TOKEN

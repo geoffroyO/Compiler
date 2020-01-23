@@ -1,0 +1,9 @@
+// Description:
+//		Affecter null a une classe
+// Resultats:
+//		OK
+
+class A {}
+{
+	A a = null;
+}

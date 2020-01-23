@@ -1,0 +1,8 @@
+// Description:
+//      Utilisation d'une methode sans signature
+// Resultats:
+//      Error syntax Ligne 7 : no viable alternative at input 'intgetX{'
+
+class A {
+    int getX{}
+}

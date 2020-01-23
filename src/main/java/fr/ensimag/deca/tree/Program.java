@@ -105,6 +105,7 @@ public class Program extends AbstractProgram {
 
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
+ 
         compiler.addComment("Class program");
 
         // - begin at 1(GB)
@@ -146,8 +147,6 @@ public class Program extends AbstractProgram {
 
         // - write the code for the others methods
         classes.codeGenListDeclClass(compiler);
-
-
     }
 
     private void codeGenOutErrors(DecacCompiler compiler){

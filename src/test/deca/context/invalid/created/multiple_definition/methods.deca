@@ -1,0 +1,9 @@
+// Description:
+//      Multiple definition of a method
+// Resultats:
+//      Error Ligne 8 :  Method already defined in the class
+
+class A {
+    void get(){}
+    void get(){}
+}

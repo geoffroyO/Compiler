@@ -125,12 +125,24 @@ do
         pSuccess "ERROR FIND \t $nameFile"
         rm $LOGS/$nameFileOutput.*
     else 
-        pFailure "ERROR NOT FIND \t $nameFile"
-        pFailure "SHOW LOGS"
-        pFailure "$LOGS/$nameFileOutput.error"
-        pFailure "$LOGS/$nameFileOutput.output"
 
-        exit 1
+        #Error not find
+        #But can be circular include because the file name is .decah != $namefile
+
+        if ((cat $LOGS/$nameFileOutput.error | grep -q -e ".decah:$lineError")&(cat $LOGS/$nameFileOutput.error | grep -q -e "Circular include"))
+        then 
+            pSuccess "FIND Circular include \t $nameFile"
+            rm $LOGS/$nameFileOutput.*
+        else
+
+            pFailure "ERROR NOT FIND \t $nameFile"
+            pFailure "SHOW LOGS"
+            pFailure "$LOGS/$nameFileOutput.error"
+            pFailure "$LOGS/$nameFileOutput.output"
+
+            exit 1
+
+        fi
     fi
 
 done

@@ -1,0 +1,9 @@
+// Description:
+//		Definir un champ comme public de maniere explicite
+// Resultats:
+//		Erreur syntaxe Ligne 7 : no viable alternative at input 'publicintx'
+
+class A {
+	public int x;
+}
+

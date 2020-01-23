@@ -1,0 +1,8 @@
+// Description:
+//      Declaration d'une variable void
+// Resultat:
+//      OK
+
+{
+    void a;
+}

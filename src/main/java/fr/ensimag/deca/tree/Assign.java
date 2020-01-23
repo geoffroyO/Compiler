@@ -31,15 +31,11 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     public Type  verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        // -
-        Type LeftOpType;
-        try {
-            LeftOpType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-            // - check for int to float conversion or for different type
-            this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, LeftOpType));
-        } catch (ContextualError e) {
-            throw e;
-        }
+
+        Type LeftOpType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+        // - check for integer to float conversion or for different type
+        this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, LeftOpType));
+        
         this.setType(LeftOpType);
         return LeftOpType;
     }

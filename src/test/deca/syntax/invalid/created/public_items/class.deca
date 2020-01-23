@@ -1,0 +1,8 @@
+// Description:
+//		Definir une classe comme public de maniere explicite
+// Resultats:
+//		Erreur syntaxe Ligne 6 : no viable alternative at input 'public'
+
+public class A{
+}
+

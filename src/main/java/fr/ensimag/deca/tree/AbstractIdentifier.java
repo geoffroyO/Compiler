@@ -32,6 +32,7 @@ public abstract class AbstractIdentifier extends AbstractLValue {
     public abstract ClassDefinition getClassDefinition();
 
     public abstract Definition getDefinition();
+    
 
     /**
      * Like {@link #getDefinition()}, but works only if the definition is a

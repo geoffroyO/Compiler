@@ -1,0 +1,11 @@
+// Description:
+//    Cast dans deux types identiques
+// Resultat:
+//  OK
+
+class A {}
+
+{
+    A a = new A();
+    A b = (A)(a);
+}

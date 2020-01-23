@@ -3,7 +3,7 @@
 //
 // Resultats :
 // ## TEST LEX : OK
-// ## TEST SYN : Ligne 9 : Exception in thread "main" java.lang.AssertionError
+// ## TEST SYN : Ligne 9 : missing IDENT at '.'
 
 {
     float x = 1..2;

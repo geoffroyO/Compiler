@@ -1,0 +1,9 @@
+// Description:
+//      Multiple definition of a variable
+// Resultats:
+//      Error Ligne 7 : variable already defined
+
+{
+    int x, x;
+    int x;
+}
