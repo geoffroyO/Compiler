@@ -138,7 +138,7 @@ do
     then 
         pSuccess "ERROR FIND \t $nameFile"
         echo $lineError >> $LOGS/$nameFileOutput.error 
-        #rm $LOGS/$nameFileOutput.*
+        rm $LOGS/$nameFileOutput.*
     else 
         pFailure "ERROR NOT FIND \t $nameFile"
         pFailure "SHOW LOGS"
