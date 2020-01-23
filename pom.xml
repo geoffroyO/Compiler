@@ -256,6 +256,12 @@
             <goals><goal>exec</goal></goals>
           </execution>
 
+          <execution>
+            <id>internalErrors</id>
+            <configuration><executable>./src/test/script/internalErrors.sh</executable></configuration>
+            <phase>test</phase>
+            <goals><goal>exec</goal></goals>
+          </execution>
 
 
         </executions>
