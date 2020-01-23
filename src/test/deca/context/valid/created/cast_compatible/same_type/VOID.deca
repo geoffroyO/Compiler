@@ -1,8 +1,0 @@
-// Description:
-//      Cast d'un type identique
-// Resultats:
-//      OK
-
-{
-    void x = (void)();
-}

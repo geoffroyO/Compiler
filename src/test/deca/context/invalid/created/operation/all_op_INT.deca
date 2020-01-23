@@ -2,7 +2,7 @@
 //    Test des operations sur entier. Echec division INT
 //
 //  Resultats:
-//      Erreur contexte : Ligne 24 : Types don't match! 
+//      Erreur contexte : Ligne 25 : Types don't match! 
 
 //
 // Historique:
