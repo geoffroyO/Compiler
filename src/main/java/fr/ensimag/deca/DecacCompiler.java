@@ -199,6 +199,8 @@ public class DecacCompiler {
 	public void beginBloc(){
 		isInBloc = true;
 		regM.setSP();
+		regM.setLocalVariable();
+		regM.setRegisterToSave();
 		blocProgram = new IMAProgram();
 	}
 

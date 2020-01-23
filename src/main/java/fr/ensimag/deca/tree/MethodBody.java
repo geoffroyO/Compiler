@@ -51,7 +51,17 @@ public class MethodBody extends AbstractMethodBody {
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
 
+        // - declaration of the local variable
         ListDeclVar.codeGenDeclVar(compiler);
+
+        // - this is the number of variable that we will push at the top of the stack
+        compiler.getRegM().incrLocalVariable(ListDeclVar.size());
+
+        // - if there is more than one variable to declare, there will be at list one temporary register
+        if (ListDeclVar.size() >= 1) { compiler.getRegM().incrRegisterToSave(); }
+
         ListInst.codeGenListInst(compiler);
+
+
     }
 }

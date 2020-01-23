@@ -15,17 +15,14 @@ import java.util.Arrays;
 
 public class RegisterManager {
 
-    private int SP;
-    private int GB;
-    private int LB;
+    private int SP = 0;
+    private int GB = 0;
     private int RegisterToSave = 0;
+    private int localVariable = 0;
     private boolean[] freeRegister;
     private int nb_registers;
 
     public RegisterManager(int nb_registers) {
-        this.SP = 0;
-        this.GB = 0;
-        this.LB = 0;
         this.nb_registers = nb_registers;
         this.freeRegister = new boolean[nb_registers];
 
@@ -34,18 +31,15 @@ public class RegisterManager {
         }
     }
 
-    public void incrRegisterToSave() { RegisterToSave++; }
-
-    public void incrRegisterToSave(int n) { RegisterToSave += n; }
+    // - setters
+    public void setSP() { SP = 0; }
 
     public void setRegisterToSave() { RegisterToSave = 0; }
 
-    public int getRegisterToSave() { return RegisterToSave; }
+    public void setLocalVariable() { localVariable = 0; }
 
-    public int getNb_registers(){
-        return this.nb_registers - 1;
-    }
 
+    // - incrementers
     public void incrSP(){
         SP++;
     }
@@ -54,20 +48,22 @@ public class RegisterManager {
         SP += n;
     }
 
-    public void setSP() { SP = 0; }
-
     public void incrGB(){
         GB++;
     }
 
-    public void incrGB( int n ){
-        GB += n;
-    }
+    public void incrGB( int n ){ GB += n; }
 
-    public void incrLB(){
-        LB++;
-    }
+    public void incrRegisterToSave() { RegisterToSave++; }
 
+    public void incrRegisterToSave(int n) { RegisterToSave += n; }
+
+    public void incrLocalVariable() { localVariable++; }
+
+    public void incrLocalVariable(int n) { localVariable += n; }
+
+
+    // - getters
     public int getSP(){
         return SP;
     }
@@ -76,12 +72,17 @@ public class RegisterManager {
         return GB;
     }
 
-    public int getLB(){
-        return LB;
+    public int getRegisterToSave() { return RegisterToSave; }
+
+    public int getLocalVariable() { return localVariable; }
+
+    public int getNb_registers(){
+        return this.nb_registers - 1;
     }
 
+
+    // - find a GPRegister that is free
     public GPRegister findFreeGPRegister(){
-        // TODO faire un bon rattrapage d'erreur
         int j = -1;
 
         for (int i = nb_registers - 1; i >= 2; i--) {
@@ -93,6 +94,7 @@ public class RegisterManager {
         return Register.getR(j);
     }
 
+    // - find a GPRegister that is free
     public boolean hasFreeGPRegister(){
         for (int i = nb_registers - 1; i >= 2; i--){
 
@@ -116,11 +118,15 @@ public class RegisterManager {
         freeRegister[register.getNumber()] = false;
     }
 
-    public boolean[] setFreeRegister() {
+    public boolean[] resetFreeRegister() {
         boolean[] oldFreeRegister = Arrays.copyOf(freeRegister, freeRegister.length);
         for (int i = 0; i < nb_registers ; i++) {
             this.freeRegister[i] = true;
         }
         return oldFreeRegister;
+    }
+
+    public void  setFreeRegister(boolean[] oldFreeRegister){
+        freeRegister = Arrays.copyOf(oldFreeRegister, oldFreeRegister.length);
     }
 }

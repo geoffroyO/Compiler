@@ -65,6 +65,8 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
     }
 
     public void codeGenListDeclMethod(DecacCompiler compiler){
-        //TODO
+        for (AbstractDeclMethod method : getList()){
+            method.codeGenDeclMethod(compiler);
+        }
     }
 }

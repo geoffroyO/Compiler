@@ -80,6 +80,7 @@ public class MethodCall extends AbstractExpr{
 
 
     protected void codeGenExpr(DecacCompiler compiler) {
+        // - TODO put all registers free and reset
 
         // - test stack overflow, don't forget the implicit parameter
         compiler.TSTO(params.size() + 1);
@@ -100,6 +101,7 @@ public class MethodCall extends AbstractExpr{
             // - get the value into register
             expr.codeGenExpr(compiler, register);
             compiler.addInstruction(new STORE(register, new RegisterOffset(indexSp, Register.SP)));
+            indexSp--;
         }
 
         // - test reference for implicit parameter
@@ -109,8 +111,14 @@ public class MethodCall extends AbstractExpr{
         // - get the address of the table of methods
         compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register));
 
+        // - set a free register table for the subprogram
+        boolean[] oldFreeRegisters = compiler.getRegM().resetFreeRegister();
+
         // - get the final address of the method called and jump to it
         compiler.addInstruction(new BSR(new RegisterOffset(methodName.getMethodDefinition().getIndex(), register)));
+
+        // - reset the old register table
+        compiler.getRegM().setFreeRegister(oldFreeRegisters);
 
         // - unstack the parameters
         compiler.addInstruction(new SUBSP(params.size() + 1));
