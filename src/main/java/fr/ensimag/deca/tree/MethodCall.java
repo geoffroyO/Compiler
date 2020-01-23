@@ -78,16 +78,10 @@ public class MethodCall extends AbstractLValue{
 
     }
 
-
-    protected void codeGenExpr(DecacCompiler compiler) {
-        // - TODO put all registers free and reset
-
+    private void codeGenMethodCall(DecacCompiler compiler, GPRegister register) {
         // - test stack overflow, don't forget the implicit parameter
         compiler.TSTO(params.size() + 1);
         compiler.addInstruction(new ADDSP(params.size()  + 1));
-
-        // - we will need a temporary register to stock the values
-        GPRegister register = compiler.getRegM().findFreeGPRegister();
 
         // - load the implicit parameter in the stack
         instance.codeGenExpr(compiler, register);
@@ -125,7 +119,37 @@ public class MethodCall extends AbstractLValue{
     }
 
     @Override
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+
+        // - generate the code to call the function, the result is in R0
+        codeGenMethodCall(compiler, register);
+
+        // - load the result in register
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.R0), register));
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        // - temporary register where we put nothing TODO
+        GPRegister register = compiler.getRegM().findFreeGPRegister();
+
+        // - generate the code to call the function, the result is in R0
+        codeGenMethodCall(compiler, register);
+
+        // - free the register
+        compiler.getRegM().freeRegister(register);
+
+
+    }
+
+    @Override
     protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
+
+        // - generate the code to call the function, the result is in R0
+        codeGenMethodCall(compiler, register);
+
+        // - load the result in register
+        compiler.addInstruction(new LEA(new RegisterOffset(0, Register.R0), register));
 
     }
 }

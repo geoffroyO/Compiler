@@ -4,7 +4,10 @@ import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Class that manages the free and occupied registers.
@@ -18,6 +21,7 @@ public class RegisterManager {
     private int SP = 0;
     private int GB = 0;
     private int RegisterToSave = 0;
+    private ArrayList<Integer> maxToSave = new ArrayList<Integer>();
     private int localVariable = 0;
     private boolean[] freeRegister;
     private int nb_registers;
@@ -34,9 +38,14 @@ public class RegisterManager {
     // - setters
     public void setSP() { SP = 0; }
 
-    public void setRegisterToSave() { RegisterToSave = 0; }
+    public void setRegisterToSave() {
+        maxToSave.add(RegisterToSave);
+        RegisterToSave = 0;
+    }
 
     public void setLocalVariable() { localVariable = 0; }
+
+
 
 
     // - incrementers
@@ -54,7 +63,9 @@ public class RegisterManager {
 
     public void incrGB( int n ){ GB += n; }
 
-    public void incrRegisterToSave() { RegisterToSave++; }
+    public void incrRegisterToSave() {
+        RegisterToSave++;
+    }
 
     public void incrRegisterToSave(int n) { RegisterToSave += n; }
 
@@ -76,10 +87,13 @@ public class RegisterManager {
 
     public int getLocalVariable() { return localVariable; }
 
-    public int getNb_registers(){
-        return this.nb_registers - 1;
-    }
+    public int getNb_registers(){ return nb_registers - 1; }
 
+    public int getMaxToSave() {
+        int max = Collections.max(maxToSave);
+        maxToSave = new ArrayList<Integer>();
+        return max;
+    }
 
     // - find a GPRegister that is free
     public GPRegister findFreeGPRegister(){
@@ -91,6 +105,7 @@ public class RegisterManager {
             }
         }
         this.freeRegister[j] = false;
+        incrRegisterToSave();
         return Register.getR(j);
     }
 
@@ -106,6 +121,7 @@ public class RegisterManager {
     }
 
     public void freeRegister(GPRegister register){
+        setRegisterToSave();
         int i = register.getNumber();
         freeRegister[i] = true;
     }
