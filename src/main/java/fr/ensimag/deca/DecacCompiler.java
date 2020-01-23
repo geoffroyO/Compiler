@@ -112,28 +112,45 @@ public class DecacCompiler {
 	 * @see fr.ensimag.ima.pseudocode.IMAProgram#add(fr.ensimag.ima.pseudocode.AbstractLine)
 	 */
 	public void add(AbstractLine line) {
-		program.add(line);
+
+		if (isInBloc){
+			blocProgram.add(line);
+		} else {
+			program.add(line);
+		}
 	}
 
 	/**
 	 * @see fr.ensimag.ima.pseudocode.IMAProgram#addComment(java.lang.String)
 	 */
 	public void addComment(String comment) {
-		program.addComment(comment);
+		if (isInBloc) {
+			blocProgram.addComment(comment);
+		} else {
+			program.addComment(comment);
+		}
 	}
 
 	/**
 	 * @see fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label)
 	 */
 	public void addLabel(Label label) {
-		program.addLabel(label);
+		if (isInBloc){
+			blocProgram.addLabel(label);
+		} else {
+			program.addLabel(label);
+		}
 	}
 
 	/**
 	 * @see fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
 	 */
 	public void addInstruction(Instruction instruction) {
-		program.addInstruction(instruction);
+		if (isInBloc) {
+			blocProgram.addInstruction(instruction);
+		} else {
+			program.addInstruction(instruction);
+		}
 	}
 
 	/**
@@ -141,7 +158,53 @@ public class DecacCompiler {
 	 *      java.lang.String)
 	 */
 	public void addInstruction(Instruction instruction, String comment) {
-		program.addInstruction(instruction, comment);
+		if (isInBloc) {
+			blocProgram.addInstruction(instruction, comment);
+		} else {
+			program.addInstruction(instruction, comment);
+		}
+	}
+
+	public void addFirst(Instruction instruction, String comment) {
+		if (isInBloc) {
+			blocProgram.addFirst(instruction, comment);
+		} else {
+			program.addFirst(instruction, comment);
+		}
+	}
+
+	public void addFirst(Instruction instruction) {
+		if (isInBloc) {
+			blocProgram.addFirst(instruction);
+		} else {
+			program.addFirst(instruction);
+		}
+	}
+
+	public void addFirstComment(String comment) {
+		if (isInBloc) {
+			blocProgram.addFirstComment(comment);
+		} else {
+			program.addFirstComment(comment);
+		}
+	}
+
+	public void addFirstTSTO(int n) {
+		addFirst(new BOV(new Label("stack_overflow")));
+		addFirst(new TSTO(new ImmediateInteger(n)));
+		addFirstComment("Test Stack_overflow");
+
+	}
+
+	public void beginBloc(){
+		isInBloc = true;
+		regM.setSP();
+		blocProgram = new IMAProgram();
+	}
+
+	public void endBloc(){
+		program.append(blocProgram);
+		isInBloc = false;
 	}
 
 	/**
@@ -168,6 +231,8 @@ public class DecacCompiler {
 	 * The main program. Every instruction generated will eventually end up here.
 	 */
 	private final IMAProgram program = new IMAProgram();
+	private IMAProgram blocProgram = new IMAProgram();
+	private boolean isInBloc = false;
 
 	/**
 	 * Run the compiler (parse source file, generate code)

@@ -75,4 +75,6 @@ public class IMAProgram {
     public void addFirst(Instruction i, String comment) {
         addFirst(new Line(null, i, comment));
     }
+
+    public void addFirstComment(String comment) { lines.addFirst(new Line(comment)); }
 }

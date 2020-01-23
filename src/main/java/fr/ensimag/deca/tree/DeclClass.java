@@ -113,10 +113,8 @@ public class DeclClass extends AbstractDeclClass {
 
         compiler.addComment("Code de la table des méthodes de la classe " + className.getName());
 
-        // - save some place in the stack
-        compiler.addInstruction(new TSTO(new ImmediateInteger(maxIndex + 1)));
-        compiler.addInstruction(new BOV(new Label("stack_overflow")));
-        compiler.addInstruction(new ADDSP(new ImmediateInteger(maxIndex + 1)));
+        // - save some place in the stack + 1 for object method
+        compiler.getRegM().incrSP(maxIndex + 1);
 
         // - set and adress to the current class
         DAddr addrClass = new RegisterOffset(compiler.getRegM().getGB(), Register.GB);

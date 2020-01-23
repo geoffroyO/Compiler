@@ -151,7 +151,7 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void codeGenDeclMethod(DecacCompiler compiler) {
-        // - TODO result to set in R0 
+        // - TODO result to set in R0
     }
 
 }

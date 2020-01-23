@@ -78,6 +78,7 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")), Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
         compiler.getRegM().incrGB();
+        compiler.getRegM().incrSP(2);
 
     }
 
@@ -109,9 +110,8 @@ public class Program extends AbstractProgram {
         // - begin at 1(GB)
         compiler.getRegM().incrGB();
 
-        compiler.TSTO(2);
-        compiler.addInstruction(new ADDSP(2));
-        compiler.addComment("Table des méthodes");
+        // - begin bloc
+        compiler.beginBloc();
 
         // - declaration of objectClass
 
@@ -120,7 +120,14 @@ public class Program extends AbstractProgram {
         // - first pass for class declaration
         classes.codeGenListFpDeclClass(compiler);
 
-        // - TODO get the number of place to save
+        // - save some place in the stack at the begining of the bloc
+        int numberToSave = compiler.getRegM().getSP();
+        compiler.addFirst(new ADDSP(new ImmediateInteger(numberToSave)));
+        compiler.addFirstTSTO(numberToSave);
+
+        // - end bloc
+        compiler.endBloc();
+
 
         // - second pass
         compiler.addComment("Début seconde passe");

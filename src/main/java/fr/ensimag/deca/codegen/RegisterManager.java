@@ -45,6 +45,8 @@ public class RegisterManager {
         this.SP = this.SP + n;
     }
 
+    public void setSP() { SP = 0; }
+
     public void incrGB(){
         this.GB++;
     }
