@@ -9,31 +9,30 @@ import java.io.PrintStream;
 public class InstanceOf extends AbstractExpr{
     private AbstractExpr instance;
     private AbstractIdentifier className;
+    private boolean value;
 
     public InstanceOf(AbstractExpr instance,AbstractIdentifier className ) {
         this.instance = instance;
         this.className = className;
+        this.value = false;
     }
 
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-        instance.verifyExpr(compiler, localEnv, currentClass);
-        className.verifyExpr(compiler, localEnv, currentClass);
-
-        this.setType( compiler.getEnvTypes().get(compiler.getSymbols().create("boolean")).getType() );
-        return(this.getType());
-
-        /*
-        if ((instanceType.isNull() || instanceType.isClass()) && (classNameType.isClass()))
-        {
-           // Case Type x Type -> boolean
-            if (instanceType.asClassType("Error TODO", this.getLocation()).isSubClassOf(classNameType.asClassType("Error TODO", this.getLocation())))
-            {
-
-            }
+    	Type instanceType = instance.verifyExpr(compiler, localEnv, currentClass);
+    	Type classNameType = className.verifyType(compiler);
+        this.setType(compiler.getEnvTypes().get(compiler.getSymbols().create("boolean")).getType());
+        
+        // Null is not a classType
+        if (instanceType.isNull()) {
+        	this.value = false;
+        } else if (instanceType.isClass() && classNameType.isClass()) {
+        	 this.value = instanceType.asClassType("Error TODO", this.getLocation()).isSubClassOf(classNameType.asClassType("Error TODO", this.getLocation()));
+        } else {
+        	throw new ContextualError("Contextual error, instanceof must be called with an instance and a class", getLocation());
         }
-        */
+        return(this.getType());
     }
 
     @Override

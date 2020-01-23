@@ -164,6 +164,11 @@ public class Identifier extends AbstractIdentifier {
     }
 
     private Symbol name;
+    private boolean needThis;
+    
+    public void setNeedThis(boolean b) {
+    	needThis = b;
+    }
 
     public Identifier(Symbol name) {
         Validate.notNull(name);
@@ -174,6 +179,20 @@ public class Identifier extends AbstractIdentifier {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
 
+    	
+//    	if (currentClass != null) {
+//    		if (!getDefinition().isMethod()) {
+//    			if (currentClass.getMembers().get(this.getName()) != null) {
+//    					
+//    			}
+//    		
+//    		}
+//    	}
+    	
+    	
+    	
+    	
+    	
         // - if the Identifier is not declared in env_types
         if (localEnv.get(this.getName())==null) {
             throw new ContextualError("identifier not defined", this.getLocation());

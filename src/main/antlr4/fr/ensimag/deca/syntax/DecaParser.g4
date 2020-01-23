@@ -340,8 +340,6 @@ inequality_expr returns[AbstractExpr tree]
     | e1=inequality_expr INSTANCEOF type {
             assert($e1.tree != null);
             assert($type.tree != null);
-
-        
             $tree = new InstanceOf($e1.tree, $type.tree);
             setLocation($tree, $e1.start);
 			 		 
@@ -451,7 +449,8 @@ primary_expr returns[AbstractExpr tree]
             // We matched "m(args)"
             AbstractLValue t = new This();
             setLocation(t, $m.start);
-            $tree = new MethodCall(t, $m.tree, $args.tree);          
+            $tree = new MethodCall(t, $m.tree, $args.tree);       
+            setLocation($tree, $m.start);   
         }
     | OPARENT expr CPARENT {
             assert($expr.tree != null);

@@ -20,7 +20,6 @@ public class MethodCall extends AbstractLValue{
         private ListExpr params;
 
     public MethodCall(AbstractExpr instance, AbstractIdentifier methodName, ListExpr params){
-        // instance can be null if match method(params)
         this.instance = instance;
         this.methodName = methodName;
         this.params = params;
