@@ -26,9 +26,6 @@ public class Selection extends AbstractLValue{
     public Selection(AbstractExpr instance, AbstractIdentifier field) {
         this.instance = instance;
         this.field = field;
-
-        this.field.setNeedThis(false);
-
     }
 
     @Override

@@ -33,7 +33,6 @@ public abstract class AbstractIdentifier extends AbstractLValue {
 
     public abstract Definition getDefinition();
     
-    public void setNeedThis(boolean b) {};
 
     /**
      * Like {@link #getDefinition()}, but works only if the definition is a
