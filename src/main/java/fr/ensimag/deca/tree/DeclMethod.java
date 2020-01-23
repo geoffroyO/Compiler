@@ -155,7 +155,7 @@ public class DeclMethod extends AbstractDeclMethod {
         // - TODO find conditions for saving a register
 
         // - begining of the code for the method
-        compiler.addLabel(name.getMethodDefinition().getLabel());
+        compiler.addLabel(new Label("code." + name.getMethodDefinition().getLabel()));
 
         // - declaration of the parameters and set
         listDeclParam.codeGenListDeclParam(compiler);
@@ -170,7 +170,7 @@ public class DeclMethod extends AbstractDeclMethod {
         compiler.addLabel(new Label("End." + name.getMethodDefinition().getLabel()));
 
         // - get the number of register to save
-        int nbRegistersToSave = compiler.getRegM().getRegisterToSave();
+        int nbRegistersToSave = compiler.getRegM().getMaxToSave();
 
         // - we don't take into account R0 and R1
         int max = compiler.getRegM().getNb_registers() - 2;
@@ -189,7 +189,7 @@ public class DeclMethod extends AbstractDeclMethod {
         // - save the registers
         for (int k = nbRegistersToSave + 1; k >= 2 ; k--) {
             if (k <= max) {
-                compiler.addInstruction(new PUSH(Register.getR(k)));
+                compiler.addFirst(new PUSH(Register.getR(k)));
             }
         }
         compiler.addFirstComment("Saving the registers");

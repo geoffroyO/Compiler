@@ -157,8 +157,7 @@ public class DeclClass extends AbstractDeclClass {
 
         if (superClass.getName().toString() != "Object") {
             // - prepare the stack
-            compiler.addInstruction(new TSTO(new ImmediateInteger(3)), "test stack_overflow");
-            compiler.addInstruction(new BOV(new Label("stack_overflow")));
+            compiler.TSTO(3);
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R0));
             compiler.addInstruction(new PUSH(Register.R0));
 
@@ -175,7 +174,7 @@ public class DeclClass extends AbstractDeclClass {
         // - return
         compiler.addInstruction(new RTS());
 
-        // - code of the methods TODO
+        // - code of the methods
         compiler.addComment("Code des méthodes de la classe de " + className.getName());
         methods.codeGenListDeclMethod(compiler);
 

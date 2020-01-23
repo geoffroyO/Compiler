@@ -190,9 +190,11 @@ public class DecacCompiler {
 	}
 
 	public void addFirstTSTO(int n) {
-		addFirst(new BOV(new Label("stack_overflow")));
-		addFirst(new TSTO(new ImmediateInteger(n)));
-		addFirstComment("Test Stack_overflow");
+		if (n > 0) {
+			addFirst(new BOV(new Label("stack_overflow")));
+			addFirst(new TSTO(new ImmediateInteger(n)));
+			addFirstComment("Test Stack_overflow");
+		}
 
 	}
 
@@ -217,14 +219,16 @@ public class DecacCompiler {
 	}
 
 	public void TSTO(int n) {
-		addComment("Test Stack_overflow");
-		addInstruction(new TSTO(new ImmediateInteger(n)));
-		addInstruction(new BOV(new Label("stack_overflow")));
+		if (n > 0) {
+			addComment("Test Stack_overflow");
+			addInstruction(new TSTO(new ImmediateInteger(n)));
+			addInstruction(new BOV(new Label("stack_overflow")));
+		}
 	}
 
 	public void referenceErr(GPRegister register) {
 		addInstruction(new CMP(new NullOperand(), register));
-		addInstruction(new BEQ(new Label("deferencement.null")));
+		addInstruction(new BEQ(new Label("dereferencement.null")));
 	}
 
 	private final CompilerOptions compilerOptions;
