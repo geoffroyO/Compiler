@@ -18,6 +18,7 @@ public class RegisterManager {
     private int SP;
     private int GB;
     private int LB;
+    private int RegisterToSave = 0;
     private boolean[] freeRegister;
     private int nb_registers;
 
@@ -33,42 +34,50 @@ public class RegisterManager {
         }
     }
 
+    public void incrRegisterToSave() { RegisterToSave++; }
+
+    public void incrRegisterToSave(int n) { RegisterToSave += n; }
+
+    public void setRegisterToSave() { RegisterToSave = 0; }
+
+    public int getRegisterToSave() { return RegisterToSave; }
+
     public int getNb_registers(){
         return this.nb_registers - 1;
     }
 
     public void incrSP(){
-        this.SP++;
+        SP++;
     }
 
     public void incrSP(int n){
-        this.SP = this.SP + n;
+        SP += n;
     }
 
     public void setSP() { SP = 0; }
 
     public void incrGB(){
-        this.GB++;
+        GB++;
     }
 
     public void incrGB( int n ){
-        this.GB = this.GB + n;
+        GB += n;
     }
 
     public void incrLB(){
-        this.LB++;
+        LB++;
     }
 
     public int getSP(){
-        return this.SP;
+        return SP;
     }
 
     public int getGB(){
-        return this.GB;
+        return GB;
     }
 
     public int getLB(){
-        return this.LB;
+        return LB;
     }
 
     public GPRegister findFreeGPRegister(){
@@ -76,7 +85,7 @@ public class RegisterManager {
         int j = -1;
 
         for (int i = nb_registers - 1; i >= 2; i--) {
-            if (this.freeRegister[i]) {
+            if (freeRegister[i]) {
                 j = i;
             }
         }
@@ -87,7 +96,7 @@ public class RegisterManager {
     public boolean hasFreeGPRegister(){
         for (int i = nb_registers - 1; i >= 2; i--){
 
-            if (this.freeRegister[i]){
+            if (freeRegister[i]){
                 return true;
             }
         }
@@ -96,7 +105,7 @@ public class RegisterManager {
 
     public void freeRegister(GPRegister register){
         int i = register.getNumber();
-        this.freeRegister[i] = true;
+        freeRegister[i] = true;
     }
 
     public boolean isFreeRegister(GPRegister register){
