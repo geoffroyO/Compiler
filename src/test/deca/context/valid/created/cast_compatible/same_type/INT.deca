@@ -1,0 +1,8 @@
+// Description:
+//      Cast d'un type identique
+// Resultats:
+//      OK
+
+{
+    int x = (int)(5);
+}
