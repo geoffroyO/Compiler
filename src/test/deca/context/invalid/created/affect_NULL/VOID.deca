@@ -1,0 +1,8 @@
+// Description:
+//		Affecter null a un void
+// Resultats:
+//		Erreur contexte Ligne 7 : Variable can't be void
+
+{
+	void x = null;
+}

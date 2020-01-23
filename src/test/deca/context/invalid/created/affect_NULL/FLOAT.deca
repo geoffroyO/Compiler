@@ -1,0 +1,8 @@
+// Description:
+//		Affecter null a un float
+// Resultats:
+//		Erreur contexte Ligne 7 : Types don't match!
+
+{
+	float x = null;
+}

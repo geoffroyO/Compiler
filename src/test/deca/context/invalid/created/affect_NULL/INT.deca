@@ -1,0 +1,8 @@
+// Description:
+//		Affecter null a un int
+// Resultats:
+//		Erreur contexte Ligne 7 : Types don't match!
+
+{
+	int x = null;
+}

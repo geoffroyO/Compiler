@@ -1,0 +1,8 @@
+// Description:
+//		Affecter null a un boolean
+// Resultats:
+//		OK
+
+{
+	boolean x = null;
+}

@@ -1,0 +1,8 @@
+// Description:
+//		Affecter null a un int
+// Resultats:
+//		OK
+
+{
+	int x = null;
+}

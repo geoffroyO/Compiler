@@ -1,0 +1,8 @@
+// Description:
+//		Affecter null a un void
+// Resultats:
+//		OK
+
+{
+	void x = null;
+}

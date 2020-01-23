@@ -1,3 +1,8 @@
+// Description:
+//      Utilisation d'un champ sans identifier
+// Resultats:
+//      Error syntax Ligne 7 : no viable alternative at input 'int'
+
 class A {
     int;
 }
