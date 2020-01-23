@@ -1,8 +1,9 @@
 // Description:
-//    Test des operations sur entier.
+//    Test des operations sur entier. Echec division INT
 //
 //  Resultats:
-//      OK
+//      Erreur contexte : Ligne 24 : Types don't match! 
+
 //
 // Historique:
 //    cree le 09/01/2020
