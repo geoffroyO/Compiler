@@ -1,0 +1,12 @@
+// Description:
+//      Cast d'une sous classe
+// Resultats:
+//      OK
+
+class X{}
+
+{
+    Object a = null;
+    Object b = new X();
+    X x = null;
+}

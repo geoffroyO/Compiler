@@ -1,0 +1,13 @@
+class X{
+
+    int x;
+    
+    void m(int x){
+
+    }
+
+    void t() {
+        m(x);
+        //this.x = x;
+    }
+}

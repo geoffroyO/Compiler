@@ -1,0 +1,9 @@
+// Description:
+//		Definir une methode comme protected de maniere explicite
+// Resultats:
+//		Erreur syntaxe Ligne 7 : no viable alternative at input 'protectedintgetX'
+
+class A {
+    protected int getX(){}
+}
+

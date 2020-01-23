@@ -1,0 +1,8 @@
+// Description:
+//		Definir une classe comme protected de maniere explicite
+// Resultats:
+//		Erreur syntaxe Ligne 6 : no viable alternative at input 'protected'
+
+protected class A{
+}
+

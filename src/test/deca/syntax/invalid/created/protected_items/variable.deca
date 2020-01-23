@@ -1,0 +1,8 @@
+// Description:
+//		Definir une variable comme protected de maniere explicite
+// Resultats:
+//		Erreur syntaxe Ligne 7 : mismatched input 'protected' expecting {'false', 'if', 'new', 'null', 'readInt', 'readFloat', 'print', 'println', 'printlnx', 'printx', 'return', 'this', 'true', 'while', IDENT, '-', ';', '(', '}', '!', INT, FLOAT, STRING}
+
+{
+    protected int x;
+}

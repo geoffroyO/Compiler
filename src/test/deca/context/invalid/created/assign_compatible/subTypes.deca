@@ -1,0 +1,12 @@
+// Description:
+//      Test de la compatibilite pour l'affectation
+//      Regle 2, T2 sous type de T1
+// Resultats:
+//      Erreur contexte : Ligne 11 : incompatible class types
+
+class Mere{}
+class Fille extends Mere{}
+
+{
+    Fille m = new Mere();
+}

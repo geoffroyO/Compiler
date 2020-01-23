@@ -1,0 +1,8 @@
+// Description:
+//      Utilisation d'une methode sans signature
+// Resultats:
+//      Error syntax Ligne 7 : missing IDENT at ')'
+
+class A {
+    int getX(int ){}
+}
