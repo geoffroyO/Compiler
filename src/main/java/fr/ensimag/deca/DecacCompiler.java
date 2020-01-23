@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -153,6 +155,11 @@ public class DecacCompiler {
 		addComment("Test Stack_overflow");
 		addInstruction(new TSTO(new ImmediateInteger(n)));
 		addInstruction(new BOV(new Label("stack_overflow")));
+	}
+
+	public void referenceErr(GPRegister register) {
+		addInstruction(new CMP(new NullOperand(), register));
+		addInstruction(new BEQ(new Label("deferencement.null")));
 	}
 
 	private final CompilerOptions compilerOptions;

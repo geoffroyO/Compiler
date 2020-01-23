@@ -80,6 +80,39 @@ public class MethodCall extends AbstractExpr{
 
 
     protected void codeGenExpr(DecacCompiler compiler) {
-        // - TODO
+
+        // - test stack overflow, don't forget the implicit parameter
+        compiler.TSTO(params.size() + 1);
+        compiler.addInstruction(new ADDSP(params.size()  + 1));
+
+        // - we will need a temporary register to stock the values
+        GPRegister register = compiler.getRegM().findFreeGPRegister();
+
+        // - load the implicit parameter in the stack
+        instance.codeGenExpr(compiler, register);
+        compiler.addInstruction(new STORE(register, new RegisterOffset(0, Register.SP)));
+
+        // - load the other parameters in the stack
+        int indexSp = - 1;
+
+        for (AbstractExpr expr : params.getList()) {
+
+            // - get the value into register
+            expr.codeGenExpr(compiler, register);
+            compiler.addInstruction(new STORE(register, new RegisterOffset(indexSp, Register.SP)));
+        }
+
+        // - test reference for implicit parameter
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP), register));
+        compiler.referenceErr(register);
+
+        // - get the address of the table of methods
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register));
+
+        // - get the final address of the method called and jump to it
+        compiler.addInstruction(new BSR(new RegisterOffset(methodName.getMethodDefinition().getIndex(), register)));
+
+        // - unstack the parameters
+        compiler.addInstruction(new SUBSP(params.size() + 1));
     }
 }
