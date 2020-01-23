@@ -1,3 +1,8 @@
+// Description:
+//      Utilisation d'une classe sans identifier
+// Resultats:
+//      Error syntax Ligne 6 : missing IDENT at '{'
+
 class {
     
 }

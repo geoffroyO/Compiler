@@ -40,7 +40,7 @@ public class Cast extends  AbstractExpr{
              throw new ContextualError ("The elements aren't cast compatible.", getLocation());
         }
 
-        this.setType(varType);
+        this.setType(castType);
         return(this.getType());
 
     }

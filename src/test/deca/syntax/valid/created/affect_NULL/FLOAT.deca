@@ -1,0 +1,8 @@
+// Description:
+//		Affecter null a un float
+// Resultats:
+//		OK
+
+{
+	float x = null;
+}
