@@ -13,7 +13,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.*;
 
-public class MethodCall extends AbstractExpr{
+public class MethodCall extends AbstractLValue{
 
     private AbstractExpr instance ;
     private AbstractIdentifier methodName;
@@ -122,5 +122,10 @@ public class MethodCall extends AbstractExpr{
 
         // - unstack the parameters
         compiler.addInstruction(new SUBSP(params.size() + 1));
+    }
+
+    @Override
+    protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
+
     }
 }
