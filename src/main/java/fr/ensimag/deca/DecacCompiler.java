@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
@@ -19,14 +22,6 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
-import fr.ensimag.ima.pseudocode.AbstractLine;
-import fr.ensimag.ima.pseudocode.IMAProgram;
-import fr.ensimag.ima.pseudocode.ImmediateString;
-import fr.ensimag.ima.pseudocode.Instruction;
-import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.instructions.ERROR;
-import fr.ensimag.ima.pseudocode.instructions.WNL;
-import fr.ensimag.ima.pseudocode.instructions.WSTR;
 
 /**
  * Decac compiler instance.
@@ -154,6 +149,12 @@ public class DecacCompiler {
 		return program.display();
 	}
 
+	public void TSTO(int n) {
+		addComment("Test Stack_overflow");
+		addInstruction(new TSTO(new ImmediateInteger(n)));
+		addInstruction(new BOV(new Label("stack_overflow")));
+	}
+
 	private final CompilerOptions compilerOptions;
 	private final File source;
 	/**
@@ -239,32 +240,6 @@ public class DecacCompiler {
 
 		addComment("start main program");
 		prog.codeGenProgram(this);
-
-
-		addLabel(new Label("dereferencement.null"));
-		addInstruction(new WSTR(new ImmediateString("Error: dereferencement.null")));
-		addInstruction(new WNL());
-		addInstruction(new ERROR());
-
-		addLabel(new Label("Float_overflow"));
-		addInstruction(new WSTR(new ImmediateString("Error: Float_overflow")));
-		addInstruction(new WNL());
-		addInstruction(new ERROR());
-
-		addLabel(new Label("stack_overflow"));
-		addInstruction(new WSTR(new ImmediateString("Error: stack_overflowed")));
-		addInstruction(new WNL());
-		addInstruction(new ERROR());
-
-		addLabel(new Label("Zero_division"));
-		addInstruction(new WSTR(new ImmediateString("Error: Zero_division ")));
-		addInstruction(new WNL());
-		addInstruction(new ERROR());
-
-		addLabel(new Label("heap_overflow"));
-		addInstruction(new WSTR(new ImmediateString("Error: heap_overflow ")));
-		addInstruction(new WNL());
-		addInstruction(new ERROR());
 
 		addComment("end main program");
 		LOG.debug("Generated assembly code:" + nl + program.display());

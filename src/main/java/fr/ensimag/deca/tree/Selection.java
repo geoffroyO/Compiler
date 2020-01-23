@@ -63,13 +63,15 @@ public class Selection extends AbstractLValue{
 
     }
 
-
-    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+    @Override
+    protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
         instance.codeGenExpr(compiler, register);
-        compiler.addInstruction( new LEA(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
-        if (field.getType().isClass()) {
-            compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register));
-        }
+        compiler.addInstruction(new LEA(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
+    }
+
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+        instance.codeGenExpr(compiler, register);
+        compiler.addInstruction(new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
     }
 
     @Override

@@ -113,10 +113,10 @@ public class DeclClass extends AbstractDeclClass {
 
         compiler.addComment("Code de la table des méthodes de la classe " + className.getName());
 
-        // - prepare the stack for declaration
-        compiler.addInstruction(new TSTO(new ImmediateInteger(maxIndex)));
+        // - save some place in the stack
+        compiler.addInstruction(new TSTO(new ImmediateInteger(maxIndex + 1)));
         compiler.addInstruction(new BOV(new Label("stack_overflow")));
-        compiler.addInstruction(new ADDSP(new ImmediateInteger(maxIndex)));
+        compiler.addInstruction(new ADDSP(new ImmediateInteger(maxIndex + 1)));
 
         // - set and adress to the current class
         DAddr addrClass = new RegisterOffset(compiler.getRegM().getGB(), Register.GB);
@@ -157,16 +157,19 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addComment("Initialisation des champs de la classe de " + className.getName());
         compiler.addLabel(new Label("init." + className.getName()));
 
-        // - prepare the stack
-        compiler.addInstruction(new TSTO(new ImmediateInteger(3)), "test stack_overflow");
-        compiler.addInstruction(new BOV(new Label("stack_overflow")));
-        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R0));
-        compiler.addInstruction(new PUSH(Register.R0));
+        if (superClass.getName().toString() != "Object") {
+            // - prepare the stack
+            compiler.addInstruction(new TSTO(new ImmediateInteger(3)), "test stack_overflow");
+            compiler.addInstruction(new BOV(new Label("stack_overflow")));
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R0));
+            compiler.addInstruction(new PUSH(Register.R0));
 
-        // - jump to the constructor of the superClass
-        compiler.addComment("Initialisation de " + superClass.getName());
-        compiler.addInstruction(new BSR(new Label("init." + superClass.getName())));
-        compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
+            // - jump to the constructor of the superClass
+            compiler.addComment("Initialisation de " + superClass.getName());
+            compiler.addInstruction(new BSR(new Label("init." + superClass.getName())));
+            compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
+
+        }
 
         // - fields declaration
         fields.codeGenListDeclField(compiler);

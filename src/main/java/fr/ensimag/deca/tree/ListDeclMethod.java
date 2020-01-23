@@ -36,7 +36,6 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
         // - update current class methods table
         current.getMT().superUpdateMT(superClass);
 
-        System.out.println(current.getMT());
         /** DON"T DELETE THIS
          *  it's just for testing, We will remove it later
             System.out.println("################");

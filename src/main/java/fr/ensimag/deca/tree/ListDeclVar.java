@@ -52,22 +52,8 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
     }
 
     public void codeGenDeclVar(DecacCompiler compiler) {
-
-        // - get the size of the list so as to save some place in the stack
-        int nb_var = size();
-
-        // - stack overflow test
-        compiler.addComment("Test Stack_overflow");
-        compiler.addInstruction(new TSTO(new ImmediateInteger(nb_var)));
-        compiler.addInstruction(new BOV( new Label("stack_overflow")));
-
-        // - save the place in the stack
-        compiler.addInstruction(new ADDSP(nb_var));
-
         for (AbstractDeclVar i : getList()) {
             i.codeGenDeclVar(compiler);
         }
     }
-
-
 }

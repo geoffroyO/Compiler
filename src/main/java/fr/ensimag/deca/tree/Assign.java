@@ -54,7 +54,7 @@ public class Assign extends AbstractBinaryExpr {
         if (compiler.getRegM().hasFreeGPRegister()) {
             // - register that store the adress of the left operand to assign
             GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
-            getLeftOperand().codeGenExpr(compiler, addrReg);
+            getLeftOperand().codeGenLValueAddr(compiler, addrReg);
 
             // - the value of the right operand is in register
             getRightOperand().codeGenExpr(compiler, register);
@@ -71,7 +71,7 @@ public class Assign extends AbstractBinaryExpr {
     protected void codeGenInst(DecacCompiler compiler) {
         // - register that store the adress of the left operand to assign
         GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
-        getLeftOperand().codeGenExpr(compiler, addrReg);
+        getLeftOperand().codeGenLValueAddr(compiler, addrReg);
 
         GPRegister register = compiler.getRegM().findFreeGPRegister();
 
