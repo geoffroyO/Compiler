@@ -1,7 +1,7 @@
 // Grenoble INP - Ensimag projet GL -*- mode: java -*-
 // Library for class Math of Deca, coded in Deca
 
-class BoundArgument {
+class Utility {
 	float a1 = 3.14;
 	float a2 = 0.0015;
 	float a3 = 0.000092;
@@ -17,9 +17,22 @@ class BoundArgument {
 	float a13 = 0.00000000000000000000000038;
 	float pi = 3.14159265358979323846264338;
 
+
 	int floor(float x){
 		int res = (int)(x / (2 * pi));
 		return res;
+	}
+
+
+	float sqrt(float a){
+		float x = 1;
+        int n = 1000;
+
+        while (n>=0){
+            x = 0.5*(x+a/x);
+            n = n - 1;
+        }
+        return x;
 	}
 
 	float bound(float x){
@@ -68,16 +81,22 @@ class Math {
 		float a35 =  - 0.0000000000000000000000000000000000000000967759295863189;
 		float z;
 		float res;
-		z = x*x;
-        res = x*(a1+z*(a3+z*(a5+z*(a7+z*(a9+z*(a11+z*(a13+z*(a15+z*(a17+z*(a19+z*(a21+z*(a23+z*(a25+z*(a27+z*(a29+z*(a31+z*(a31+z*a35)))))))))))))))));
+		float tmp = x;
 
+		/*
+		if (tmp > this.pi){
+			tmp = f.bound(x);
+		}
+		*/
+		z = tmp*tmp;
+        res = tmp*(a1+z*(a3+z*(a5+z*(a7+z*(a9+z*(a11+z*(a13+z*(a15+z*(a17+z*(a19+z*(a21+z*(a23+z*(a25+z*(a27+z*(a29+z*(a31+z*(a31+z*a35)))))))))))))))));
 
 		return res;
     }
 
 
     float cos(float x) {
-    	// BoundArgument f = new BoundArgument();
+    	Utility f = new Utility();
     	float tmp = x;
 		float a0 = 1.0; //1
 		float a2 = -0.5; //2
@@ -99,22 +118,614 @@ class Math {
 		float a34 = -0.00000000000000000000000000000000000000338715753552116; //18
 		float z;
 		float res;
-		// tmp = f.bound(x);
+
+		/*
+		if (tmp > pi){
+			tmp = f.bound(x);
+		}
+		*/
+
 		z = tmp*tmp;
 		res = a0+z*(a2+z*(a4+z*(a6+z*(a8+z*(a10+z*(a12+z*(a14+z*(a16+z*(a18+z*(a20+z*(a22+z*(a24+z*(a26+z*(a28+z*(a30+z*(a32+z*a34))))))))))))))));
 
-        println("cos(f) not yet implemented");
         return res;
     }
-    float asin(float f) {
-        println("asin(f) not yet implemented");
+
+    float asin(float x) {
+    	Utility u = new Utility();
+		float tmp = u.sqrt(1-x*x);
+    	float res = this.atan(x/tmp);
+    	return res;
     }
-    float atan(float f) {
-        println("atan(f) not yet implemented");
+
+
+    float ulp(float x) {
+
+        	float tmp;
+        	float val_min = 0.00000000000000000000000000000000000001175494351;
+
+        	int exp = -127;
+        	float puiss_2 = 0.00000000000000000000000000000000000001175494351;
+
+        	float res = 0.00000000000000000000000000000000000001175494351; //init à val min
+        	int k = -125;
+        	int i = 1;
+
+			tmp = x;
+
+        	//trouver l'exposant:
+        	while (puiss_2 < tmp){
+        		puiss_2 = puiss_2 * 2; //faire un SHL
+        		exp = exp + 1;
+        	}
+
+        	puiss_2 = puiss_2 / 2; //faire un SHR
+
+        	if (exp == 128) { //on a l'infini
+        		println("Le résultat est: ");
+        		res = tmp;
+        		println(res);
+        	}
+        	if (exp == -127) { //on a 0
+        		println("Le résultat est: ");
+        		println(res);
+        	}
+
+        	exp = exp - 23;
+
+        	if (exp >= -126) {
+        		while (k <= exp) { //calcul de la puissance de 2
+        			res = res*2; //faire SHR
+        			k = k + 1;
+        		}
+        		println("Le résultat est: ");
+        		println(res);
+        	}
+
+        	if (exp < -126) {
+        		res = 1;
+        		k = exp - 103;
+        		while (i <= k){
+        			res = res/2; //faire SHL
+        			i = i + 1;
+        		}
+        		println("Le résultat est: ");
+        		println(res);
+        	}
+        	return res;
     }
-    float ulp(float f) {
-        println("ulp(f) not yet implemented");
-    }
+
+
+
+
+	float atan(float f) {
+		float x = 1;
+        float z = 0;
+        float t = 1;
+        float x1;
+        float y = f;
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.7853981633974483;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.7853981633974483;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.4636476090008061;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.4636476090008061;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.24497866312686414;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.24497866312686414;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.12435499454676144;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.12435499454676144;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.06241880999595735;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.06241880999595735;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.031239833430268277;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.031239833430268277;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.015623728620476831;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.015623728620476831;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.007812341060101111;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.007812341060101111;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.0039062301319669718;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.0039062301319669718;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.0019531225164788188;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.0019531225164788188;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.0009765621895593195;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.0009765621895593195;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.0004882812111948983;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.0004882812111948983;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.00024414062014936177;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.00024414062014936177;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 0.00012207031189367021;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 0.00012207031189367021;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 6.103515617420877*0.00001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 6.103515617420877*0.00001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 3.0517578115526096*0.00001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 3.0517578115526096*0.00001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 1.5258789061315762*0.00001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 1.5258789061315762*0.00001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 7.62939453110197*0.000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 7.62939453110197*0.000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 3.814697265606496*0.000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 3.814697265606496*0.000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 1.907348632810187*0.000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 1.907348632810187*0.000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 9.536743164059608*0.0000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 9.536743164059608*0.0000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 4.7683715820308884*0.0000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 4.7683715820308884*0.0000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 2.3841857910155797*0.0000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 2.3841857910155797*0.0000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 1.1920928955078068*0.0000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 1.1920928955078068*0.0000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 5.960464477539055*0.00000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 5.960464477539055*0.00000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 2.9802322387695303*0.00000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 2.9802322387695303*0.00000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 1.4901161193847655*0.00000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 1.4901161193847655*0.00000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 7.450580596923828*0.000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 7.450580596923828*0.000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 3.725290298461914*0.000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 3.725290298461914*0.000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 1.862645149230957*0.000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 1.862645149230957*0.000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 9.313225746154785*0.0000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 9.313225746154785*0.0000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 4.656612873077393*0.0000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 4.656612873077393*0.0000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 2.3283064365386963*0.0000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 2.3283064365386963*0.0000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 1.1641532182693481*0.0000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 1.1641532182693481*0.0000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 5.820766091346741*0.00000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 5.820766091346741*0.00000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 2.9103830456733704*0.00000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 2.9103830456733704*0.00000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 1.4551915228366852*0.00000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 1.4551915228366852*0.00000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 7.275957614183426*0.000000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 7.275957614183426*0.000000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 3.637978807091713*0.000000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 3.637978807091713*0.000000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        x1 = 0.0;
+        if (y < 0){
+            x1 = x - y*t;
+            y = y + x*t;
+            z = z - 1.8189894035458565*0.000000000001;
+        } else if (true) {
+            x1 = x + y*t;
+            y = y - x*t;
+            z = z + 1.8189894035458565*0.000000000001;
+        }
+        x = x1;
+        t = t/2.0;
+
+        return z;
+	}
 }
 
 
