@@ -39,7 +39,7 @@ public class InstanceOf extends AbstractExpr{
     @Override
     public void decompile(IndentPrintStream s) {
         instance.decompile(s);
-        s.print(" instanceOf ");
+        s.print(" instanceof ");
         className.decompile(s);
     }
 

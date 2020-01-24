@@ -1,0 +1,116 @@
+// Description:
+//		Affiche un champ protected apres un heritage de 50 et un getter
+// Resultat:
+//		5
+
+class A0 {
+	protected int x = 5;
+	int getX()
+	{
+		return(x);
+	}
+}
+class A1 extends A0{
+}
+class A2 extends A1{
+}
+class A3 extends A2{
+}
+class A4 extends A3{
+}
+class A5 extends A4{
+}
+class A6 extends A5{
+}
+class A7 extends A6{
+}
+class A8 extends A7{
+}
+class A9 extends A8{
+}
+class A10 extends A9{
+}
+class A11 extends A10{
+}
+class A12 extends A11{
+}
+class A13 extends A12{
+}
+class A14 extends A13{
+}
+class A15 extends A14{
+}
+class A16 extends A15{
+}
+class A17 extends A16{
+}
+class A18 extends A17{
+}
+class A19 extends A18{
+}
+class A20 extends A19{
+}
+class A21 extends A20{
+}
+class A22 extends A21{
+}
+class A23 extends A22{
+}
+class A24 extends A23{
+}
+class A25 extends A24{
+}
+class A26 extends A25{
+}
+class A27 extends A26{
+}
+class A28 extends A27{
+}
+class A29 extends A28{
+}
+class A30 extends A29{
+}
+class A31 extends A30{
+}
+class A32 extends A31{
+}
+class A33 extends A32{
+}
+class A34 extends A33{
+}
+class A35 extends A34{
+}
+class A36 extends A35{
+}
+class A37 extends A36{
+}
+class A38 extends A37{
+}
+class A39 extends A38{
+}
+class A40 extends A39{
+}
+class A41 extends A40{
+}
+class A42 extends A41{
+}
+class A43 extends A42{
+}
+class A44 extends A43{
+}
+class A45 extends A44{
+}
+class A46 extends A45{
+}
+class A47 extends A46{
+}
+class A48 extends A47{
+}
+class A49 extends A48{
+}
+class A50 extends A49{
+}
+{
+	A50 a50 = new A50();
+	println(a50.getX());
+}

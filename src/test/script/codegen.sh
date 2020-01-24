@@ -1,5 +1,28 @@
 #! /bin/sh
 
+## Verifie les tests de l'etape C
+
+## Tous les fichiers .deca sont appeles avec decac 
+## Puis avec ima
+## Les fichiers de resultats de l'execution sont stockes dans le repertoire res
+
+## A chaque fois, deux fichiers sont generes dans les LOGS
+## Un fichier contenant la sortie <nomFichier><heure>.output
+## Un fichier contenant les erreurs <nomFichier><heure>.error
+
+## En cas de reussite les fichier de logs sont supprimes 
+## Si une erreur est detecte, le script s'arrête avec un exit 1
+
+## Fichier valid
+## Les fichiers valides sont dans le sous dossier valid.
+
+## Compilation
+## Les fichiers ne doivent pas contenir d'erreur et avoir une sortie vide
+
+## Compilation
+## Les fichiers ne doivent pas contenir d'erreur et avoir une sortie egale a celui attendu dans res/<nom>.res
+
+
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'

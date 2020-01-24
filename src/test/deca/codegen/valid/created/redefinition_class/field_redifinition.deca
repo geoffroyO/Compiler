@@ -1,0 +1,24 @@
+// Description:
+//      Redefinition d'un champ dans une sous classe fille
+// Resultats:
+//      15
+
+class M{
+    int x;
+
+    void setX(int x)
+    {
+        thix.x = x;
+    }
+}
+
+class F extends M{
+    int x;
+}
+
+{
+    F f = new F();
+    f.setX(15);
+
+    println(f.x);
+}

@@ -1,5 +1,21 @@
 #! /bin/sh
 
+## Souleve des erreurs interne du compilateur
+
+## Les tests sont contenus dans le fichier internal error
+## Chaque sous dossier contient des fichiers .deca ainsi que error.find 
+## qui contient le type d'erreur soulevee
+## Deux fichiers sont generes a chaque fois dans les LOGS
+## Un fichier contenant la sortie <type><heure>.output
+## Un fichier contenant les erreurs <type><heure>.error
+
+## En cas de reussite les fichier de logs sont supprimes 
+## Si une erreur est detecte, le script s'arrête avec un exit 1
+
+## Les fichiers doivent avoir une sortie vide
+## Les fichiers doivent contenir l'erreur dans le log d'erreur
+
+
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'

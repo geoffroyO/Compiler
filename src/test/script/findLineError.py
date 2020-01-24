@@ -1,9 +1,10 @@
 import os
 import sys
 
-
-# Convention
+## Affiche la ligne ou doit se trouver une erreur
+## Tous les fichiers contenant des erreur utilisent la convention:
 # <Comment> Ligne <nbLignes> : ...
+
 
 fileName = sys.argv[1]
 tokenExpected= "Ligne"

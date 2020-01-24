@@ -1,6 +1,10 @@
 #! /bin/sh
 
-## Generate file .res for codegen
+## Genere tous les fichiers .res utile à la vérification du codegen
+
+## Hypothèses: tous les tests contenu dans codegen sont valide avec le compilateur decac
+
+## Parcourt tous les fichiers, les exécute et stock le résultat dans un fichier <nom>.res au bon format
 
 
 GREEN='\033[0;32m'

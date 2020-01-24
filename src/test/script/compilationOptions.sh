@@ -1,5 +1,8 @@
 #! /bin/sh
 
+## Verifie la gestion des options du compilateur
+
+
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 COLORLESS='\033[0m'

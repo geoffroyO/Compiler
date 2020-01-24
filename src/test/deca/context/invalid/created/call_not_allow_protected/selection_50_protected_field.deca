@@ -1,0 +1,162 @@
+// Description:
+//		Affiche un champ public apres une selection de 50
+// Resultat:
+//		Erreur contexte Ligne 161 : It is not allowed to access a protected field outside a class
+
+class A0 {
+	protected int x = 5;
+}
+class A1 extends A0{
+	A0 a0 = new A0();
+}
+class A2 extends A1{
+	A1 a1 = new A1();
+}
+class A3 extends A2{
+	A2 a2 = new A2();
+}
+class A4 extends A3{
+	A3 a3 = new A3();
+}
+class A5 extends A4{
+	A4 a4 = new A4();
+}
+class A6 extends A5{
+	A5 a5 = new A5();
+}
+class A7 extends A6{
+	A6 a6 = new A6();
+}
+class A8 extends A7{
+	A7 a7 = new A7();
+}
+class A9 extends A8{
+	A8 a8 = new A8();
+}
+class A10 extends A9{
+	A9 a9 = new A9();
+}
+class A11 extends A10{
+	A10 a10 = new A10();
+}
+class A12 extends A11{
+	A11 a11 = new A11();
+}
+class A13 extends A12{
+	A12 a12 = new A12();
+}
+class A14 extends A13{
+	A13 a13 = new A13();
+}
+class A15 extends A14{
+	A14 a14 = new A14();
+}
+class A16 extends A15{
+	A15 a15 = new A15();
+}
+class A17 extends A16{
+	A16 a16 = new A16();
+}
+class A18 extends A17{
+	A17 a17 = new A17();
+}
+class A19 extends A18{
+	A18 a18 = new A18();
+}
+class A20 extends A19{
+	A19 a19 = new A19();
+}
+class A21 extends A20{
+	A20 a20 = new A20();
+}
+class A22 extends A21{
+	A21 a21 = new A21();
+}
+class A23 extends A22{
+	A22 a22 = new A22();
+}
+class A24 extends A23{
+	A23 a23 = new A23();
+}
+class A25 extends A24{
+	A24 a24 = new A24();
+}
+class A26 extends A25{
+	A25 a25 = new A25();
+}
+class A27 extends A26{
+	A26 a26 = new A26();
+}
+class A28 extends A27{
+	A27 a27 = new A27();
+}
+class A29 extends A28{
+	A28 a28 = new A28();
+}
+class A30 extends A29{
+	A29 a29 = new A29();
+}
+class A31 extends A30{
+	A30 a30 = new A30();
+}
+class A32 extends A31{
+	A31 a31 = new A31();
+}
+class A33 extends A32{
+	A32 a32 = new A32();
+}
+class A34 extends A33{
+	A33 a33 = new A33();
+}
+class A35 extends A34{
+	A34 a34 = new A34();
+}
+class A36 extends A35{
+	A35 a35 = new A35();
+}
+class A37 extends A36{
+	A36 a36 = new A36();
+}
+class A38 extends A37{
+	A37 a37 = new A37();
+}
+class A39 extends A38{
+	A38 a38 = new A38();
+}
+class A40 extends A39{
+	A39 a39 = new A39();
+}
+class A41 extends A40{
+	A40 a40 = new A40();
+}
+class A42 extends A41{
+	A41 a41 = new A41();
+}
+class A43 extends A42{
+	A42 a42 = new A42();
+}
+class A44 extends A43{
+	A43 a43 = new A43();
+}
+class A45 extends A44{
+	A44 a44 = new A44();
+}
+class A46 extends A45{
+	A45 a45 = new A45();
+}
+class A47 extends A46{
+	A46 a46 = new A46();
+}
+class A48 extends A47{
+	A47 a47 = new A47();
+}
+class A49 extends A48{
+	A48 a48 = new A48();
+}
+class A50 extends A49{
+	A49 a49 = new A49();
+}
+{
+	A50 a50 = new A50();
+	println(a50.a49.a48.a47.a46.a45.a44.a43.a42.a41.a40.a39.a38.a37.a36.a35.a34.a33.a32.a31.a30.a29.a28.a27.a26.a25.a24.a23.a22.a21.a20.a19.a18.a17.a16.a15.a14.a13.a12.a11.a10.a9.a8.a7.a6.a5.a4.a3.a2.a1.a0.x);
+}

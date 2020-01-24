@@ -1,0 +1,10 @@
+// Description:
+//      Bloc seul
+//  Resultats:
+//      OK
+
+{
+	if(false){}
+	else if (!false){}
+	else {}
+}

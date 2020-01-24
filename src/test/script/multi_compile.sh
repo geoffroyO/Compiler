@@ -1,5 +1,27 @@
 #! /bin/sh
 
+## Verifie le parallelisme du compilateur
+
+## Les tests sont contenus dans le fichier parallel
+## Tous les fichiers .deca sont appeles avec decac -P (pour la gestion parallele)
+## ainsi que sans pour une gestion iterative
+## Deux fichiers sont generes a chaque fois dans les LOGS
+## Un fichier contenant la sortie <type><heure>.output
+## Un fichier contenant les erreurs <type><heure>.error
+
+## En cas de reussite les fichier de logs sont supprimes 
+## Si une erreur est detecte, le script s'arrête avec un exit 1
+
+## Fichier valid
+## Les fichiers valides sont dans le sous dossier valid.
+## Les fichiers ne doivent pas contenir d'erreur
+
+## Fichier invalid
+## Les fichiers invalides sont dans le sous dossier invalid.
+## Le fichier de sortie doit contenir l'erreur au bon format 
+## L'erreur doit être à la bonne ligne
+## Le fichier de sortie doit être vide
+
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'

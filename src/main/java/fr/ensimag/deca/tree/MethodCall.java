@@ -60,7 +60,7 @@ public class MethodCall extends AbstractLValue{
     public void decompile(IndentPrintStream s) {
         instance.decompile(s);
         s.print(".");
-        methodName.decompile();
+        methodName.decompile(s);
         s.print("(");
         params.decompile(s);
         s.print(")");

@@ -1,5 +1,26 @@
 #! /bin/sh
 
+## Verifie les tests de l'etape B
+
+## Tous les fichiers .deca sont appeles avec decac -v
+## Deux fichiers sont generes a chaque fois dans les LOGS
+## Un fichier contenant la sortie <nomFichier><heure>.output
+## Un fichier contenant les erreurs <nomFichier><heure>.error
+
+## En cas de reussite les fichier de logs sont supprimes 
+## Si une erreur est detecte, le script s'arrête avec un exit 1
+
+## Fichier valid
+## Les fichiers valides sont dans le sous dossier valid.
+## Les fichiers ne doivent pas contenir d'erreur
+
+## Fichier invalid
+## Les fichiers invalides sont dans le sous dossier invalid.
+## Tous les fichiers invalides possedent en commentaire le numero de ligne soulevant l'erreur
+## Le fichier de sortie doit contenir l'erreur au bon format 
+## L'erreur doit être à la bonne ligne
+## Le fichier de sortie doit être vide
+
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'

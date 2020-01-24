@@ -1,0 +1,16 @@
+// Description:
+//      Utilisation d'instanceof sur null
+// Resultats:
+//      false
+
+class A{}
+
+{
+    boolean value = (null instanceof A);
+    if (value)
+    {
+        println("true");
+    }else {
+        println("false");
+    }
+}

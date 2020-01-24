@@ -1,0 +1,14 @@
+// Description:
+//      Appel d'une methode qui attend un parametre FLOAT avec un OBJECT
+// Resultats:
+//      Erreur contexte Ligne 13 : Contextual error, the parameters given don't respect the method signature
+
+class A {
+    void f(float x){}
+}
+
+{
+    A a = new A();
+    A b = new A();
+    a.f(b);
+}
