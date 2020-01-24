@@ -25,6 +25,7 @@ public class RegisterManager {
     private int localVariable = 0;
     private boolean[] freeRegister;
     private int nb_registers;
+    private Register base = Register.GB;
 
     public RegisterManager(int nb_registers) {
         this.nb_registers = nb_registers;
@@ -37,6 +38,9 @@ public class RegisterManager {
 
     // - setters
     public void setSP() { SP = 0; }
+
+    public void setGB() { GB = 1; }
+    public void setGB(int n) { GB = n; }
 
     public void setRegisterToSave() {
         maxToSave.add(RegisterToSave);
@@ -66,6 +70,8 @@ public class RegisterManager {
 
 
     // - getters
+    public Register getBase() { return base; }
+
     public int getSP(){
         return SP;
     }
@@ -125,5 +131,13 @@ public class RegisterManager {
 
     public void  setFreeRegister(boolean[] oldFreeRegister){
         freeRegister = Arrays.copyOf(oldFreeRegister, oldFreeRegister.length);
+    }
+
+    public void changeBase(){
+        if (base == Register.GB) {
+            base = Register.LB;
+        } else {
+            base = Register.GB;
+        }
     }
 }

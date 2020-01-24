@@ -3,6 +3,9 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+import fr.ensimag.ima.pseudocode.instructions.INT;
 
 import java.io.PrintStream;
 
@@ -54,5 +57,18 @@ public class Cast extends  AbstractExpr{
     @Override
     protected void iterChildren(TreeFunction f) {
 
+    }
+
+
+    @Override
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+        nameVar.codeGenExpr(compiler, register);
+        if (nameVar.getType().isInt() && type.getType().isFloat()) {
+            compiler.addInstruction(new FLOAT(register, register), "Casting integer --> float");
+        } else if (nameVar.getType().isFloat() && type.getType().isInt()){
+            compiler.addInstruction(new INT(register, register), "casting float --> integer");
+        } else {
+            // TODO
+        }
     }
 }

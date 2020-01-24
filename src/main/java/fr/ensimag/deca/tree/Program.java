@@ -70,13 +70,13 @@ public class Program extends AbstractProgram {
 
     private void codeGenFPDeclObjectClass(DecacCompiler compiler) {
         ClassDefinition object = (ClassDefinition) compiler.getEnvTypes().get(compiler.getSymbols().create("Object"));
-        object.setAddrClass(new RegisterOffset(1, Register.GB));
+        object.setAddrClass(new RegisterOffset(1, Register.LB));
         compiler.addComment("Code de la table des méthodes de la classe Object");
         compiler.addInstruction(new LOAD(new NullOperand(), Register.R0));
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), compiler.getRegM().getBase())));
         compiler.getRegM().incrGB();
         compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")), Register.R0));
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.LB)));
         compiler.getRegM().incrGB();
         compiler.getRegM().incrSP(2);
 

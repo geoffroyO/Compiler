@@ -211,6 +211,10 @@ public class DecacCompiler {
 		isInBloc = false;
 	}
 
+	public void delBloc() {
+		isInBloc = false;
+	}
+
 	/**
 	 * @see fr.ensimag.ima.pseudocode.IMAProgram#display()
 	 */

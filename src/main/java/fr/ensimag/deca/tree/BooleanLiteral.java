@@ -72,33 +72,4 @@ public class BooleanLiteral extends AbstractExpr {
             compiler.addInstruction(new LOAD(new ImmediateInteger(0), register));
         }
     }
-
-//    @Override
-//    protected void codeGenPrint(DecacCompiler compiler) {
-//        if (this.getValue()) {
-//        	 compiler.addInstruction(new WSTR(new ImmediateString("True")));
-//        } else{
-//        	 compiler.addInstruction(new WSTR(new ImmediateString("False")));
-//        }
-//    }
-/*
-    protected void codeGenInst(DecacCompiler compiler, Label label){
-
-        if (compiler.getRegM().hasFreeGPRegister()) {
-            GPRegister register = compiler.getRegM().findFreeGPRegister();
-
-            int i;
-            if (this.getValue()){
-                i = 1;
-            } else { i = 0;}
-
-            compiler.addInstruction(new LOAD(new ImmediateInteger(i), register));
-            compiler.addInstruction(new CMP(new ImmediateInteger(1), register));
-            compiler.addInstruction(new BNE(label));
-
-            compiler.getRegM().freeRegister(register);
-        }
-    }
-
- */
 }

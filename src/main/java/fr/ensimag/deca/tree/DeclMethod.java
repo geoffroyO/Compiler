@@ -29,6 +29,7 @@ public class DeclMethod extends AbstractDeclMethod {
 
     }
 
+
     @Override
     protected void verifyDeclMethod(DecacCompiler compiler, ClassDefinition current, ClassDefinition superClass)
             throws ContextualError {
@@ -152,28 +153,59 @@ public class DeclMethod extends AbstractDeclMethod {
     @Override
     protected void codeGenDeclMethod(DecacCompiler compiler) {
 
-        // - TODO find conditions for saving a register
-
-        // - begining of the code for the method
+        // - beginning of the code for the method
         compiler.addLabel(new Label("code." + name.getMethodDefinition().getLabel()));
 
-        // - declaration of the parameters and set
+        // - declaration of the parameters
         listDeclParam.codeGenListDeclParam(compiler);
 
-        // - new bloc so that we can add TSTO, BOV, and ADDSP
+        // - we set the offset of the base to 1 and before, we save our current gb offset
+        int oldGb = compiler.getRegM().getGB();
+        compiler.getRegM().setGB();
+
+        // - new bloc to delete after
         compiler.beginBloc();
 
-        // - generation of the body of the method
+        // - go to the local base
+        compiler.getRegM().changeBase();
+
+        // - first fake generation of the body of the method
         body.codeGenMethodBody(compiler);
 
-        // - END
-        compiler.addLabel(new Label("End." + name.getMethodDefinition().getLabel()));
+        // - return to the global base
+        compiler.getRegM().changeBase();
+
 
         // - get the number of register to save
         int nbRegistersToSave = compiler.getRegM().getMaxToSave();
 
         // - we don't take into account R0 and R1
-        int max = compiler.getRegM().getNb_registers() - 2;
+        int max = compiler.getRegM().getNb_registers();
+
+        // - deletion of the bloc
+        compiler.delBloc();
+
+        // - we don't forget the offset due to the previous push of registers
+        compiler.getRegM().setGB(nbRegistersToSave + 1);
+
+        // - new bloc so that we can add TSTO, BOV, and ADDSP
+        compiler.beginBloc();
+
+        // - go to the local base
+        compiler.getRegM().changeBase();
+
+        // - generation of the body of the method
+        body.codeGenMethodBody(compiler);
+
+        // - return to the global base
+        compiler.getRegM().changeBase();
+
+        // - END
+        compiler.addLabel(new Label("End." + name.getMethodDefinition().getLabel()));
+
+
+        // - get back to ancient stack
+        compiler.addInstruction(new SUBSP(new ImmediateInteger(compiler.getRegM().getLocalVariable())));
 
         // - restoration of the registers to save
         compiler.addComment("Restoring the registers");
@@ -186,6 +218,10 @@ public class DeclMethod extends AbstractDeclMethod {
         // - return
         compiler.addInstruction(new RTS());
 
+        // - add TSTO, ADDSP and BOV
+        compiler.addFirst(new ADDSP(new ImmediateInteger(compiler.getRegM().getLocalVariable())));
+        compiler.addFirstTSTO(compiler.getRegM().getLocalVariable()); // TODO
+
         // - save the registers
         for (int k = 2; k <= nbRegistersToSave + 1 ; k++) {
             if (k <= max) {
@@ -193,13 +229,13 @@ public class DeclMethod extends AbstractDeclMethod {
             }
         }
         compiler.addFirstComment("Saving the registers");
-
-        // - add TSTO, ADDSP and BOV
-        compiler.addFirst(new ADDSP(new ImmediateInteger(compiler.getRegM().getLocalVariable())));
-        compiler.addFirstTSTO(compiler.getRegM().getSP());
-
+        
         // - END bloc
         compiler.endBloc();
+
+        // - return to the main program
+        compiler.getRegM().setGB(oldGb);
+        compiler.getRegM().getMaxToSave();
     }
 
 }
