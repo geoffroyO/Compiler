@@ -1,0 +1,12 @@
+// Description:
+// 		Methode Override avec une signature differente
+// Resultat:
+//		Ligne 10 : Override method with different signature
+
+class A{
+	void afficher(int x){}
+}
+class B extends A {
+	void afficher(float x){}
+}
+

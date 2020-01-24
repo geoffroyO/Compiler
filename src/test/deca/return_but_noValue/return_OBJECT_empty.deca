@@ -1,5 +1,0 @@
-class A {
-	int getV() {
-		A a = null;
-	}
-}

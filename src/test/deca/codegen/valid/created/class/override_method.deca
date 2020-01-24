@@ -1,0 +1,12 @@
+// Description:
+// 		Methode Override
+// Resultat:
+//		OK
+
+class A{
+	void afficher(int x){}
+}
+class B extends A {
+	void afficher(int x){}
+}
+
