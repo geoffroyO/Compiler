@@ -1,0 +1,10 @@
+// Description:
+// 		Methode qui contient une valeur de renvoi mais pas de return
+// Resultat:
+// 		
+
+class A {
+	boolean getV() {
+		boolean x = true;
+	}
+}

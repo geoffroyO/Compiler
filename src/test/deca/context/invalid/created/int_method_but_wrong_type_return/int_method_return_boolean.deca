@@ -1,0 +1,10 @@
+// Description:
+//		Methode int qui renvoit un boolean
+// Resultats:
+//		Ligne 8 : Types don't match! 
+
+class A{
+	int value() {
+		return(true);
+	}
+}

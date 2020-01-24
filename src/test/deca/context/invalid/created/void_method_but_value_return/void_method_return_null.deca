@@ -1,0 +1,10 @@
+// Description:
+//		Methode void qui renvoit null
+// Resultats:
+//		Ligne 8 : Return type can't be "void" (3.24)
+
+class A {
+	void fonction() {
+		return(null);
+	}
+}

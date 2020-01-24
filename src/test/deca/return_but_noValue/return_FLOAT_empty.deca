@@ -1,0 +1,5 @@
+class A {
+	float getV() {
+		float x = 5.8;
+	}
+}
