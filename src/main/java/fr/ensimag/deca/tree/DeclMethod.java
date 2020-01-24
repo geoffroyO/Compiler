@@ -187,7 +187,7 @@ public class DeclMethod extends AbstractDeclMethod {
         compiler.addInstruction(new RTS());
 
         // - save the registers
-        for (int k = nbRegistersToSave + 1; k >= 2 ; k--) {
+        for (int k = 2; k <= nbRegistersToSave + 1 ; k++) {
             if (k <= max) {
                 compiler.addFirst(new PUSH(Register.getR(k)));
             }

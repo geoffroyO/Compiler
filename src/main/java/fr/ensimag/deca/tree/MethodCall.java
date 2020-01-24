@@ -122,7 +122,7 @@ public class MethodCall extends AbstractLValue{
         codeGenMethodCall(compiler, register);
 
         // - STORE the result in register
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(0, register)));
+    compiler.addInstruction(new LOAD(Register.R0, register));
     }
 
     @Override
