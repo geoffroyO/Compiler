@@ -7,6 +7,12 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import java.io.PrintStream;
+
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -191,6 +197,22 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param compiler
      */
     protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+        // - distinction of type
+        if (getType().isInt()){
+            if (printHex) {
+                compiler.addInstruction(new FLOAT(Register.R1, Register.R1));
+                compiler.addInstruction(new WFLOATX());
+            } else {
+                compiler.addInstruction(new WINT());
+            }
+        }
+        if (getType().isFloat()){
+            if (printHex) {
+                compiler.addInstruction(new WFLOATX());
+            } else {
+                compiler.addInstruction(new WFLOAT());
+            }
+        }
     }
 
     protected void codeGenInst(DecacCompiler compiler) {

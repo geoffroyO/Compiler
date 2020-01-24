@@ -6,15 +6,15 @@ class Animal {
 
     void set(int a, float t, float p)
     {
-        age = a;
-        taille = t;
-        poids = p;
+        this.age = a;
+        this.taille = t;
+        this.poids = p;
     }
 
     void affiche() {
-        println("Age :", age);
-        println("Taille :", taille);
-        println("Poids :", poids);
+        println("Age :", this.age);
+        println("Taille :", this.taille);
+        println("Poids :", this.poids);
     }
 
     void crier(){

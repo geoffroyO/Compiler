@@ -68,30 +68,10 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     
     @Override
     protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
-    	GPRegister result = compiler.getRegM().findFreeGPRegister();
+    	// - the result of the expression is in R1
+    	codeGenExpr(compiler, Register.R1);
 
-    	// - the result of the expression is in the register result
-    	this.codeGenExpr(compiler, result);
-
-    	// - distinction of type
-    	 if (this.getType().isInt()){
-             compiler.addInstruction(new LOAD(result, Register.R1));
-             if (printHex) {
-             	compiler.addInstruction(new FLOAT(Register.R1, Register.R1));
-                 compiler.addInstruction(new WFLOATX());
-             } else {
-             	compiler.addInstruction(new WINT());
-             }
-         }
-         if (this.getType().isFloat()){
-         	compiler.addInstruction(new LOAD(result, Register.R1));
-         	if (printHex) {
-         		compiler.addInstruction(new WFLOATX());
-         	} else {
-         		compiler.addInstruction(new WFLOAT());
-         	}
-         }   	  	    
-    	compiler.getRegM().freeRegister(result);    	
+    	super.codeGenPrint(compiler, printHex);
     }
 
     protected  void codeGenExpr(DecacCompiler compiler, GPRegister register){

@@ -81,21 +81,12 @@ public class Selection extends AbstractLValue{
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+
         GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
         instance.codeGenExpr(compiler, addrReg);
         compiler.addInstruction(new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), addrReg), Register.R1));
 
-        if (field.getFieldDefinition().getType().isInt()){
-            compiler.addInstruction(new WINT());
-        }
-
-        if (this.getType().isFloat()){
-            if (printHex) {
-                compiler.addInstruction(new WFLOATX());
-            } else {
-                compiler.addInstruction(new WFLOAT());
-            }
-        }
+        super.codeGenPrint(compiler, printHex);
 
         compiler.getRegM().freeRegister(addrReg);
     }

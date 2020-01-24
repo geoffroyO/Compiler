@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import org.apache.commons.lang.Validate;
 
@@ -18,11 +19,6 @@ import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
-import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
-import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.Register;
 
 /**
  * Deca Identifier
@@ -250,28 +246,28 @@ public class Identifier extends AbstractIdentifier {
         DAddr addr = this.getVariableDefinition().getOperand();
         compiler.addInstruction(new LOAD(addr, Register.R1));
 
-        if (this.getType().isInt()){
-            compiler.addInstruction(new WINT());
-            }
-        
-        if (this.getType().isFloat()){
-        	if (printHex) {
-        		compiler.addInstruction(new WFLOATX());
-        	} else {
-        		compiler.addInstruction(new WFLOAT());
-        	}
-        }
+        super.codeGenPrint(compiler, printHex);
     }
 
     @Override
     protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
-        DAddr addr = getExpDefinition().getOperand();
-        compiler.addInstruction(new LEA(addr, register));
+        if (getExpDefinition().isField()) {
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), register));
+            compiler.addInstruction(new LEA(new RegisterOffset(getFieldDefinition().getIndex(), register), register));
+        } else {
+            DAddr addr = getExpDefinition().getOperand();
+            compiler.addInstruction(new LEA(addr, register));
+        }
     }
 
     @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
-        DAddr addr = getExpDefinition().getOperand();
-        compiler.addInstruction(new LOAD(addr, register));
+        if (getExpDefinition().isField()) {
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), register));
+            compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex(), register), register));
+        } else {
+            DAddr addr = getExpDefinition().getOperand();
+            compiler.addInstruction(new LOAD(addr, register));
+        }
     }
 }

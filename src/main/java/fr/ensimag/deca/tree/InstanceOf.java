@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.GPRegister;
 
 import java.io.PrintStream;
 
@@ -51,5 +52,10 @@ public class InstanceOf extends AbstractExpr{
     @Override
     protected void iterChildren(TreeFunction f) {
 
+    }
+
+    @Override
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
+        // TODO
     }
 }
