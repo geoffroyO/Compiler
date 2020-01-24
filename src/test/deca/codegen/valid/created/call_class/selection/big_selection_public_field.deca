@@ -1,0 +1,21 @@
+// Description:
+//      Acces a un champ public avec une grande selection
+// Resultat:
+//      7
+
+class A{
+    int x = 7;
+}
+
+class B{
+    A a = new A();
+}
+
+class C {
+    B b = new B();
+}
+
+{
+    C c = new C();
+    println(c.b.a.x);
+}

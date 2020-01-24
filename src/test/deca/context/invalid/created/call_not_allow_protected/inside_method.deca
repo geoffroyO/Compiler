@@ -1,0 +1,22 @@
+// Description:
+//      Appel d'un champ protected dans une methode d'une classe non fille.
+// Resultat:
+//      Erreur contexte Ligne 15 : Contextual error with an expression of type 'instance.field' 3.66
+
+
+class M{
+    protected float f;
+}
+
+class B {
+    M m = new M();
+
+    void affiche(){
+        println(m.f);
+    }
+}
+
+{
+    B b = new B();
+    b.affiche();
+}

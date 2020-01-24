@@ -1,0 +1,18 @@
+// Description:
+//      Utilisation d'instanceof sur une class superieure
+// Resultats:
+//      false
+
+class A{}
+class B extends A{}
+
+{
+    A a = new A();
+    boolean value = (a instanceof B);
+    if (value)
+    {
+        println("true");
+    }else {
+        println("false");
+    }
+}

@@ -1,0 +1,14 @@
+// Description:
+//      Appel d'un champ protected dans une methode d'une classe non fille.
+// Resultat:
+//      Erreur contexte Ligne 13 : It is not allowed to access a protected field outside a class
+
+
+class M{
+    protected float f;
+}
+
+{
+    M m = new M();
+    println(m.f);
+}

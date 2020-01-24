@@ -1,0 +1,8 @@
+// Description:
+//      Cast d'un type identique
+// Resultats:
+//      OK
+
+{
+    float x = (float)(5.9);
+}
