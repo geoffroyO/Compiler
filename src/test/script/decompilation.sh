@@ -1,5 +1,19 @@
 #! /bin/sh
 
+## Verifie que tous les fichiers ou moins syntaxiquement valide ont la propriete suivante:
+## On decompile un fichier A en decompileA
+## On decompile decompileA en decompileB
+## On a l'egalite decompileA == decompileB
+
+## Tous les fichiers .deca sont decompilees 2 fois successivement
+## Deux fichiers sont generes a chaque fois dans les LOGS
+## Un fichier contenant la premiere decompilation <nomFicher>.v1
+## Un fichier contenant la seconde decompilation <nomFicher>.v2
+
+## En cas de reussite les fichier de logs sont supprimes 
+## Si une erreur est detecte, le script s'arrête avec un exit 1
+
+
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'

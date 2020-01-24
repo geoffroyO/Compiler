@@ -1,5 +1,17 @@
 #! /bin/sh
 
+## Test le lexer avec des fichiers invalide generes aleatoirement
+
+## Les tests sont generes aleatoirement avec des scripts python situe dans le sous repertoire generator
+## Deux fichiers sont generes a chaque fois dans les LOGS
+## Un fichier contenant la sortie <nom><heure>.output
+## Un fichier contenant les erreurs <nom><heure>.error
+
+## En cas de reussite les fichier de logs sont supprimes 
+## Si une erreur n'est pas detecte, le script s'arrête avec un exit 1
+
+## Tous les fichiers doivent etre detectes invalide
+
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 COLORLESS='\033[0m'

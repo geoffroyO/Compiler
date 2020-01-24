@@ -74,9 +74,7 @@ public class MethodCall extends AbstractLValue{
     }
 
     @Override
-    protected void iterChildren(TreeFunction f) {
-
-    }
+    protected void iterChildren(TreeFunction f) { }
 
     private void codeGenMethodCall(DecacCompiler compiler, GPRegister register) {
         // - test stack overflow, don't forget the implicit parameter
@@ -120,17 +118,16 @@ public class MethodCall extends AbstractLValue{
 
     @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
-
         // - generate the code to call the function, the result is in R0
         codeGenMethodCall(compiler, register);
 
-        // - load the result in register
-        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.R0), register));
+        // - STORE the result in register
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(0, register)));
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        // - temporary register where we put nothing TODO
+        // - temporary register where we put nothing
         GPRegister register = compiler.getRegM().findFreeGPRegister();
 
         // - generate the code to call the function, the result is in R0
@@ -138,18 +135,23 @@ public class MethodCall extends AbstractLValue{
 
         // - free the register
         compiler.getRegM().freeRegister(register);
-
-
     }
 
     @Override
     protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
-
         // - generate the code to call the function, the result is in R0
         codeGenMethodCall(compiler, register);
 
-        // - load the result in register
+        // - load the address in register
         compiler.addInstruction(new LEA(new RegisterOffset(0, Register.R0), register));
+    }
 
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+        // - generate the code to call the function and put the value in R1
+        codeGenMethodCall(compiler, Register.R1);
+        compiler.addInstruction(new LOAD(Register.R0, Register.R1));
+
+        super.codeGenPrint(compiler, printHex);
     }
 }

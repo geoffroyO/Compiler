@@ -46,12 +46,7 @@ public class RegisterManager {
     public void setLocalVariable() { localVariable = 0; }
 
 
-
-
     // - incrementers
-    public void incrSP(){
-        SP++;
-    }
 
     public void incrSP(int n){
         SP += n;
@@ -67,10 +62,6 @@ public class RegisterManager {
         RegisterToSave++;
     }
 
-    public void incrRegisterToSave(int n) { RegisterToSave += n; }
-
-    public void incrLocalVariable() { localVariable++; }
-
     public void incrLocalVariable(int n) { localVariable += n; }
 
 
@@ -82,8 +73,6 @@ public class RegisterManager {
     public int getGB(){
         return GB;
     }
-
-    public int getRegisterToSave() { return RegisterToSave; }
 
     public int getLocalVariable() { return localVariable; }
 
@@ -124,14 +113,6 @@ public class RegisterManager {
         setRegisterToSave();
         int i = register.getNumber();
         freeRegister[i] = true;
-    }
-
-    public boolean isFreeRegister(GPRegister register){
-        return freeRegister[register.getNumber()];
-    }
-
-    public void unFreeRegister(GPRegister register){
-        freeRegister[register.getNumber()] = false;
     }
 
     public boolean[] resetFreeRegister() {
