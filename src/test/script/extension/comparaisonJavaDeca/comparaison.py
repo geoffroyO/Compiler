@@ -25,7 +25,7 @@ class ValueInDeca(threading.Thread):
         f.write("#include \"Math.decah\"\n")
         f.write("{\n")
         f.write("\tMath m = new Math();\n")
-        f.write("\tfloat b = m.{}({});\n".format(self.function, value))
+        f.write("\tfloat b = m.{}({});\n".format(self.function, float(value)))
         f.write("\tprintln({}, \"; \", b);\n".format(value))
         f.write("}\n")
         f.close()
