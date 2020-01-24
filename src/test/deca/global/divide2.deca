@@ -1,5 +1,0 @@
-// delete this test
-{
-	int y = 1;
-	float x = y;
-}

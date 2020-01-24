@@ -1,0 +1,12 @@
+// Description:
+//      Appel de this dans main
+// Resultats:
+//      Erreur contexte Ligne 11 : 'this' must be used inside a class
+
+class A {
+	protected int x;
+}
+
+{
+    this.x;
+}

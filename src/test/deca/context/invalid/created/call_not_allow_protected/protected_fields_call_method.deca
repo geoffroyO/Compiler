@@ -1,0 +1,21 @@
+// Description:
+// 		Appel d'un champ protege dans une classe non fille
+// Resultats:
+//		Erreur contexte Ligne 14 : Contextual error with an expression of type 'instance.field' ... 3.66
+
+class A {
+	protected int x;
+}
+
+class B {
+    A a;
+	int getX()
+	{
+		return(a.x);
+	}
+}
+
+
+{
+
+}

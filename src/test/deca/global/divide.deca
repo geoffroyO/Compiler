@@ -1,7 +1,0 @@
-{
-	int x = 1;
-	float y;
-	int z = 3;
-	y = x/z;
- 	print(y); 
-}
