@@ -1,0 +1,10 @@
+// Description:
+//		Methode renvoyant un type different que celui attendu
+// Resultat:
+// 		Erreur contexte Line 8 : Types don't match!
+
+class A {
+	float value() {
+		return(true);
+	}
+}

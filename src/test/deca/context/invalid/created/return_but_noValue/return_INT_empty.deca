@@ -1,0 +1,10 @@
+// Description:
+// 		Methode qui contient une valeur de renvoi mais pas de return
+// Resultat:
+// 		Erreur contexte, Ligne 8 : Return value is expected is this method
+
+class A {
+	int getV() {
+		int x = 5;
+	}
+}

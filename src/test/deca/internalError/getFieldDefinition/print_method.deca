@@ -1,0 +1,15 @@
+// Description:
+//		Print un appel de methode
+// Resultat:
+// 		Internal error : Identifier value is not a field identifier, you can't call getFieldDefinition on it	
+
+class A {
+	float value() {
+		return(5);
+	}
+}
+
+{
+	A a = new A();
+	println(a.value);
+}

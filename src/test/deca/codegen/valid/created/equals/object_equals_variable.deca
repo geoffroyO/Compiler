@@ -1,0 +1,15 @@
+// Description:
+//		Test de equals sur une meme variable
+// Resultats:
+//		true
+
+class A{}
+
+{
+	A a = new A();
+	if(a.equals((Object)(a))){
+		println("true");
+	} else {
+		println("false");
+	}
+}

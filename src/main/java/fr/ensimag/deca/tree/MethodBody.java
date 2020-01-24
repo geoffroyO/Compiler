@@ -29,8 +29,18 @@ public class MethodBody extends AbstractMethodBody {
     protected void verifyBody(DecacCompiler compiler, ClassDefinition current, EnvironmentExp localEnv, Type returnType)
             throws ContextualError {
         try {
+
+            compiler.setContainsReturn(false);
+
             this.ListDeclVar.verifyListDeclVariable(compiler, localEnv, current);
             this.ListInst.verifyListInst(compiler, localEnv, current, returnType);
+
+            if (!compiler.isContainsReturn() && !returnType.isVoid())
+            {
+                // Return expected by nothing give
+                throw  new ContextualError("Return value is expected is this method", this.getLocation());
+            }
+
         } catch (ContextualError e) {
             throw e;
         }

@@ -1,0 +1,29 @@
+// Description:
+//      Acces a un champ protege via deux getter
+// Resultats:
+//      true
+
+class A {
+	protected boolean b = true;
+    boolean get() {
+        return(this.b);
+    }
+}
+
+class B {
+    A a = new A();
+    
+    A getA(){
+        return(a);
+    }
+}
+
+{
+    B b = new B();
+
+    if (b.getA().get()){
+        println("true");
+    } else {
+        println("false");
+    }
+}

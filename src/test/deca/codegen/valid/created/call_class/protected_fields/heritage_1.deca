@@ -1,0 +1,20 @@
+// Description:
+//		Definition getter sur attribut protected dans classe fille
+// Resultats:
+//		-4.00000e+00
+
+class A {
+	protected float x = -4;
+}
+
+class B extends A {
+	float getX() {
+		return(this.x);
+	}
+}
+
+
+{
+	B b = new B();
+	println(b.getX());
+}

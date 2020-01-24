@@ -63,6 +63,18 @@ public class DecacCompiler {
 		return this.regM;
 	}
 
+
+	public void setContainsReturn(boolean containsReturn) {
+		this.containsReturn = containsReturn;
+	}
+	public boolean isContainsReturn() {
+		return containsReturn;
+	}
+
+	// Use to verify if a method contains a return of not
+	private boolean containsReturn = false;
+
+
 	public DecacCompiler(CompilerOptions compilerOptions, File source) {
 		super();
 		this.compilerOptions = compilerOptions;

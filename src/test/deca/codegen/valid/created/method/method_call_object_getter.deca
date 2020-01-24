@@ -1,0 +1,31 @@
+// Description:
+//		Appel de fonction sur un object obtenu avec un getter
+// Resutats:
+//		BOB
+
+class A{
+    void affiche()
+    {
+        println("BOB");
+    }
+}
+
+class B{
+    protected A a = new A();
+
+    A getA()
+    {
+        return(a);
+    }
+}
+
+class C {
+
+    B b = new B();
+
+}
+
+{
+    C c = new C();
+    c.b.getA().affiche();
+}

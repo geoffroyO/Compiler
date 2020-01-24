@@ -1,0 +1,25 @@
+// Description:
+// 		Appel d'une methode via un object obtenue via un getter 
+// Resultat:
+//		3
+
+class A {
+	int x = 3;
+
+	int getX(){
+		return x;
+	}
+}
+
+class B {
+	A a;
+
+	A getA() {
+		return a;
+	}
+}
+
+{
+	B b = new B();
+	b.getA().getX();
+}

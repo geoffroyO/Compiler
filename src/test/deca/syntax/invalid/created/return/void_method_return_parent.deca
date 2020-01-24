@@ -1,0 +1,16 @@
+// Description:
+// 		Utiliser return dans une methode void
+// Resultat:
+//		Erreur de syntaxe Ligne 9 : no viable alternative at input '()'
+
+class A {
+	void affiche(){
+		println("OK");
+		return();
+	}
+}
+
+{
+	A a = new A();
+	a.affiche();
+}
