@@ -6,7 +6,7 @@
 cd "$(dirname "$0")"/../../../../.. || exit 1
 
 pathRootProject=$(pwd)
-pathScript='/src/test/script/extension'
+pathScript='/src/test/script/extension/comparaisonJavaDeca'
 
 pathEmplacement=$pathRootProject$pathScript
 cd $pathEmplacement

@@ -74,7 +74,7 @@ class ValueInJava(threading.Thread):
 # Use to generate points
 startValue = 0
 endValue = 1
-step = 1
+step = 0.1
 
 lValues = arange(startValue, endValue, step)
 
