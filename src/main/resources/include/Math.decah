@@ -1,32 +1,54 @@
 // Grenoble INP - Ensimag projet GL -*- mode: java -*-
 // Library for class Math of Deca, coded in Deca
 
+class BoundArgument {
+	float a1 = 3.14;
+	float a2 = 0.0015;
+	float a3 = 0.000092;
+	float a4 = 0.00000065;
+	float a5 = 0.0000000035;
+	float a6 = 0.000000000089;
+	float a7 = 0.00000000000079;
+	float a8 = 0.0000000000000032;
+	float a9 = 0.000000000000000038;
+	float a10 = 0.00000000000000000046;
+	float a11 = 0.0000000000000000000026;
+	float a12 = 0.000000000000000000000043;
+	float a13 = 0.00000000000000000000000038;
+	float pi = 3.14159265358979323846264338;
+
+	int floor(float x){
+		int res = (int)(x / (2 * pi));
+		return res;
+	}
+
+	float bound(float x){
+		int k =  this.floor(x);
+		float res = x;
+		int n = k * 2;
+		int counter = 13;
+		res = res - (n * a1);
+		res = res - (n * a2);
+		res = res - (n * a3);
+		res = res - (n * a4);
+		res = res - (n * a5);
+		res = res - (n * a6);
+		res = res - (n * a7);
+		res = res - (n * a8);
+		res = res - (n * a9);
+		res = res - (n * a10);
+		res = res - (n * a11);
+		res = res - (n * a12);
+		res = res - (n * a13);
+		return res;
+	}
+
+}
+
 class Math {
 
-    float half = 0x3f000000;
-    float S1 = 0xbe2aaaab;
-    float S2 = 0x3c088889;
-    float S3 = 0xb9500d01;
-    float S4 = 0x3638ef1b;
-    float S5 = 0xb2d72f34;
-    float S6 = 0x2f2ec9d3;
+    float sin(float x) {
 
-    public float sin(float x) {
-    /* Don't forget A+B*C */
-        float z,r,v;
-
-        int ix;
-
-        ix = x&0x7fffffff;	/* abs(x) */
-
-       	if(ix<0x3e400000)			/* |x| < 2**-27 */
-      	   {if( (int) x == 0) {return x};}		/* return sin(x)~x */
-
-       	z	=  x*x;
-       	v	=  z*x;
-       	r	=  S2+z*(S3+z*(S4+z*(S5+z*S6))); /* Assembly code needed */
-
-       	return x+v*(S1+z*r); /* Assembly code needed */
     }
     float cos(float f) {
         println("cos(f) not yet implemented");
