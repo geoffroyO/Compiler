@@ -1,0 +1,9 @@
+// Description:
+//      Test de la compatibilite pour l'affectation
+//      Regle 1, T1 float et T2 int
+// Resultats:
+//      OK
+
+{
+    float a = 4;
+}

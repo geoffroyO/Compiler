@@ -1,0 +1,21 @@
+// Description:
+//      Appel avec le mot cle this
+// Resultats:
+//      0
+
+
+class A {
+    int x;
+    int getX(){
+        return(this.x);
+    }
+
+    int call(){
+        return(this.getX());
+    }
+}
+
+{
+    A a = new A();
+    a.call();
+}

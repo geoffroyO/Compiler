@@ -1,0 +1,16 @@
+// Description:
+//      Test de la compatibilite pour l'affectation
+//      Regle 2, T2 sous type de T1
+// Resultats:
+//      Erreur contexte Ligne 15 : incompatible class types
+
+class Mere{}
+class Fille1 extends Mere{}
+class Fille2 extends Fille1{}
+class Fille3 extends Fille2{}
+class Fille4 extends Fille3{}
+class Fille5 extends Fille4{}
+
+{
+    Fille5 m = new Mere();
+}

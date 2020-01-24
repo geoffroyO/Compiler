@@ -1,0 +1,10 @@
+// Description:
+//      Test de la compatibilite pour l'affectation
+//      Regle 1, T1 float et T2 int
+// Resultats:
+//      Erreur contexte Ligne 9 : Types don't match! 
+
+{
+    float x = 0.9;
+    int a = x;
+}

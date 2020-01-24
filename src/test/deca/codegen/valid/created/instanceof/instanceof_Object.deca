@@ -1,0 +1,17 @@
+// Description:
+//      Utilisation d'instanceof avec Object
+// Resultats:
+//      true
+
+class A{}
+
+{
+    A a = new A();
+    boolean value = (a instanceof Object);
+    if (value)
+    {
+        println("true");
+    }else {
+        println("false");
+    }
+}

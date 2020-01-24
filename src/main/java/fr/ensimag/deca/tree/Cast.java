@@ -10,8 +10,7 @@ public class Cast extends  AbstractExpr{
     private AbstractIdentifier type;
     private AbstractExpr nameVar;
 
-    public Cast (AbstractIdentifier type, AbstractExpr nameVar)
-    {
+    public Cast (AbstractIdentifier type, AbstractExpr nameVar){
         this.type = type;
         this.nameVar = nameVar;
     }
@@ -19,38 +18,31 @@ public class Cast extends  AbstractExpr{
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
 
-        
     	Type castType = type.verifyType(compiler);
-    	
-    	
-
         Type varType = nameVar.verifyExpr(compiler, localEnv, currentClass);
-
         EnvironmentType env = compiler.getEnvTypes();
-
         if (varType.isVoid())
         {
             // Can't cast void element
             throw new ContextualError ("Object can't be void", getLocation());
         }
-
         if (!(this.assignCompatible(env , castType, varType) || this.assignCompatible(env, varType, castType)))
         {
             // not cast_compatible
              throw new ContextualError ("The elements aren't cast compatible.", getLocation());
         }
-
         this.setType(castType);
         return(this.getType());
-
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("(");
         type.decompile(s);
-        s.print(") ");
+        s.print(")");
+        s.print("(");
         nameVar.decompile(s);
+        s.print(")");
     }
 
     @Override

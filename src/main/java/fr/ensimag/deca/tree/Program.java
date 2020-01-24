@@ -78,6 +78,7 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")), Register.R0));
         compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.GB)));
         compiler.getRegM().incrGB();
+        compiler.getRegM().incrSP(2);
 
     }
 
@@ -110,58 +111,69 @@ public class Program extends AbstractProgram {
         // - begin at 1(GB)
         compiler.getRegM().incrGB();
 
-        compiler.addComment("Table des méthodes");
+        // - begin bloc
+        compiler.beginBloc();
 
         // - declaration of objectClass
+
         codeGenFPDeclObjectClass(compiler);
 
         // - first pass for class declaration
         classes.codeGenListFpDeclClass(compiler);
 
-        // - jump at main program
-        compiler.addInstruction(new BSR(new Label("MAIN")));
+        // - save some place in the stack at the begining of the bloc
+        int numberToSave = compiler.getRegM().getSP();
+        compiler.addFirst(new ADDSP(new ImmediateInteger(numberToSave)));
+        compiler.addFirstTSTO(numberToSave);
+
+        // - end bloc
+        compiler.endBloc();
+
 
         // - second pass
         compiler.addComment("Début seconde passe");
+
+        compiler.addComment("Main program");
+        main.codeGenMain(compiler);
+
+        // - end program
+        compiler.addInstruction(new HALT());
+
+        // - write the code for to exit the program with an error
+        codeGenErrors(compiler);
 
         // - write the code for Object.equals
         codeGenDeclObjectMethod(compiler);
 
         // - write the code for the others methods
         classes.codeGenListDeclClass(compiler);
+    }
 
-        compiler.addComment("Main program");
-        compiler.addLabel(new Label("MAIN"));
-        main.codeGenMain(compiler);
-        compiler.addInstruction(new HALT());
-        
-        //Errors management
-        compiler.addLabel(new Label("Float_overflow"));
-        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: Float_overflow")));
-        compiler.addInstruction(new WNL());
-        compiler.addInstruction(new ERROR());
-
-        compiler.addLabel(new Label("stack_overflow"));
-        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: stack_overflowed")));
-        compiler.addInstruction(new WNL());
-        compiler.addInstruction(new ERROR());
-
-        compiler.addLabel(new Label("Zero_division"));
-        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: Zero_division ")));
-        compiler.addInstruction(new WNL());
-        compiler.addInstruction(new ERROR());
-
-        compiler.addLabel(new Label("heap_overflow"));
-        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: heap_overflow ")));
-        compiler.addInstruction(new WNL());
-        compiler.addInstruction(new ERROR());
-        
-        compiler.addLabel(new Label("invalid_input"));
-        compiler.addInstruction(new WSTR(new ImmediateString(compiler.getSource().toString() + "Error: invalid_input ")));
+    private void codeGenOutErrors(DecacCompiler compiler){
         compiler.addInstruction(new WNL());
         compiler.addInstruction(new ERROR());
     }
+    private void codeGenErrors(DecacCompiler compiler) {
+        compiler.addLabel(new Label("dereferencement.null"));
+        compiler.addInstruction(new WSTR(new ImmediateString("Error: dereferencement.null")));
+        codeGenOutErrors(compiler);
 
+        compiler.addLabel(new Label("Float_overflow"));
+        compiler.addInstruction(new WSTR(new ImmediateString("Error: Float_overflow")));
+        codeGenOutErrors(compiler);
+
+        compiler.addLabel(new Label("stack_overflow"));
+        compiler.addInstruction(new WSTR(new ImmediateString("Error: stack_overflowed")));
+        codeGenOutErrors(compiler);
+
+        compiler.addLabel(new Label("Zero_division"));
+        compiler.addInstruction(new WSTR(new ImmediateString("Error: Zero_division ")));
+        codeGenOutErrors(compiler);
+
+        compiler.addLabel(new Label("heap_overflow"));
+        compiler.addInstruction(new WSTR(new ImmediateString("Error: heap_overflow ")));
+        codeGenOutErrors(compiler);
+    }
     @Override
     public void decompile(IndentPrintStream s) {
         getClasses().decompile(s);

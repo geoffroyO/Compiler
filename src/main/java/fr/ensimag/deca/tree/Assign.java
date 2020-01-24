@@ -31,15 +31,11 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     public Type  verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        // -
-        Type LeftOpType;
-        try {
-            LeftOpType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-            // - check for int to float conversion or for different type
-            this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, LeftOpType));
-        } catch (ContextualError e) {
-            throw e;
-        }
+
+        Type LeftOpType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+        // - check for integer to float conversion or for different type
+        this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, LeftOpType));
+        
         this.setType(LeftOpType);
         return LeftOpType;
     }
@@ -52,9 +48,9 @@ public class Assign extends AbstractBinaryExpr {
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
         if (compiler.getRegM().hasFreeGPRegister()) {
-            // - register that store the adress of the left operand to assign
+            // - register that store the address of the left operand to assign
             GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
-            getLeftOperand().codeGenExpr(compiler, addrReg);
+            getLeftOperand().codeGenLValueAddr(compiler, addrReg);
 
             // - the value of the right operand is in register
             getRightOperand().codeGenExpr(compiler, register);
@@ -69,9 +65,9 @@ public class Assign extends AbstractBinaryExpr {
     }
 
     protected void codeGenInst(DecacCompiler compiler) {
-        // - register that store the adress of the left operand to assign
+        // - register that store the address of the left operand to assign
         GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
-        getLeftOperand().codeGenExpr(compiler, addrReg);
+        getLeftOperand().codeGenLValueAddr(compiler, addrReg);
 
         GPRegister register = compiler.getRegM().findFreeGPRegister();
 

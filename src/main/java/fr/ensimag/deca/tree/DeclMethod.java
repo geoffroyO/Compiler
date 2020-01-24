@@ -151,38 +151,55 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void codeGenDeclMethod(DecacCompiler compiler) {
-        Label labelCodeMethod = new Label("code." + name.getMethodDefinition().getLabel().toString());
-        compiler.addLabel(labelCodeMethod);
 
+        // - TODO find conditions for saving a register
 
-        int nbMaxRegister = compiler.getRegM().getNb_registers();
-        compiler.addComment("Sauvegarde des registres utilisés");
+        // - begining of the code for the method
+        compiler.addLabel(new Label("code." + name.getMethodDefinition().getLabel()));
 
-        for (int k = 2; k < nbMaxRegister; k++) {
-            if (!compiler.getRegM().isFreeRegister(Register.getR(k))){
-                compiler.addInstruction(new TSTO(new ImmediateInteger(1)));
-                compiler.addInstruction(new PUSH( Register.getR(k)));
-                compiler.addInstruction(new BOV(new Label("stack_overflow")));
-            }
-        }
-        boolean[] oldFreeRegister = compiler.getRegM().setFreeRegister();
-
+        // - declaration of the parameters and set
         listDeclParam.codeGenListDeclParam(compiler);
+
+        // - new bloc so that we can add TSTO, BOV, and ADDSP
+        compiler.beginBloc();
+
+        // - generation of the body of the method
         body.codeGenMethodBody(compiler);
 
-        compiler.addLabel(new Label("fin." + name.getMethodDefinition().getLabel()));
-        compiler.addComment("Restauration des registres");
-        for (int k = 2; k < nbMaxRegister; k++){
-            if (oldFreeRegister[k]){
-                if (!compiler.getRegM().isFreeRegister(Register.getR(k))) {
-                    compiler.getRegM().freeRegister(Register.getR(k));
-                }
-            } else {
+        // - END
+        compiler.addLabel(new Label("End." + name.getMethodDefinition().getLabel()));
+
+        // - get the number of register to save
+        int nbRegistersToSave = compiler.getRegM().getMaxToSave();
+
+        // - we don't take into account R0 and R1
+        int max = compiler.getRegM().getNb_registers() - 2;
+
+        // - restoration of the registers to save
+        compiler.addComment("Restoring the registers");
+        for (int k = 2; k <= nbRegistersToSave + 1; k++) {
+            if (k <= max) {
                 compiler.addInstruction(new POP(Register.getR(k)));
-                compiler.getRegM().unFreeRegister(Register.getR(k));
             }
         }
+
+        // - return
         compiler.addInstruction(new RTS());
+
+        // - save the registers
+        for (int k = nbRegistersToSave + 1; k >= 2 ; k--) {
+            if (k <= max) {
+                compiler.addFirst(new PUSH(Register.getR(k)));
+            }
+        }
+        compiler.addFirstComment("Saving the registers");
+
+        // - add TSTO, ADDSP and BOV
+        compiler.addFirst(new ADDSP(new ImmediateInteger(compiler.getRegM().getLocalVariable())));
+        compiler.addFirstTSTO(compiler.getRegM().getSP());
+
+        // - END bloc
+        compiler.endBloc();
     }
 
 }

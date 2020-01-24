@@ -1,0 +1,8 @@
+// Description:
+//      Cast d'une sous classe
+// Resultats:
+//      OK
+
+{
+    Object a = null;
+}

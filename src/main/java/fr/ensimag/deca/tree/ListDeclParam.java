@@ -38,8 +38,10 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
     }
 
     public void codeGenListDeclParam(DecacCompiler compiler) {
+        int indexLb = -3;
         for (AbstractDeclParam declParam : getList()) {
-            declParam.codeGenDeclParam(compiler);
+            declParam.codeGenDeclParam(compiler, indexLb);
+            indexLb--;
         }
     }
 }

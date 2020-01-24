@@ -1,0 +1,8 @@
+// Description:
+//      Bloc seul
+//  Resultats:
+//      OK
+
+{
+	if(true){}
+}

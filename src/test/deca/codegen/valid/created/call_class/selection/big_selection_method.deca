@@ -1,0 +1,28 @@
+// Description:
+//      Acces a une methode avec une grande selection
+// Resultat:
+//      7
+
+class A{
+    void afficher()
+    {
+        println("class A");
+    }
+}
+
+class B{
+    A a = new A();
+}
+
+class C {
+    B b = new B();
+}
+
+class D {
+    C c = new C();
+}
+
+{
+    D d = new D();
+    println(d.c.b.a.afficher());
+}

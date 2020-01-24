@@ -15,9 +15,9 @@ import fr.ensimag.ima.pseudocode.instructions.*;
 
 public class MethodCall extends AbstractLValue{
 
-        private AbstractExpr instance ;
-        private AbstractIdentifier methodName;
-        private ListExpr params;
+    private AbstractExpr instance ;
+    private AbstractIdentifier methodName;
+    private ListExpr params;
 
     public MethodCall(AbstractExpr instance, AbstractIdentifier methodName, ListExpr params){
         // instance can be null if match method(params)
@@ -28,39 +28,39 @@ public class MethodCall extends AbstractLValue{
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
-    	
-    		
-    	  //instance.verifyExpr() verifies that 'instance' exists in the local environment
-    	  ClassType instanceType = instance.verifyExpr(compiler, localEnv, currentClass).asClassType("Contextual error, it is not possible to call a method on a object that is not a class instance", getLocation());    
-          EnvironmentExp classInstanceEnv = instanceType.getDefinition().getMembers();
-          
-          //methodName.verifyExpr() verifies that 'methodName' exists in the instance's class environment
-          methodName.verifyExpr(compiler, classInstanceEnv, currentClass);
-         
-          Signature sig = classInstanceEnv.get(methodName.getName()).asMethodDefinition("Contextual error", getLocation()).getSignature();
-          
-          if (sig.size() != params.getList().size()) {
-  	  			throw new ContextualError("Contextual error, the method called expected " + sig.size() + " arguments but " + params.getList().size() + " were given",getLocation());
-          }
-          for (int i = 0; i < sig.size(); i++) {
-        	  	Type paramType = params.getList().get(i).verifyExpr(compiler, localEnv, currentClass);
-        	  
-        	  	if (!sig.getList().get(i).sameType(paramType)){
-        	  		throw new ContextualError("Contextual error, the parameters given don't respect the method signature",getLocation());
-        	  	}      	  	
-          }
 
-          this.setType(classInstanceEnv.get(methodName.getName()).getType());         
-    	
-    	
-          return this.getType();
+
+        //instance.verifyExpr() verifies that 'instance' exists in the local environment
+        ClassType instanceType = instance.verifyExpr(compiler, localEnv, currentClass).asClassType("Contextual error, it is not possible to call a method on a object that is not a class instance", getLocation());
+        EnvironmentExp classInstanceEnv = instanceType.getDefinition().getMembers();
+
+        //methodName.verifyExpr() verifies that 'methodName' exists in the instance's class environment
+        methodName.verifyExpr(compiler, classInstanceEnv, currentClass);
+
+        Signature sig = classInstanceEnv.get(methodName.getName()).asMethodDefinition("error TO DO", getLocation()).getSignature();
+
+        if (sig.size() != params.getList().size()) {
+            throw new ContextualError("Contextual error, the method called expected " + sig.size() + " arguments but " + params.getList().size() + " were given",getLocation());
+        }
+        for (int i = 0; i < sig.size(); i++) {
+            Type paramType = params.getList().get(i).verifyExpr(compiler, localEnv, currentClass);
+
+            if (!sig.getList().get(i).sameType(paramType)){
+                throw new ContextualError("Contextual error, the parameters given don't respect the method signature",getLocation());
+            }
+        }
+
+        this.setType(classInstanceEnv.get(methodName.getName()).getType());
+
+
+        return this.getType();
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
         instance.decompile(s);
         s.print(".");
-        methodName.decompile();
+        methodName.decompile(s);
         s.print("(");
         params.decompile(s);
         s.print(")");
@@ -78,31 +78,78 @@ public class MethodCall extends AbstractLValue{
 
     }
 
+    private void codeGenMethodCall(DecacCompiler compiler, GPRegister register) {
+        // - test stack overflow, don't forget the implicit parameter
+        compiler.TSTO(params.size() + 1);
+        compiler.addInstruction(new ADDSP(params.size()  + 1));
 
-    protected void codeGenExpr(DecacCompiler compiler) {
-        int nbParams = params.size();
-        int index = 0;
-        compiler.addInstruction(new TSTO(new ImmediateInteger(nbParams)));
-        compiler.addInstruction(new BOV(new Label("stack_overflow")));
-        compiler.addInstruction(new ADDSP(new ImmediateInteger(nbParams)));
-
-        GPRegister register = compiler.getRegM().findFreeGPRegister();
+        // - load the implicit parameter in the stack
         instance.codeGenExpr(compiler, register);
-        compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register));
-        compiler.addInstruction(new STORE(register, new RegisterOffset(index, Register.SP)));
-        index--;
+        compiler.addInstruction(new STORE(register, new RegisterOffset(0, Register.SP)));
+
+        // - load the other parameters in the stack
+        int indexSp = - 1;
 
         for (AbstractExpr expr : params.getList()) {
+
+            // - get the value into register
             expr.codeGenExpr(compiler, register);
-            compiler.addInstruction(new STORE(register, new RegisterOffset(index, Register.SP)));
-            index--;
+            compiler.addInstruction(new STORE(register, new RegisterOffset(indexSp, Register.SP)));
+            indexSp--;
         }
 
-        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP), register), "On récupère le paramètre implicite");
-        compiler.addInstruction(new CMP(new NullOperand(), register));
-        compiler.addInstruction(new BEQ(new Label("deferencement.null")));
-        compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register), "on récupère l'adresse de la table des méthodes");
-        compiler.addInstruction(new BSR(new RegisterOffset(methodName.getMethodDefinition().getIndex(), register)), "on saute à la méthode");
-        compiler.addInstruction(new SUBSP(new ImmediateInteger(nbParams)));
+        // - test reference for implicit parameter
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP), register));
+        compiler.referenceErr(register);
+
+        // - get the address of the table of methods
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register));
+
+        // - set a free register table for the subprogram
+        boolean[] oldFreeRegisters = compiler.getRegM().resetFreeRegister();
+
+        // - get the final address of the method called and jump to it
+        compiler.addInstruction(new BSR(new RegisterOffset(methodName.getMethodDefinition().getIndex(), register)));
+
+        // - reset the old register table
+        compiler.getRegM().setFreeRegister(oldFreeRegisters);
+
+        // - unstack the parameters
+        compiler.addInstruction(new SUBSP(params.size() + 1));
+    }
+
+    @Override
+    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+
+        // - generate the code to call the function, the result is in R0
+        codeGenMethodCall(compiler, register);
+
+        // - load the result in register
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.R0), register));
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        // - temporary register where we put nothing TODO
+        GPRegister register = compiler.getRegM().findFreeGPRegister();
+
+        // - generate the code to call the function, the result is in R0
+        codeGenMethodCall(compiler, register);
+
+        // - free the register
+        compiler.getRegM().freeRegister(register);
+
+
+    }
+
+    @Override
+    protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
+
+        // - generate the code to call the function, the result is in R0
+        codeGenMethodCall(compiler, register);
+
+        // - load the result in register
+        compiler.addInstruction(new LEA(new RegisterOffset(0, Register.R0), register));
+
     }
 }

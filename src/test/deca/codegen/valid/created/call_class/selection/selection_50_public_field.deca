@@ -1,0 +1,162 @@
+// Description:
+//		Affiche un champ public apres une selection de 50
+// Resultat:
+//		5
+
+class A0 {
+	int x = 5;
+}
+class A1 {
+	A0 a0 = new A0();
+}
+class A2 {
+	A1 a1 = new A1();
+}
+class A3 {
+	A2 a2 = new A2();
+}
+class A4 {
+	A3 a3 = new A3();
+}
+class A5 {
+	A4 a4 = new A4();
+}
+class A6 {
+	A5 a5 = new A5();
+}
+class A7 {
+	A6 a6 = new A6();
+}
+class A8 {
+	A7 a7 = new A7();
+}
+class A9 {
+	A8 a8 = new A8();
+}
+class A10 {
+	A9 a9 = new A9();
+}
+class A11 {
+	A10 a10 = new A10();
+}
+class A12 {
+	A11 a11 = new A11();
+}
+class A13 {
+	A12 a12 = new A12();
+}
+class A14 {
+	A13 a13 = new A13();
+}
+class A15 {
+	A14 a14 = new A14();
+}
+class A16 {
+	A15 a15 = new A15();
+}
+class A17 {
+	A16 a16 = new A16();
+}
+class A18 {
+	A17 a17 = new A17();
+}
+class A19 {
+	A18 a18 = new A18();
+}
+class A20 {
+	A19 a19 = new A19();
+}
+class A21 {
+	A20 a20 = new A20();
+}
+class A22 {
+	A21 a21 = new A21();
+}
+class A23 {
+	A22 a22 = new A22();
+}
+class A24 {
+	A23 a23 = new A23();
+}
+class A25 {
+	A24 a24 = new A24();
+}
+class A26 {
+	A25 a25 = new A25();
+}
+class A27 {
+	A26 a26 = new A26();
+}
+class A28 {
+	A27 a27 = new A27();
+}
+class A29 {
+	A28 a28 = new A28();
+}
+class A30 {
+	A29 a29 = new A29();
+}
+class A31 {
+	A30 a30 = new A30();
+}
+class A32 {
+	A31 a31 = new A31();
+}
+class A33 {
+	A32 a32 = new A32();
+}
+class A34 {
+	A33 a33 = new A33();
+}
+class A35 {
+	A34 a34 = new A34();
+}
+class A36 {
+	A35 a35 = new A35();
+}
+class A37 {
+	A36 a36 = new A36();
+}
+class A38 {
+	A37 a37 = new A37();
+}
+class A39 {
+	A38 a38 = new A38();
+}
+class A40 {
+	A39 a39 = new A39();
+}
+class A41 {
+	A40 a40 = new A40();
+}
+class A42 {
+	A41 a41 = new A41();
+}
+class A43 {
+	A42 a42 = new A42();
+}
+class A44 {
+	A43 a43 = new A43();
+}
+class A45 {
+	A44 a44 = new A44();
+}
+class A46 {
+	A45 a45 = new A45();
+}
+class A47 {
+	A46 a46 = new A46();
+}
+class A48 {
+	A47 a47 = new A47();
+}
+class A49 {
+	A48 a48 = new A48();
+}
+class A50 {
+	A49 a49 = new A49();
+}
+{
+	A50 a50 = new A50();
+	println(a50.a49.a48.a47.a46.a45.a44.a43.a42.a41.a40.a39.a38.a37.a36.a35.a34.a33.a32.a31.a30.a29.a28.a27.a26.a25.a24.a23.a22.a21.a20.a19.a18.a17.a16.a15.a14.a13.a12.a11.a10.a9.a8.a7.a6.a5.a4.a3.a2.a1.a0.x);
+}

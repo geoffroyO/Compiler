@@ -1,0 +1,16 @@
+// Description:
+//      Appel getter sur un champ protege 
+// Resultats:
+//      0
+
+class A {
+    protected int x;
+    int getX(){
+        return(this.x);
+    }
+}
+
+{
+    A a = new A();
+    println(a.getX());
+}

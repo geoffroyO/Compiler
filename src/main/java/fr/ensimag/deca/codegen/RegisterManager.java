@@ -4,7 +4,10 @@ import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Class that manages the free and occupied registers.
@@ -15,16 +18,15 @@ import java.util.Arrays;
 
 public class RegisterManager {
 
-    private int SP;
-    private int GB;
-    private int LB;
+    private int SP = 0;
+    private int GB = 0;
+    private int RegisterToSave = 0;
+    private ArrayList<Integer> maxToSave = new ArrayList<Integer>();
+    private int localVariable = 0;
     private boolean[] freeRegister;
     private int nb_registers;
 
     public RegisterManager(int nb_registers) {
-        this.SP = 0;
-        this.GB = 0;
-        this.LB = 0;
         this.nb_registers = nb_registers;
         this.freeRegister = new boolean[nb_registers];
 
@@ -33,59 +35,85 @@ public class RegisterManager {
         }
     }
 
-    public int getNb_registers(){
-        return this.nb_registers - 1;
+    // - setters
+    public void setSP() { SP = 0; }
+
+    public void setRegisterToSave() {
+        maxToSave.add(RegisterToSave);
+        RegisterToSave = 0;
     }
 
+    public void setLocalVariable() { localVariable = 0; }
+
+
+
+
+    // - incrementers
     public void incrSP(){
-        this.SP++;
+        SP++;
     }
 
     public void incrSP(int n){
-        this.SP = this.SP + n;
+        SP += n;
     }
 
     public void incrGB(){
-        this.GB++;
+        GB++;
     }
 
-    public void incrGB( int n ){
-        this.GB = this.GB + n;
+    public void incrGB( int n ){ GB += n; }
+
+    public void incrRegisterToSave() {
+        RegisterToSave++;
     }
 
-    public void incrLB(){
-        this.LB++;
-    }
+    public void incrRegisterToSave(int n) { RegisterToSave += n; }
 
+    public void incrLocalVariable() { localVariable++; }
+
+    public void incrLocalVariable(int n) { localVariable += n; }
+
+
+    // - getters
     public int getSP(){
-        return this.SP;
+        return SP;
     }
 
     public int getGB(){
-        return this.GB;
+        return GB;
     }
 
-    public int getLB(){
-        return this.LB;
+    public int getRegisterToSave() { return RegisterToSave; }
+
+    public int getLocalVariable() { return localVariable; }
+
+    public int getNb_registers(){ return nb_registers - 1; }
+
+    public int getMaxToSave() {
+        int max = Collections.max(maxToSave);
+        maxToSave = new ArrayList<Integer>();
+        return max;
     }
 
+    // - find a GPRegister that is free
     public GPRegister findFreeGPRegister(){
-        // TODO faire un bon rattrapage d'erreur
         int j = -1;
 
         for (int i = nb_registers - 1; i >= 2; i--) {
-            if (this.freeRegister[i]) {
+            if (freeRegister[i]) {
                 j = i;
             }
         }
         this.freeRegister[j] = false;
+        incrRegisterToSave();
         return Register.getR(j);
     }
 
+    // - find a GPRegister that is free
     public boolean hasFreeGPRegister(){
         for (int i = nb_registers - 1; i >= 2; i--){
 
-            if (this.freeRegister[i]){
+            if (freeRegister[i]){
                 return true;
             }
         }
@@ -93,8 +121,9 @@ public class RegisterManager {
     }
 
     public void freeRegister(GPRegister register){
+        setRegisterToSave();
         int i = register.getNumber();
-        this.freeRegister[i] = true;
+        freeRegister[i] = true;
     }
 
     public boolean isFreeRegister(GPRegister register){
@@ -105,11 +134,15 @@ public class RegisterManager {
         freeRegister[register.getNumber()] = false;
     }
 
-    public boolean[] setFreeRegister() {
+    public boolean[] resetFreeRegister() {
         boolean[] oldFreeRegister = Arrays.copyOf(freeRegister, freeRegister.length);
         for (int i = 0; i < nb_registers ; i++) {
             this.freeRegister[i] = true;
         }
         return oldFreeRegister;
+    }
+
+    public void  setFreeRegister(boolean[] oldFreeRegister){
+        freeRegister = Arrays.copyOf(oldFreeRegister, oldFreeRegister.length);
     }
 }

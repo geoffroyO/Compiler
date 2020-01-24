@@ -1,0 +1,26 @@
+// Description:
+//      Recuperer valeur champ public dans une sous classe
+//  Resultats:
+//      x = 6
+//      this.x = 4
+
+class A{
+    int x = 5;
+}
+
+class B extends A{
+    void affiche()
+    {
+        int x = this.x;
+        x = x + 1;
+        this.x = this.x - 1;
+
+        println("x =", x);
+        println("this.x =", this.x);
+    }
+}
+
+{
+    B b = new B();
+    println(b.affiche);
+}

@@ -1,0 +1,13 @@
+// Description:
+//		Test instanceof sur des classes
+// Resultats:
+//		OK
+
+class A{}
+class B extends A{}
+class C extends B{}
+
+{
+	A a = new A();
+	a instanceof C;
+}

@@ -1,0 +1,23 @@
+// Description:
+//      Redefinition d'une methode dans une sous classe fille
+// Resultats:
+//      Methode fille
+
+class M{
+    void afficher()
+    {
+        println("Methode mere");
+    }
+}
+
+class F extends M{
+    void afficher()
+    {
+        println("Methode fille");
+    }
+}
+
+{
+    F f = new F();
+    f.afficher();
+}

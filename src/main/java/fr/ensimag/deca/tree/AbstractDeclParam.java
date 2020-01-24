@@ -18,6 +18,6 @@ public abstract class AbstractDeclParam extends Tree {
      *
      * @param compiler
      */
-    protected abstract void codeGenDeclParam(DecacCompiler compiler);
+    protected abstract void codeGenDeclParam(DecacCompiler compiler, int indexLb);
 
 }

@@ -1,0 +1,8 @@
+// Description:
+//		Cast d'un int en float
+// Resultats:
+//		OK
+
+{
+	float x = (float)(568);
+}

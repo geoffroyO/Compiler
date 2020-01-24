@@ -6,6 +6,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
 
 /**
  * Left-hand side value of an assignment.
@@ -15,4 +17,5 @@ import fr.ensimag.ima.pseudocode.DAddr;
  */
 public abstract class AbstractLValue extends AbstractExpr {
 
+    abstract protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register);
 }

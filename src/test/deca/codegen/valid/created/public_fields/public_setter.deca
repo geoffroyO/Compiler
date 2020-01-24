@@ -1,0 +1,18 @@
+// Description:
+//      Affectation sur un champ public
+//      Appel d'un attribut public dans le main
+// Resultats:
+//      3
+
+class A {
+    int x;
+    void setX(int x){
+        this.x = x;
+    }
+}
+
+{
+    A a = new A();
+    a.setX(3);
+    println(a.x);
+}

@@ -1,0 +1,14 @@
+// Description:
+//      Appel d'une methode avec moins de parametres qu'attendu
+// Resultats:
+//      Erreur contexte Ligne 13 : Contextual error, the method called expected 1 arguments but 0 were given
+
+class A {
+    void f(int x){}
+}
+
+{
+    int x = 8;
+    A a = new A();
+    a.f();
+}
