@@ -22,6 +22,7 @@ pSuccess()
 
 PATH=./src/main/bin:"$PATH"
 
+## Sans option
 decac_vide=$(decac)
 
 if [ "$?" -ne 0 ]; then
@@ -42,6 +43,8 @@ else
     exit 1
 fi
 
+
+## Option -b
 decac_moins_b=$(decac -b)
 
 if [ "$?" -ne 0 ]; then
@@ -61,3 +64,69 @@ if echo "$decac_moins_b" | grep -i -e "erreur" -e "error"; then
 fi
 
 pSuccess "OK \t -b"
+
+## Option -p 
+# Option teste avec decompilation
+
+## Option -v
+# Option teste avec contexte
+
+## Option -n
+printf "{ float x = 1/0; }" > test.deca
+decac -n test.deca
+ima test.ass > output.res 2>&1
+
+if (grep -e "divide" -e "division" output.res); then
+    # We find a register use with value greater or equal to 10
+    pFailure "-n: n'a pas le comportement escompte"
+    exit 1
+else 
+    pSuccess "OK \t -n"
+fi
+rm output.res test.ass test.deca
+
+
+## Option -r X
+
+## Generate file deca
+printf "{ \n \tint a = 5;\n \ta = " > test.deca
+for i in `seq 1 50`;
+do
+    printf " a + " >> test.deca
+    #echo "a = a + 5;" >> test.deca
+done
+printf " 0;\n}" >> test.deca
+
+decac -r 10 test.deca
+
+
+if (grep -w "R1[0-9]" test.ass); then
+    # We find a register use with value greater or equal to 10
+    pFailure "-r: n'a pas le comportement escompte"
+    exit 1
+else 
+    pSuccess "OK \t -r"
+fi
+rm test.deca test.ass
+
+
+
+## Option -d
+echo "{int a = 5;}" > test.deca
+decac -d test.deca > output.res
+
+if (grep -i -q "INFO" output.res); then
+    pSuccess "OK \t -d"
+else 
+    pFailure "-d: n'a pas le comportement escompte"
+    exit 1
+fi
+
+rm test.deca output.res test.ass
+
+## Option -P 
+# Option teste avec multi_compile
+
+
+
+
