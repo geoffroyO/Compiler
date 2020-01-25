@@ -76,7 +76,7 @@ public abstract class AbstractExpr extends AbstractInst {
      * 
      * implements non-terminal "rvalue" of [SyntaxeContextuelle] in pass 3
      *
-     * @param compiler  contains the "env_types" attribute
+     * @param compiler contains the "env_types" attribute
      * @param localEnv corresponds to the "env_exp" attribute
      * @param currentClass corresponds to the "class" attribute
      * @param expectedType corresponds to the "type1" attribute            
