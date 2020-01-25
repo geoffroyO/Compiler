@@ -173,6 +173,10 @@ public class Program extends AbstractProgram {
         compiler.addLabel(new Label("heap_overflow"));
         compiler.addInstruction(new WSTR(new ImmediateString("Error: heap_overflow ")));
         codeGenOutErrors(compiler);
+        
+        compiler.addLabel(new Label("invalid_input"));
+        compiler.addInstruction(new WSTR(new ImmediateString("Error: invalid_input ")));
+        codeGenOutErrors(compiler);
     }
     @Override
     public void decompile(IndentPrintStream s) {
