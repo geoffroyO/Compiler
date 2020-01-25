@@ -1,0 +1,8 @@
+// Description:
+//      Division par 0
+// Resultats:
+//      Error: Zero_division
+
+{
+    float x = 5/0;
+}

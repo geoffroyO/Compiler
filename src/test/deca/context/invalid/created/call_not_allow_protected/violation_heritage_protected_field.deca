@@ -1,0 +1,27 @@
+// Description:
+//		Violation de la regle 3.66
+// Resultats:
+// 		Erreur contexte Ligne 13 : Contextual error with an expression ... 3.66
+
+class A {
+	protected int x;
+}
+
+class B extends A {
+	int getX(A a)
+	{
+		return(a.x);
+	}
+}
+
+class X {
+	void m() {
+		A a = new A();
+		println(b.getX(a));
+	}
+}
+
+{
+	X x = new X();
+	x.m();
+}

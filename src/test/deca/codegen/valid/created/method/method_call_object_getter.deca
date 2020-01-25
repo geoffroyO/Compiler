@@ -1,3 +1,8 @@
+// Description:
+//		Appel de fonction sur un object obtenu avec un getter
+// Resutats:
+//		BOB
+
 class A{
     void affiche()
     {
