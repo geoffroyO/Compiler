@@ -1,7 +1,7 @@
 // Description:
 //      Bloc class sans identifier
 // Resultats:
-//      Error synthaxe Ligne 6 : no viable alternative at input 'int'
+//      Error syntaxe Ligne 6 : no viable alternative at input 'int'
 
 int getX(){
 

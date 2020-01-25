@@ -4,5 +4,5 @@
 //      OK
 
 {
-	while(true){}
+	while(false){}
 }
