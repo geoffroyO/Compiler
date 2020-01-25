@@ -88,12 +88,8 @@ public abstract class AbstractExpr extends AbstractInst {
             throws ContextualError {
 
         // - verify Right value
-        Type obtainedType;
-        try {
-            obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
-        } catch (ContextualError e){
-            throw e;
-        }
+        Type obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
+
 
         // TODO factorisation "assign compatible"
 
@@ -111,7 +107,7 @@ public abstract class AbstractExpr extends AbstractInst {
 
         // - if obtainedType is not the same as expectedType
         } else if (!obtainedType.sameType(expectedType)){
-            // - if expectedType is float and obtainedType is int
+            // - if expectedType is float and obtainedType is integer
             if (expectedType.isFloat() && obtainedType.isInt()){
                 // - create conversion to float
                 ConvFloat convToFloat = new ConvFloat(this);

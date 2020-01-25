@@ -35,15 +35,17 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
             throw e;
         }
 
-        // - verify if types are not int or float
+        // - verify if types are not integer or float
         if ((!leftOpType.isInt() && !leftOpType.isFloat()) || (!rightOpType.isFloat() && !rightOpType.isInt())) {
             throw new ContextualError("Operands should be int or float", getLocation());
         } else {
-            // - if left operand is float and right operand is int
+        	
+            // - if left operand is float and right operand is integer
             if (leftOpType.isFloat() && rightOpType.isInt()){
+            	
                 // - convert right operand to float
-//                this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, leftOpType));
-                this.setRightOperand(new ConvFloat((this.getRightOperand())));
+                this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, leftOpType));
+//                this.setRightOperand(new ConvFloat((this.getRightOperand())));
                 this.getRightOperand().setType(leftOpType);
 
                 // - set current type to leftOpType (= float)
@@ -52,9 +54,10 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
             // - if left operand is int and right operand is float
             } else if (leftOpType.isInt() && rightOpType.isFloat()) {
+            	
                 // - convert left operand to float
-//                this.setLeftOperand(this.getLeftOperand().verifyRValue(compiler, localEnv, currentClass, rightOpType));
-                this.setLeftOperand(new ConvFloat((this.getLeftOperand())));
+                this.setLeftOperand(this.getLeftOperand().verifyRValue(compiler, localEnv, currentClass, rightOpType));
+//                this.setLeftOperand(new ConvFloat((this.getLeftOperand())));
                 this.getLeftOperand().setType(rightOpType);
 
                 // - set current type to rightOpType (= float)
@@ -70,7 +73,6 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
     	// - the result of the expression is in R1
     	codeGenExpr(compiler, Register.R1);
-
     	super.codeGenPrint(compiler, printHex);
     }
 
