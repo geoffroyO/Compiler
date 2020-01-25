@@ -39,7 +39,7 @@ public class Divide extends AbstractOpArith {
             // - if left operand is float and right operand is int
             if (leftOpType.isFloat() && rightOpType.isInt()){
                 // - convert right operand to float
-                this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, leftOpType));
+            	this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, leftOpType));
                 // - set current type to leftOpType (= float)
                 this.setType(leftOpType);
                 return leftOpType;
