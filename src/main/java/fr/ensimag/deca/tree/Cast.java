@@ -3,11 +3,11 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.instructions.FLOAT;
-import fr.ensimag.ima.pseudocode.instructions.INT;
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class Cast extends  AbstractExpr{
     private AbstractIdentifier type;
@@ -62,13 +62,55 @@ public class Cast extends  AbstractExpr{
 
     @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+
+        // - evaluation of the expression and value stored in register
         nameVar.codeGenExpr(compiler, register);
+
+
         if (nameVar.getType().isInt() && type.getType().isFloat()) {
+
+            // - casting integer --> float
             compiler.addInstruction(new FLOAT(register, register), "Casting integer --> float");
+
         } else if (nameVar.getType().isFloat() && type.getType().isInt()){
+
+            // - casting float --> integer
             compiler.addInstruction(new INT(register, register), "casting float --> integer");
+
         } else {
-            // TODO
+
+            // - get the address of the class to cast in the stack
+            DAddr addr = type.getClassDefinition().getAddrClass();
+
+            // - label to jump in if cast possible
+            Label castPossible = new Label("end_cast_possible");
+
+
+            // - code of the cast
+            compiler.addInstruction(new LEA(addr, Register.R1));
+            compiler.addInstruction(new PUSH(register));
+            compiler.addInstruction(new BSR(new Label("instance_of")));
+            compiler.addInstruction(new POP(register));
+
+            // - if cast possible
+            compiler.addInstruction(new LOAD(new ImmediateInteger(1), Register.R1));
+            compiler.addInstruction(new CMP(Register.R0, Register.R1));
+            compiler.addInstruction(new BEQ(castPossible));
+
+            // - cast impossible
+            compiler.addInstruction(new WSTR(new ImmediateString("cast " + nameVar.getType() + " --> " + type.getType() + " impossible")));
+            compiler.addInstruction(new ERROR());
+
+            // - label to stop the execution with an error to put in decac compiler
+            compiler.addLabel(castPossible);
+
+            // - store this address in R0
+            compiler.addInstruction(new LEA(addr, Register.R0));
+
+            // - change the base of the heap
+            compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(0, register)), "casting " + nameVar.getType() + " --> " + type.getType());
         }
     }
+
+
 }

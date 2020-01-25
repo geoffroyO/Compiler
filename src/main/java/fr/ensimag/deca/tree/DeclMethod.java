@@ -229,7 +229,7 @@ public class DeclMethod extends AbstractDeclMethod {
             }
         }
         compiler.addFirstComment("Saving the registers");
-        
+
         // - END bloc
         compiler.endBloc();
 

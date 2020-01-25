@@ -1,15 +1,7 @@
-class A {
-	int x;
-	int getX() {
-		return x;
-	}
-}
 
 {
-	int x = 1;
-	float y = 1.5;
-	int z = x + y;
-	println(z);
+	float y = 2.0;
+	float x = 1/y;
 }
 
 
