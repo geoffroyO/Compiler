@@ -3,7 +3,8 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.*;
 
 import java.io.PrintStream;
 
@@ -56,6 +57,36 @@ public class InstanceOf extends AbstractExpr{
 
     @Override
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register){
-        // TODO
+
+        // - generate the value of the expression
+        instance.codeGenExpr(compiler, register);
+
+        if (instance.getType().isInt() && className.getType().isInt()) {
+
+            compiler.addInstruction(new LOAD(new ImmediateInteger(1), register));
+
+        } else if (instance.getType().isFloat() && className.getType().isFloat()) {
+
+            compiler.addInstruction(new LOAD(new ImmediateInteger(1), register));
+
+        } else if (instance.getType().isNull()) {
+
+            compiler.addInstruction(new LOAD(new ImmediateInteger(0), register));
+
+        } else {
+
+            // - get the address of the class to cast in the stack
+            DAddr addr = className.getClassDefinition().getAddrClass();
+
+            // - code of the function instance of
+            compiler.addInstruction(new LEA(addr, Register.R1));
+            compiler.addInstruction(new PUSH(register));
+            compiler.addInstruction(new BSR(new Label("instance_of")));
+            compiler.addInstruction(new POP(register));
+
+            // - load the result in register
+            compiler.addInstruction(new LOAD(Register.R0, register));
+
+        }
     }
 }

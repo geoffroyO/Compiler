@@ -103,6 +103,60 @@ public class Program extends AbstractProgram {
 
     }
 
+    private void codeInstanceOf(DecacCompiler compiler) {
+
+        // - declaring the label needeed for the function
+        Label beginningIo = new Label("begin_instance_of");
+        Label endIoPossible = new Label("instance_of_possible");
+        Label endIoImpossible = new Label("instance_of_impossible");
+        Label endIo = new Label("end_instance_of");
+        Label Io = new Label("instance_of");
+
+        // - the only register we need for this function
+        GPRegister R2 = Register.getR(2);
+
+        // - label to jump in
+        compiler.addLabel(Io);
+        compiler.addInstruction(new PUSH(R2));
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), R2));
+
+        // - beginning of the function Instance Of
+        compiler.addLabel(beginningIo);
+
+        // - LOAD the address of the class
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, R2), Register.R0));
+
+        // - test if no super class
+        compiler.addInstruction(new CMP(new NullOperand(), Register.R0));
+        compiler.addInstruction(new BEQ(endIoImpossible));
+
+        // - test if is InstanceOf
+        compiler.addInstruction(new CMP(Register.R0, Register.R1));
+        compiler.addInstruction(new BEQ(endIoPossible));
+
+        // - LOAD the next address to check
+        compiler.addInstruction(new LOAD(Register.R0, R2));
+
+        // - Loop to the beginning
+        compiler.addInstruction(new BRA(beginningIo));
+
+        // - return false
+        compiler.addLabel(endIoImpossible);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(0), Register.R0));
+        compiler.addInstruction(new BRA(endIo));
+
+        // - return true
+        compiler.addLabel(endIoPossible);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(1), Register.R0));
+        compiler.addInstruction(new BRA(endIo));
+
+        // - final return
+        compiler.addLabel(endIo);
+        compiler.addInstruction(new POP(R2));
+        compiler.addInstruction(new RTS());
+
+    }
+
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
  
@@ -147,6 +201,11 @@ public class Program extends AbstractProgram {
 
         // - write the code for the others methods
         classes.codeGenListDeclClass(compiler);
+
+        // - write the code for the function instance of.
+        codeInstanceOf(compiler);
+
+
     }
 
     private void codeGenOutErrors(DecacCompiler compiler){
