@@ -72,14 +72,20 @@ class ValueInJava(threading.Thread):
 
 ## Variables
 # Use to generate points
-startValue = 0
+startValue = -1
 endValue = 1
-step = 0.1
+step = 0.0001
 
 lValues = arange(startValue, endValue, step)
 
 listFunctions = [
-    "cos", "sin", "tan", "sqrt", "acos", "asin", "atan"
+   # "cos", 
+   # "sin", 
+   # "tan", 
+   # "sqrt", 
+   # "acos", 
+   # "asin", 
+   # "atan"
 ]
 
 #######
@@ -89,11 +95,11 @@ listFunctions = [
 compilation = "./compilingJavaFile.sh"
 os.system(compilation)
 
-#for i in listFunctions:
+for i in listFunctions:
 #    # Run deca thread
 #    deca = ValueInDeca(i)
 #    deca.start()
 #
-#    # Run java thread
-#    java = ValueInJava(i)
-#    java.start()
+    # Run java thread
+    java = ValueInJava(i)
+    java.start()
