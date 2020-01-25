@@ -1,0 +1,11 @@
+// Description:
+//      Test de l'extension
+// Resultats:
+//      sin(0) = 0.00000e+00
+
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    println("sin(0) = ", m.sin(0.0));
+}

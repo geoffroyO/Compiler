@@ -1,0 +1,11 @@
+// Description:
+//      Test de l'extension
+// Resultats:
+//      sqrt(100) = 
+
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    println("sqrt(100) = ", m.sqrt(100.0));
+}

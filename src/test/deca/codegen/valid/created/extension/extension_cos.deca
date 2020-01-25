@@ -1,0 +1,11 @@
+// Description:
+//      Test de l'extension
+// Resultats:
+//      cos(0) = 1.00000e+00
+
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    println("cos(0) = ", m.cos(0.0));
+}
