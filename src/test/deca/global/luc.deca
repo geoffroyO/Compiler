@@ -1,7 +1,14 @@
 
 {
-	float y = 2.0;
-	float x = 1/y;
+	int a = 1;
+	float b = 1;
+	int c = 1;
+	float d = 1;
+	int e = 1;
+	float f = 1;
+
+	f = a + b + c + d + e;
+	println(f);
 }
 
 
