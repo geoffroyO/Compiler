@@ -25,11 +25,31 @@ Then to execute the assembly file type:
 
 > **$ ima file_name.ass**
 
-### Options | TODO below ↓↓↓↓
+### Options for Decac
 
-> **$ deca -b file_name.deca**
->
+[-b] To print the team's banner (can't get arguments other than -b)
+> **$ deca -b**
+
+[-mt] To print the methods table of deca program
+> **$ deca -mt file_name.deca**
+
+[-p] To stop the compiler after the parser stage (stage A).
 > **$ deca -p file_name.deca**
+
+[-v] To stop the compiler after the syntax analysis stage (stage B).
+> **$ deca -v file_name.deca**
+
+[-n] Compile without check the tests of execution (overflow, null pointer..)
+> **$ deca -n file_name.deca**
+
+[-r X] Limits the registers number to X registers used in the compiler (number between 4 and 16 included).
+> **$ deca -r X file_name.deca**
+
+[-d] To activate debug traces, repeating the option will result in more traces levels.
+> **$ deca -d file_name.deca**
+
+[-P] To execute multiple .deca files at once (parallel).
+> **$ deca -P file1.deca file2.deca**
 
 ### Shell programs | TODO below ↓↓↓↓
 
@@ -72,7 +92,7 @@ To re-generate the documentation just open terminal at project folder root and t
 
 > **/src** contains all the source code of the project.
 
-> **/pom.xml** contains 4 shell scripts **run_decoder** to run the decoder on all JPEG images in /images directory, the second one **run_tests** to lunch all tests programs in terminal, the thrid one is **run_valgrind**, and the fourth script **run_decoder_without_preview**is the same as **run_decoder** but without preview for images.
+> **/pom.xml** contains 
 
 > **README.md** : _current file._
 

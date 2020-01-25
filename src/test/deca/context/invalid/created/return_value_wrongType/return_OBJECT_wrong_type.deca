@@ -1,7 +1,7 @@
 // Description:
 //		Methode renvoyant un type different que celui attendu
 // Resultat:
-// 		Erreur contexte Line 8 : Types don't match!
+// 		Erreur contexte Ligne 8 : Types don't match!
 
 class A {
 	int value() {

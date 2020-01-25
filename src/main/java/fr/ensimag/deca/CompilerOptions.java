@@ -32,6 +32,10 @@ public class CompilerOptions {
         return printBanner;
     }
 
+    public boolean getPrintMethodsTable() {
+        return printMethodsTable;
+    }
+
     public boolean getParse() {
         return parse;
     }
@@ -59,6 +63,7 @@ public class CompilerOptions {
     private int debug = 0;
     private boolean parallel = false;
     private boolean printBanner = false;
+    private boolean printMethodsTable = false;
     private boolean parse = false;
     private boolean verification = false;
     private boolean noCheck = false;
@@ -68,8 +73,6 @@ public class CompilerOptions {
 
     
     public void parseArgs(String[] args) throws CLIException {
-        // A FAIRE : parcourir args pour positionner les options correctement.
-
         // - Commands Manager
         for(String arg : args){
 
@@ -93,6 +96,9 @@ public class CompilerOptions {
                         break;
                     case "-p":
                         this.parse = true;
+                        break;
+                    case "-mt":
+                        this.printMethodsTable = true;
                         break;
                     case "-v":
                         verification = true;

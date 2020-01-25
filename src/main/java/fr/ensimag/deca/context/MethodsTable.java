@@ -70,11 +70,24 @@ public class MethodsTable {
 
 
     /**
+     * [PRINT] the methods table with class name
+     */
+    public String toString(ClassDefinition current) {
+        String s = "======== Methods Table ======== [Class: "
+                +current.getType().getName().getName()+"] [size = " + methodsTable.size() + "] \n";
+        return getMethodsTableString(s);
+    }
+
+    /**
      * [PRINT] the methods table
      */
     @Override
     public String toString() {
         String s = "======== Methods Table ======== [size = " + methodsTable.size() + "] \n";
+        return getMethodsTableString(s);
+    }
+
+    private String getMethodsTableString(String s) {
         for (Map.Entry<Integer, MethodDefinition> integerMethodDefinitionEntry : methodsTable.entrySet()) {
             MethodDefinition method = (MethodDefinition) ((Map.Entry) integerMethodDefinitionEntry).getValue();
             s += "index = " + method.getIndex() + " | Label = " + method.getLabel().toString();

@@ -15,12 +15,12 @@ class B extends A{
         x = x + 1;
         this.x = this.x - 1;
 
-        println("x =", x);
-        println("this.x =", this.x);
+        println("x = ", x);
+        println("this.x = ", this.x);
     }
 }
 
 {
     B b = new B();
-    println(b.affiche);
+    b.affiche();
 }

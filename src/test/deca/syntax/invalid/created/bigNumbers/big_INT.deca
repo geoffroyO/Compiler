@@ -1,8 +1,7 @@
 // Description:
 //		Affection d'un flottant qui depasse la limite
 // Resultat:
-//		Ligne 8 : 
-
+//		Ligne 7 : syntax error, this value is too large
 
 {
 	int value = 456784567895678567896789;
