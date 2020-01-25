@@ -1,0 +1,21 @@
+// Description:
+//      Cast sur un objet
+// Resultats:
+//      Element B
+
+class A {
+
+}
+class B extends A {
+    void affiche()
+    {
+        println("Element B");
+    }
+}
+
+{
+    B b = new B();
+    A a = (A)(b);
+
+    b.affiche();
+}
