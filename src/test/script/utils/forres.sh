@@ -30,7 +30,7 @@ pInfo()
 # On se place dans le répertoire du projet (quel que soit le
 # répertoire d'où est lancé le script) :
 
-cd "$(dirname "$0")"/../../.. || exit 1
+cd "$(dirname "$0")"/../../../.. || exit 1
 
 pathRootProject=$(pwd)
 pathLogs='./src/test/logs/'
@@ -69,7 +69,7 @@ do
         pFailure "$LOGS/$nameFileOutput.compilation.error"
         pFailure "$LOGS/$nameFileOutput.compilation.output"
 
-      #  exit 1
+       exit 1
     fi
     # No output detected
 
@@ -81,7 +81,7 @@ do
         pFailure "$LOGS/$nameFileOutput.compilation.error"
         pFailure "$LOGS/$nameFileOutput.compilation.output"
 
-        #exit 1
+        exit 1
     fi
     # No error detected
 

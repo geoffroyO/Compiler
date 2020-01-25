@@ -76,8 +76,10 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
     protected  void codeGenExpr(DecacCompiler compiler, GPRegister register){
         super.codeGenExpr(compiler, register);
-
+        
         // - error of stack overflow catched
-        compiler.addInstruction(new BOV(new Label("Float_overflow")));
+		if (!compiler.getCompilerOptions().isNoCheck()) {
+			compiler.addInstruction(new BOV(new Label("Float_overflow")));
+		}        
     }
 }

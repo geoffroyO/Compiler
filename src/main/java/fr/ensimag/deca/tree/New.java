@@ -59,9 +59,11 @@ public class New extends AbstractExpr{
 
         // - heap creation
         compiler.addInstruction(new NEW(new ImmediateInteger(type.getClassDefinition().getNumberOfFields() + 1), register), " on crée le tas");
-
+      
         // - heap overflow
-        compiler.addInstruction(new BOV(new Label("heap_overflow")));
+		if (!compiler.getCompilerOptions().isNoCheck()) {
+	        compiler.addInstruction(new BOV(new Label("heap_overflow")));		
+		}        
 
         // - get addrClass
         compiler.addInstruction(new LEA(type.getClassDefinition().getAddrClass(), Register.R0));

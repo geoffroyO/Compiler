@@ -1,0 +1,6 @@
+// Description
+//      Include un fichier qui n'existe pas 
+// Resultat
+//      Erreur syntaxe Ligne 6 : include file not found
+
+#include "bob.decah"
