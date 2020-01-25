@@ -36,12 +36,10 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
         // - update current class methods table
         current.getMT().superUpdateMT(superClass);
 
-        /** DON"T DELETE THIS
-         *  it's just for testing, We will remove it later
-            System.out.println("################");
-            System.out.println(current.getMT());
-            System.out.println("################");
-         */
+        // - if option "-mt" is selected, print methods table
+        if (compiler.getCompilerOptions().getPrintMethodsTable()){
+            System.out.println("\n" + current.getMT().toString(current));
+        }
     }
 
     protected void verifyListMethodBody(DecacCompiler compiler, ClassDefinition current) throws ContextualError{
