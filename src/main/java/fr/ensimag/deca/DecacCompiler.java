@@ -202,12 +202,13 @@ public class DecacCompiler {
 	}
 
 	public void addFirstTSTO(int n) {
-		if (n > 0) {
-			addFirst(new BOV(new Label("stack_overflow")));
-			addFirst(new TSTO(new ImmediateInteger(n)));
-			addFirstComment("Test Stack_overflow");
+		if (!getCompilerOptions().isNoCheck()) {
+			if (n > 0) {
+				addFirst(new BOV(new Label("stack_overflow")));
+				addFirst(new TSTO(new ImmediateInteger(n)));
+				addFirstComment("Test Stack_overflow");
+			}
 		}
-
 	}
 
 	public void beginBloc(){
@@ -235,16 +236,20 @@ public class DecacCompiler {
 	}
 
 	public void TSTO(int n) {
-		if (n > 0) {
-			addComment("Test Stack_overflow");
-			addInstruction(new TSTO(new ImmediateInteger(n)));
-			addInstruction(new BOV(new Label("stack_overflow")));
+		if (!getCompilerOptions().isNoCheck()) {
+			if (n > 0) {
+				addComment("Test Stack_overflow");
+				addInstruction(new TSTO(new ImmediateInteger(n)));
+				addInstruction(new BOV(new Label("stack_overflow")));
+			}		
 		}
 	}
 
 	public void referenceErr(GPRegister register) {
-		addInstruction(new CMP(new NullOperand(), register));
-		addInstruction(new BEQ(new Label("dereferencement.null")));
+		if (!getCompilerOptions().isNoCheck()) {		
+			addInstruction(new CMP(new NullOperand(), register));
+			addInstruction(new BEQ(new Label("dereferencement.null")));
+		}
 	}
 
 	private final CompilerOptions compilerOptions;

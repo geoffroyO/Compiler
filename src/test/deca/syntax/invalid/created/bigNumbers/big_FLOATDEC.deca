@@ -1,7 +1,7 @@
 // Description:
 //		Affection d'un flottant qui depasse la limite
 // Resultat:
-//		Ligne 7 : 
+//		Ligne 7 : syntax error, this value is too large
 
 {
 	float f = 56745678905678906789089567890567890567890.6789678907890;

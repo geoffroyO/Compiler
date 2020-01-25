@@ -1,0 +1,8 @@
+// Description:
+//		Appel print sans fermer la parenthese
+// Resultats:
+//		Erreur de syntaxe Ligne 7 : missing ')' at ';'
+
+{
+	println("hello";
+}

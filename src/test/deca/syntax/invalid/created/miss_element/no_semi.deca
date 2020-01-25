@@ -1,0 +1,8 @@
+// Description:
+//		Instruction manque ; final
+// Resultats:
+//		Erreur de syntaxe Ligne 8 : missing ';' at '}'
+
+{
+	println()
+}

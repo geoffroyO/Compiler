@@ -51,6 +51,7 @@ public class DecacMain {
         if (args.length == 0) {
             System.out.println("decac [[-p | -v] [-n] [-r X] [-d]* [-P] [-w] <fichier deca>...] | [-b]\n");
             System.out.println("-b (banner) : affiche une bannière indiquant le nom de l’équipe\n");
+            System.out.println("-mt (Table des Méthodes) : affiche la table des méthdoes\n");
             System.out.println("-p (parse) : arrête decac après l’étape de construction de" +
                     "l’arbre, et affiche la décompilation de ce dernier" +
                     "(i.e. s’il n’y a qu’un fichier source à" +

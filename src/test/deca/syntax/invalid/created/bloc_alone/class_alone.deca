@@ -1,6 +1,6 @@
 // Description:
 //      Bloc class sans identifier
 // Resultats:
-//      Error synthaxe Ligne 6 : missing IDENT at '{'
+//      Error syntaxe Ligne 6 : missing IDENT at '{'
 
 class {}

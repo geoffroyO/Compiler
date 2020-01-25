@@ -1,7 +1,7 @@
 // Description:
 //      Creation variable apres instruction dans une methode
 // Resultats:
-//      Erreur synthaxe Ligne 11 : no viable alternative at input 'z'
+//      Erreur syntaxe Ligne 11 : no viable alternative at input 'z'
 
 class A {
     void test(){

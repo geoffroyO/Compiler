@@ -1,0 +1,13 @@
+// Description:
+//      Declaration d'une methode sans parenthese
+// Resultats:
+//      OK
+
+class A {
+    void affiche(){}
+}
+
+{
+    A a = new A();
+    a.affiche;
+}

@@ -1,0 +1,8 @@
+// Description:
+//      Declaration d'une methode sans parenthese
+// Resultats:
+//      Erreur de syntaxe Ligne 7 : no viable alternative at input 'voidaffiche{'
+
+class A {
+    void affiche{}
+}

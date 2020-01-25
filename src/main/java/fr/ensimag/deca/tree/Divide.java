@@ -39,7 +39,7 @@ public class Divide extends AbstractOpArith {
             // - if left operand is float and right operand is int
             if (leftOpType.isFloat() && rightOpType.isInt()){
                 // - convert right operand to float
-                this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, leftOpType));
+            	this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, leftOpType));
                 // - set current type to leftOpType (= float)
                 this.setType(leftOpType);
                 return leftOpType;
@@ -72,8 +72,10 @@ public class Divide extends AbstractOpArith {
     
 	@Override
 	protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
-        compiler.addInstruction(new CMP(new ImmediateFloat( (float) 0), register));
-        compiler.addInstruction(new BEQ(new Label("Zero_division")));
+		if (!compiler.getCompilerOptions().isNoCheck()) {
+	        compiler.addInstruction(new CMP(new ImmediateFloat( (float) 0), register));
+	        compiler.addInstruction(new BEQ(new Label("Zero_division")));			
+		}
 		compiler.addInstruction(new DIV(register, result));
 	}
 }
