@@ -6,6 +6,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.StringType;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.InlinePortion;
 
 import java.io.PrintStream;
 
@@ -43,6 +44,6 @@ public class MethodAsmBody extends AbstractMethodBody {
 
     @Override
     protected  void codeGenMethodBody(DecacCompiler compiler) {
-        //TODO
+        compiler.add(new InlinePortion(multiLineStream.toString().substring(1, multiLineStream.toString().length() -1))); // Remove the first and the last "
     }
 }
