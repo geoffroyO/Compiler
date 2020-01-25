@@ -72,8 +72,10 @@ public class Divide extends AbstractOpArith {
     
 	@Override
 	protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
-        compiler.addInstruction(new CMP(new ImmediateFloat( (float) 0), register));
-        compiler.addInstruction(new BEQ(new Label("Zero_division")));
+		if (!compiler.getCompilerOptions().isNoCheck()) {
+	        compiler.addInstruction(new CMP(new ImmediateFloat( (float) 0), register));
+	        compiler.addInstruction(new BEQ(new Label("Zero_division")));			
+		}
 		compiler.addInstruction(new DIV(register, result));
 	}
 }
