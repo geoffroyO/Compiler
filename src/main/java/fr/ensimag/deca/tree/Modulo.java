@@ -42,7 +42,7 @@ public class Modulo extends AbstractOpArith {
             if (leftOpType.isFloat()){
                 this.setType(leftOpType);
                 return leftOpType;
-            }else{
+            } else {
                 this.setType(rightOpType);
                 return rightOpType;
             }
