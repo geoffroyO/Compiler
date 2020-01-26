@@ -3,11 +3,9 @@ package fr.ensimag.deca.codegen;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Class that manages the free and occupied registers.
@@ -19,7 +17,7 @@ import java.util.List;
 public class RegisterManager {
 
     private int SP = 0;
-    private int GB = 0;
+    private int LB = 1;
     private int RegisterToSave = 0;
     private ArrayList<Integer> maxToSave = new ArrayList<Integer>();
     private int localVariable = 0;
@@ -39,8 +37,8 @@ public class RegisterManager {
     // - setters
     public void setSP() { SP = 0; }
 
-    public void setGB() { GB = 1; }
-    public void setGB(int n) { GB = n; }
+    public void setLB() { LB = 1; }
+    public void setLB(int n) { LB = n; }
 
     public void setRegisterToSave() {
         maxToSave.add(RegisterToSave);
@@ -50,34 +48,34 @@ public class RegisterManager {
     public void setLocalVariable() { localVariable = 0; }
 
 
-    // - incrementers
+    // - increments
 
-    public void incrSP(int n){
+    public void incSP(int n){
         SP += n;
     }
 
-    public void incrGB(){
-        GB++;
+    public void incLB(){
+        LB++;
     }
 
-    public void incrGB( int n ){ GB += n; }
+    public void incLB(int n ){ LB += n; }
 
-    public void incrRegisterToSave() {
+    public void incRegisterToSave() {
         RegisterToSave++;
     }
 
-    public void incrLocalVariable(int n) { localVariable += n; }
+    public void incLocalVariable(int n) { localVariable += n; }
 
 
     // - getters
-    public Register getBase() { return base; }
+    public Register getBase() { return base;}
 
     public int getSP(){
         return SP;
     }
 
-    public int getGB(){
-        return GB;
+    public int getLB(){
+        return LB;
     }
 
     public int getLocalVariable() { return localVariable; }
@@ -100,7 +98,7 @@ public class RegisterManager {
             }
         }
         this.freeRegister[j] = false;
-        incrRegisterToSave();
+        incRegisterToSave();
         return Register.getR(j);
     }
 
@@ -133,7 +131,7 @@ public class RegisterManager {
         freeRegister = Arrays.copyOf(oldFreeRegister, oldFreeRegister.length);
     }
 
-    public void changeBase(){
+    public void changeBase() {
         if (base == Register.GB) {
             base = Register.LB;
         } else {

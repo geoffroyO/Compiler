@@ -70,12 +70,26 @@ public class Selection extends AbstractLValue{
 
     @Override
     protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
+
+        // - evaluate the expression
         instance.codeGenExpr(compiler, register);
+
+        // - check if object is null
+        compiler.referenceErr(register);
+
+        // - return the address in register
         compiler.addInstruction(new LEA(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
     }
 
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+
+        // - evaluate the expression
         instance.codeGenExpr(compiler, register);
+
+        // - check if object is null
+        compiler.referenceErr(register);
+
+        // - load the value in register
         compiler.addInstruction(new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
     }
 
@@ -84,6 +98,10 @@ public class Selection extends AbstractLValue{
 
         GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
         instance.codeGenExpr(compiler, addrReg);
+
+        // - check if object is null
+        compiler.referenceErr(addrReg);
+
         compiler.addInstruction(new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), addrReg), Register.R1));
 
         super.codeGenPrint(compiler, printHex);
