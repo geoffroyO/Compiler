@@ -21,7 +21,7 @@ import fr.ensimag.deca.tree.IntLiteral;
 import fr.ensimag.deca.tree.Modulo;
 
 /**
- * Test for the Divide node using mockito, using @Mock and @Before annotations.
+ * Test for the Modulo node using mockito, using @Mock and @Before annotations.
  *
  * @author Ensimag
  * @date 01/01/2020
@@ -61,15 +61,24 @@ public class TestModulo {
         verify(intexpr2).verifyExpr(compiler, null, null);
     }
 
-    @Test
+    @Test(expected = ContextualError.class)
     public void testIntFloat() throws ContextualError {
     	Modulo t = new Modulo(intexpr1, floatexpr1);
-    	// check the result
-        assertTrue(t.verifyExpr(compiler, null, null).isFloat());
+        t.verifyExpr(compiler, null, null);
 
         // check that the mocks have been called properly.
         verify(intexpr1).verifyExpr(compiler, null, null);
         verify(floatexpr1).verifyExpr(compiler, null, null);
     }
+    
+    @Test(expected = ContextualError.class)
+    public void testFloatInt() throws ContextualError {
+    	Modulo t = new Modulo(floatexpr1, intexpr1);
+        t.verifyExpr(compiler, null, null);
+
+        // check that the mocks have been called properly.
+        verify(intexpr1).verifyExpr(compiler, null, null);
+        verify(floatexpr1).verifyExpr(compiler, null, null);
+    }   
 
 }

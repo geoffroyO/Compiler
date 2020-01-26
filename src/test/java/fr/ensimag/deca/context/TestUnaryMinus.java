@@ -23,7 +23,7 @@ import fr.ensimag.deca.tree.Location;
 import fr.ensimag.deca.tree.UnaryMinus;
 
 /**
- * Test for the Divide node using mockito, using @Mock and @Before annotations.
+ * Test for the UnaryMinus node using mockito, using @Mock and @Before annotations.
  *
  * @author Ensimag
  * @date 01/01/2020

@@ -43,6 +43,12 @@ public class UnaryMinus extends AbstractUnaryExpr {
         return opType;
     }
 
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+    	// - the result of the expression is in R1
+    	codeGenExpr(compiler, Register.R1);
+    	super.codeGenPrint(compiler, printHex);
+    }
 
     @Override
     protected String getOperatorName() {

@@ -15,49 +15,43 @@ import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 import java.io.PrintStream;
 
-public class This extends AbstractLValue{
+public class This extends AbstractLValue {
 
-    public This()
-    {
+	public This() {
+	}
 
-    }
+	@Override
+	public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass)
+			throws ContextualError {
+		if (currentClass == null) {
+			throw new ContextualError("'this' must be used inside a class", this.getLocation());
+		}
+		Type type = currentClass.getType();
+		this.setType(type);
+		return this.getType();
+	}
 
-    @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {	
-    	if (currentClass == null) {
-            throw new ContextualError("'this' must be used inside a class", this.getLocation());
-        }   	
-    	
-    	Type type = currentClass.getType();
-    
-        this.setType(type);
-        
+	@Override
+	public void decompile(IndentPrintStream s) {
+		s.print("this");
+	}
 
-    	
-        return this.getType();
-    }
+	@Override
+	protected void prettyPrintChildren(PrintStream s, String prefix) {
+	}
 
-    @Override
-    public void decompile(IndentPrintStream s) {
-        s.print("this");
-    }
+	@Override
+	protected void iterChildren(TreeFunction f) {
 
-    @Override
-    protected void prettyPrintChildren(PrintStream s, String prefix) {        
-    }
+	}
 
-    @Override
-    protected void iterChildren(TreeFunction f) {
+	@Override
+	protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
+		compiler.addInstruction(new LEA(new RegisterOffset(-2, Register.LB), register));
+	}
 
-    }
-
-    @Override
-    protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
-        compiler.addInstruction(new LEA(new RegisterOffset(-2, Register.LB), register));
-    }
-
-    @Override
-    public void codeGenExpr(DecacCompiler compiler,GPRegister register){
-        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), register));
-    }
+	@Override
+	public void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+		compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), register));
+	}
 }

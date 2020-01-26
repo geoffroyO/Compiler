@@ -30,22 +30,13 @@ public class Modulo extends AbstractOpArith {
         Type rightOpType;
 
         // - verify and get both operands types
-        try {
-            leftOpType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-            rightOpType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
-        } catch (ContextualError e){
-            throw e;
-        }
+        leftOpType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+        rightOpType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
 
         // - Operands must be numeric numbers
         if((leftOpType.isInt()) && (rightOpType.isInt())){
-            if (leftOpType.isFloat()){
-                this.setType(leftOpType);
-                return leftOpType;
-            } else {
-                this.setType(rightOpType);
-                return rightOpType;
-            }
+             this.setType(rightOpType);
+             return rightOpType;
         } else {
             throw new ContextualError("Operands must be int [Modulo] int", getLocation());
         }
