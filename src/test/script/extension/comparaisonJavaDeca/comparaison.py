@@ -19,7 +19,9 @@ class ValueInDeca(threading.Thread):
     def generateDeca(self, value):
         # Generate a deca file for a specific value
         # Return the name of the file created
-        nameFile = "{}_{}".format(self.function, value)
+
+        cutValue = round(float(value), 4)
+        nameFile = "{}_{}".format(self.function, cutValue)
         f = open(nameFile + ".deca", "w")
 
         f.write("#include \"Math.decah\"\n")
@@ -29,8 +31,8 @@ class ValueInDeca(threading.Thread):
         else :
             f.write("\tMath m = new Math();\n")
 
-        f.write("\tfloat b = m.{}({});\n".format(self.function, float(value)))
-        f.write("\tprintln({}, \"; \", b);\n".format(value))
+        f.write("\tfloat b = m.{}({});\n".format(self.function, cutValue))
+        f.write("\tprintln(\"{}; \", b);\n".format(cutValue))
         f.write("}\n")
         f.close()
 
@@ -54,7 +56,7 @@ class ValueInDeca(threading.Thread):
             # Execute file Deca and store the value in the output file (add at the end)
             os.system("ima {}.ass >> {}".format(nameFile, self.nameOutput))
 
-            #self.remove(nameFile)
+            self.remove(nameFile)
 
 
 class ValueInJava(threading.Thread):
@@ -78,7 +80,7 @@ class ValueInJava(threading.Thread):
 # Use to generate points
 startValue = -1
 endValue = 1
-step = 0.0001
+step = 0.1
 
 lValues = arange(startValue, endValue, step)
 
@@ -99,7 +101,8 @@ listFunctions = [
 compilation = "./compilingJavaFile.sh"
 os.system(compilation)
 
-for i in listFunctions:
+
+#for i in listFunctions:
 #    # Run deca thread
 #    deca = ValueInDeca(i)
 #    deca.start()

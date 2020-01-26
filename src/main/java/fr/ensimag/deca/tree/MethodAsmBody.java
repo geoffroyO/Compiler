@@ -44,10 +44,6 @@ public class MethodAsmBody extends AbstractMethodBody {
 
     @Override
     protected  void codeGenMethodBody(DecacCompiler compiler) {
-<<<<<<< HEAD
         compiler.add(new InlinePortion(multiLineStream.toString().substring(1, multiLineStream.toString().length() -1))); // Remove the first and the last "
-=======
-        compiler.add(new InlinePortion(multiLineStream));
->>>>>>> f0bc7eb019275bcbc1b93ec011ecc122a0edd2bf
     }
 }
