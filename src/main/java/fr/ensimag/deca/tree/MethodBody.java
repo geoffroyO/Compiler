@@ -65,7 +65,7 @@ public class MethodBody extends AbstractMethodBody {
         ListDeclVar.codeGenDeclVar(compiler);
 
         // - this is the number of variable that we will push at the top of the stack
-        compiler.getRegM().incrLocalVariable(ListDeclVar.size());
+        compiler.getRegM().incLocalVariable(ListDeclVar.size());
 
         ListInst.codeGenListInst(compiler);
 

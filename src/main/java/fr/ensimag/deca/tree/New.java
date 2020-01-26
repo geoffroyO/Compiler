@@ -44,11 +44,6 @@ public class New extends AbstractExpr{
     	type.prettyPrint(s, prefix, true);
     }
 
-    
-    
-    
-    
-
     @Override
     protected void iterChildren(TreeFunction f) {
 

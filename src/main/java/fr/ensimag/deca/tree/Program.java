@@ -3,14 +3,10 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.Map;
 
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -73,12 +69,12 @@ public class Program extends AbstractProgram {
         object.setAddrClass(new RegisterOffset(1, Register.LB));
         compiler.addComment("Code de la table des méthodes de la classe Object");
         compiler.addInstruction(new LOAD(new NullOperand(), Register.R0));
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), compiler.getRegM().getBase())));
-        compiler.getRegM().incrGB();
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getLB(), compiler.getRegM().getBase())));
+        compiler.getRegM().incLB();
         compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")), Register.R0));
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), Register.LB)));
-        compiler.getRegM().incrGB();
-        compiler.getRegM().incrSP(2);
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getLB(), compiler.getRegM().getBase())));
+        compiler.getRegM().incLB();
+        compiler.getRegM().incSP(2);
 
     }
 
@@ -89,8 +85,8 @@ public class Program extends AbstractProgram {
 
         compiler.addComment("Code des méthodes de la classe de " + "Object");
         compiler.addLabel(new Label("code.Object.equals"));
-        compiler.addInstruction(new LOAD(new RegisterOffset(-1, Register.LB), Register.R0));
-        compiler.addInstruction(new CMP(new RegisterOffset(-2, Register.LB), Register.R0));
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.R0));
+        compiler.addInstruction(new CMP(new RegisterOffset(-3, Register.LB), Register.R0));
         compiler.addInstruction(new BEQ(new Label("True_case")));
         compiler.addInstruction(new BRA(new Label("False_case")));
         compiler.addLabel(new Label("True_case"));
@@ -161,9 +157,6 @@ public class Program extends AbstractProgram {
     public void codeGenProgram(DecacCompiler compiler) {
  
         compiler.addComment("Class program");
-
-        // - begin at 1(GB)
-        compiler.getRegM().incrGB();
 
         // - begin bloc
         compiler.beginBloc();
