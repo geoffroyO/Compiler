@@ -4,6 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +17,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tree.AbstractExpr;
 import fr.ensimag.deca.tree.ConvFloat;
 import fr.ensimag.deca.tree.Divide;
+import fr.ensimag.deca.tree.IntLiteral;
 
 /**
  * Test for the Divide node using mockito, using @Mock and @Before annotations.
@@ -25,12 +29,8 @@ public class TestDivide {
 
     final Type INT = new IntType(null);
     final Type FLOAT = new FloatType(null);
+    final ConvFloat CONVFLOAT = new ConvFloat(new IntLiteral(4));
     
-    @Mock
-    AbstractExpr convexpr;
-    
-    final ConvFloat CONVFLOAT = new ConvFloat(convexpr);
-
     @Mock
     AbstractExpr intexpr1;
     @Mock
@@ -50,7 +50,8 @@ public class TestDivide {
         when(intexpr2.verifyExpr(compiler, null, null)).thenReturn(INT);
         when(floatexpr1.verifyExpr(compiler, null, null)).thenReturn(FLOAT);
         when(floatexpr2.verifyExpr(compiler, null, null)).thenReturn(FLOAT);
-        when(intexpr1.verifyRValue(compiler, null, null, null)).thenReturn(CONVFLOAT);
+        when(intexpr1.verifyRValue(eq(compiler), eq(null), eq(null), any(FloatType.class))).thenReturn(CONVFLOAT);
+        when(intexpr2.verifyRValue(eq(compiler), eq(null), eq(null), any(FloatType.class))).thenReturn(CONVFLOAT);
     }
 
     @Test
@@ -66,7 +67,7 @@ public class TestDivide {
     @Test
     public void testIntFloat() throws ContextualError {
     	Divide t = new Divide(intexpr1, floatexpr1);
-        // check the result
+//         check the result
         assertTrue(t.verifyExpr(compiler, null, null).isFloat());
         // ConvFloat should have been inserted on the right side
         assertTrue(t.getLeftOperand() instanceof ConvFloat);

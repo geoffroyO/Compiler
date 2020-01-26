@@ -80,7 +80,6 @@ public class DecacMain {
             System.out.println("File not found, please choose a '.deca' file.");
             // Exit program (1 = successfully)
             System.exit(1);
-            //            throw new UnsupportedOperationException("decac without argument not implemented!");
         }
 
         if (options.getParallel()) {

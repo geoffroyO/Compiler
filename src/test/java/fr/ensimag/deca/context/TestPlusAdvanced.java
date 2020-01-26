@@ -1,15 +1,21 @@
 package fr.ensimag.deca.context;
 
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tree.AbstractExpr;
 import fr.ensimag.deca.tree.ConvFloat;
+import fr.ensimag.deca.tree.IntLiteral;
 import fr.ensimag.deca.tree.Plus;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.mockito.Mock;
-import static org.mockito.Mockito.*;
-import org.mockito.MockitoAnnotations;
 
 /**
  * Test for the Plus node using mockito, using @Mock and @Before annotations.
@@ -21,6 +27,7 @@ public class TestPlusAdvanced {
 
     final Type INT = new IntType(null);
     final Type FLOAT = new FloatType(null);
+    final ConvFloat CONVFLOAT = new ConvFloat(new IntLiteral(4));
 
     @Mock
     AbstractExpr intexpr1;
@@ -41,6 +48,8 @@ public class TestPlusAdvanced {
         when(intexpr2.verifyExpr(compiler, null, null)).thenReturn(INT);
         when(floatexpr1.verifyExpr(compiler, null, null)).thenReturn(FLOAT);
         when(floatexpr2.verifyExpr(compiler, null, null)).thenReturn(FLOAT);
+        when(intexpr1.verifyRValue(compiler, null, null, FLOAT)).thenReturn(CONVFLOAT);
+
     }
 
     @Test
