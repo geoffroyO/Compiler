@@ -24,7 +24,11 @@ class ValueInDeca(threading.Thread):
 
         f.write("#include \"Math.decah\"\n")
         f.write("{\n")
-        f.write("\tMath m = new Math();\n")
+        if (self.function == "sqrt"):
+            f.write("\tUtility m = new Utility();\n")
+        else :
+            f.write("\tMath m = new Math();\n")
+
         f.write("\tfloat b = m.{}({});\n".format(self.function, float(value)))
         f.write("\tprintln({}, \"; \", b);\n".format(value))
         f.write("}\n")
@@ -50,7 +54,7 @@ class ValueInDeca(threading.Thread):
             # Execute file Deca and store the value in the output file (add at the end)
             os.system("ima {}.ass >> {}".format(nameFile, self.nameOutput))
 
-            self.remove(nameFile)
+            #self.remove(nameFile)
 
 
 class ValueInJava(threading.Thread):
@@ -100,6 +104,6 @@ for i in listFunctions:
 #    deca = ValueInDeca(i)
 #    deca.start()
 #
-    # Run java thread
-    java = ValueInJava(i)
-    java.start()
+#    # Run java thread
+#    java = ValueInJava(i)
+#    java.start()

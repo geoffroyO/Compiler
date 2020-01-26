@@ -1,0 +1,11 @@
+// Description:
+//      Test de l'extension
+// Resultats:
+//      acos() =
+
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    println("acos() = ", m.acos());
+}

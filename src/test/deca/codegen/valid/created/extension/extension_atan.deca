@@ -1,0 +1,11 @@
+// Description:
+//      Test de l'extension
+// Resultats:
+//      atan() = 
+
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    println("atan() = ", m.atan());
+}
