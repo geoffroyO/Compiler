@@ -17,10 +17,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-//import fr.ensimag.deca.tree.AbstractExpr;
-//import fr.ensimag.deca.tree.ConvFloat;
-//import fr.ensimag.deca.tree.Divide;
-//import fr.ensimag.deca.tree.This;
+import fr.ensimag.deca.tree.AbstractExpr;
+import fr.ensimag.deca.tree.ConvFloat;
+import fr.ensimag.deca.tree.Divide;
+import fr.ensimag.deca.tree.Equals;
+import fr.ensimag.deca.tree.IntLiteral;
+import fr.ensimag.deca.tree.Modulo;
+import fr.ensimag.deca.tree.This;
 /**
  * Test for the This node using mockito, using @Mock and @Before annotations.
  *
@@ -31,44 +34,66 @@ import org.mockito.MockitoAnnotations;
 
 public class TestEquals {
 	
-//	public class ThisVisible extends This {	
-//		public void setType(Type t) {
-//			super.setType(t);
-//		}
-//	}
+    final Type INT = new IntType(null);
+    final Type FLOAT = new FloatType(null);
+    final ConvFloat CONVFLOAT = new ConvFloat(new IntLiteral(4));	
 	
-//	@Mock
-//	AbstractExpr expr1;
-//	
-//	@Mock
-//	AbstractExpr expr2;
-//	
-//	DecacCompiler compiler;
-//
-//
-//    @Before
-//    public void setup() throws ContextualError {
-////        MockitoAnnotations.initMocks(this);
-////        compiler = new DecacCompiler(null, null);
-////        when(expr1.)
-////        when(th.getType()).thenReturn(new IntType(compiler.getSymbols().create("A")));
-////        when(th.verifyExpr(compiler, null, null)).thenCallRealMethod();
-////        when(th.verifyExpr(compiler, null, def)).thenCallRealMethod();
-//
-//       
-////        when(th.setType(any(Type.class))).thenCallRealMethod();
-//
-//    }
-//
-////    @Test(expected = ContextualError.class)
-//    public void testError() throws ContextualError {
-//        // check the result
-////        th.verifyExpr(compiler, null, null);
-//    }
-//    
-//    @Test
-//    public void testType() throws ContextualError {
-//        // check the result
-//        assertTrue(th.verifyExpr(compiler, null, def) instanceof Type);
-//    }
+	@Mock
+	AbstractExpr floatexpr1;
+	
+	@Mock
+	AbstractExpr floatexpr2;
+	
+	@Mock
+	AbstractExpr intexpr1;
+	
+	@Mock
+	AbstractExpr intexpr2;
+	
+	DecacCompiler compiler;
+
+
+    @Before
+    public void setup() throws ContextualError {
+        MockitoAnnotations.initMocks(this);
+        compiler = new DecacCompiler(null, null);
+        when(intexpr1.verifyExpr(compiler, null, null)).thenReturn(INT);
+        when(intexpr2.verifyExpr(compiler, null, null)).thenReturn(INT);
+        when(floatexpr1.verifyExpr(compiler, null, null)).thenReturn(FLOAT);
+        when(floatexpr2.verifyExpr(compiler, null, null)).thenReturn(FLOAT);
+   
+        when(intexpr1.verifyRValue(compiler, null, null, FLOAT)).thenReturn(CONVFLOAT);
+        when(intexpr2.verifyRValue(compiler, null, null, FLOAT)).thenReturn(CONVFLOAT);
+    }
+    @Test
+    public void testIntInt() throws ContextualError {
+        Equals eq = new Equals(intexpr1, intexpr2);
+        // check the result
+        assertTrue(eq.verifyExpr(compiler, null, null).isBoolean());
+        // check that the mocks have been called properly.
+        verify(intexpr1).verifyExpr(compiler, null, null);
+        verify(intexpr2).verifyExpr(compiler, null, null);
+    }
+
+    @Test
+    public void testIntFloat() throws ContextualError {
+    	Equals eq = new Equals(intexpr1, floatexpr1);
+        eq.verifyExpr(compiler, null, null);
+        assertTrue(eq.getLeftOperand() instanceof ConvFloat);
+        assertFalse(eq.getRightOperand() instanceof ConvFloat);
+        // check that the mocks have been called properly.
+        verify(intexpr1).verifyExpr(compiler, null, null);
+        verify(floatexpr1).verifyExpr(compiler, null, null);
+    }
+    
+    @Test
+    public void testFloatInt() throws ContextualError {
+    	Equals eq = new Equals(floatexpr1, intexpr1);
+        eq.verifyExpr(compiler, null, null);
+        assertFalse(eq.getLeftOperand() instanceof ConvFloat);
+        assertTrue(eq.getRightOperand() instanceof ConvFloat);
+        // check that the mocks have been called properly.
+        verify(intexpr1).verifyExpr(compiler, null, null);
+        verify(floatexpr1).verifyExpr(compiler, null, null);
+    }  
 }

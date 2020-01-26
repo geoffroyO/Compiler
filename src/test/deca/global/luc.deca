@@ -1,6 +1,30 @@
+class A {
+	int x;
+	int y;
+	
+	int getX(){
+		return x;
+	}
+	
+	void setX(int x) {
+		this.x = x;
+	}
+	
+	void crier(int x) {
+		println("AAAAAAAAAAAAA");
+	}
+}
 
-{
-	println(-5);
+class B extends A {
+	
+	void crier(){
+		println("BBBBBBBBBBBBBBBB");
+	}
 }
 
 
+{
+
+	A b = new A();
+	b.crier(0);
+}
