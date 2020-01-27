@@ -154,6 +154,8 @@ public class DeclMethod extends AbstractDeclMethod {
 
 	@Override
 	protected void codeGenDeclMethod(DecacCompiler compiler) {
+		// - enter the label of ending to jump during the return
+		compiler.getLabM().setEndCurrentLabel("fin.code." + name.getMethodDefinition().getLabel());
 		// - beginning of the code for the method
 		compiler.addLabel(new Label("code." + name.getMethodDefinition().getLabel()));
 		// - declaration of the parameters
@@ -185,7 +187,9 @@ public class DeclMethod extends AbstractDeclMethod {
 		}
 		// - get back to ancient stack
 		compiler.addInstruction(new SUBSP(new ImmediateInteger(compiler.getRegM().getLocalVariable() + 1)));
+
 		// - return
+		compiler.addLabel(new Label("fin.code." + name.getMethodDefinition().getLabel()));
 		compiler.addInstruction(new RTS());
 		// - save the registers
 		for (int k = 2; k <= nbRegistersToSave + 1; k++) {

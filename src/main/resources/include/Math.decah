@@ -83,6 +83,7 @@ class Utility {
 class Math {
 
     float sin(float x) {
+    	Utility f = new Utility();
 		float a1 = 1;
 		float a3 = -0.166666666666667;
 		float a5 = 0.00833333333333333;
@@ -105,11 +106,15 @@ class Math {
 		float res;
 		float tmp = x;
 
-		/*
-		if (tmp > this.pi){
+
+		if (tmp > f.pi){
 			tmp = f.bound(x);
 		}
-		*/
+
+		if (tmp < -(f.pi)){
+			tmp = f.bound(x);
+		}
+
 		z = tmp*tmp;
         res = tmp*(a1+z*(a3+z*(a5+z*(a7+z*(a9+z*(a11+z*(a13+z*(a15+z*(a17+z*(a19+z*(a21+z*(a23+z*(a25+z*(a27+z*(a29+z*(a31+z*(a31+z*a35)))))))))))))))));
 

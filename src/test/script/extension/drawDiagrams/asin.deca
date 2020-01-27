@@ -1,0 +1,12 @@
+#include "Math.decah"
+
+{
+	Math m = new Math();
+
+	float counter = -0.99;
+	while(counter <= 0.99){
+		println(m.asin(counter));
+		counter = counter + 0.01;
+	}
+
+}
