@@ -19,14 +19,20 @@ class ValueInDeca(threading.Thread):
     def generateDeca(self, value):
         # Generate a deca file for a specific value
         # Return the name of the file created
-        nameFile = "{}_{}".format(self.function, value)
+
+        cutValue = round(float(value), 4)
+        nameFile = "{}_{}".format(self.function, cutValue)
         f = open(nameFile + ".deca", "w")
 
         f.write("#include \"Math.decah\"\n")
         f.write("{\n")
-        f.write("\tMath m = new Math();\n")
-        f.write("\tfloat b = m.{}({});\n".format(self.function, float(value)))
-        f.write("\tprintln({}, \"; \", b);\n".format(value))
+        if (self.function == "sqrt"):
+            f.write("\tUtility m = new Utility();\n")
+        else :
+            f.write("\tMath m = new Math();\n")
+
+        f.write("\tfloat b = m.{}({});\n".format(self.function, cutValue))
+        f.write("\tprintx(\"{}; \", b);\n".format(cutValue))
         f.write("}\n")
         f.close()
 
@@ -74,18 +80,18 @@ class ValueInJava(threading.Thread):
 # Use to generate points
 startValue = -1
 endValue = 1
-step = 0.0001
+step = 0.1
 
 lValues = arange(startValue, endValue, step)
 
 listFunctions = [
-   # "cos", 
-   # "sin", 
+   "cos",
+   "sin",
    # "tan", 
-   # "sqrt", 
-   # "acos", 
-   # "asin", 
-   # "atan"
+   "sqrt",
+   #"acos",
+   "asin",
+   "atan"
 ]
 
 #######
@@ -97,8 +103,8 @@ os.system(compilation)
 
 for i in listFunctions:
 #    # Run deca thread
-#    deca = ValueInDeca(i)
-#    deca.start()
+    deca = ValueInDeca(i)
+    deca.start()
 #
     # Run java thread
     java = ValueInJava(i)
