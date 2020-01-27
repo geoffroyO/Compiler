@@ -500,6 +500,10 @@ class Math {
 
 		tmp = x;
 
+		if ( tmp < 0){
+			tmp = -tmp;
+		}
+
     	//trouver l'exposant:
     	while (puiss_2 < tmp){
     		puiss_2 = puiss_2 * 2; //faire un SHL
