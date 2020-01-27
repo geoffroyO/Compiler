@@ -22,7 +22,6 @@ import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 
 public class DeclMethod extends AbstractDeclMethod {
-
 	final private AbstractIdentifier type;
 	final private AbstractIdentifier name;
 	final private ListDeclParam listDeclParam;

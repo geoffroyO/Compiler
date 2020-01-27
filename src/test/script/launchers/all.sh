@@ -1,7 +1,11 @@
 #!/bin/bash
 
+## Run all the debug test for a specific target give in parameter
+
 FILE=$(basename $1 ".deca")
+
 echo $FILE
+
 read -n 1 -s -r -p " Press any key to start"
 echo -e "\ntest_lex -----------------------------"
 test_lex $FILE".deca"
