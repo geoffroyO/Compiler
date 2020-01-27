@@ -1,11 +1,10 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.FloatType;
-import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.deca.context.FloatType;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
@@ -18,31 +17,25 @@ import fr.ensimag.ima.pseudocode.instructions.LOAD;
  * @date 01/01/2020
  */
 public class ConvFloat extends AbstractUnaryExpr {
-    public ConvFloat(AbstractExpr operand) {
-        super(operand);
-    }
+	public ConvFloat(AbstractExpr operand) {
+		super(operand);
+	}
 
-    @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) {
-        // - create or get the float type
-        Type type = new FloatType((compiler.getSymbols().create("float")));
-        // - set this terminal's type to float
-        setType(type);
-        return type;
-    }
+	@Override
+	public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) {
+		this.setType(compiler.getEnvTypes().get(compiler.getSymbols().create("float")).getType());
+		return getType();
+	}
 
+	@Override
+	protected String getOperatorName() {
+		return "/* conv float */";
+	}
 
-    @Override
-    protected String getOperatorName() {
-        return "/* conv float */";
-    }
-
-    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
-        this.getOperand().codeGenExpr(compiler, register);
-
-        compiler.addInstruction(new LOAD(register, Register.R0));
-        compiler.addInstruction(new FLOAT(Register.R0, register));
-    }
+	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+		this.getOperand().codeGenExpr(compiler, register);
+		compiler.addInstruction(new LOAD(register, Register.R0));
+		compiler.addInstruction(new FLOAT(Register.R0, register));
+	}
 
 }

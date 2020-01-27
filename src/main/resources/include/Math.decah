@@ -26,22 +26,23 @@ class Utility {
 	float a13 = 0.00000000000000000000000038;
 	float pi = 3.14159265358979323846264338;
 
-
 	int floor(float x){
 		int res = (int)(x / (2 * pi));
 		return res;
 	}
 
-
 	float sqrt(float a){
+		if (a < 0) {
+			println("The number given as parameter of sqrt() is negative. As exceptions can't be thrown, the execution's result is unknown");
+		}
 		float x = 1;
-        int n = 1000;
+    	int n = 1000;
 
-        while (n>=0){
-            x = 0.5*(x+a/x);
-            n = n - 1;
-        }
-        return x;
+   		while (n>=0){
+      		x = 0.5*(x+a/x);
+      		n = n - 1;
+   		}
+    	return x;
 	}
 
 	float bound(float x){
@@ -164,7 +165,7 @@ class Math {
 
     float asin(float x) {
     	Utility u = new Utility();
-		float tmp = u.sqrt(1-x*x);
+	float tmp = u.sqrt(1-x*x);
     	float res = this.atan(x/tmp);
     	return res;
     }
@@ -172,58 +173,58 @@ class Math {
 
     float ulp(float x) {
 
-        	float tmp;
-        	float val_min = 0.00000000000000000000000000000000000001175494351;
+    	float tmp;
+    	float val_min = 0.00000000000000000000000000000000000001175494351;
 
-        	int exp = -127;
-        	float puiss_2 = 0.00000000000000000000000000000000000001175494351;
+    	int exp = -127;
+    	float puiss_2 = 0.00000000000000000000000000000000000001175494351;
 
-        	float res = 0.00000000000000000000000000000000000001175494351; //init à val min
-        	int k = -125;
-        	int i = 1;
+    	float res = 0.00000000000000000000000000000000000001175494351; //init à val min
+    	int k = -125;
+    	int i = 1;
 
-			tmp = x;
+		tmp = x;
 
-        	//trouver l'exposant:
-        	while (puiss_2 < tmp){
-        		puiss_2 = puiss_2 * 2; //faire un SHL
-        		exp = exp + 1;
-        	}
+    	//trouver l'exposant:
+    	while (puiss_2 < tmp){
+    		puiss_2 = puiss_2 * 2; //faire un SHL
+    		exp = exp + 1;
+    	}
 
-        	puiss_2 = puiss_2 / 2; //faire un SHR
+    	puiss_2 = puiss_2 / 2; //faire un SHR
 
-        	if (exp == 128) { //on a l'infini
-        		println("Le résultat est: ");
-        		res = tmp;
-        		println(res);
-        	}
-        	if (exp == -127) { //on a 0
-        		println("Le résultat est: ");
-        		println(res);
-        	}
+    	if (exp == 128) { //on a l'infini
+    		println("Le résultat est: ");
+    		res = tmp;
+    		println(res);
+    	}
+    	if (exp == -127) { //on a 0
+    		println("Le résultat est: ");
+    		println(res);
+    	}
 
-        	exp = exp - 23;
+    	exp = exp - 23;
 
-        	if (exp >= -126) {
-        		while (k <= exp) { //calcul de la puissance de 2
-        			res = res*2; //faire SHR
-        			k = k + 1;
-        		}
-        		println("Le résultat est: ");
-        		println(res);
-        	}
+    	if (exp >= -126) {
+    		while (k <= exp) { //calcul de la puissance de 2
+    			res = res*2; //faire SHR
+    			k = k + 1;
+    		}
+    		println("Le résultat est: ");
+    		println(res);
+    	}
 
-        	if (exp < -126) {
-        		res = 1;
-        		k = exp - 103;
-        		while (i <= k){
-        			res = res/2; //faire SHL
-        			i = i + 1;
-        		}
-        		println("Le résultat est: ");
-        		println(res);
-        	}
-        	return res;
+    	if (exp < -126) {
+    		res = 1;
+    		k = exp - 103;
+    		while (i <= k){
+    			res = res/2; //faire SHL
+    			i = i + 1;
+    		}
+    		println("Le résultat est: ");
+    		println(res);
+    	}
+    	return res;
     }
 
 

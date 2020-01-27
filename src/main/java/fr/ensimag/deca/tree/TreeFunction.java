@@ -9,5 +9,5 @@ package fr.ensimag.deca.tree;
  * @date 01/01/2020
  */
 public interface TreeFunction {
-    void apply(Tree t);
+	void apply(Tree t);
 }

@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -7,68 +9,57 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
-import java.io.PrintStream;
-
 public class MethodBody extends AbstractMethodBody {
 
-    final private ListDeclVar ListDeclVar;
-    final private ListInst ListInst;
+	final private ListDeclVar ListDeclVar;
+	final private ListInst ListInst;
 
-    public MethodBody(ListDeclVar listDeclVar, ListInst listInst) {
-        this.ListDeclVar = listDeclVar;
-        this.ListInst = listInst;
-    }
+	public MethodBody(ListDeclVar listDeclVar, ListInst listInst) {
+		this.ListDeclVar = listDeclVar;
+		this.ListInst = listInst;
+	}
 
-    @Override
-    public void decompile(IndentPrintStream s) {
-        ListDeclVar.decompile(s);
-        ListInst.decompile(s);
-    }
+	@Override
+	public void decompile(IndentPrintStream s) {
+		ListDeclVar.decompile(s);
+		ListInst.decompile(s);
+	}
 
-    @Override
-    protected void verifyBody(DecacCompiler compiler, ClassDefinition current, EnvironmentExp localEnv, Type returnType)
-            throws ContextualError {
-        try {
+	@Override
+	protected void verifyBody(DecacCompiler compiler, ClassDefinition current, EnvironmentExp localEnv, Type returnType)
+			throws ContextualError {
+		compiler.setContainsReturn(false);
+		this.ListDeclVar.verifyListDeclVariable(compiler, localEnv, current);
+		this.ListInst.verifyListInst(compiler, localEnv, current, returnType);
 
-            compiler.setContainsReturn(false);
+		if (!compiler.isContainsReturn() && !returnType.isVoid()) {
+			// Return expected by nothing give
+			throw new ContextualError("Return value is expected is this method", this.getLocation());
+		}
+	}
 
-            this.ListDeclVar.verifyListDeclVariable(compiler, localEnv, current);
-            this.ListInst.verifyListInst(compiler, localEnv, current, returnType);
+	@Override
+	protected void prettyPrintChildren(PrintStream s, String prefix) {
+		this.ListDeclVar.prettyPrint(s, prefix, false);
+		this.ListInst.prettyPrint(s, prefix, true);
+	}
 
-            if (!compiler.isContainsReturn() && !returnType.isVoid())
-            {
-                // Return expected by nothing give
-                throw  new ContextualError("Return value is expected is this method", this.getLocation());
-            }
+	@Override
+	protected void iterChildren(TreeFunction f) {
+		this.ListDeclVar.iter(f);
+		this.ListInst.iter(f);
+	}
 
-        } catch (ContextualError e) {
-            throw e;
-        }
-    }
+	@Override
+	protected void codeGenMethodBody(DecacCompiler compiler) {
 
-    @Override
-    protected void prettyPrintChildren(PrintStream s, String prefix) {
-        this.ListDeclVar.prettyPrint(s, prefix, false);
-        this.ListInst.prettyPrint(s, prefix, true);
-    }
+		// - declaration of the local variable
+		ListDeclVar.codeGenDeclVar(compiler);
 
-    @Override
-    protected void iterChildren(TreeFunction f) {
-        this.ListDeclVar.iter(f);
-        this.ListInst.iter(f);
-    }
+		// - this is the number of variable that we will push at the top of the stack
+		compiler.getRegM().incLocalVariable(ListDeclVar.size());
 
-    @Override
-    protected void codeGenMethodBody(DecacCompiler compiler) {
+		ListInst.codeGenListInst(compiler);
 
-        // - declaration of the local variable
-        ListDeclVar.codeGenDeclVar(compiler);
-
-        // - this is the number of variable that we will push at the top of the stack
-        compiler.getRegM().incLocalVariable(ListDeclVar.size());
-
-        ListInst.codeGenListInst(compiler);
-
-
-    }
+	}
 }

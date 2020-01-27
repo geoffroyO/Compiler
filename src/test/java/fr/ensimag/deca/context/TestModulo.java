@@ -24,14 +24,12 @@ public class TestModulo {
     final Type INT = new IntType(null);
     final Type FLOAT = new FloatType(null);
 
-    
     @Mock
     AbstractExpr intexpr1;
     @Mock
     AbstractExpr intexpr2;
     @Mock
     AbstractExpr floatexpr1;
-
 
     DecacCompiler compiler;
     
@@ -58,7 +56,6 @@ public class TestModulo {
     public void testIntFloat() throws ContextualError {
     	Modulo t = new Modulo(intexpr1, floatexpr1);
         t.verifyExpr(compiler, null, null);
-
         // check that the mocks have been called properly.
         verify(intexpr1).verifyExpr(compiler, null, null);
         verify(floatexpr1).verifyExpr(compiler, null, null);
@@ -68,10 +65,8 @@ public class TestModulo {
     public void testFloatInt() throws ContextualError {
     	Modulo t = new Modulo(floatexpr1, intexpr1);
         t.verifyExpr(compiler, null, null);
-
         // check that the mocks have been called properly.
         verify(intexpr1).verifyExpr(compiler, null, null);
         verify(floatexpr1).verifyExpr(compiler, null, null);
     }   
-
 }

@@ -26,9 +26,7 @@ public class TestPlusAdvanced {
 
     final Type INT = new IntType(null);
     final Type FLOAT = new FloatType(null);
-
     final ConvFloat CONVFLOAT = new ConvFloat(new IntLiteral(4));
-
 
     @Mock
     AbstractExpr intexpr1;
@@ -38,8 +36,6 @@ public class TestPlusAdvanced {
     AbstractExpr floatexpr1;
     @Mock
     AbstractExpr floatexpr2;
-
-
 
     DecacCompiler compiler;
     
@@ -52,7 +48,6 @@ public class TestPlusAdvanced {
         when(floatexpr1.verifyExpr(compiler, null, null)).thenReturn(FLOAT);
         when(floatexpr2.verifyExpr(compiler, null, null)).thenReturn(FLOAT);
         when(intexpr1.verifyRValue(compiler, null, null, FLOAT)).thenReturn(CONVFLOAT);
-
     }
 
     @Test
