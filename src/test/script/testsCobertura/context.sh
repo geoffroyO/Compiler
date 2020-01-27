@@ -61,7 +61,7 @@ do
 
    
 
-    pSuccess "NO ERROR FIND \t $nameFile"
+    pSuccess "NO ERROR FOUND \t $nameFile"
     rm $LOGS/$nameFileOutput.*
 
 done
@@ -104,11 +104,11 @@ do
     if (cat $LOGS/$nameFileOutput.error | grep -q -e "$nameFile.deca:$lineError")
     # Compare the error find with the error expected
     then 
-        pSuccess "ERROR FIND \t $nameFile"
+        pSuccess "ERROR FOUND \t $nameFile"
         echo $lineError >> $LOGS/$nameFileOutput.error 
         #rm $LOGS/$nameFileOutput.*
     else 
-        pFailure "ERROR NOT FIND \t $nameFile"
+        pFailure "ERROR NOT FOUND \t $nameFile"
         pFailure "SHOW LOGS"
         pFailure "$LOGS/$nameFileOutput.error"
         pFailure "$LOGS/$nameFileOutput.output"

@@ -51,51 +51,6 @@ Then to execute the assembly file type:
 [-P] To execute multiple .deca files at once (parallel).
 > **$ deca -P file1.deca file2.deca**
 
-### Shell programs | TODO below ↓↓↓↓
-
-To lunch the decodor on all images in /images directoy you can use the script **run_decoder** in shell directory by typing in terminal in main directoy:
-
-> **$ scripts/run_decoder**
-
-This shell program will preview a progress bar for each process in addition to the time of execution and after finishing converting the jpeg image to ppm or pgm it will preview the JPEG image and the PPM or PGM image.
-
-To lunch all included tests you can use the script **run_tests** in shell directory by typing in terminal in main directoy:
-
-> **$ scripts/run_tests**
-
-In this script you need press any key in order to pass to next test.
-
-To lunch valgrind for all images in /images you can use the script **run_valgrind** in shell directory by typing in terminal in main directoy:
-
-> **$ scripts/run_valgrind**
-
-In this script you need press any key in order to pass to next test.
-
-### Documentation | TODO below ↓↓↓↓
-
-The code is fully documented and the project directory already includes a file created by **Doxygen** to generate the documentation, you can find it in the **/doc** directory.
-
-To re-generate the documentation just open terminal at project folder root and type:
->$ TODO
-
-### Archive contents  | TODO below ↓↓↓↓
-
-> **/archive** contains the main executable + the tests executables.
-
-> **/docs** contains all images in .jpg/.jpeg formats.
-
-> **/documentation** contains project_doc.doxy file to re-generate the documentation, in addition to modules diagram image.
-
-> **/examples** contains libraries header files.
-
-> **/planning** contains the object files generated while compiling the projects.
-
-> **/src** contains all the source code of the project.
-
-> **/pom.xml** contains 
-
-> **README.md** : _current file._
-
 
 ### Built using
 IntelliJ IDEA and Eclipse.

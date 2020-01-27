@@ -128,12 +128,8 @@ public class DeclMethod extends AbstractDeclMethod {
 	public void decompile(IndentPrintStream s) {
 		s.print(type.getName().getName() + " " + name.getName().getName() + '(');
 		listDeclParam.decompile(s);
-		s.print(") {");
-		s.println();
-		s.indent();
+		s.println(")");
 		body.decompile(s);
-		s.unindent();
-		s.println("}");
 	}
 
 	@Override

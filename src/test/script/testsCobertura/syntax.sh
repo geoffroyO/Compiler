@@ -67,7 +67,7 @@ do
         exit 1
     fi
 
-    pSuccess "NO ERROR FIND \t $nameFile"
+    pSuccess "NO ERROR FOUND \t $nameFile"
     rm $LOGS/$nameFileOutput.*
     # Delete the logs
 

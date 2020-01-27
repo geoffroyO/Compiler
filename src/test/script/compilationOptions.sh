@@ -93,7 +93,6 @@ printf "{ \n \tint a = 5;\n \ta = " > test.deca
 for i in `seq 1 50`;
 do
     printf " a + " >> test.deca
-    #echo "a = a + 5;" >> test.deca
 done
 printf " 0;\n}" >> test.deca
 
