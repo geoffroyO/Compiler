@@ -57,15 +57,28 @@ public class MethodCall extends AbstractLValue {
 		}
 		for (int i = 0; i < sig.size(); i++) {
 			Type paramType = params.getList().get(i).verifyExpr(compiler, localEnv, currentClass);
-
+			Type sigType = sig.getList().get(i);
+			
+			// If we are dealing with classes, the type given in a method call don't need to
+			// be the same as the signature, they can also be subclasses.
+			if (sigType.isClass()) {
+				if (!paramType.asClassType("CE", getLocation()).isSubClassOf(sigType.asClassType("CE", getLocation()))){
+					throw new ContextualError("Contextual error, the parameters given don't respect the method signature (classType error)",
+							getLocation());
+				}
+				else {
+					continue;
+				}
+			}
+//			if (sigType.isFloat() && paramType.isInt()) {
+//				continue;
+//			}
 			if (!sig.getList().get(i).sameType(paramType)) {
 				throw new ContextualError("Contextual error, the parameters given don't respect the method signature",
 						getLocation());
 			}
 		}
-
 		this.setType(classInstanceEnv.get(methodName.getName()).getType());
-
 		return this.getType();
 	}
 
