@@ -21,6 +21,15 @@ public class Equals extends AbstractOpExactCmp {
 		return "==";
 	}
 
+	/**
+	 * Generates assembly code to evaluate the operation
+	 *
+	 * @param compiler
+	 * @param regResult
+	 * 		The method stores the result in the register result in the assembly code.
+	 * @param reg
+	 * 		This register is a temporary register used to stock some result
+	 */
 	@Override
 	protected void codeGenOp(DecacCompiler compiler, GPRegister reg, GPRegister regResult) {
 		compiler.addInstruction(new CMP(regResult, reg));

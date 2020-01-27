@@ -216,6 +216,12 @@ public abstract class AbstractExpr extends AbstractInst {
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 	}
 
+
+	/**
+	 * Decompilation of an expression.
+	 *
+	 * @param s
+	 */
 	@Override
 	protected void decompileInst(IndentPrintStream s) {
 		decompile(s);

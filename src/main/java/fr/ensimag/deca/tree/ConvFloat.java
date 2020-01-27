@@ -32,6 +32,15 @@ public class ConvFloat extends AbstractUnaryExpr {
 		return "/* conv float */";
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate the expression and cast the result to a float.
+	 *
+	 * @param compiler
+	 *
+	 * @param register
+	 *  The result is stored in register
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		this.getOperand().codeGenExpr(compiler, register);
 		compiler.addInstruction(new LOAD(register, Register.R0));

@@ -62,6 +62,13 @@ public class FloatLiteral extends AbstractExpr {
 		// leaf node => nothing to do
 	}
 
+	/**
+	 * Generates assembly code to evaluate the operation.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		We store the value of the float in this register
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		compiler.addInstruction(new LOAD(new ImmediateFloat(getValue()), register));
 	}

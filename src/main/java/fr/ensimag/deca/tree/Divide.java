@@ -72,6 +72,16 @@ public class Divide extends AbstractOpArith {
 		return "/";
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate the operation
+	 *
+	 * @param compiler
+	 * @param result
+	 * 		The method stores the result in the register result in the assembly code.
+	 * @param register
+	 * 		This register is a temporary register used to stock some result
+	 */
 	@Override
 	protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
 		if (!compiler.getCompilerOptions().isNoCheck()) {

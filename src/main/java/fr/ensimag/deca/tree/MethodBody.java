@@ -55,6 +55,12 @@ public class MethodBody extends AbstractMethodBody {
 		this.ListInst.iter(f);
 	}
 
+
+	/**
+	 * Generate assembly code for the body of a method.
+	 *
+	 * @param compiler
+	 */
 	@Override
 	protected void codeGenMethodBody(DecacCompiler compiler) {
 

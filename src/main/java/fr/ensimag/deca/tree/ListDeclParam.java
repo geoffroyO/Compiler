@@ -35,6 +35,12 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
 		return signature;
 	}
 
+
+	/**
+	 *  Generate the assembly code for the list of declaration of the parameters
+	 *
+	 * @param compiler
+	 */
 	public void codeGenListDeclParam(DecacCompiler compiler) {
 		int indexLb = -3;
 		for (AbstractDeclParam declParam : getList()) {

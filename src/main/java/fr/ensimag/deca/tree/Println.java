@@ -19,6 +19,12 @@ public class Println extends AbstractPrint {
 		super(printHex, arguments);
 	}
 
+	/**
+	 * Generates assembly code to evaluate the expressions so as to print them.
+	 *
+	 * @param compiler
+	 *
+	 */
 	@Override
 	protected void codeGenInst(DecacCompiler compiler) {
 		super.codeGenInst(compiler);

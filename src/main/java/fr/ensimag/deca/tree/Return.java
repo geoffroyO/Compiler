@@ -42,6 +42,12 @@ public class Return extends AbstractInst {
 		compiler.setContainsReturn(true);
 	}
 
+
+	/**
+	 * Generates assembly code to store the result of a method in R0 and jump to the end of the method.
+	 *
+	 * @param compiler
+	 */
 	@Override
 	protected void codeGenInst(DecacCompiler compiler) {
 		expr.codeGenExpr(compiler, Register.R0); // on retourne le résultat dans R0

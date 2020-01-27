@@ -42,6 +42,13 @@ public class StringLiteral extends AbstractStringLiteral {
 		return getType();
 	}
 
+	/**
+	 * Generates assembly code to evaluate and print the expression.
+	 *
+	 * @param compiler
+	 * @param printHex
+	 * 		Boolean that considers if the user wants a printx or a simple print(ln)
+	 */
 	@Override
 	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
 		compiler.addInstruction(new WSTR(new ImmediateString(value)));

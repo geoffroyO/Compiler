@@ -68,6 +68,11 @@ public class Program extends AbstractProgram {
 		LOG.debug("verify program: end");
 	}
 
+	/**
+	 * Generates assembly code for the first pass, object class
+	 *
+	 * @param compiler
+	 */
 	private void codeGenFPDeclObjectClass(DecacCompiler compiler) {
 		ClassDefinition object = (ClassDefinition) compiler.getEnvTypes().get(compiler.getSymbols().create("Object"));
 		object.setAddrClass(new RegisterOffset(1, Register.LB));
@@ -84,6 +89,12 @@ public class Program extends AbstractProgram {
 
 	}
 
+
+	/**
+	 * Generates assembly declaration of Equals.
+	 *
+	 * @param compiler
+	 */
 	private void codeGenDeclObjectMethod(DecacCompiler compiler) {
 		compiler.addComment("Initialisation des champs de la classe de " + "Object");
 		compiler.addLabel(new Label("init." + "Object"));
@@ -104,6 +115,12 @@ public class Program extends AbstractProgram {
 
 	}
 
+
+	/**
+	 * Generates assembly code for the "global method" instanceOf.
+	 *
+	 * @param compiler
+	 */
 	private void codeInstanceOf(DecacCompiler compiler) {
 		// - declaring the label needed for the function
 		Label beginningIo = new Label("begin_instance_of");
@@ -146,6 +163,11 @@ public class Program extends AbstractProgram {
 
 	}
 
+	/**
+	 * Generates assembly code for the entire program.
+	 *
+	 * @param compiler
+	 */
 	@Override
 	public void codeGenProgram(DecacCompiler compiler) {
 		compiler.addComment("Class program");
@@ -177,11 +199,23 @@ public class Program extends AbstractProgram {
 		codeInstanceOf(compiler);
 	}
 
+
+	/**
+	 * Generates assembly code for the errors of the program.
+	 *
+	 * @param compiler
+	 */
 	private void codeGenOutErrors(DecacCompiler compiler) {
 		compiler.addInstruction(new WNL());
 		compiler.addInstruction(new ERROR());
 	}
 
+
+	/**
+	 * Generates assembly code for the errors of the program.
+	 *
+	 * @param compiler
+	 */
 	private void codeGenErrors(DecacCompiler compiler) {
 		compiler.addLabel(new Label("dereferencement.null"));
 		compiler.addInstruction(new WSTR(new ImmediateString("Error: dereferencement.null")));

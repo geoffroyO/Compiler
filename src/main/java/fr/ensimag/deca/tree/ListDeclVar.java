@@ -47,6 +47,11 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
 		}
 	}
 
+	/**
+	 *  Generate the assembly code for the declaration of variables.
+	 *
+	 * @param compiler
+	 */
 	public void codeGenDeclVar(DecacCompiler compiler) {
 		for (AbstractDeclVar i : getList()) {
 			i.codeGenDeclVar(compiler);

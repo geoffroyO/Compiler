@@ -44,6 +44,14 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
 
 	protected abstract void codeGenBoolLazy(DecacCompiler compiler, Label label, GPRegister result);
 
+
+	/**
+	 * Generates assembly code to evaluate the boolean  expression in a lazy way.
+	 *
+	 * @param compiler
+	 * @param result
+	 * 		The method stores the result in the register result in the assembly code.
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister result) {
 		// - boolean label for the beginning of the expression
 		Label label = compiler.getLabM().genEndOpBoolLabel();
