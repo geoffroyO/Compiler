@@ -177,6 +177,12 @@ class Math {
 			println("The number given as parameter of asin() is outside [-1,1]");
 			error();
 		}
+		if (x == -1.0){
+			return -u.pi;
+		}
+		if (x == 1.0){
+			return u.pi;
+		}
 		tmp = u.sqrt(1-x*x);
     	res = this.atan(x/tmp);
     	return res;

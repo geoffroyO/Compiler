@@ -3,9 +3,9 @@
 
 {
 	Math m = new Math();
-	Utility u = new Utility();
+	//Utility u = new Utility();
 	//println(u.sqrt(-1.0));
-	println(m.asin(2.0));
+	println(m.asin(-1.0));
 
 	
 }
