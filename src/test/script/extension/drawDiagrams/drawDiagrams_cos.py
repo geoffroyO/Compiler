@@ -53,7 +53,7 @@ def print_plot(values):
         points_num.append(i)
         cos_values.append(math.cos(i))
         diff_values.append(values[index] - cos_values[index])
-        print("test", diff_values[index])
+#         print("test", diff_values[index])
         cos_values[index] = round(cos_values[index], 5)
 
     plt.plot(points_num, values, color='blue', label="Notre cos")

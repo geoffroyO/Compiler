@@ -53,7 +53,7 @@ def print_plot(values):
         points_num.append(i)
         sin_values.append(math.sin(i))
         diff_values.append(values[index] - sin_values[index])
-        print("test", diff_values[index])
+#         print("test", diff_values[index])
         sin_values[index] = round(sin_values[index], 5)
 
     plt.plot(points_num, values, color='blue', label="Notre sin")

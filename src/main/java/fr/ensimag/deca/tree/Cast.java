@@ -86,7 +86,9 @@ public class Cast extends AbstractExpr {
 		} else if (nameVar.getType().isFloat() && type.getType().isInt()) {
 			// - casting float --> integer
 			compiler.addInstruction(new INT(register, register), "casting float --> integer");
-		} else {
+		} else if (nameVar.getType().isFloat() && type.getType().isFloat() || nameVar.getType().isInt() && type.getType().isInt()) {
+			// - nothing to do
+		}else {
 			// - get the address of the class to cast in the stack
 			DAddr addr = type.getClassDefinition().getAddrClass();
 			// - label to jump in if cast possible

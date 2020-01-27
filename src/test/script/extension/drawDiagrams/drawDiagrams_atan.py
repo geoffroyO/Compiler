@@ -53,7 +53,7 @@ def print_plot(values):
         points_num.append(i)
         atan_values.append(math.atan(i))
         diff_values.append(values[index] - atan_values[index])
-        print("test", diff_values[index])
+#         print("test", diff_values[index])
         atan_values[index] = round(atan_values[index], 5)
 
     plt.plot(points_num, values, color='blue', label="Notre atan")
