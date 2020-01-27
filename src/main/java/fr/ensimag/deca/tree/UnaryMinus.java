@@ -28,7 +28,7 @@ public class UnaryMinus extends AbstractUnaryExpr {
 		Type opType = this.getOperand().verifyExpr(compiler, localEnv, currentClass);
 		// - verify operand type is float or int
 		if (!opType.isInt() && !opType.isFloat()) {
-			throw new ContextualError("Unary Minus Operand should be boolean", getLocation());
+			throw new ContextualError("Unary Minus Operand should be numeric numbers", getLocation());
 		}
 		this.setType(opType);
 		return opType;
