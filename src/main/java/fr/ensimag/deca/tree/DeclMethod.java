@@ -193,7 +193,7 @@ public class DeclMethod extends AbstractDeclMethod {
         }
 
         // - get back to ancient stack
-        compiler.addInstruction(new SUBSP(new ImmediateInteger(compiler.getRegM().getLocalVariable()+1)));
+        compiler.addInstruction(new SUBSP(new ImmediateInteger(compiler.getRegM().getLocalVariable())));
 
         // - return
         compiler.addInstruction(new RTS());
