@@ -43,20 +43,23 @@ def record_word_cnt(words, bag_of_words):
 
 def print_plot(values):
     """
-    to print the plot for both algorithms.
-    to use it just call the function anywhere in main().
+    print plot
     """
     points_num = []
-    sin_values = []
+    asin_values = []
+    diff_values = []
     length = len(values)
-    for i in numpy.arange(-100.14, 100.14, 0.5):
+    for index, i in enumerate(numpy.arange(-0.99, 1, 0.01)):
         points_num.append(i)
-        sin_values.append(math.cos(i))
-        # print(i)
+        asin_values.append(math.asin(i))
+        diff_values.append(values[index] - asin_values[index])
+        print("test", diff_values[index])
+        asin_values[index] = round(asin_values[index], 5)
 
-    plt.plot(points_num, values, color='blue', label="The recursive + memory algorithm")
-    plt.plot(points_num, sin_values, color='orange', label="The gouping algorithm")
-    # plt.legend(bbox_to_anchor=(0.03, 0.95), loc=2, borderaxespad=0.)
+    plt.plot(points_num, values, color='blue', label="Notre asin")
+    plt.plot(points_num, asin_values, color='orange', label="Le vrai asin")
+#     plt.plot(points_num, diff_values, color='green', label="La différence")
+    plt.legend(bbox_to_anchor=(0.03, 0.95), loc=2, borderaxespad=0.)
     plt.ylabel('y')
     plt.xlabel('x')
     plt.show()

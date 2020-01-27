@@ -5,7 +5,7 @@
 
 	float counter = -3.14;
 	while(counter <= 3.14){
-		println(m.cos(counter));
+		println(m.sin(counter));
 		counter = counter + 0.025;
 	}
 
