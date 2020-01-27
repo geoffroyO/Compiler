@@ -62,10 +62,10 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
 
 			// - proceed to the final operation
 			codeGenOp(compiler, right, result);
-			
+
 			// - free the register
 			compiler.getRegM().freeRegister(right);
-			
+
 		} else {
 			GPRegister right = Register.getR(compiler.getRegM().getNb_registers());
 			getLeftOperand().codeGenExpr(compiler, result);

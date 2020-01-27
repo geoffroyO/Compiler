@@ -35,11 +35,8 @@ public class BooleanLiteral extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        // - create or get the boolean type
-        Type type = new BooleanType((compiler.getSymbols().create("boolean")));
-        // - set this terminal's type to boolean
-        setType(type);
-        return type;
+        setType(compiler.getEnvTypes().get(compiler.getSymbols().create("boolean")).getType());
+        return getType();
     }
 
 

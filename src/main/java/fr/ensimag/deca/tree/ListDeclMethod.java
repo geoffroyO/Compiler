@@ -1,12 +1,12 @@
 package fr.ensimag.deca.tree;
 
+import java.util.Iterator;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
-
-import java.util.Iterator;
 
 public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
 
@@ -43,11 +43,7 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
 	protected void verifyListMethodBody(DecacCompiler compiler, ClassDefinition current) throws ContextualError {
 		Iterator<AbstractDeclMethod> it = this.iterator();
 		while (it.hasNext()) {
-			try {
-				it.next().verifyMethodBody(compiler, current);
-			} catch (ContextualError e) {
-				throw e;
-			}
+			it.next().verifyMethodBody(compiler, current);
 		}
 	}
 
