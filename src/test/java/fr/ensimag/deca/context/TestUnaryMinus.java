@@ -39,7 +39,6 @@ public class TestUnaryMinus {
     @Mock
     AbstractExpr floatexpr1;
 
-
     DecacCompiler compiler;
     
     @Before

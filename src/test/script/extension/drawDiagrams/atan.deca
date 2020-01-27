@@ -1,0 +1,12 @@
+#include "Math.decah"
+
+{
+	Math m = new Math();
+
+	float counter = -1000.14;
+	while(counter <= 1000.14){
+		println(m.atan(counter));
+		counter = counter + 2.5;
+	}
+
+}

@@ -1,19 +1,24 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.*;
-import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.tools.DecacInternalError;
-import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.GPRegister;
 import java.io.PrintStream;
 
+import org.apache.commons.lang.Validate;
+
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
+import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.EnvironmentType;
+import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
-import org.apache.commons.lang.Validate;
 
 /**
  * Expression, i.e. anything that has a value.
@@ -22,7 +27,7 @@ import org.apache.commons.lang.Validate;
  * @date 01/01/2020
  */
 public abstract class AbstractExpr extends AbstractInst {
-	
+
 	/**
 	 * @return true if the expression does not correspond to any concrete token in
 	 *         the source code (and should be decompiled to the empty string).
@@ -59,12 +64,14 @@ public abstract class AbstractExpr extends AbstractInst {
 	 * implements non-terminals "expr" and "lvalue" of [SyntaxeContextuelle] in pass
 	 * 3
 	 *
-	 * @param compiler     (contains the "env_types" attribute)
-	 * @param localEnv     Environment in which the expression should be checked
-	 *                     (corresponds to the "env_exp" attribute)
-	 * @param currentClass Definition of the class containing the expression
-	 *                     (corresponds to the "class" attribute) is null in the
-	 *                     main bloc.
+	 * @param compiler
+	 *            (contains the "env_types" attribute)
+	 * @param localEnv
+	 *            Environment in which the expression should be checked (corresponds
+	 *            to the "env_exp" attribute)
+	 * @param currentClass
+	 *            Definition of the class containing the expression (corresponds to
+	 *            the "class" attribute) is null in the main bloc.
 	 * @return the Type of the expression (corresponds to the "type" attribute)
 	 */
 	public abstract Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass)
@@ -75,10 +82,14 @@ public abstract class AbstractExpr extends AbstractInst {
 	 * 
 	 * implements non-terminal "rvalue" of [SyntaxeContextuelle] in pass 3
 	 *
-	 * @param compiler     contains the "env_types" attribute
-	 * @param localEnv     corresponds to the "env_exp" attribute
-	 * @param currentClass corresponds to the "class" attribute
-	 * @param expectedType corresponds to the "type1" attribute
+	 * @param compiler
+	 *            contains the "env_types" attribute
+	 * @param localEnv
+	 *            corresponds to the "env_exp" attribute
+	 * @param currentClass
+	 *            corresponds to the "class" attribute
+	 * @param expectedType
+	 *            corresponds to the "type1" attribute
 	 * @return this with an additional ConvFloat if needed...
 	 */
 	public AbstractExpr verifyRValue(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass,
@@ -87,19 +98,17 @@ public abstract class AbstractExpr extends AbstractInst {
 		// - verify Right value
 		Type obtainedType = this.verifyExpr(compiler, localEnv, currentClass);
 
-		// TODO factorisation "assign compatible"
-
 		// - verify expectedType and obtainedType values types are the same (verify when
 		// they are classes)
 		if (obtainedType.isClass()) {
 			if (!expectedType.isClass()) {
-				throw new ContextualError("Types incompatible, expecting a class type on the left side",
+				throw new ContextualError("Contextual error : expecting a class type on the left side",
 						this.getLocation());
 			} else {
-				ClassType currentType = obtainedType.asClassType("error TO DO", getLocation());
+				ClassType currentType = obtainedType.asClassType("Contextual error", getLocation());
 				// - check if the obtainedType is a child for the expectedType
-				if (!currentType.isSubClassOf(expectedType.asClassType("error TO DO", getLocation()))) {
-					throw new ContextualError("incompatible class types", this.getLocation());
+				if (!currentType.isSubClassOf(expectedType.asClassType("Contextual error", getLocation()))) {
+					throw new ContextualError("Contextual error : Incompatible class types", this.getLocation());
 				}
 			}
 
@@ -112,7 +121,7 @@ public abstract class AbstractExpr extends AbstractInst {
 				convToFloat.verifyExpr(compiler, localEnv, currentClass);
 				return convToFloat;
 			} else {
-				throw new ContextualError("Types don't match! ", this.getLocation());
+				throw new ContextualError("Contextual error : Types don't match! ", this.getLocation());
 			}
 		}
 
@@ -131,9 +140,11 @@ public abstract class AbstractExpr extends AbstractInst {
 	/**
 	 * Verify the expression as a condition, i.e. check that the type is boolean.
 	 *
-	 * @param localEnv     Environment in which the condition should be checked.
-	 * @param currentClass Definition of the class containing the expression, or
-	 *                     null in the main program.
+	 * @param localEnv
+	 *            Environment in which the condition should be checked.
+	 * @param currentClass
+	 *            Definition of the class containing the expression, or null in the
+	 *            main program.
 	 */
 	void verifyCondition(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass)
 			throws ContextualError {
@@ -171,8 +182,8 @@ public abstract class AbstractExpr extends AbstractInst {
 			// We don't have 2 objects
 			return (false);
 		}
-		return (env.get(T2.getName()).getType().asClassType("Error to use T2 as classType", getLocation()).
-				isSubClassOf(env.get(T1.getName()).getType().asClassType("Error to use T1 as classType", getLocation())));
+		return (env.get(T2.getName()).getType().asClassType("Error to use T2 as classType", getLocation()).isSubClassOf(
+				env.get(T1.getName()).getType().asClassType("Error to use T1 as classType", getLocation())));
 	}
 
 	/**
@@ -221,5 +232,4 @@ public abstract class AbstractExpr extends AbstractInst {
 			s.println();
 		}
 	}
-
 }

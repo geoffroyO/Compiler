@@ -1,0 +1,11 @@
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    float x = 0.0;
+    while (x < 1000.0)
+    {
+        println(m.cos(x));
+        x = x + 0.5;
+    }
+}

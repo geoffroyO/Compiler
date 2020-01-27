@@ -1,6 +1,5 @@
 package fr.ensimag.deca.tree;
 
-
 import java.io.PrintStream;
 
 import fr.ensimag.deca.DecacCompiler;
@@ -15,97 +14,90 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
-import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
-import fr.ensimag.ima.pseudocode.instructions.WINT;
 
-public class Selection extends AbstractLValue{
-    private AbstractExpr instance;
-    private AbstractIdentifier field;
+public class Selection extends AbstractLValue {
+	private AbstractExpr instance;
+	private AbstractIdentifier field;
 
-    public Selection(AbstractExpr instance, AbstractIdentifier field) {
-        this.instance = instance;
-        this.field = field;
-    }
+	public Selection(AbstractExpr instance, AbstractIdentifier field) {
+		this.instance = instance;
+		this.field = field;
+	}
 
-    @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {    	
-        ClassType instanceType = instance.verifyExpr(compiler, localEnv, currentClass).asClassType("The left member of 'instance.field' must be the instance of a class", getLocation());    
-        EnvironmentExp instanceEnv = instanceType.getDefinition().getMembers();
-        Type fieldType = field.verifyExpr(compiler, instanceEnv, currentClass);  
-        if (field.getFieldDefinition().getVisibility() ==  Visibility.PROTECTED) {
-        	if (currentClass == null) {
-        		throw new ContextualError("It is not allowed to access a protected field outside a class", getLocation());
-        	}   	
-        	if (! currentClass.getType().isSubClassOf(field.getFieldDefinition().getContainingClass().getType())) {
-        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
-        				+ "'field is protected and the current class (where instance.field is called) is not a subClass of the class where 'field' is declared", this.getLocation());
-        	}
-        	if (!(instanceType).isSubClassOf(currentClass.getType())) {
-        		throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
-        				+ "'field' is protected and the class of 'instance' is not a subClass of the current class (where instance.field is called)", this.getLocation());
-        	}
-        }        
-        this.setType(fieldType);  
-        return(this.getType());
-    }
+	@Override
+	public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass)
+			throws ContextualError {
+		ClassType instanceType = instance.verifyExpr(compiler, localEnv, currentClass)
+				.asClassType("Contextual error : The left member of 'instance.field' must be the instance of a class", getLocation());
+		EnvironmentExp instanceEnv = instanceType.getDefinition().getMembers();
+		Type fieldType = field.verifyExpr(compiler, instanceEnv, currentClass);
+		if (field.getFieldDefinition().getVisibility() == Visibility.PROTECTED) {
+			if (currentClass == null) {
+				throw new ContextualError("Contextual error : It is not allowed to access a protected field outside a class",
+						getLocation());
+			}
+			if (!currentClass.getType().isSubClassOf(field.getFieldDefinition().getContainingClass().getType())) {
+				throw new ContextualError("Contextual error(3.66) with an expression of type 'instance.field' \n"
+						+ "'field is protected and the current class (where instance.field is called) is not a subClass of the class where 'field' is declared",
+						this.getLocation());
+			}
+			if (!(instanceType).isSubClassOf(currentClass.getType())) {
+				throw new ContextualError("Contextual error(3.66) with an expression of type 'instance.field' \n"
+						+ "'field' is protected and the class of 'instance' is not a subClass of the current class (where instance.field is called)",
+						this.getLocation());
+			}
+		}
+		this.setType(fieldType);
+		return (this.getType());
+	}
 
-    @Override
-    public void decompile(IndentPrintStream s) {
-        instance.decompile(s);
-        s.print(".");
-        field.decompile(s);
-    }
+	@Override
+	public void decompile(IndentPrintStream s) {
+		instance.decompile(s);
+		s.print(".");
+		field.decompile(s);
+	}
 
-    @Override
-    protected void prettyPrintChildren(PrintStream s, String prefix) {
-        instance.prettyPrint(s, prefix, false);
-        field.prettyPrint(s, prefix, true);
-    }
+	@Override
+	protected void prettyPrintChildren(PrintStream s, String prefix) {
+		instance.prettyPrint(s, prefix, false);
+		field.prettyPrint(s, prefix, true);
+	}
 
-    @Override
-    protected void iterChildren(TreeFunction f) {
+	@Override
+	protected void iterChildren(TreeFunction f) {
 
-    }
+	}
 
-    @Override
-    protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
+	@Override
+	protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
+		// - evaluate the expression
+		instance.codeGenExpr(compiler, register);
+		// - check if object is null
+		compiler.referenceErr(register);
+		// - return the address in register
+		compiler.addInstruction(new LEA(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
+	}
 
-        // - evaluate the expression
-        instance.codeGenExpr(compiler, register);
+	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+		// - evaluate the expression
+		instance.codeGenExpr(compiler, register);
+		// - check if object is null
+		compiler.referenceErr(register);
+		// - load the value in register
+		compiler.addInstruction(
+				new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
+	}
 
-        // - check if object is null
-        compiler.referenceErr(register);
-
-        // - return the address in register
-        compiler.addInstruction(new LEA(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
-    }
-
-    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
-
-        // - evaluate the expression
-        instance.codeGenExpr(compiler, register);
-
-        // - check if object is null
-        compiler.referenceErr(register);
-
-        // - load the value in register
-        compiler.addInstruction(new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
-    }
-
-    @Override
-    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
-
-        GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
-        instance.codeGenExpr(compiler, addrReg);
-
-        // - check if object is null
-        compiler.referenceErr(addrReg);
-
-        compiler.addInstruction(new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), addrReg), Register.R1));
-
-        super.codeGenPrint(compiler, printHex);
-
-        compiler.getRegM().freeRegister(addrReg);
-    }
+	@Override
+	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+		GPRegister addrReg = compiler.getRegM().findFreeGPRegister();
+		instance.codeGenExpr(compiler, addrReg);
+		// - check if object is null
+		compiler.referenceErr(addrReg);
+		compiler.addInstruction(
+				new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), addrReg), Register.R1));
+		super.codeGenPrint(compiler, printHex);
+		compiler.getRegM().freeRegister(addrReg);
+	}
 }

@@ -141,7 +141,7 @@ do
         pFailure "$LOGS/$nameFileOutput.execution.error"
         pFailure "$LOGS/$nameFileOutput.execution.output"
 
-        exit 1
+        #exit 1
     fi
 
     rm ${i%.*}.ass

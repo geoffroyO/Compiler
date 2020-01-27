@@ -1,0 +1,12 @@
+#include "Math.decah"
+
+{
+	Math m = new Math();
+
+	float counter = -3.14;
+	while(counter <= 3.14){
+		println(m.cos(counter));
+		counter = counter + 0.025;
+	}
+
+}

@@ -36,7 +36,7 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
 
 		// - verify if both types are booleans
 		if (!leftOpType.isBoolean() && !rightOpType.isBoolean()) {
-			throw new ContextualError("Operands should be booleans", getLocation());
+			throw new ContextualError("Contextual error : Operands for a Boolean operation should be booleans", getLocation());
 		}
 		this.setType(leftOpType);
 		return leftOpType;
@@ -62,10 +62,10 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
 
 			// - proceed to the final operation
 			codeGenOp(compiler, right, result);
-			
+
 			// - free the register
 			compiler.getRegM().freeRegister(right);
-			
+
 		} else {
 			GPRegister right = Register.getR(compiler.getRegM().getNb_registers());
 			getLeftOperand().codeGenExpr(compiler, result);
