@@ -18,11 +18,8 @@ public class Null extends AbstractExpr {
 	@Override
 	public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass)
 			throws ContextualError {
-		// - create or get the null type
-		Type type = new NullType(compiler.getSymbols().create("null"));
-		// - set this terminal's type
-		this.setType(type);
-		return type;
+		this.setType(compiler.getEnvTypes().get(compiler.getSymbols().create("null")).getType());
+		return getType();
 	}
 
 	@Override
