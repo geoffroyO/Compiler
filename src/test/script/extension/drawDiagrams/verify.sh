@@ -5,5 +5,5 @@ decac $FILE".deca"
 ima $FILE.ass > $FILE".txt"
 ./drawDiagrams_$FILE.py $FILE".txt"
 
-rm *.ass
-rm *.txt
+#rm *.ass
+#rm *.txt
