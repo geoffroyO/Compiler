@@ -154,6 +154,8 @@ public class DeclMethod extends AbstractDeclMethod {
 
 	@Override
 	protected void codeGenDeclMethod(DecacCompiler compiler) {
+		// - enter the label of ending to jump during the return
+		compiler.getLabM().setEndCurrentLabel("End." + name.getMethodDefinition().getLabel());
 		// - beginning of the code for the method
 		compiler.addLabel(new Label("code." + name.getMethodDefinition().getLabel()));
 		// - declaration of the parameters

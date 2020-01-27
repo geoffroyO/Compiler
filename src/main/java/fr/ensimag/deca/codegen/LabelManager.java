@@ -9,6 +9,7 @@ public class LabelManager {
 	private int elseLabelIndex;
 	private int methodLabelIndex;
 	private int opBoolIndex;
+	private Label endCurrentLabel;
 	
 	static private String whileLabel = "while";
 	static private String endWhileLabel= "end_while";
@@ -18,6 +19,7 @@ public class LabelManager {
 	static private String endElseLabel = "end_else";
 	static private String methodLabel = "method";
 	static private String opBoolLabel = "end_cond";
+
 	
     public LabelManager() {
     	whileLabelIndex = 0;
@@ -61,5 +63,14 @@ public class LabelManager {
     	String name =  opBoolLabel + "_" + opBoolIndex;
     	opBoolIndex++;
     	return(new Label(name));
+	}
+
+
+	public void setEndCurrentLabel(String label) {
+    	endCurrentLabel = new Label(label);
+	}
+
+	public Label getEndCurrentLabel() {
+    	return endCurrentLabel;
 	}
 }
