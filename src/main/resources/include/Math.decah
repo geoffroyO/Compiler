@@ -545,11 +545,8 @@ class Math {
 
     	if (exp == 128) { //on a l'infini
     		res = tmp;
-    		println(res);
     	}
     	if (exp == -127) { //on a 0
-    		println("Le résultat est: ");
-    		println(res);
     	}
 
     	exp = exp - 23;
@@ -559,8 +556,6 @@ class Math {
     			res = res*2; //faire SHR
     			k = k + 1;
     		}
-    		println("Le résultat est: ");
-    		println(res);
     	}
 
     	if (exp < -126) {
@@ -570,8 +565,6 @@ class Math {
     			res = res/2; //faire SHL
     			i = i + 1;
     		}
-    		println("Le résultat est: ");
-    		println(res);
     	}
     	return res;
     }
