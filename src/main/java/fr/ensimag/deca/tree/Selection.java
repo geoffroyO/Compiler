@@ -28,21 +28,21 @@ public class Selection extends AbstractLValue {
 	public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass)
 			throws ContextualError {
 		ClassType instanceType = instance.verifyExpr(compiler, localEnv, currentClass)
-				.asClassType("The left member of 'instance.field' must be the instance of a class", getLocation());
+				.asClassType("Contextual error : The left member of 'instance.field' must be the instance of a class", getLocation());
 		EnvironmentExp instanceEnv = instanceType.getDefinition().getMembers();
 		Type fieldType = field.verifyExpr(compiler, instanceEnv, currentClass);
 		if (field.getFieldDefinition().getVisibility() == Visibility.PROTECTED) {
 			if (currentClass == null) {
-				throw new ContextualError("It is not allowed to access a protected field outside a class",
+				throw new ContextualError("Contextual error : It is not allowed to access a protected field outside a class",
 						getLocation());
 			}
 			if (!currentClass.getType().isSubClassOf(field.getFieldDefinition().getContainingClass().getType())) {
-				throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
+				throw new ContextualError("Contextual error(3.66) with an expression of type 'instance.field' \n"
 						+ "'field is protected and the current class (where instance.field is called) is not a subClass of the class where 'field' is declared",
 						this.getLocation());
 			}
 			if (!(instanceType).isSubClassOf(currentClass.getType())) {
-				throw new ContextualError("3.66 : Contextual error with an expression of type 'instance.field' \n"
+				throw new ContextualError("Contextual error(3.66) with an expression of type 'instance.field' \n"
 						+ "'field' is protected and the class of 'instance' is not a subClass of the current class (where instance.field is called)",
 						this.getLocation());
 			}

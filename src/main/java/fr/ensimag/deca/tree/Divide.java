@@ -36,7 +36,7 @@ public class Divide extends AbstractOpArith {
 
 		// - verify if types are not int or float
 		if ((!leftOpType.isInt() && !leftOpType.isFloat()) || (!rightOpType.isFloat() && !rightOpType.isInt())) {
-			throw new ContextualError("Operands should be int or float", getLocation());
+			throw new ContextualError("Contextual error : Operands for Divide operation should be int or float", getLocation());
 		} else {
 			// - if left operand is float and right operand is int
 			if (leftOpType.isFloat() && rightOpType.isInt()) {

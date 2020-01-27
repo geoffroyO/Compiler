@@ -28,7 +28,7 @@ public abstract class AbstractOpIneq extends AbstractOpCmp {
 
 		// - if operands are NOT numeric numbers
 		if ((!leftOpType.isInt() && !leftOpType.isFloat()) || (!rightOpType.isInt() && !rightOpType.isFloat())) {
-			throw new ContextualError("Operands must be numeric numbers", getLocation());
+			throw new ContextualError("Contextual error : Operands for an Inequality must be numeric numbers", getLocation());
 
 		} else if (leftOpType.isFloat() && rightOpType.isInt()) {
 			// - convert right operand to float

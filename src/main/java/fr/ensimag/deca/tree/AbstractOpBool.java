@@ -36,7 +36,7 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
 
 		// - verify if both types are booleans
 		if (!leftOpType.isBoolean() && !rightOpType.isBoolean()) {
-			throw new ContextualError("Operands should be booleans", getLocation());
+			throw new ContextualError("Contextual error : Operands for a Boolean operation should be booleans", getLocation());
 		}
 		this.setType(leftOpType);
 		return leftOpType;

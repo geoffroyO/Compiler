@@ -86,14 +86,14 @@ public class DeclVar extends AbstractDeclVar {
 		// - initialization or not
 		initialization.codeGenInit(compiler, register, type);
 
-		// - set an adress to the new variable and store it in the variable definition
+		// - set an address to the new variable and store it in the variable definition
 		varName.getVariableDefinition()
 				.setOperand(new RegisterOffset(compiler.getRegM().getLB(), compiler.getRegM().getBase()));
 
 		// - store the variable in the stack
 		initialization.codeGenStInit(compiler, register);
 
-		// - incr LB
+		// - increments LB
 		compiler.getRegM().incLB();
 
 		// - free the register

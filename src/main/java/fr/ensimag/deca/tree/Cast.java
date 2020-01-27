@@ -46,11 +46,11 @@ public class Cast extends AbstractExpr {
 		EnvironmentType env = compiler.getEnvTypes();
 		if (varType.isVoid()) {
 			// Can't cast void element
-			throw new ContextualError("Object can't be void", getLocation());
+			throw new ContextualError("Contextual error : An object to cast can't be void", getLocation());
 		}
 		if (!(this.assignCompatible(env, castType, varType) || this.assignCompatible(env, varType, castType))) {
 			// not cast_compatible
-			throw new ContextualError("The elements aren't cast compatible.", getLocation());
+			throw new ContextualError("Contextual error : The elements aren't cast compatible.", getLocation());
 		}
 		this.setType(castType);
 		return (this.getType());

@@ -68,7 +68,7 @@ public class DeclClass extends AbstractDeclClass {
 
 		// if the super class is not a class
 		if (!superType.isClass()) {
-			throw new ContextualError("super is not a class", getLocation());
+			throw new ContextualError("Contextual error : super is not a class", getLocation());
 		}
 
 		// - get the super class definition from env_types to create the definition of
@@ -82,7 +82,7 @@ public class DeclClass extends AbstractDeclClass {
 		try {
 			compiler.getEnvTypes().declare(this.className.getName(), definition);
 		} catch (EnvironmentType.DoubleDefException d) {
-			throw new ContextualError("Class name was already defined", this.getLocation());
+			throw new ContextualError("Contextual error : Class name was already defined", this.getLocation());
 		}
 
 		// - set the type and definition for the new class

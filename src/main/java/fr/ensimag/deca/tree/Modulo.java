@@ -36,7 +36,7 @@ public class Modulo extends AbstractOpArith {
 			this.setType(rightOpType);
 			return rightOpType;
 		} else {
-			throw new ContextualError("Operands must be int [Modulo] int", getLocation());
+			throw new ContextualError("Contextual error : Operands must be int [Modulo] int", getLocation());
 		}
 	}
 

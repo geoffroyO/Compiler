@@ -48,7 +48,7 @@ public class MethodCall extends AbstractLValue {
 		// class environment
 		methodName.verifyExpr(compiler, classInstanceEnv, currentClass);
 
-		Signature sig = classInstanceEnv.get(methodName.getName()).asMethodDefinition("error TO DO", getLocation())
+		Signature sig = classInstanceEnv.get(methodName.getName()).asMethodDefinition("Contextual error", getLocation())
 				.getSignature();
 
 		if (sig.size() != params.getList().size()) {

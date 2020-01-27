@@ -30,11 +30,11 @@ public class Return extends AbstractInst {
 			Type returnType) throws ContextualError {
 		// - verify if return is void
 		if (returnType.isVoid()) {
-			throw new ContextualError("Return type can't be \"void\" (3.24)", getLocation());
+			throw new ContextualError("Contextual error : Return type can't be \"void\" (3.24)", getLocation());
 		}
 		Type type = this.expr.verifyExpr(compiler, localEnv, currentClass);
 		if (!type.sameType(returnType)) {
-			throw new ContextualError("Current return type doesn't match original function type",
+			throw new ContextualError("Contextual error : Current return type doesn't match original function type",
 					this.expr.getLocation());
 		}
 		compiler.setContainsReturn(true);
