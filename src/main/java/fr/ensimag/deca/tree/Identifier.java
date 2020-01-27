@@ -234,7 +234,7 @@ public class Identifier extends AbstractIdentifier {
 
 	@Override
 	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
-		DAddr addr = this.getVariableDefinition().getOperand();
+		DAddr addr = this.getExpDefinition().getOperand();
 		compiler.addInstruction(new LOAD(addr, Register.R1));
 		super.codeGenPrint(compiler, printHex);
 	}

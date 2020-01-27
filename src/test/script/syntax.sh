@@ -92,7 +92,7 @@ do
         exit 1
     fi
 
-    pSuccess "NO ERROR FIND \t $nameFile"
+    pSuccess "NO ERROR FOUND \t $nameFile"
     rm $LOGS/$nameFileOutput.*
     # Delete the logs
 
@@ -144,7 +144,7 @@ do
     if (cat $LOGS/$nameFileOutput.error | grep -q -e "$nameFile.deca:$lineError")
     # Compare the error find with the error expected
     then 
-        pSuccess "ERROR FIND \t $nameFile"
+        pSuccess "ERROR FOUND \t $nameFile"
         rm $LOGS/$nameFileOutput.*
     else 
 
@@ -153,11 +153,11 @@ do
 
         if ((cat $LOGS/$nameFileOutput.error | grep -q -e ".decah:$lineError")&(cat $LOGS/$nameFileOutput.error | grep -q -e "Circular include"))
         then 
-            pSuccess "FIND Circular include \t $nameFile"
+            pSuccess "FOUND Circular include \t $nameFile"
             rm $LOGS/$nameFileOutput.*
         else
 
-            pFailure "ERROR NOT FIND \t $nameFile"
+            pFailure "ERROR NOT FOUND \t $nameFile"
             pFailure "SHOW LOGS"
             pFailure "$LOGS/$nameFileOutput.error"
             pFailure "$LOGS/$nameFileOutput.output"
