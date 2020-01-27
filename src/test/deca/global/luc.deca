@@ -17,6 +17,6 @@ class B extends A {
 	X x = new X();
 	B b = new B();
 
-	x.met(1);
+	x.met(1.0);
 	
 }

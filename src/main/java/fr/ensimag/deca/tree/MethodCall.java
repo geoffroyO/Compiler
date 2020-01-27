@@ -70,9 +70,7 @@ public class MethodCall extends AbstractLValue {
 					continue;
 				}
 			}
-//			if (sigType.isFloat() && paramType.isInt()) {
-//				continue;
-//			}
+
 			if (!sig.getList().get(i).sameType(paramType)) {
 				throw new ContextualError("Contextual error, the parameters given don't respect the method signature",
 						getLocation());
