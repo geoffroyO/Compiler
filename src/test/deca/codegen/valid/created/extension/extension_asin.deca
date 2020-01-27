@@ -1,11 +1,11 @@
 // Description:
 //      Test de l'extension
 // Resultats:
-//      asin() = 
+//      asin(0.0) = 2.31248e-08
 
 #include "Math.decah"
 
 {
     Math m = new Math();
-    println("asin() = ", m.asin());
+    println("asin(0.0) = ", m.asin(0.0));
 }

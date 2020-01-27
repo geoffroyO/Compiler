@@ -1,11 +1,11 @@
 // Description:
 //      Test de l'extension
 // Resultats:
-//      atan() = 
+//      atan(0.0) = 2.31248e-08
 
 #include "Math.decah"
 
 {
     Math m = new Math();
-    println("atan() = ", m.atan());
+    println("atan(0.0) = ", m.atan(0.0));
 }
