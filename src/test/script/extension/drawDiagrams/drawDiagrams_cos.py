@@ -23,7 +23,7 @@ def main():
    for i in range(0, len(values)):
        values[i] = values[i].replace(',', '.')
        values[i] = float(values[i])
-       print(values[i])
+#        print(values[i])
 
    print_plot(values)
 
