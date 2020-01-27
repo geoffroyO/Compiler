@@ -30,14 +30,18 @@ class Utility {
 		int res = (int)(x / (2 * pi));
 		return res;
 	}
+	
+	void error() asm("ERROR");
 
 	float sqrt(float a){
-		if (a < 0) {
-			println("The number given as parameter of sqrt() is negative. As exceptions can't be thrown, the execution's result is unknown");
-		}
 		float x = 1;
     	int n = 1000;
-
+		
+		if (a < 0.0) {
+			println("The number given as parameter of sqrt() is negative");
+			error();
+		}
+		
    		while (n>=0){
       		x = 0.5*(x+a/x);
       		n = n - 1;
@@ -162,11 +166,19 @@ class Math {
 
         return res;
     }
+    
+    void error() asm("ERROR");
 
     float asin(float x) {
-    	Utility u = new Utility();
-	float tmp = u.sqrt(1-x*x);
-    	float res = this.atan(x/tmp);
+        Utility u = new Utility();
+        float tmp;
+        float res;
+    	if (x < -1.0 || x > 1.0) {
+			println("The number given as parameter of asin() is outside [-1,1]");
+			error();
+		}
+		tmp = u.sqrt(1-x*x);
+    	res = this.atan(x/tmp);
     	return res;
     }
 

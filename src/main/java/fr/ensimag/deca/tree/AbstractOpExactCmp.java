@@ -36,7 +36,7 @@ public abstract class AbstractOpExactCmp extends AbstractOpCmp {
 			this.setLeftOperand(this.getLeftOperand().verifyRValue(compiler, localEnv, currentClass, rightOpType));
 
 		} else if (!leftOpType.sameType(rightOpType)) {
-			throw new ContextualError("Operands should be the same type", getLocation());
+			throw new ContextualError("Contextual error : Operands for a Comparison should be the same type", getLocation());
 		}
 
 		Type type = new BooleanType(compiler.getSymbols().create("boolean"));

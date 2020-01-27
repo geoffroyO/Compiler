@@ -23,7 +23,7 @@ public class This extends AbstractLValue {
 	public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass)
 			throws ContextualError {
 		if (currentClass == null) {
-			throw new ContextualError("'this' must be used inside a class", this.getLocation());
+			throw new ContextualError("Contextual error : 'this' must be used inside a class", this.getLocation());
 		}
 		Type type = currentClass.getType();
 		this.setType(type);

@@ -51,7 +51,7 @@ public abstract class AbstractPrint extends AbstractInst {
 			// - (3.31)
 			// - verify (type) variable : should be only int, float or string
 			if (!type.isInt() && !type.isFloat() && !type.isString()) {
-				throw new ContextualError("Error expr should be Int, Float or String", this.getLocation());
+				throw new ContextualError("Contextual error : only integers, floats and strings can be printed", this.getLocation());
 			}
 		}
 	}

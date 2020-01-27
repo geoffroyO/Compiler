@@ -37,7 +37,7 @@ public class InstanceOf extends AbstractExpr {
 
 		// Test if the elements can be compare
 		if (!(instanceType.isNull() || (instanceType.isClass() && classNameType.isClass()))) {
-			throw new ContextualError("Contextual error, instanceof must be called with an instance and a class",
+			throw new ContextualError("Contextual error : instanceof must be called with an instance and a class",
 					getLocation());
 		}
 		return (this.getType());

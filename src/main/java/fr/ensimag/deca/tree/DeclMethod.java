@@ -77,7 +77,7 @@ public class DeclMethod extends AbstractDeclMethod {
 			this.name.setDefinition(newMethodDefinition);
 
 		} catch (EnvironmentExp.DoubleDefException d) {
-			throw new ContextualError("Method already defined in the class", this.name.getLocation());
+			throw new ContextualError("Contextual error : Method already defined in the class", this.name.getLocation());
 		}
 		// - verify if there is an @override by checking if the signatures of same
 		// methods in different levels
@@ -89,21 +89,21 @@ public class DeclMethod extends AbstractDeclMethod {
 			Type type2 = definitionInSuper.getType();
 			if (type1.isClass() && type2.isClass()) {
 				if (!((ClassType) type1).isSubClassOf((ClassType) type2)) {
-					throw new ContextualError("Return type should be subtype of the super class method",
+					throw new ContextualError("Contextual error : Return type should be subtype of the super class method",
 							this.getLocation());
 				}
 			} else if (!newMethodDefinition.getType().sameType(definitionInSuper.getType())) {
-				throw new ContextualError("Return type should be the same or subtype of the super class method",
+				throw new ContextualError("Contextual error : Return type should be the same or subtype of the super class method",
 						this.getLocation());
 			}
 			if (newMethodDefinition.getSignature().size() != definitionInSuper.getSignature().size()) {
-				throw new ContextualError("Override method with different signature", this.getLocation());
+				throw new ContextualError("Contextual error : Override method with different signature", this.getLocation());
 			} else {
 				// - compare arguments in the 2 methods
 				for (int i = 0; i < newMethodDefinition.getSignature().size(); i++) {
 					if (!newMethodDefinition.getSignature().paramNumber(i)
 							.sameType(definitionInSuper.getSignature().paramNumber(i))) {
-						throw new ContextualError("Override method with different signature", this.getLocation());
+						throw new ContextualError("Contextual error : Override method with different signature", this.getLocation());
 					}
 				}
 			}

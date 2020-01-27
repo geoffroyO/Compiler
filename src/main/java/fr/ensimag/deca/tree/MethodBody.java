@@ -34,7 +34,7 @@ public class MethodBody extends AbstractMethodBody {
 
 		if (!compiler.isContainsReturn() && !returnType.isVoid()) {
 			// Return expected by nothing give
-			throw new ContextualError("Return value is expected is this method", this.getLocation());
+			throw new ContextualError("Contextual error : Return value is expected is this method", this.getLocation());
 		}
 	}
 

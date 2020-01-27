@@ -28,7 +28,7 @@ public class Not extends AbstractUnaryExpr {
 		Type opType = this.getOperand().verifyExpr(compiler, localEnv, currentClass);
 		// - // - verify condition if its type is boolean
 		if (!opType.isBoolean()) {
-			throw new ContextualError("Unary Minus Operand should be int or float", getLocation());
+			throw new ContextualError("Contextual error : Unary Minus Operand should be int or float", getLocation());
 		}
 		this.setType(opType);
 		return opType;

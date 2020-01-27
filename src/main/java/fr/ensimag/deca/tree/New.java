@@ -32,7 +32,7 @@ public class New extends AbstractExpr {
 		Type identType = type.verifyType(compiler);
 		// - check if the class is defined
 		if (!identType.isClass()) {
-			throw new ContextualError("The identifier is not a class", this.type.getLocation());
+			throw new ContextualError("Contextual error : The identifier is not a class", this.type.getLocation());
 		}
 		this.setType(identType);
 		return identType;

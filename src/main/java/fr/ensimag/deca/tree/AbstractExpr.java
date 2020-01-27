@@ -102,13 +102,13 @@ public abstract class AbstractExpr extends AbstractInst {
 		// they are classes)
 		if (obtainedType.isClass()) {
 			if (!expectedType.isClass()) {
-				throw new ContextualError("Types incompatible, expecting a class type on the left side",
+				throw new ContextualError("Contextual error : expecting a class type on the left side",
 						this.getLocation());
 			} else {
-				ClassType currentType = obtainedType.asClassType("error TO DO", getLocation());
+				ClassType currentType = obtainedType.asClassType("Contextual error", getLocation());
 				// - check if the obtainedType is a child for the expectedType
-				if (!currentType.isSubClassOf(expectedType.asClassType("error TO DO", getLocation()))) {
-					throw new ContextualError("incompatible class types", this.getLocation());
+				if (!currentType.isSubClassOf(expectedType.asClassType("Contextual error", getLocation()))) {
+					throw new ContextualError("Contextual error : Incompatible class types", this.getLocation());
 				}
 			}
 
@@ -121,7 +121,7 @@ public abstract class AbstractExpr extends AbstractInst {
 				convToFloat.verifyExpr(compiler, localEnv, currentClass);
 				return convToFloat;
 			} else {
-				throw new ContextualError("Types don't match! ", this.getLocation());
+				throw new ContextualError("Contextual error : Types don't match! ", this.getLocation());
 			}
 		}
 

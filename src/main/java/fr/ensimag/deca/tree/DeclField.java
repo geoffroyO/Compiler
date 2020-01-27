@@ -52,10 +52,10 @@ public class DeclField extends AbstractDeclField {
 			// - add the variable to the local environment (Symbol -> definition)
 			envExpSuper.declare(this.fieldName.getName(), definition);
 		} catch (EnvironmentExp.DoubleDefException doubleDefinition) {
-			throw new ContextualError("Field already defined in this class", this.getLocation());
+			throw new ContextualError("Contextual error : Field already defined in this class", this.getLocation());
 		}
 		if (type.isVoid()) {
-			throw new ContextualError("Field can't be void", this.getLocation());
+			throw new ContextualError("Contextual error : Field can't be void", this.getLocation());
 		}
 		// verify initialization for the declared variable
 		this.initialization.verifyInitialization(compiler, type, envExpSuper, memberOf);

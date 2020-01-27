@@ -186,9 +186,6 @@ public class Identifier extends AbstractIdentifier {
 	public Type verifyType(DecacCompiler compiler) throws ContextualError {
 
 		// - Verify that the type exists in envTypes
-		// System.out.println(this.getName());
-		// System.out.println(compiler.getEnvTypes().get(this.getName()));
-		// Symbol type = compiler.getSymbols().create();
 		if (compiler.getEnvTypes().get(this.getName()) == null) {
 			throw new ContextualError("Type not defined", this.getLocation());
 		}
@@ -239,7 +236,6 @@ public class Identifier extends AbstractIdentifier {
 	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
 		DAddr addr = this.getVariableDefinition().getOperand();
 		compiler.addInstruction(new LOAD(addr, Register.R1));
-
 		super.codeGenPrint(compiler, printHex);
 	}
 

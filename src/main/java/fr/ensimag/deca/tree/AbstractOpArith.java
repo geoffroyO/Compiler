@@ -35,7 +35,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
 		// - verify if types are not integer or float
 		if ((!leftOpType.isInt() && !leftOpType.isFloat()) || (!rightOpType.isFloat() && !rightOpType.isInt())) {
-			throw new ContextualError("Operands should be int or float", getLocation());
+			throw new ContextualError("Contextual error : Operands for an Arithmetic operation should be int or float", getLocation());
 		} else {
 
 			// - if left operand is float and right operand is integer
