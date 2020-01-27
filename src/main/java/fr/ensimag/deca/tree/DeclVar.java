@@ -12,11 +12,8 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
-import fr.ensimag.ima.pseudocode.instructions.ADDSP;
-import fr.ensimag.ima.pseudocode.instructions.TSTO;
 
 /**
  * @author gl13
@@ -106,13 +103,13 @@ public class DeclVar extends AbstractDeclVar {
         initialization.codeGenInit(compiler, register, type);
 
         // - set an adress to the new variable and store it in the variable definition
-        varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.getRegM().getGB(), compiler.getRegM().getBase()));
+        varName.getVariableDefinition().setOperand(new RegisterOffset(compiler.getRegM().getLB(), compiler.getRegM().getBase()));
 
         // - store the variable in the stack
         initialization.codeGenStInit(compiler, register);
 
-        // - incr GB
-        compiler.getRegM().incrGB();
+        // - incr LB
+        compiler.getRegM().incLB();
 
         // - free the register
         compiler.getRegM().freeRegister(register);

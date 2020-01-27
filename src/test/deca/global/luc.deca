@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class A
 {
 	int x;
@@ -9,6 +10,35 @@ class A
 {
 	A a = new A();
 	println(a.getX());
+=======
+class A {
+	int x;
+	int y;
+	
+	int getX(){
+		return x;
+	}
+	
+	void setX(int x) {
+		this.x = x;
+	}
+	
+	void crier(int x) {
+		println("AAAAAAAAAAAAA");
+	}
+}
+
+class B extends A {
+	
+	void crier(){
+		println("BBBBBBBBBBBBBBBB");
+	}
+>>>>>>> f1d18987bbf310378c5760861ca6a8a7bbd4ca39
 }
 
 
+{
+
+	A b = new A();
+	b.crier(0);
+}

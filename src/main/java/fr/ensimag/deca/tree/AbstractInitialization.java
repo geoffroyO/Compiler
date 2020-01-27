@@ -46,7 +46,7 @@ public abstract class AbstractInitialization extends Tree {
     protected void codeGenStInit(DecacCompiler compiler, GPRegister register) {
 
         // - store the result at the top of the stack
-        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.getRegM().getGB(), compiler.getRegM().getBase())));
+        compiler.addInstruction(new STORE(register, new RegisterOffset(compiler.getRegM().getLB(), compiler.getRegM().getBase())));
     }
 
 }

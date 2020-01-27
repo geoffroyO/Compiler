@@ -6,9 +6,6 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.ima.pseudocode.instructions.*;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.io.PrintStream;
 
 /**
@@ -114,17 +111,17 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addComment("Code de la table des méthodes de la classe " + className.getName());
 
         // - save some place in the stack + 1 for object method
-        compiler.getRegM().incrSP(maxIndex + 1);
+        compiler.getRegM().incSP(maxIndex + 1);
 
         // - set and adress to the current class
-        DAddr addrClass = new RegisterOffset(compiler.getRegM().getGB(), compiler.getRegM().getBase());
+        DAddr addrClass = new RegisterOffset(compiler.getRegM().getLB(), compiler.getRegM().getBase());
         className.getClassDefinition().setAddrClass(addrClass);
 
         // - fill the stack, entering the address of the super class
         DAddr addrSuperClass = superClass.getClassDefinition().getAddrClass();
         compiler.addInstruction(new LEA(addrSuperClass, Register.R0));
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), compiler.getRegM().getBase())));
-        compiler.getRegM().incrGB();
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getLB(), compiler.getRegM().getBase())));
+        compiler.getRegM().incLB();
 
         // - code for the object method
         codeGenFpDeclObjectMethod(compiler);
@@ -136,18 +133,18 @@ public class DeclClass extends AbstractDeclClass {
         for (int index = 2; index <= maxIndex; index++) {
             Label labelCodeMethod = tableMethods.getFromMT(index).getLabel();
             compiler.addInstruction(new LOAD(new LabelOperand( new Label("code." + labelCodeMethod)), Register.R0));
-            compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB() + index - 2, compiler.getRegM().getBase())));
+            compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getLB() + index - 2, compiler.getRegM().getBase())));
         }
 
-        // - increment GB
-        compiler.getRegM().incrGB(maxIndex-1);
+        // - increment LB
+        compiler.getRegM().incLB(maxIndex-1);
     }
 
     private void codeGenFpDeclObjectMethod(DecacCompiler compiler) {
         Label labelCodeMethod = new Label("code.Object.equals");
         compiler.addInstruction(new LOAD(new LabelOperand(labelCodeMethod), Register.R0));
-        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getGB(), compiler.getRegM().getBase())));
-        compiler.getRegM().incrGB();
+        compiler.addInstruction(new STORE(Register.R0, new RegisterOffset(compiler.getRegM().getLB(), compiler.getRegM().getBase())));
+        compiler.getRegM().incLB();
     }
 
     protected void codeGenDeclClass(DecacCompiler compiler) {

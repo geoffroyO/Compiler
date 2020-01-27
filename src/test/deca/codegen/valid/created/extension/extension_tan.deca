@@ -1,0 +1,11 @@
+// Description:
+//      Test de l'extension
+// Resultats:
+//      tan() = 
+
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    println("tan() = ", m.tan());
+}
