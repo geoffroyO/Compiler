@@ -53,7 +53,7 @@ def print_plot(values):
         points_num.append(i)
         asin_values.append(math.asin(i))
         diff_values.append(values[index] - asin_values[index])
-        print("test", diff_values[index])
+#         print("test", diff_values[index])
         asin_values[index] = round(asin_values[index], 5)
 
     plt.plot(points_num, values, color='blue', label="Notre asin")
