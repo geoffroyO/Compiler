@@ -35,44 +35,44 @@
   <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> java.util.Iterator;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;9</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;10</td>  <td class="nbHitsCovered">&nbsp;15999</td>  <td class="src"><pre class="src">&nbsp;<span class="keyword">public</span> <span class="keyword">class</span> ListDeclField <span class="keyword">extends</span> TreeList&lt;AbstractDeclField&gt; {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;10</td>  <td class="nbHitsCovered">&nbsp;16057</td>  <td class="src"><pre class="src">&nbsp;<span class="keyword">public</span> <span class="keyword">class</span> ListDeclField <span class="keyword">extends</span> TreeList&lt;AbstractDeclField&gt; {</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;11</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;12</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    @Override</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;13</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">void</span> decompile(IndentPrintStream s) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;14</td>  <td class="nbHitsCovered"><a title="Line 14: Conditional coverage 100% (2/2).">&nbsp;5322</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 14: Conditional coverage 100% (2/2).">        <span class="keyword">for</span> (AbstractDeclField f : <span class="keyword">this</span>.getList()){</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;15</td>  <td class="nbHitsCovered">&nbsp;10251</td>  <td class="src"><pre class="src">&nbsp;            f.decompile(s);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;16</td>  <td class="nbHitsCovered">&nbsp;10251</td>  <td class="src"><pre class="src">&nbsp;            s.println();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;17</td>  <td class="nbHitsCovered">&nbsp;10251</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;18</td>  <td class="nbHitsCovered">&nbsp;5322</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;14</td>  <td class="nbHitsCovered"><a title="Line 14: Conditional coverage 100% (2/2).">&nbsp;5354</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 14: Conditional coverage 100% (2/2).">        <span class="keyword">for</span> (AbstractDeclField f : <span class="keyword">this</span>.getList()){</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;15</td>  <td class="nbHitsCovered">&nbsp;10378</td>  <td class="src"><pre class="src">&nbsp;            f.decompile(s);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;16</td>  <td class="nbHitsCovered">&nbsp;10378</td>  <td class="src"><pre class="src">&nbsp;            s.println();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;17</td>  <td class="nbHitsCovered">&nbsp;10378</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;18</td>  <td class="nbHitsCovered">&nbsp;5354</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;19</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;20</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">void</span> verifyListDeclField(DecacCompiler compiler, ClassDefinition memberOf) <span class="keyword">throws</span> ContextualError {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;21</td>  <td class="nbHitsUncovered"><a title="Line 21: Conditional coverage 50% (1/2).">&nbsp;10634</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 21: Conditional coverage 50% (1/2).">        <span class="keyword">if</span> (memberOf.getSuperClass() != <span class="keyword">null</span>) {</a></span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;22</td>  <td class="nbHitsCovered">&nbsp;10634</td>  <td class="src"><pre class="src">&nbsp;            memberOf.setNumberOfFields(memberOf.getSuperClass().getNumberOfFields() + memberOf.getNumberOfFields());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;21</td>  <td class="nbHitsUncovered"><a title="Line 21: Conditional coverage 50% (1/2).">&nbsp;10656</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 21: Conditional coverage 50% (1/2).">        <span class="keyword">if</span> (memberOf.getSuperClass() != <span class="keyword">null</span>) {</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;22</td>  <td class="nbHitsCovered">&nbsp;10656</td>  <td class="src"><pre class="src">&nbsp;            memberOf.setNumberOfFields(memberOf.getSuperClass().getNumberOfFields() + memberOf.getNumberOfFields());</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;23</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;24</td>  <td class="nbHitsCovered">&nbsp;10634</td>  <td class="src"><pre class="src">&nbsp;        Iterator&lt;AbstractDeclField&gt; iterDeclField = <span class="keyword">this</span>.iterator();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;25</td>  <td class="nbHitsCovered"><a title="Line 25: Conditional coverage 100% (2/2).">&nbsp;31128</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 25: Conditional coverage 100% (2/2).">        <span class="keyword">while</span> (iterDeclField.hasNext()){</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;26</td>  <td class="nbHitsCovered">&nbsp;20502</td>  <td class="src"><pre class="src">&nbsp;            iterDeclField.next().verifyDeclField(compiler, memberOf);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;24</td>  <td class="nbHitsCovered">&nbsp;10656</td>  <td class="src"><pre class="src">&nbsp;        Iterator&lt;AbstractDeclField&gt; iterDeclField = <span class="keyword">this</span>.iterator();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;25</td>  <td class="nbHitsCovered"><a title="Line 25: Conditional coverage 100% (2/2).">&nbsp;31348</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 25: Conditional coverage 100% (2/2).">        <span class="keyword">while</span> (iterDeclField.hasNext()){</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;26</td>  <td class="nbHitsCovered">&nbsp;20700</td>  <td class="src"><pre class="src">&nbsp;            iterDeclField.next().verifyDeclField(compiler, memberOf);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;27</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;10626</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;10648</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;29</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;30</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">void</span> codeGenListDeclField(DecacCompiler compiler){</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;31</td>  <td class="nbHitsCovered"><a title="Line 31: Conditional coverage 100% (2/2).">&nbsp;5187</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 31: Conditional coverage 100% (2/2).">        <span class="keyword">for</span> (AbstractDeclField field : getList()){</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;32</td>  <td class="nbHitsCovered">&nbsp;10136</td>  <td class="src"><pre class="src">&nbsp;            field.codeGenDeclField(compiler);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;33</td>  <td class="nbHitsCovered">&nbsp;10136</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;34</td>  <td class="nbHitsCovered">&nbsp;5187</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;31</td>  <td class="nbHitsCovered"><a title="Line 31: Conditional coverage 100% (2/2).">&nbsp;5213</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 31: Conditional coverage 100% (2/2).">        <span class="keyword">for</span> (AbstractDeclField field : getList()){</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;32</td>  <td class="nbHitsCovered">&nbsp;10307</td>  <td class="src"><pre class="src">&nbsp;            field.codeGenDeclField(compiler);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;33</td>  <td class="nbHitsCovered">&nbsp;10307</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;34</td>  <td class="nbHitsCovered">&nbsp;5213</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;35</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 1/24/20 6:28 PM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 1/27/20 11:10 AM.</div>
 </body>
 </html>

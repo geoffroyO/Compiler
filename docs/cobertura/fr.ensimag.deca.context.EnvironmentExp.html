@@ -88,10 +88,10 @@
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">private</span> Map&lt;Symbol, ExpDefinition&gt; env;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;35</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    </pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;34147</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> EnvironmentExp(EnvironmentExp parentEnvironment) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;37</td>  <td class="nbHitsCovered">&nbsp;34147</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.parentEnvironment = parentEnvironment;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;38</td>  <td class="nbHitsCovered">&nbsp;34147</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.env = <span class="keyword">new</span> HashMap&lt;Symbol, ExpDefinition&gt;();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;39</td>  <td class="nbHitsCovered">&nbsp;34147</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;34981</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> EnvironmentExp(EnvironmentExp parentEnvironment) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;37</td>  <td class="nbHitsCovered">&nbsp;34980</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.parentEnvironment = parentEnvironment;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;38</td>  <td class="nbHitsCovered">&nbsp;34981</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.env = <span class="keyword">new</span> HashMap&lt;Symbol, ExpDefinition&gt;();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;39</td>  <td class="nbHitsCovered">&nbsp;34979</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;40</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;41</td>  <td class="nbHitsCovered">&nbsp;12</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> DoubleDefException <span class="keyword">extends</span> Exception {</pre></td></tr>
@@ -117,12 +117,12 @@
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - return the definition of the symbol in the environment</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;52</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">//        return this.env.get(key);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;53</td>  <td class="nbHitsCovered">&nbsp;81774</td>  <td class="src"><pre class="src">&nbsp;        ExpDefinition definition = <span class="keyword">this</span>.env.get(key);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;54</td>  <td class="nbHitsCovered"><a title="Line 54: Conditional coverage 100% (4/4) [each condition: 100%, 100%].">&nbsp;81774</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 54: Conditional coverage 100% (4/4) [each condition: 100%, 100%].">        <span class="keyword">if</span> (definition == <span class="keyword">null</span> &amp;&amp; parentEnvironment != <span class="keyword">null</span>) {</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;55</td>  <td class="nbHitsCovered">&nbsp;11022</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">return</span> parentEnvironment.get(key);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;53</td>  <td class="nbHitsCovered">&nbsp;136064</td>  <td class="src"><pre class="src">&nbsp;        ExpDefinition definition = <span class="keyword">this</span>.env.get(key);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;54</td>  <td class="nbHitsCovered"><a title="Line 54: Conditional coverage 100% (4/4) [each condition: 100%, 100%].">&nbsp;136064</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 54: Conditional coverage 100% (4/4) [each condition: 100%, 100%].">        <span class="keyword">if</span> (definition == <span class="keyword">null</span> &amp;&amp; parentEnvironment != <span class="keyword">null</span>) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;55</td>  <td class="nbHitsCovered">&nbsp;11322</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">return</span> parentEnvironment.get(key);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;56</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;57</td>  <td class="nbHitsCovered">&nbsp;70752</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> definition;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;57</td>  <td class="nbHitsCovered">&nbsp;124742</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> definition;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;58</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;59</td>  <td class="nbHits">&nbsp;</td>
@@ -163,14 +163,14 @@
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;77</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - add the definition associated with the symbol to the environment if it's not in the environment</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;78</td>  <td class="nbHitsCovered"><a title="Line 78: Conditional coverage 100% (2/2).">&nbsp;1674359</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 78: Conditional coverage 100% (2/2).">        <span class="keyword">if</span>(<span class="keyword">this</span>.env.containsKey(name)){</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;78</td>  <td class="nbHitsCovered"><a title="Line 78: Conditional coverage 100% (2/2).">&nbsp;4756275</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 78: Conditional coverage 100% (2/2).">        <span class="keyword">if</span>(<span class="keyword">this</span>.env.containsKey(name)){</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;79</td>  <td class="nbHitsCovered">&nbsp;12</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">throw</span> <span class="keyword">new</span> DoubleDefException();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;80</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }<span class="keyword">else</span> {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;81</td>  <td class="nbHitsCovered">&nbsp;1674347</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">this</span>.env.put(name, def);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;81</td>  <td class="nbHitsCovered">&nbsp;4810704</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">this</span>.env.put(name, def);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;82</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;83</td>  <td class="nbHitsCovered">&nbsp;1674347</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;83</td>  <td class="nbHitsCovered">&nbsp;4804334</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;84</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    </pre></td></tr>
 <tr>  <td class="numLine">&nbsp;85</td>  <td class="nbHits">&nbsp;</td>
@@ -186,6 +186,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 1/24/20 6:28 PM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 1/27/20 11:10 AM.</div>
 </body>
 </html>
