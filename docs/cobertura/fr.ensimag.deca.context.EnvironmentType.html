@@ -56,82 +56,82 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">     * Initialize the env_types with predefined types</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;19</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;20</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> EnvironmentType(SymbolTable symbols) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;20</td>  <td class="nbHitsCovered">&nbsp;2170</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> EnvironmentType(SymbolTable symbols) {</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;21</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;22</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.envTypes =  <span class="keyword">new</span> HashMap&lt;Symbol, TypeDefinition&gt;();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;22</td>  <td class="nbHitsCovered">&nbsp;2170</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.envTypes =  <span class="keyword">new</span> HashMap&lt;Symbol, TypeDefinition&gt;();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;23</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;24</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - create symbols for predefined types</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;25</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        Symbol boolSymbol = symbols.create(<span class="string">"boolean"</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;26</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        Symbol intSymbol = symbols.create(<span class="string">"int"</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;27</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        Symbol floatSymbol = symbols.create(<span class="string">"float"</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        Symbol voidSymbol = symbols.create(<span class="string">"void"</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;29</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        Symbol objectSymbol = symbols.create(<span class="string">"Object"</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;30</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        Symbol equalsSymbol = symbols.create(<span class="string">"equals"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;25</td>  <td class="nbHitsCovered">&nbsp;2169</td>  <td class="src"><pre class="src">&nbsp;        Symbol boolSymbol = symbols.create(<span class="string">"boolean"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;26</td>  <td class="nbHitsCovered">&nbsp;2168</td>  <td class="src"><pre class="src">&nbsp;        Symbol intSymbol = symbols.create(<span class="string">"int"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;27</td>  <td class="nbHitsCovered">&nbsp;2168</td>  <td class="src"><pre class="src">&nbsp;        Symbol floatSymbol = symbols.create(<span class="string">"float"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;2169</td>  <td class="src"><pre class="src">&nbsp;        Symbol voidSymbol = symbols.create(<span class="string">"void"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;29</td>  <td class="nbHitsCovered">&nbsp;2169</td>  <td class="src"><pre class="src">&nbsp;        Symbol objectSymbol = symbols.create(<span class="string">"Object"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;30</td>  <td class="nbHitsCovered">&nbsp;2169</td>  <td class="src"><pre class="src">&nbsp;        Symbol equalsSymbol = symbols.create(<span class="string">"equals"</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;31</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;32</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - create definitions from symbols</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;33</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// Location.BUILTIN is for ** PREDEFINED ** types</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;34</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        TypeDefinition boolDefinition = <span class="keyword">new</span> TypeDefinition(<span class="keyword">new</span> BooleanType(boolSymbol), Location.BUILTIN);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;35</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        TypeDefinition intDefinition = <span class="keyword">new</span> TypeDefinition(<span class="keyword">new</span> IntType(intSymbol), Location.BUILTIN);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        TypeDefinition floatDefinition = <span class="keyword">new</span> TypeDefinition(<span class="keyword">new</span> FloatType(floatSymbol), Location.BUILTIN);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;37</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        TypeDefinition voidDefinition = <span class="keyword">new</span> TypeDefinition(<span class="keyword">new</span> VoidType(voidSymbol), Location.BUILTIN);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;34</td>  <td class="nbHitsCovered">&nbsp;2168</td>  <td class="src"><pre class="src">&nbsp;        TypeDefinition boolDefinition = <span class="keyword">new</span> TypeDefinition(<span class="keyword">new</span> BooleanType(boolSymbol), Location.BUILTIN);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;35</td>  <td class="nbHitsCovered">&nbsp;2170</td>  <td class="src"><pre class="src">&nbsp;        TypeDefinition intDefinition = <span class="keyword">new</span> TypeDefinition(<span class="keyword">new</span> IntType(intSymbol), Location.BUILTIN);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;2170</td>  <td class="src"><pre class="src">&nbsp;        TypeDefinition floatDefinition = <span class="keyword">new</span> TypeDefinition(<span class="keyword">new</span> FloatType(floatSymbol), Location.BUILTIN);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;37</td>  <td class="nbHitsCovered">&nbsp;2170</td>  <td class="src"><pre class="src">&nbsp;        TypeDefinition voidDefinition = <span class="keyword">new</span> TypeDefinition(<span class="keyword">new</span> VoidType(voidSymbol), Location.BUILTIN);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;38</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;39</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - ** Object **</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;40</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - create a classType for object and then create a TypeDefinition (ClassDefinition) for it</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;41</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        ClassType objectType = <span class="keyword">new</span> ClassType(objectSymbol, Location.BUILTIN, <span class="keyword">null</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;42</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        ClassDefinition objectDefinition = objectType.getDefinition();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;41</td>  <td class="nbHitsCovered">&nbsp;2168</td>  <td class="src"><pre class="src">&nbsp;        ClassType objectType = <span class="keyword">new</span> ClassType(objectSymbol, Location.BUILTIN, <span class="keyword">null</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;42</td>  <td class="nbHitsCovered">&nbsp;2170</td>  <td class="src"><pre class="src">&nbsp;        ClassDefinition objectDefinition = objectType.getDefinition();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;43</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;44</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - create a signature for method equals(Object o) method of Object</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;45</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        Signature equalsSignature = <span class="keyword">new</span> Signature();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;45</td>  <td class="nbHitsCovered">&nbsp;2170</td>  <td class="src"><pre class="src">&nbsp;        Signature equalsSignature = <span class="keyword">new</span> Signature();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;46</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - add an argument (objectType) for this method since equals(Object o)</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;47</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        equalsSignature.add(objectType);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;47</td>  <td class="nbHitsCovered">&nbsp;2170</td>  <td class="src"><pre class="src">&nbsp;        equalsSignature.add(objectType);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;48</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;49</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - create a method definition for 'boolean Object.equals(Object o)' using the type and signature</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;50</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        MethodDefinition equalsDefinition = <span class="keyword">new</span> MethodDefinition(<span class="keyword">new</span> BooleanType(boolSymbol), Location.BUILTIN, equalsSignature, 1);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        equalsDefinition.setLabel(<span class="keyword">new</span> Label(<span class="string">"code.Object.equals"</span>));</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;50</td>  <td class="nbHitsCovered">&nbsp;2165</td>  <td class="src"><pre class="src">&nbsp;        MethodDefinition equalsDefinition = <span class="keyword">new</span> MethodDefinition(<span class="keyword">new</span> BooleanType(boolSymbol), Location.BUILTIN, equalsSignature, 1);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered">&nbsp;2169</td>  <td class="src"><pre class="src">&nbsp;        equalsDefinition.setLabel(<span class="keyword">new</span> Label(<span class="string">"code.Object.equals"</span>));</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;52</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;53</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - add method "equals" to methods table of Object</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;54</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        objectDefinition.getMT().putInMT(equalsDefinition);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;54</td>  <td class="nbHitsCovered">&nbsp;2156</td>  <td class="src"><pre class="src">&nbsp;        objectDefinition.getMT().putInMT(equalsDefinition);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;55</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;56</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">try</span>{</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;57</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            <span class="comment">// - add equals method to env_exp of Object</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;58</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;            objectDefinition.getMembers().declare(equalsSymbol, equalsDefinition);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;58</td>  <td class="nbHitsCovered">&nbsp;2153</td>  <td class="src"><pre class="src">&nbsp;            objectDefinition.getMembers().declare(equalsSymbol, equalsDefinition);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;59</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            <span class="comment">// - increase the number of methods for Object class</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;60</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;            objectDefinition.incNumberOfMethods();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;60</td>  <td class="nbHitsCovered">&nbsp;2160</td>  <td class="src"><pre class="src">&nbsp;            objectDefinition.incNumberOfMethods();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;61</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;62</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        } <span class="keyword">catch</span> (EnvironmentExp.DoubleDefException doubleDef){}</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;62</td>  <td class="nbHitsCovered">&nbsp;2158</td>  <td class="src"><pre class="src">&nbsp;        } <span class="keyword">catch</span> (EnvironmentExp.DoubleDefException doubleDef){}</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;63</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;64</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">try</span> {</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;65</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            <span class="comment">// - Add types to envTypes</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;66</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;            declare(intSymbol, intDefinition);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;67</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;            declare(boolSymbol, boolDefinition);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;68</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;            declare(floatSymbol, floatDefinition);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;69</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;            declare(voidSymbol, voidDefinition);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;70</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;            declare(objectSymbol, objectDefinition);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;71</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;        } <span class="keyword">catch</span> (EnvironmentType.DoubleDefException doubleDef){}</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;66</td>  <td class="nbHitsCovered">&nbsp;2157</td>  <td class="src"><pre class="src">&nbsp;            declare(intSymbol, intDefinition);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;67</td>  <td class="nbHitsCovered">&nbsp;2161</td>  <td class="src"><pre class="src">&nbsp;            declare(boolSymbol, boolDefinition);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;68</td>  <td class="nbHitsCovered">&nbsp;2156</td>  <td class="src"><pre class="src">&nbsp;            declare(floatSymbol, floatDefinition);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;69</td>  <td class="nbHitsCovered">&nbsp;2156</td>  <td class="src"><pre class="src">&nbsp;            declare(voidSymbol, voidDefinition);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;70</td>  <td class="nbHitsCovered">&nbsp;2163</td>  <td class="src"><pre class="src">&nbsp;            declare(objectSymbol, objectDefinition);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;71</td>  <td class="nbHitsCovered">&nbsp;2164</td>  <td class="src"><pre class="src">&nbsp;        } <span class="keyword">catch</span> (EnvironmentType.DoubleDefException doubleDef){}</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;72</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;73</td>  <td class="nbHits">&nbsp;</td>
@@ -148,7 +148,7 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">//        }</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;79</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;80</td>  <td class="nbHitsCovered">&nbsp;1901</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;80</td>  <td class="nbHitsCovered">&nbsp;2165</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;81</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;82</td>  <td class="nbHitsCovered">&nbsp;4</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> DoubleDefException <span class="keyword">extends</span> Exception {</pre></td></tr>
@@ -168,7 +168,7 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;90</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> TypeDefinition get(Symbol key) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;91</td>  <td class="nbHitsCovered">&nbsp;5964610</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> <span class="keyword">this</span>.envTypes.get(key);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;91</td>  <td class="nbHitsCovered">&nbsp;16509424</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> <span class="keyword">this</span>.envTypes.get(key);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;92</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;93</td>  <td class="nbHits">&nbsp;</td>
@@ -209,16 +209,16 @@
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;111</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// - add the type definition associated with the symbol to the environment if it's not in the environment</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;112</td>  <td class="nbHitsCovered"><a title="Line 112: Conditional coverage 100% (2/2).">&nbsp;20147</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 112: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (<span class="keyword">this</span>.envTypes.containsKey(name)) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;112</td>  <td class="nbHitsCovered"><a title="Line 112: Conditional coverage 100% (2/2).">&nbsp;21439</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 112: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (<span class="keyword">this</span>.envTypes.containsKey(name)) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;113</td>  <td class="nbHitsCovered">&nbsp;4</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">throw</span> <span class="keyword">new</span> DoubleDefException();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;114</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }<span class="keyword">else</span>{</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;115</td>  <td class="nbHitsCovered">&nbsp;20143</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">this</span>.envTypes.put(name, def);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;115</td>  <td class="nbHitsCovered">&nbsp;21460</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">this</span>.envTypes.put(name, def);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;116</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;117</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;118</td>  <td class="nbHitsCovered">&nbsp;20143</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;118</td>  <td class="nbHitsCovered">&nbsp;21432</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;119</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    </pre></td></tr>
 <tr>  <td class="numLine">&nbsp;120</td>  <td class="nbHits">&nbsp;</td>
@@ -227,6 +227,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 1/24/20 6:28 PM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 1/27/20 11:10 AM.</div>
 </body>
 </html>

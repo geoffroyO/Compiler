@@ -69,6 +69,13 @@ public class Selection extends AbstractLValue {
 
 	}
 
+	/**
+	 * Generates assembly code to get the address of the Lvalue.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		Register to store the address of the Lvalue
+	 */
 	@Override
 	protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
 		// - evaluate the expression
@@ -79,6 +86,14 @@ public class Selection extends AbstractLValue {
 		compiler.addInstruction(new LEA(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate the expression.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		Register to store the result of the operation
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		// - evaluate the expression
 		instance.codeGenExpr(compiler, register);
@@ -89,6 +104,13 @@ public class Selection extends AbstractLValue {
 				new LOAD(new RegisterOffset(field.getFieldDefinition().getIndex(), register), register));
 	}
 
+	/**
+	 * Generates assembly code to evaluate and print the expression.
+	 *
+	 * @param compiler
+	 * @param printHex
+	 * 		Boolean that considers if the user wants a printx or a simple print(ln)
+	 */
 	@Override
 	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
 		GPRegister addrReg = compiler.getRegM().findFreeGPRegister();

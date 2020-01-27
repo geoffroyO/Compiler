@@ -17,6 +17,7 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
 		}
 	}
 
+
 	public void verifyListDeclField(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError {
 		if (memberOf.getSuperClass() != null) {
 			memberOf.setNumberOfFields(memberOf.getSuperClass().getNumberOfFields() + memberOf.getNumberOfFields());
@@ -27,6 +28,11 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
 		}
 	}
 
+	/**
+	 *  Generate the assembly code for the list of declField
+	 *
+	 * @param compiler
+	 */
 	public void codeGenListDeclField(DecacCompiler compiler) {
 		for (AbstractDeclField field : getList()) {
 			field.codeGenDeclField(compiler);

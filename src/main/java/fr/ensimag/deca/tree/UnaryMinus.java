@@ -34,6 +34,13 @@ public class UnaryMinus extends AbstractUnaryExpr {
 		return opType;
 	}
 
+	/**
+	 * Generates assembly code to evaluate and print the expression.
+	 *
+	 * @param compiler
+	 * @param printHex
+	 * 		Boolean that considers if the user wants a printx or a simple print(ln)
+	 */
 	@Override
 	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
 		// - the result of the expression is in R1
@@ -46,6 +53,14 @@ public class UnaryMinus extends AbstractUnaryExpr {
 		return "-";
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate the expression.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		Register to store the result of the operation
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		this.getOperand().codeGenExpr(compiler, register);
 

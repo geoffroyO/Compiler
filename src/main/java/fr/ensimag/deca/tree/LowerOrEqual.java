@@ -20,6 +20,16 @@ public class LowerOrEqual extends AbstractOpIneq {
 		return "<=";
 	}
 
+	/**
+	 * Generate assembly code for a binary expression, store the result in the register passed
+	 * in argument.
+	 *
+	 * @param compiler
+	 * @param reg
+	 * 		Temporary register to store a value.
+	 * @param regResult
+	 * 		The result is stored in regResult.
+	 */
 	@Override
 	protected void codeGenOp(DecacCompiler compiler, GPRegister reg, GPRegister regResult) {
 		compiler.addInstruction(new CMP(reg, regResult));

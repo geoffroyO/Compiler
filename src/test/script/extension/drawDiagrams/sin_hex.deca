@@ -1,0 +1,12 @@
+#include "Math.decah"
+
+{
+	Math m = new Math();
+
+	float counter = -1000.14;
+	while(counter <= 1000.14){
+		printlnx(m.sin(counter));
+		counter = counter + 5.0;
+	}
+
+}

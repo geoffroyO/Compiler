@@ -58,11 +58,27 @@ public class IntLiteral extends AbstractExpr {
 		// leaf node => nothing to do
 	}
 
+	/**
+	 * Generates assembly code to evaluate the expression.
+	 *
+	 * @param compiler
+	 *
+	 * @param register
+	 * 		The result is stored in the register.
+	 */
 	@Override
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()), register));
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate and print the expression.
+	 *
+	 * @param compiler
+	 * @param printHex
+	 * 		Boolean that considers if the user wants a printx or a simple print(ln)
+	 */
 	@Override
 	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
 		compiler.addInstruction(new LOAD(new ImmediateInteger(this.getValue()), Register.R1));

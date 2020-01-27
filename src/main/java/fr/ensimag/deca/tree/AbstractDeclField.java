@@ -12,7 +12,7 @@ public abstract class AbstractDeclField extends Tree {
 	protected abstract void verifyDeclField(DecacCompiler compiler, ClassDefinition memberOf) throws ContextualError;
 
 	/**
-	 * Generate assembly code for the instruction.
+	 * Generate assembly code for the declaration of fields.
 	 *
 	 * @param compiler
 	 */

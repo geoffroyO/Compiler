@@ -83,6 +83,11 @@ public abstract class AbstractIdentifier extends AbstractLValue {
 	 */
 	public abstract VariableDefinition getVariableDefinition();
 
+	/**
+	 * Set a definition to the identifier.
+	 *
+	 * @param definition
+	 */
 	public abstract void setDefinition(Definition definition);
 
 	/**

@@ -50,6 +50,12 @@ public class IfThenElse extends AbstractInst {
 		this.elseBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
 	}
 
+	/**
+	 * Generates assembly code to evaluate to execute the ifThenElse instructions.
+	 *
+	 * @param compiler
+	 *
+	 */
 	@Override
 	protected void codeGenInst(DecacCompiler compiler) {
 		Label debut_if = compiler.getLabM().genIfLabel();

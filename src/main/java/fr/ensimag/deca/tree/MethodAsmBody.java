@@ -40,6 +40,11 @@ public class MethodAsmBody extends AbstractMethodBody {
 	protected void iterChildren(TreeFunction f) {
 	}
 
+	/**
+	 * Generate assembly code for the asm method.
+	 *
+	 * @param compiler
+	 */
 	@Override
 	protected void codeGenMethodBody(DecacCompiler compiler) {
 		compiler.add(

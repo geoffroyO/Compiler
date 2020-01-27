@@ -17,13 +17,15 @@ public abstract class AbstractDeclMethod extends Tree {
 	protected abstract void verifyMethodBody(DecacCompiler compiler, ClassDefinition current) throws ContextualError;
 
 	/**
-	 * Generate assembly code for the instruction.
+	 * Generate assembly code for the declaration of methods.
 	 *
 	 * @param compiler
 	 */
-
 	protected abstract void codeGenDeclMethod(DecacCompiler compiler);
 
+	/**
+	 * Get the index of a method.
+	 */
 	public abstract int getDeclMethodIndex();
 
 }

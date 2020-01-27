@@ -44,11 +44,25 @@ public class This extends AbstractLValue {
 
 	}
 
+	/**
+	 * Generates assembly code to get the address of the Lvalue.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		Register to store the address of the Lvalue
+	 */
 	@Override
 	protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
 		compiler.addInstruction(new LEA(new RegisterOffset(-2, Register.LB), register));
 	}
 
+	/**
+	 * Generates assembly code to evaluate the expression.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		Register to store the result of the operation
+	 */
 	@Override
 	public void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), register));

@@ -65,12 +65,23 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
 		LOG.debug("verify verifyListClassBody: end");
 	}
 
+	/**
+	 *  Generate the assembly code for the first pass.
+	 *
+	 * @param compiler
+	 */
 	public void codeGenListFpDeclClass(DecacCompiler compiler) {
 		for (AbstractDeclClass A : getList()) {
 			A.codeGenFpDeclClass(compiler);
 		}
 	}
 
+
+	/**
+	 *  Generate the assembly code for the list of declarations of class.
+	 *
+	 * @param compiler
+	 */
 	public void codeGenListDeclClass(DecacCompiler compiler) {
 		for (AbstractDeclClass A : getList()) {
 			A.codeGenDeclClass(compiler);

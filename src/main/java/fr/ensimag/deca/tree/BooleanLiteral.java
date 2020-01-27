@@ -61,6 +61,14 @@ public class BooleanLiteral extends AbstractExpr {
     }
 
 
+    /**
+     * Generates assembly code to evaluate the expression.
+     *
+     * @param compiler
+     *
+     * @param register
+     *  The result is stored in register
+     */
     protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 
         if (getValue()) {

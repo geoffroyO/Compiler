@@ -18,6 +18,17 @@ public class Multiply extends AbstractOpArith {
 		return "*";
 	}
 
+
+	/**
+	 * Generate assembly code for a binary expression, store the result in the register passed
+	 * in argument.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		Temporary register to store a value.
+	 * @param result
+	 * 		The result is stored in regResult.
+	 */
 	@Override
 	protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
 		compiler.addInstruction(new MUL(register, result));

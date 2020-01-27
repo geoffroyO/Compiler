@@ -29,7 +29,17 @@ public abstract class AbstractDeclClass extends Tree {
 	 */
 	protected abstract void verifyClassBody(DecacCompiler compiler) throws ContextualError;
 
+	/**
+	 * Generate assembly code for the declaration of a class during the first pass
+	 *
+	 * @param compiler
+	 */
 	protected abstract void codeGenFpDeclClass(DecacCompiler compiler);
 
+	/**
+	 * Generate assembly code for the declaration of a class
+	 *
+	 * @param compiler
+	 */
 	protected abstract void codeGenDeclClass(DecacCompiler compiler);
 }

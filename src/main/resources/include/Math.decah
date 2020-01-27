@@ -70,34 +70,6 @@ class Utility {
     	return x;
 	}
 
-	/*
-	float bound(float x){
-		int k =  this.floor(x);
-		float res = x;
-		int n = k * 2;
-		res = res - (n * this.a1);
-		res = res - (n * this.a1_2*0.1);
-		res = res - (n * this.a1_3*0.01);
-		res = res - (n * this.a2 * 0.0001);
-		res = res - (n * this.a3*0.000001);
-		res = res - (n * this.a4*0.00000001);
-		res = res - (n * this.a5*0.0000000001);
-		res = res - (n * this.a6*0.000000000001);
-		res = res - (n * this.a7*0.00000000000001);
-		res = res - (n * this.a8*0.0000000000000001);
-		res = res - (n * this.a9*0.000000000000000001);
-		res = res - (n * this.a10*0.00000000000000000001);
-		res = res - (n * this.a11*0.0000000000000000000001);
-		res = res - (n * this.a12*0.000000000000000000000001);
-		res = res - (n * this.a13*0.00000000000000000000000001);
-		if (res > (pi)){
-			res = res - (2 * pi);
-		}
-		if (res < -(pi)){
-			res = res + (2*pi);
-		}
-		return res;
-	} */
 
 	float bound(float x)
 		asm("; Test Stack_overflow
@@ -535,6 +507,14 @@ class Math {
 
 		tmp = x;
 
+		if(tmp < 0){
+			tmp = -tmp;
+		}
+
+		if(tmp == 0){
+			return val_min;
+		}
+
     	//trouver l'exposant:
     	while (puiss_2 < tmp){
     		puiss_2 = puiss_2 * 2; //faire un SHL
@@ -545,11 +525,8 @@ class Math {
 
     	if (exp == 128) { //on a l'infini
     		res = tmp;
-    		println(res);
     	}
     	if (exp == -127) { //on a 0
-    		println("Le résultat est: ");
-    		println(res);
     	}
 
     	exp = exp - 23;
@@ -559,8 +536,6 @@ class Math {
     			res = res*2; //faire SHR
     			k = k + 1;
     		}
-    		println("Le résultat est: ");
-    		println(res);
     	}
 
     	if (exp < -126) {
@@ -570,8 +545,6 @@ class Math {
     			res = res/2; //faire SHL
     			i = i + 1;
     		}
-    		println("Le résultat est: ");
-    		println(res);
     	}
     	return res;
     }

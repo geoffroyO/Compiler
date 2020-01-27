@@ -76,6 +76,15 @@ public class Cast extends AbstractExpr {
 	protected void iterChildren(TreeFunction f) {
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate the expression and cast the result.
+	 *
+	 * @param compiler
+	 *
+	 * @param register
+	 *  The result is stored in register
+	 */
 	@Override
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		// - evaluation of the expression and value stored in register

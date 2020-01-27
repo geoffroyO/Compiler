@@ -39,6 +39,13 @@ public class Not extends AbstractUnaryExpr {
 		return "!";
 	}
 
+	/**
+	 * Generate assembly code for the expression.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		The result is stored in register.
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 
 		this.getOperand().codeGenExpr(compiler, register);

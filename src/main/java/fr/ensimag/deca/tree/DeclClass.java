@@ -112,6 +112,13 @@ public class DeclClass extends AbstractDeclClass {
 		this.methods.verifyListMethodBody(compiler, this.className.getClassDefinition());
 	}
 
+
+	/**
+	 * Generates assembly code for the first pass of the code generation for the class declaration.
+	 *
+	 * @param compiler
+	 *
+	 */
 	@Override
 	protected void codeGenFpDeclClass(DecacCompiler compiler) {
 		// - get max index
@@ -150,6 +157,13 @@ public class DeclClass extends AbstractDeclClass {
 		compiler.getRegM().incLB(maxIndex - 1);
 	}
 
+
+	/**
+	 * Generates assembly code for the first pass of the code generation for the declaration of the object class method
+	 *
+	 * @param compiler
+	 *
+	 */
 	private void codeGenFpDeclObjectMethod(DecacCompiler compiler) {
 		Label labelCodeMethod = new Label("code.Object.equals");
 		compiler.addInstruction(new LOAD(new LabelOperand(labelCodeMethod), Register.R0));
@@ -158,6 +172,13 @@ public class DeclClass extends AbstractDeclClass {
 		compiler.getRegM().incLB();
 	}
 
+
+	/**
+	 * Generates assembly code for the second pass of the code generation for the class declaration.
+	 *
+	 * @param compiler
+	 *
+	 */
 	protected void codeGenDeclClass(DecacCompiler compiler) {
 		// - initialization of the constructor
 		compiler.addComment("Initialisation des champs de la classe de " + className.getName());

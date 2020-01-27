@@ -79,6 +79,13 @@ public class DeclVar extends AbstractDeclVar {
 		initialization.prettyPrint(s, prefix, true);
 	}
 
+
+	/**
+	 * Generates assembly code for the code generation of the declaration of variables.
+	 *
+	 * @param compiler
+	 *
+	 */
 	public void codeGenDeclVar(DecacCompiler compiler) {
 		// - find a register to store the value of the initialization
 		GPRegister register = compiler.getRegM().findFreeGPRegister();

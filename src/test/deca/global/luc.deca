@@ -1,11 +1,22 @@
-#include "Math.decah"
+class X {
+	void method(A a){
+		println("réussis");
+	}
+	void met(float x){
+		println(x);
+	}
+}
 
 
+class A {
+}
+class B extends A {
+
+}
 {
-	Math m = new Math();
-	Utility u = new Utility();
-	//println(u.sqrt(-1.0));
-	println(m.asin(2.0));
+	X x = new X();
+	B b = new B();
 
+	x.met(1.0);
 	
 }
