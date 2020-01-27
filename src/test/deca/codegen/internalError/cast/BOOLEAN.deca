@@ -1,7 +1,7 @@
 // Description:
 //      Cast d'un type identique
 // Resultats:
-//      OK
+//      KO
 
 {
     boolean x = (boolean)(true);
