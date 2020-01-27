@@ -33,12 +33,12 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
         return rightOperand;
     }
 
-    protected void setLeftOperand(AbstractExpr leftOperand) {
+    public void setLeftOperand(AbstractExpr leftOperand) {
         Validate.notNull(leftOperand);
         this.leftOperand = leftOperand;
     }
 
-    protected void setRightOperand(AbstractExpr rightOperand) {
+    public void setRightOperand(AbstractExpr rightOperand) {
         Validate.notNull(rightOperand);
         this.rightOperand = rightOperand;
     }

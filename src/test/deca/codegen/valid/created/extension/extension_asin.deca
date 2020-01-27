@@ -1,0 +1,11 @@
+// Description:
+//      Test de l'extension
+// Resultats:
+//      asin() = 
+
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    println("asin() = ", m.asin());
+}

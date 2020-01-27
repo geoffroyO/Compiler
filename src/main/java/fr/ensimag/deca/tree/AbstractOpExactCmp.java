@@ -20,25 +20,22 @@ public abstract class AbstractOpExactCmp extends AbstractOpCmp {
         Type rightOpType;
 
         // - verify and get both operands types
-        try {
-            leftOpType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-            rightOpType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
-        } catch (
-                ContextualError e) {
-            throw e;
-        }
+        leftOpType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+        rightOpType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
 
         if (leftOpType.isFloat() && rightOpType.isInt()){
             // - convert right operand to float
             this.setRightOperand(this.getRightOperand().verifyRValue(compiler, localEnv, currentClass, leftOpType));
-
-            // - if left operand is int and right operand is float
+            
+        // - if left operand is integer and right operand is float
         } else if (leftOpType.isInt() && rightOpType.isFloat()) {
             // - convert left operand to float
             this.setLeftOperand(this.getLeftOperand().verifyRValue(compiler, localEnv, currentClass, rightOpType));
+            
         } else if (!leftOpType.sameType(rightOpType)) {
             throw new ContextualError("Operands should be the same type", getLocation());
         }
+        
         Type type = new BooleanType(compiler.getSymbols().create("boolean"));
         this.setType(type);
         return type;

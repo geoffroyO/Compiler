@@ -11,12 +11,10 @@ import java.io.PrintStream;
 public class InstanceOf extends AbstractExpr{
     private AbstractExpr instance;
     private AbstractIdentifier className;
-    private boolean value;
 
     public InstanceOf(AbstractExpr instance,AbstractIdentifier className ) {
         this.instance = instance;
         this.className = className;
-        this.value = false;
     }
 
 
@@ -26,14 +24,11 @@ public class InstanceOf extends AbstractExpr{
     	Type classNameType = className.verifyType(compiler);
         this.setType(compiler.getEnvTypes().get(compiler.getSymbols().create("boolean")).getType());
         
-        // Null is not a classType
-        if (instanceType.isNull()) {
-        	this.value = false;
-        } else if (instanceType.isClass() && classNameType.isClass()) {
-        	 this.value = instanceType.asClassType("Error TODO", this.getLocation()).isSubClassOf(classNameType.asClassType("Error TODO", this.getLocation()));
-        } else {
-        	throw new ContextualError("Contextual error, instanceof must be called with an instance and a class", getLocation());
+        // Test if the elements can be compare
+        if (!(instanceType.isNull() || (instanceType.isClass() && classNameType.isClass()))) {
+            throw new ContextualError("Contextual error, instanceof must be called with an instance and a class", getLocation());
         }
+
         return(this.getType());
     }
 

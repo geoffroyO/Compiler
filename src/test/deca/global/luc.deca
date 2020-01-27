@@ -1,14 +1,44 @@
+<<<<<<< HEAD
+class A
+{
+	int x;
+	int getX(){
+		return x;
+	}
+}
 
 {
-	int a = 1;
-	float b = 1;
-	int c = 1;
-	float d = 1;
-	int e = 1;
-	float f = 1;
+	A a = new A();
+	println(a.getX());
+=======
+class A {
+	int x;
+	int y;
+	
+	int getX(){
+		return x;
+	}
+	
+	void setX(int x) {
+		this.x = x;
+	}
+	
+	void crier(int x) {
+		println("AAAAAAAAAAAAA");
+	}
+}
 
-	f = a + b + c + d + e;
-	println(f);
+class B extends A {
+	
+	void crier(){
+		println("BBBBBBBBBBBBBBBB");
+	}
+>>>>>>> f1d18987bbf310378c5760861ca6a8a7bbd4ca39
 }
 
 
+{
+
+	A b = new A();
+	b.crier(0);
+}

@@ -63,7 +63,6 @@ public class DecacCompiler {
 		return this.regM;
 	}
 
-
 	public void setContainsReturn(boolean containsReturn) {
 		this.containsReturn = containsReturn;
 	}
@@ -224,10 +223,6 @@ public class DecacCompiler {
 		isInBloc = false;
 	}
 
-	public void delBloc() {
-		isInBloc = false;
-	}
-
 	/**
 	 * @see fr.ensimag.ima.pseudocode.IMAProgram#display()
 	 */
@@ -246,7 +241,7 @@ public class DecacCompiler {
 	}
 
 	public void referenceErr(GPRegister register) {
-		if (!getCompilerOptions().isNoCheck()) {		
+		if (!getCompilerOptions().isNoCheck()) {
 			addInstruction(new CMP(new NullOperand(), register));
 			addInstruction(new BEQ(new Label("dereferencement.null")));
 		}

@@ -1,0 +1,14 @@
+// Description:
+//      Insertion instruction ASM sur une seule ligne
+// Resultats:
+//      OK
+
+class A {
+    void methodASM() asm(";Insertion");
+}
+
+{
+    A a = new A();
+    println("ASM");
+    a.methodASM();
+}

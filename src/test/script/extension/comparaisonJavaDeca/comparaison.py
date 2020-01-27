@@ -101,11 +101,12 @@ listFunctions = [
 compilation = "./compilingJavaFile.sh"
 os.system(compilation)
 
-for i in listFunctions:
+
+#for i in listFunctions:
 #    # Run deca thread
     deca = ValueInDeca(i)
     deca.start()
 #
-    # Run java thread
-    java = ValueInJava(i)
-    java.start()
+#    # Run java thread
+#    java = ValueInJava(i)
+#    java.start()
