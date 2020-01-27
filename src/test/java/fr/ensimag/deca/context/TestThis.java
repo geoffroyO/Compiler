@@ -30,13 +30,7 @@ import fr.ensimag.deca.tree.This;
 
 
 public class TestThis {
-	
-//	public class ThisVisible extends This {	
-//		public void setType(Type t) {
-//			super.setType(t);
-//		}
-//	}
-	
+		
 	@Mock
 	This th;
 	
@@ -51,10 +45,6 @@ public class TestThis {
         when(th.getType()).thenReturn(new IntType(compiler.getSymbols().create("A")));
         when(th.verifyExpr(compiler, null, null)).thenCallRealMethod();
         when(th.verifyExpr(compiler, null, def)).thenCallRealMethod();
-
-       
-//        when(th.setType(any(Type.class))).thenCallRealMethod();
-
     }
 
     @Test(expected = ContextualError.class)

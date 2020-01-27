@@ -1,6 +1,5 @@
 package fr.ensimag.deca.context;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
@@ -27,7 +26,9 @@ public class TestPlusAdvanced {
 
     final Type INT = new IntType(null);
     final Type FLOAT = new FloatType(null);
+
     final ConvFloat CONVFLOAT = new ConvFloat(new IntLiteral(4));
+
 
     @Mock
     AbstractExpr intexpr1;
@@ -37,6 +38,8 @@ public class TestPlusAdvanced {
     AbstractExpr floatexpr1;
     @Mock
     AbstractExpr floatexpr2;
+
+
 
     DecacCompiler compiler;
     

@@ -22,6 +22,7 @@ import org.apache.commons.lang.Validate;
  * @date 01/01/2020
  */
 public abstract class AbstractExpr extends AbstractInst {
+	
 	/**
 	 * @return true if the expression does not correspond to any concrete token in
 	 *         the source code (and should be decompiled to the empty string).
@@ -220,4 +221,5 @@ public abstract class AbstractExpr extends AbstractInst {
 			s.println();
 		}
 	}
+
 }
