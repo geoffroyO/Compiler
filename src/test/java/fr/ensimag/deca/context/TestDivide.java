@@ -4,11 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-<<<<<<< HEAD
-=======
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
->>>>>>> f1d18987bbf310378c5760861ca6a8a7bbd4ca39
+
 import static org.mockito.Matchers.*;
 
 import org.junit.Before;
