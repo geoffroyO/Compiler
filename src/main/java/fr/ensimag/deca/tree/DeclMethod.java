@@ -152,6 +152,13 @@ public class DeclMethod extends AbstractDeclMethod {
 		this.body.iter(f);
 	}
 
+
+	/**
+	 * Generates assembly code for the second pass of the code generation to write the code of a method.
+	 *
+	 * @param compiler
+	 *
+	 */
 	@Override
 	protected void codeGenDeclMethod(DecacCompiler compiler) {
 		// - enter the label of ending to jump during the return
@@ -186,7 +193,7 @@ public class DeclMethod extends AbstractDeclMethod {
 			}
 		}
 		// - get back to ancient stack
-		compiler.addInstruction(new SUBSP(new ImmediateInteger(compiler.getRegM().getLocalVariable() + 1)));
+		compiler.addInstruction(new SUBSP(new ImmediateInteger(compiler.getRegM().getLocalVariable())));
 		// - return
 		compiler.addInstruction(new RTS());
 		// - save the registers

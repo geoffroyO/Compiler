@@ -57,6 +57,13 @@ public class New extends AbstractExpr {
 
 	}
 
+	/**
+	 * Generate assembly code for the expression after the New.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		The address is stored in register.
+	 */
 	@Override
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		// - heap creation

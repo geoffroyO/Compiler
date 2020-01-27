@@ -90,6 +90,14 @@ public class MethodCall extends AbstractLValue {
 	protected void iterChildren(TreeFunction f) {
 	}
 
+
+	/**
+	 * Generate assembly code to call a method.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		The result is stored in register.
+	 */
 	private void codeGenMethodCall(DecacCompiler compiler, GPRegister register) {
 		// - test stack overflow, don't forget the implicit parameter
 		compiler.TSTO(params.size() + 1);
@@ -130,6 +138,13 @@ public class MethodCall extends AbstractLValue {
 		compiler.addInstruction(new SUBSP(params.size() + 1));
 	}
 
+	/**
+	 * Generate assembly code to call a method.
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		The result is stored in register.
+	 */
 	@Override
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		// - generate the code to call the function, the result is in R0
@@ -139,6 +154,11 @@ public class MethodCall extends AbstractLValue {
 		compiler.addInstruction(new LOAD(Register.R0, register));
 	}
 
+	/**
+	 * Generate assembly code to call a method.
+	 *
+	 * @param compiler
+	 */
 	@Override
 	protected void codeGenInst(DecacCompiler compiler) {
 		// - temporary register where we put nothing
@@ -151,6 +171,11 @@ public class MethodCall extends AbstractLValue {
 		compiler.getRegM().freeRegister(register);
 	}
 
+	/**
+	 * Generate assembly code to get the address of a method.
+	 *
+	 * @param compiler
+	 */
 	@Override
 	protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
 		// - generate the code to call the function, the result is in R0
@@ -160,6 +185,13 @@ public class MethodCall extends AbstractLValue {
 		compiler.addInstruction(new LEA(new RegisterOffset(0, Register.R0), register));
 	}
 
+	/**
+	 * Generates assembly code to evaluate and print the expression.
+	 *
+	 * @param compiler
+	 * @param printHex
+	 * 		Boolean that considers if the user wants a printx or a simple print(ln)
+	 */
 	@Override
 	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
 		// - generate the code to call the function and put the value in R1

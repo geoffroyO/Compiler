@@ -46,6 +46,13 @@ public class ReadFloat extends AbstractReadExpr {
 		// leaf node => nothing to do
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate and read the float expression.
+	 *
+	 * @param compiler
+	 * @param register
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		compiler.addInstruction(new RFLOAT());
 		compiler.addInstruction(new BOV(new Label("invalid_input")));

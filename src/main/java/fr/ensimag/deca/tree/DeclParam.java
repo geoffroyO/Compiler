@@ -58,6 +58,14 @@ public class DeclParam extends AbstractDeclParam {
 		this.paramName.iter(f);
 	}
 
+
+	/**
+	 * Generates assembly code for the second pass of the code generation to write the code for the declaration of
+	 * the parameters of a method.
+	 *
+	 * @param compiler
+	 *
+	 */
 	@Override
 	protected void codeGenDeclParam(DecacCompiler compiler, int indexLb) {
 		// - we set the address of the parameter in the definition of the expression

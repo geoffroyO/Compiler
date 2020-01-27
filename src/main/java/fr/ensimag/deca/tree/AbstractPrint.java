@@ -56,15 +56,17 @@ public abstract class AbstractPrint extends AbstractInst {
 		}
 	}
 
+	/**
+	 * Generates assembly code to evaluate the expressions so as to print them.
+	 *
+	 * @param compiler
+	 *
+	 */
 	@Override
 	protected void codeGenInst(DecacCompiler compiler) {
 		for (AbstractExpr a : getArguments().getList()) {
 			a.codeGenPrint(compiler, printHex);
 		}
-	}
-
-	private boolean getPrintHex() {
-		return printHex;
 	}
 
 	@Override

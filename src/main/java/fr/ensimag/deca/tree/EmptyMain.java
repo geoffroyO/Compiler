@@ -17,6 +17,11 @@ public class EmptyMain extends AbstractMain {
 	protected void verifyMain(DecacCompiler compiler) throws ContextualError {
 	}
 
+	/**
+	 *  Generate the assembly code for the main part of the program
+	 *
+	 * @param compiler
+	 */
 	@Override
 	protected void codeGenMain(DecacCompiler compiler) {
 	}

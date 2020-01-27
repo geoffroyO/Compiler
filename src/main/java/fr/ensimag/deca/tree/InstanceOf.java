@@ -60,6 +60,16 @@ public class InstanceOf extends AbstractExpr {
 	protected void iterChildren(TreeFunction f) {
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate to execute the instanceOf
+	 *
+	 * @param compiler
+	 *
+	 * @param register
+	 * 		The result 0 or 1 is stored in the register
+	 *
+	 */
 	@Override
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		// - generate the value of the expression

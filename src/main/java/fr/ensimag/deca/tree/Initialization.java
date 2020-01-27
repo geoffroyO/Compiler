@@ -57,6 +57,18 @@ public class Initialization extends AbstractInitialization {
 		expression.prettyPrint(s, prefix, true);
 	}
 
+	/**
+	 * Generates assembly code to evaluate to execute the initialization.
+	 *
+	 * @param compiler
+	 *
+	 * @param register
+	 * 		The result of the initialization is stored in register
+	 *
+	 * @param type
+	 * 		The type of the argument
+	 *
+	 */
 	protected void codeGenInit(DecacCompiler compiler, GPRegister register, AbstractIdentifier type) {
 
 		// - here we only evaluate the value of the expression and put it in register

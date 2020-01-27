@@ -58,6 +58,11 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
 		return maxIndex;
 	}
 
+	/**
+	 *  Generate the assembly code for the list of methods
+	 *
+	 * @param compiler
+	 */
 	public void codeGenListDeclMethod(DecacCompiler compiler) {
 		for (AbstractDeclMethod method : getList()) {
 			method.codeGenDeclMethod(compiler);

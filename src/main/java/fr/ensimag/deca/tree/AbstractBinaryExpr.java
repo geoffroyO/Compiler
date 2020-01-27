@@ -75,6 +75,14 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
 	protected void codeGenOp(DecacCompiler compiler, GPRegister register, GPRegister result) {
 	}
 
+
+	/**
+	 * Generate assembly code for a binary expression, store the result in the register passed
+	 * in argument.
+	 *
+	 * @param compiler
+	 * @param result
+	 */
 	@Override
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister result) {
 		if (compiler.getRegM().hasFreeGPRegister()) {

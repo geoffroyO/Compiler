@@ -95,6 +95,13 @@ public class DeclField extends AbstractDeclField {
 		initialization.iter(f);
 	}
 
+
+	/**
+	 * Generates assembly code for the second pass of the code generation for the field declaration.
+	 *
+	 * @param compiler
+	 *
+	 */
 	@Override
 	protected void codeGenDeclField(DecacCompiler compiler) {
 		compiler.addComment("initialisation de " + fieldName.getName());

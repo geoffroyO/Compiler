@@ -63,6 +63,13 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 		return leftOpType;
 	}
 
+	/**
+	 * Generates assembly code to evaluate and print the expression.
+	 *
+	 * @param compiler
+	 * @param printHex
+	 * 		Boolean that considers if the user wants a printx or a simple print(ln)
+	 */
 	@Override
 	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
 		// - the result of the expression is in R1
@@ -70,6 +77,14 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 		super.codeGenPrint(compiler, printHex);
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate the expression
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		The method stores the result in the register in assembly code.
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		super.codeGenExpr(compiler, register);
 

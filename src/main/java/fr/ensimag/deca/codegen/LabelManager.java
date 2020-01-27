@@ -65,7 +65,6 @@ public class LabelManager {
     	return(new Label(name));
 	}
 
-
 	public void setEndCurrentLabel(String label) {
     	endCurrentLabel = new Label(label);
 	}

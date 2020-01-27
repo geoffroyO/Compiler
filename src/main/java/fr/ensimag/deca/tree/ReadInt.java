@@ -46,6 +46,13 @@ public class ReadInt extends AbstractReadExpr {
 		// leaf node => nothing to do
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate and read the int expression.
+	 *
+	 * @param compiler
+	 * @param register
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		compiler.addInstruction(new RINT());
 

@@ -30,7 +30,7 @@ public abstract class AbstractDeclVar extends Tree {
 			throws ContextualError;
 
 	/**
-	 * Generate assembly code for the instruction.
+	 * Generate assembly code for the declaration of variables.
 	 *
 	 * @param compiler
 	 */

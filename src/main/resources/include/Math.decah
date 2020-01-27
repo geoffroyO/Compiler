@@ -70,36 +70,346 @@ class Utility {
     	return x;
 	}
 
-	/*
-	float bound(float x){
-		int k =  this.floor(x);
-		float res = x;
-		int n = k * 2;
-		res = res - (n * this.a1);
-		res = res - (n * this.a1_2*0.1);
-		res = res - (n * this.a1_3*0.01);
-		res = res - (n * this.a2 * 0.0001);
-		res = res - (n * this.a3*0.000001);
-		res = res - (n * this.a4*0.00000001);
-		res = res - (n * this.a5*0.0000000001);
-		res = res - (n * this.a6*0.000000000001);
-		res = res - (n * this.a7*0.00000000000001);
-		res = res - (n * this.a8*0.0000000000000001);
-		res = res - (n * this.a9*0.000000000000000001);
-		res = res - (n * this.a10*0.00000000000000000001);
-		res = res - (n * this.a11*0.0000000000000000000001);
-		res = res - (n * this.a12*0.000000000000000000000001);
-		res = res - (n * this.a13*0.00000000000000000000000001);
-		if (res > (pi)){
-			res = res - (2 * pi);
-		}
-		if (res < -(pi)){
-			res = res + (2*pi);
-		}
-		return res;
-	} */
 
 	float bound(float x)
+	    asm("; Test Stack_overflow
+             	TSTO #8
+             	BOV stack_overflow
+             	ADDSP #3
+             ; Saving the registers
+             	PUSH R6
+             	PUSH R5
+             	PUSH R4
+             	PUSH R3
+             	PUSH R2
+             ; Test Stack_overflow
+             	TSTO #2
+             	BOV stack_overflow
+             	ADDSP #2
+             	LOAD -2(LB), R3
+             	STORE R3, 0(SP)
+             	LOAD -3(LB), R3
+             	STORE R3, -1(SP)
+             	LOAD 0(SP), R3
+             	CMP #null, R3
+             	BEQ dereferencement.null
+             	LOAD 0(R3), R3
+             	BSR 2(R3)
+             	SUBSP #2
+             	LOAD R0, R3
+             	STORE R3, 1(LB)
+             	LOAD -3(LB), R3
+             	STORE R3, 2(LB)
+             	LOAD 1(LB), R3
+             	LOAD #2, R4
+             	MUL R4, R3
+             	BOV Float_overflow
+             	STORE R3, 3(LB)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R6
+             	CMP #null, R6
+             	BEQ dereferencement.null
+             	LOAD 1(R6), R6
+             	MUL R6, R5
+             	BOV Float_overflow
+             	SUB R5, R4
+             	BOV Float_overflow
+             	STORE R4, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 2(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.99999ap-4, R6
+             	FLOAT #-1, R0
+             	MUL R0, R5
+             	LOAD R4, R1
+             	FMA R6, R5
+             	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 3(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.47ae14p-7, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 4(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.a36e2ep-14, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 6(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.0c6f7ap-20, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 7(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.5798eep-27, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 8(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.b7cdfep-34, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 9(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.197998p-40, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 10(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.6849b8p-47, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 11(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.cd2b2ap-54, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 12(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.2725dep-60, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 13(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.79ca1p-67, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 14(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.e39202p-74, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 15(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.357c2ap-80, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD 3(LB), R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R7
+             	CMP #null, R7
+             	BEQ dereferencement.null
+             	LOAD 16(R7), R7
+             	MUL R7, R5
+             	BOV Float_overflow
+             	LOAD #0x1.8c240cp-87, R6
+             	FLOAT #-1, R0
+                 	MUL R0, R5
+                 	LOAD R4, R1
+                 	FMA R6, R5
+                 	STORE R5, 0(R3)
+             if_bound_1:
+             	LOAD 2(LB), R3
+             	LOAD -2(LB), R4
+             	LOAD 17(R4), R4
+             	CMP R4, R3
+             	SGT R3
+             	CMP #1, R3
+             	BNE end_if_bound_1
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD #2, R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R6
+             	LOAD 17(R6), R6
+             	FLOAT #-1, R0
+             	MUL R0, R5
+             	LOAD R4, R1
+             	FMA R6, R5
+             	STORE R5, 0(R3)
+             end_if_bound_1:
+             if_bound_2:
+             	LOAD 2(LB), R3
+             	LOAD -2(LB), R4
+             	LOAD 17(R4), R4
+             	MUL #-0x1.0p0, R4
+             	CMP R4, R3
+             	SLT R3
+             	CMP #1, R3
+             	BNE end_if_bound_2
+             	LEA 2(LB), R3
+             	LOAD 2(LB), R4
+             	LOAD #2, R5
+             	LOAD R5, R0
+             	FLOAT R0, R5
+             	LOAD -2(LB), R6
+             	LOAD 17(R6), R6
+             	LOAD R4, R1
+             	FMA R6, R5
+             	STORE R5, 0(R3)
+             end_if_bound_2:
+             	LOAD 2(LB), R0
+             	BRA End.Utility.bound.asm
+             End.Utility.bound.asm:
+             ; Restoring the registers
+             	POP R2
+             	POP R3
+             	POP R4
+             	POP R5
+             	POP R6
+             	SUBSP #4");
+
+	/* float bound(float x)
 		asm("; Test Stack_overflow
 			TSTO #7
 			BOV stack_overflow
@@ -406,7 +716,7 @@ class Utility {
 			POP R3
 			POP R4
 			POP R5
-			SUBSP #3");
+			SUBSP #3"); */
 
 }
 

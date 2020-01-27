@@ -22,6 +22,17 @@ public class GreaterOrEqual extends AbstractOpIneq {
 		return ">=";
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate the operation.
+	 *
+	 * @param compiler
+	 * @param reg
+	 * 	 	This label is used to do the lazy evaluation of the boolean expression
+	 * @param regResult
+	 * 		The method stores the result in the register result in the assembly code.
+	 *
+	 */
 	@Override
 	protected void codeGenOp(DecacCompiler compiler, GPRegister reg, GPRegister regResult) {
 		compiler.addInstruction(new CMP(reg, regResult));

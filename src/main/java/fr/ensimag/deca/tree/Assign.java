@@ -44,6 +44,16 @@ public class Assign extends AbstractBinaryExpr {
 		return "=";
 	}
 
+
+	/**
+	 * Generates assembly code to evaluate the expression.
+	 *
+	 * @param compiler
+	 *
+	 * @param register
+	 * 		The result of the expression is stored in register.
+	 *
+	 */
 	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
 		if (compiler.getRegM().hasFreeGPRegister()) {
 			// - register that store the address of the left operand to assign
@@ -62,6 +72,13 @@ public class Assign extends AbstractBinaryExpr {
 		}
 	}
 
+
+	/**
+	 * Generates assembly code to execute the instructions.
+	 *
+	 * @param compiler
+	 *
+	 */
 	protected void codeGenInst(DecacCompiler compiler) {
 		// - register that store the address of the left operand to assign
 		GPRegister addrReg = compiler.getRegM().findFreeGPRegister();

@@ -52,6 +52,16 @@ public class NoInitialization extends AbstractInitialization {
 		// leaf node => nothing to do
 	}
 
+
+	/**
+	 * Generate assembly code for the code generation of the initialization
+	 *
+	 * @param compiler
+	 * @param register
+	 * 		register to store the value
+	 * @param type
+	 * 		Type of the argument
+	 */
 	@Override
 	protected void codeGenInit(DecacCompiler compiler, GPRegister register, AbstractIdentifier type) {
 		// - cf documentation for the no initialization case
