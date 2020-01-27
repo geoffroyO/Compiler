@@ -1,0 +1,9 @@
+// Description:
+//      Utilisation d'un print avec des unary minus
+// Resultats:
+//      -15
+//      -2.9
+{
+    println(-15);
+    println(-2.9);
+}

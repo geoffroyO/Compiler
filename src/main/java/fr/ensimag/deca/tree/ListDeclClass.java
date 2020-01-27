@@ -1,11 +1,12 @@
 package fr.ensimag.deca.tree;
 
+import java.util.Iterator;
+
+import org.apache.log4j.Logger;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import org.apache.log4j.Logger;
-
-import java.util.Iterator;
 
 /**
  *
@@ -13,73 +14,67 @@ import java.util.Iterator;
  * @date 01/01/2020
  */
 public class ListDeclClass extends TreeList<AbstractDeclClass> {
-    private static final Logger LOG = Logger.getLogger(ListDeclClass.class);
-    
-    @Override
-    public void decompile(IndentPrintStream s) {
-        for (AbstractDeclClass c : getList()) {
-            c.decompile(s);
-            s.println();
-        }
-    }
+	private static final Logger LOG = Logger.getLogger(ListDeclClass.class);
 
-    /**
-     * Pass 1 of [SyntaxeContextuelle]
-     */
-    void verifyListClass(DecacCompiler compiler) throws ContextualError {
-        LOG.debug("verify listClass: start");
+	@Override
+	public void decompile(IndentPrintStream s) {
+		for (AbstractDeclClass c : getList()) {
+			c.decompile(s);
+			s.println();
+		}
+	}
 
-        // - we verify each class declaration
-        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
-        while (iterDeclClass.hasNext()){
-            iterDeclClass.next().verifyClass(compiler);
-        }
-        verifyListClassMembers(compiler);
-        LOG.debug("verify listClass: end");
-    }
+	/**
+	 * Pass 1 of [SyntaxeContextuelle]
+	 */
+	void verifyListClass(DecacCompiler compiler) throws ContextualError {
+		LOG.debug("verify listClass: start");
+		// - we verify each class declaration
+		Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
+		while (iterDeclClass.hasNext()) {
+			iterDeclClass.next().verifyClass(compiler);
+		}
+		verifyListClassMembers(compiler);
+		LOG.debug("verify listClass: end");
+	}
 
-    /**
-     * Pass 2 of [SyntaxeContextuelle]
-     */
-    public void verifyListClassMembers(DecacCompiler compiler) throws ContextualError {
-        LOG.debug("verify listClassMembers: start");
-        // - we verify each class members (fields and methods)
-        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
-        while (iterDeclClass.hasNext()){
-            iterDeclClass.next().verifyClassMembers(compiler);
-        }
-        verifyListClassBody(compiler);
-        LOG.debug("verify listClassMembers: end");
-    }
-    
-    /**
-     * Pass 3 of [SyntaxeContextuelle]
-     */
-    public void verifyListClassBody(DecacCompiler compiler) throws ContextualError {
-        LOG.debug("verify verifyListClassBody: start");
+	/**
+	 * Pass 2 of [SyntaxeContextuelle]
+	 */
+	public void verifyListClassMembers(DecacCompiler compiler) throws ContextualError {
+		LOG.debug("verify listClassMembers: start");
+		// - we verify each class members (fields and methods)
+		Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
+		while (iterDeclClass.hasNext()) {
+			iterDeclClass.next().verifyClassMembers(compiler);
+		}
+		verifyListClassBody(compiler);
+		LOG.debug("verify listClassMembers: end");
+	}
 
-        // - we verify each class methods body
-        Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
-        while (iterDeclClass.hasNext()){
-            iterDeclClass.next().verifyClassBody(compiler);
-        }
+	/**
+	 * Pass 3 of [SyntaxeContextuelle]
+	 */
+	public void verifyListClassBody(DecacCompiler compiler) throws ContextualError {
+		LOG.debug("verify verifyListClassBody: start");
+		// - we verify each class methods body
+		Iterator<AbstractDeclClass> iterDeclClass = this.iterator();
+		while (iterDeclClass.hasNext()) {
+			iterDeclClass.next().verifyClassBody(compiler);
+		}
+		LOG.debug("verify verifyListClassBody: end");
+	}
 
-        LOG.debug("verify verifyListClassBody: end");
-    }
+	public void codeGenListFpDeclClass(DecacCompiler compiler) {
+		for (AbstractDeclClass A : getList()) {
+			A.codeGenFpDeclClass(compiler);
+		}
+	}
 
-    public void codeGenListFpDeclClass(DecacCompiler compiler){
-        for (AbstractDeclClass A : getList()) {
-            A.codeGenFpDeclClass(compiler);
-        }
-    }
-
-    public void codeGenListDeclClass(DecacCompiler compiler){
-        for (AbstractDeclClass A : getList()) {
-            A.codeGenDeclClass(compiler);
-        }
-    }
-
-
-
+	public void codeGenListDeclClass(DecacCompiler compiler) {
+		for (AbstractDeclClass A : getList()) {
+			A.codeGenDeclClass(compiler);
+		}
+	}
 
 }

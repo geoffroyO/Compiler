@@ -10,148 +10,162 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.*;
-import fr.ensimag.ima.pseudocode.instructions.*;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.instructions.LEA;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 
-public class MethodCall extends AbstractLValue{
+public class MethodCall extends AbstractLValue {
 
-    private AbstractExpr instance ;
-    private AbstractIdentifier methodName;
-    private ListExpr params;
+	private AbstractExpr instance;
+	private AbstractIdentifier methodName;
+	private ListExpr params;
 
-    public MethodCall(AbstractExpr instance, AbstractIdentifier methodName, ListExpr params){
-        // instance can be null if match method(params)
-        this.instance = instance;
-        this.methodName = methodName;
-        this.params = params;
-    }
+	public MethodCall(AbstractExpr instance, AbstractIdentifier methodName, ListExpr params) {
+		// instance can be null if match method(params)
+		this.instance = instance;
+		this.methodName = methodName;
+		this.params = params;
+	}
 
-    @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass) throws ContextualError {
+	@Override
+	public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass)
+			throws ContextualError {
 
+		// instance.verifyExpr() verifies that 'instance' exists in the local
+		// environment
+		ClassType instanceType = instance.verifyExpr(compiler, localEnv, currentClass).asClassType(
+				"Contextual error, it is not possible to call a method on a object that is not a class instance",
+				getLocation());
+		EnvironmentExp classInstanceEnv = instanceType.getDefinition().getMembers();
 
-        //instance.verifyExpr() verifies that 'instance' exists in the local environment
-        ClassType instanceType = instance.verifyExpr(compiler, localEnv, currentClass).asClassType("Contextual error, it is not possible to call a method on a object that is not a class instance", getLocation());
-        EnvironmentExp classInstanceEnv = instanceType.getDefinition().getMembers();
+		// methodName.verifyExpr() verifies that 'methodName' exists in the instance's
+		// class environment
+		methodName.verifyExpr(compiler, classInstanceEnv, currentClass);
 
-        //methodName.verifyExpr() verifies that 'methodName' exists in the instance's class environment
-        methodName.verifyExpr(compiler, classInstanceEnv, currentClass);
+		Signature sig = classInstanceEnv.get(methodName.getName()).asMethodDefinition("error TO DO", getLocation())
+				.getSignature();
 
-        Signature sig = classInstanceEnv.get(methodName.getName()).asMethodDefinition("error TO DO", getLocation()).getSignature();
+		if (sig.size() != params.getList().size()) {
+			throw new ContextualError("Contextual error, the method called expected " + sig.size() + " arguments but "
+					+ params.getList().size() + " were given", getLocation());
+		}
+		for (int i = 0; i < sig.size(); i++) {
+			Type paramType = params.getList().get(i).verifyExpr(compiler, localEnv, currentClass);
 
-        if (sig.size() != params.getList().size()) {
-            throw new ContextualError("Contextual error, the method called expected " + sig.size() + " arguments but " + params.getList().size() + " were given",getLocation());
-        }
-        for (int i = 0; i < sig.size(); i++) {
-            Type paramType = params.getList().get(i).verifyExpr(compiler, localEnv, currentClass);
+			if (!sig.getList().get(i).sameType(paramType)) {
+				throw new ContextualError("Contextual error, the parameters given don't respect the method signature",
+						getLocation());
+			}
+		}
 
-            if (!sig.getList().get(i).sameType(paramType)){
-                throw new ContextualError("Contextual error, the parameters given don't respect the method signature",getLocation());
-            }
-        }
+		this.setType(classInstanceEnv.get(methodName.getName()).getType());
 
-        this.setType(classInstanceEnv.get(methodName.getName()).getType());
+		return this.getType();
+	}
 
+	@Override
+	public void decompile(IndentPrintStream s) {
+		instance.decompile(s);
+		s.print(".");
+		methodName.decompile(s);
+		s.print("(");
+		params.decompile(s);
+		s.print(")");
+	}
 
-        return this.getType();
-    }
+	@Override
+	protected void prettyPrintChildren(PrintStream s, String prefix) {
+		instance.prettyPrint(s, prefix, false);
+		methodName.prettyPrint(s, prefix, false);
+		params.prettyPrint(s, prefix, true);
+	}
 
-    @Override
-    public void decompile(IndentPrintStream s) {
-        instance.decompile(s);
-        s.print(".");
-        methodName.decompile(s);
-        s.print("(");
-        params.decompile(s);
-        s.print(")");
-    }
+	@Override
+	protected void iterChildren(TreeFunction f) {
+	}
 
-    @Override
-    protected void prettyPrintChildren(PrintStream s, String prefix) {
-        instance.prettyPrint(s, prefix, false);
-        methodName.prettyPrint(s, prefix, false);
-        params.prettyPrint(s, prefix, true);
-    }
+	private void codeGenMethodCall(DecacCompiler compiler, GPRegister register) {
+		// - test stack overflow, don't forget the implicit parameter
+		compiler.TSTO(params.size() + 1);
+		compiler.addInstruction(new ADDSP(params.size() + 1));
 
-    @Override
-    protected void iterChildren(TreeFunction f) { }
+		// - load the implicit parameter in the stack
+		instance.codeGenExpr(compiler, register);
+		compiler.addInstruction(new STORE(register, new RegisterOffset(0, Register.SP)));
 
-    private void codeGenMethodCall(DecacCompiler compiler, GPRegister register) {
-        // - test stack overflow, don't forget the implicit parameter
-        compiler.TSTO(params.size() + 1);
-        compiler.addInstruction(new ADDSP(params.size()  + 1));
+		// - load the other parameters in the stack
+		int indexSp = -1;
 
-        // - load the implicit parameter in the stack
-        instance.codeGenExpr(compiler, register);
-        compiler.addInstruction(new STORE(register, new RegisterOffset(0, Register.SP)));
+		for (AbstractExpr expr : params.getList()) {
 
-        // - load the other parameters in the stack
-        int indexSp = - 1;
+			// - get the value into register
+			expr.codeGenExpr(compiler, register);
+			compiler.addInstruction(new STORE(register, new RegisterOffset(indexSp, Register.SP)));
+			indexSp--;
+		}
 
-        for (AbstractExpr expr : params.getList()) {
+		// - test reference for implicit parameter
+		compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP), register));
+		compiler.referenceErr(register);
 
-            // - get the value into register
-            expr.codeGenExpr(compiler, register);
-            compiler.addInstruction(new STORE(register, new RegisterOffset(indexSp, Register.SP)));
-            indexSp--;
-        }
+		// - get the address of the table of methods
+		compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register));
 
-        // - test reference for implicit parameter
-        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP), register));
-        compiler.referenceErr(register);
+		// - set a free register table for the subprogram
+		boolean[] oldFreeRegisters = compiler.getRegM().resetFreeRegister();
 
-        // - get the address of the table of methods
-        compiler.addInstruction(new LOAD(new RegisterOffset(0, register), register));
+		// - get the final address of the method called and jump to it
+		compiler.addInstruction(new BSR(new RegisterOffset(methodName.getMethodDefinition().getIndex(), register)));
 
-        // - set a free register table for the subprogram
-        boolean[] oldFreeRegisters = compiler.getRegM().resetFreeRegister();
+		// - reset the old register table
+		compiler.getRegM().setFreeRegister(oldFreeRegisters);
 
-        // - get the final address of the method called and jump to it
-        compiler.addInstruction(new BSR(new RegisterOffset(methodName.getMethodDefinition().getIndex(), register)));
+		// - unstack the parameters
+		compiler.addInstruction(new SUBSP(params.size() + 1));
+	}
 
-        // - reset the old register table
-        compiler.getRegM().setFreeRegister(oldFreeRegisters);
+	@Override
+	protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
+		// - generate the code to call the function, the result is in R0
+		codeGenMethodCall(compiler, register);
 
-        // - unstack the parameters
-        compiler.addInstruction(new SUBSP(params.size() + 1));
-    }
+		// - STORE the result in register
+		compiler.addInstruction(new LOAD(Register.R0, register));
+	}
 
-    @Override
-    protected void codeGenExpr(DecacCompiler compiler, GPRegister register) {
-        // - generate the code to call the function, the result is in R0
-        codeGenMethodCall(compiler, register);
+	@Override
+	protected void codeGenInst(DecacCompiler compiler) {
+		// - temporary register where we put nothing
+		GPRegister register = compiler.getRegM().findFreeGPRegister();
 
-        // - STORE the result in register
-    compiler.addInstruction(new LOAD(Register.R0, register));
-    }
+		// - generate the code to call the function, the result is in R0
+		codeGenMethodCall(compiler, register);
 
-    @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-        // - temporary register where we put nothing
-        GPRegister register = compiler.getRegM().findFreeGPRegister();
+		// - free the register
+		compiler.getRegM().freeRegister(register);
+	}
 
-        // - generate the code to call the function, the result is in R0
-        codeGenMethodCall(compiler, register);
+	@Override
+	protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
+		// - generate the code to call the function, the result is in R0
+		codeGenMethodCall(compiler, register);
 
-        // - free the register
-        compiler.getRegM().freeRegister(register);
-    }
+		// - load the address in register
+		compiler.addInstruction(new LEA(new RegisterOffset(0, Register.R0), register));
+	}
 
-    @Override
-    protected void codeGenLValueAddr(DecacCompiler compiler, GPRegister register) {
-        // - generate the code to call the function, the result is in R0
-        codeGenMethodCall(compiler, register);
+	@Override
+	protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
+		// - generate the code to call the function and put the value in R1
+		codeGenMethodCall(compiler, Register.R1);
+		compiler.addInstruction(new LOAD(Register.R0, Register.R1));
 
-        // - load the address in register
-        compiler.addInstruction(new LEA(new RegisterOffset(0, Register.R0), register));
-    }
-
-    @Override
-    protected void codeGenPrint(DecacCompiler compiler, boolean printHex) {
-        // - generate the code to call the function and put the value in R1
-        codeGenMethodCall(compiler, Register.R1);
-        compiler.addInstruction(new LOAD(Register.R0, Register.R1));
-
-        super.codeGenPrint(compiler, printHex);
-    }
+		super.codeGenPrint(compiler, printHex);
+	}
 }
