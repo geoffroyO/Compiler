@@ -185,8 +185,7 @@ public class DeclMethod extends AbstractDeclMethod {
 		}
 		// - get back to ancient stack
 		compiler.addInstruction(new SUBSP(new ImmediateInteger(compiler.getRegM().getLocalVariable() + 1)));
-		// - return
-		compiler.addInstruction(new RTS());
+
 		// - save the registers
 		for (int k = 2; k <= nbRegistersToSave + 1; k++) {
 			if (k <= max) {

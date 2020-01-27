@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.instructions.RTS;
 import org.apache.commons.lang.Validate;
 
 import fr.ensimag.deca.DecacCompiler;
@@ -43,6 +44,7 @@ public class Return extends AbstractInst {
 	@Override
 	protected void codeGenInst(DecacCompiler compiler) {
 		expr.codeGenExpr(compiler, Register.R0); // on retourne le résultat dans R0
+		compiler.addInstruction(new RTS());
 	}
 
 	@Override
