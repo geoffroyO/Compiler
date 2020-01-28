@@ -11,3 +11,6 @@ To generate a diagram for [asin] function just type in the terminal:
 
 To generate a diagram for [atan] function just type in the terminal:
 > **$ ./verify.sh atan.deca**
+
+To generate a diagram for [ulp] function just type in the terminal:
+> **$ ./verify_ulp.sh**
