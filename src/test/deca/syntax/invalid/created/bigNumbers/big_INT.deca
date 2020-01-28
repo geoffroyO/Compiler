@@ -4,5 +4,5 @@
 //		Ligne 7 : syntax error, this value is too large
 
 {
-	int value = 456784567895678567896789;
+	int value = 2147483648;
 }
