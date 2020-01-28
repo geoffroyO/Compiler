@@ -3,10 +3,10 @@
 {
 	Math m = new Math();
 
-	float counter = -1000.14;
-	while(counter <= 1000.14){
+	float counter = -100.14;
+	while(counter <= 100.14){
 		printlnx(m.ulp(counter));
-		counter = counter + 5.0;
+		counter = counter + 1.0;
 	}
 
 }

@@ -135,10 +135,10 @@ def print_plot(sin_values, ulp_values):
     sin_values_py = []
     diff_values = []
     length = len(sin_values)
-    for index, i in enumerate(numpy.arange(-1000.14, 1000.14, 5.0)):
+    for index, i in enumerate(numpy.arange(-100.14, 100.14, 1.0)):
         points_num.append(i)
         sin_values_py.append(math.sin(i))
-        diff_values.append((sin_values_py[index] - sin_values[index] )/ ulp_values[index])
+        diff_values.append((sin_values_py[index] - sin_values[index])/ max(ulp_values[index],2**-24))
 #         print("test", diff_values[index])
         # sin_values[index] = round(sin_values[index], 5)
 
@@ -148,8 +148,8 @@ def print_plot(sin_values, ulp_values):
     plt.legend(bbox_to_anchor=(0.03, 0.95), loc=2, borderaxespad=0.)
     plt.ylabel('y')
     plt.xlabel('x')
-    # plt.xlim([-1000,-250])
-    # plt.ylim([0,3])
+#    plt.xlim([0,100])
+#    plt.ylim([0,250])
     plt.show()
 
 
