@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<project name="" company="" manager="" phase="" project-start="20200106T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days>
+        <day date="20200105" type="day-type" id="1"/>
+        <day date="20200104" type="day-type" id="1"/>
+        <day date="20200111" type="day-type" id="0"/>
+        <day date="20200112" type="day-type" id="0"/>
+      </days>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Compilateur g&#xE9;rant Hello World" note="" work="316800" start="20200106T000000Z" end="20200109T170000Z" work-start="20200106T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+      <task id="2" name="Lexeur" note="" work="57600" start="20200106T000000Z" end="20200107T170000Z" work-start="20200106T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="3" name="Parseur" note="" work="57600" start="20200106T000000Z" end="20200107T170000Z" work-start="20200106T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="4" name="Analyse contextuelle" note="" work="86400" start="20200106T000000Z" end="20200108T170000Z" work-start="20200106T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="5" name="Tests" note="" work="115200" start="20200106T000000Z" end="20200109T170000Z" work-start="20200106T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="6" name="Compilateur sans objet" note="" work="1072800" start="20200108T170000Z" end="20200121T091820Z" work-start="20200109T080000Z" percent-complete="10" priority="0" type="normal" scheduling="fixed-work">
+      <task id="7" name="Extension &#xE9;tape A (parseur)" note="" work="46800" start="20200108T170000Z" end="20200110T140000Z" work-start="20200109T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="4" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="8" name="Extension &#xE9;tape B" note="" work="190800" start="20200108T170000Z" end="20200114T140000Z" work-start="20200109T080000Z" percent-complete="10" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="4" type="FS"/>
+        </predecessors>
+        <task id="9" name="V&#xE9;rification contextuelle et d&#xE9;coration" note="" work="86400" start="20200108T170000Z" end="20200111T170000Z" work-start="20200109T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="10" name="Gestion des environnements" note="" work="57600" start="20200112T000000Z" end="20200113T170000Z" work-start="20200112T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200112T000000Z"/>
+        </task>
+        <task id="11" name="D&#xE9;compilation" note="" work="46800" start="20200113T000000Z" end="20200114T140000Z" work-start="20200113T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200113T000000Z"/>
+        </task>
+      </task>
+      <task id="12" name="Etape C " note="" work="201600" start="20200112T000000Z" end="20200116T170000Z" work-start="20200112T080000Z" percent-complete="1" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="4" type="FS"/>
+        </predecessors>
+        <task id="13" name="Factorisation du code" note="" work="57600" start="20200112T000000Z" end="20200113T170000Z" work-start="20200112T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200112T000000Z"/>
+        </task>
+        <task id="14" name="G&#xE9;n&#xE9;ration du code assembleur pour le sans objets" note="" work="144000" start="20200112T000000Z" end="20200116T170000Z" work-start="20200112T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200112T000000Z"/>
+        </task>
+      </task>
+      <task id="15" name="Gestion des options de compilation" note="" work="57600" start="20200108T170000Z" end="20200109T170000Z" work-start="20200109T080000Z" percent-complete="60" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="4" type="FS"/>
+        </predecessors>
+        <task id="16" name="Structure" note="" work="28800" start="20200108T170000Z" end="20200109T170000Z" work-start="20200109T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="17" name="Parrall&#xE8;lisme - Limitation du nombre de registres - ..." note="" work="28800" start="20200108T170000Z" end="20200109T170000Z" work-start="20200109T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+      </task>
+      <task id="18" name="Tests" note="" work="576000" start="20200108T170000Z" end="20200121T091820Z" work-start="20200109T080000Z" percent-complete="60" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="4" type="FS"/>
+        </predecessors>
+        <task id="19" name="Architecture" note="" work="28800" start="20200108T170000Z" end="20200109T170000Z" work-start="20200109T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="20" name="Scripts" note="" work="86400" start="20200108T170000Z" end="20200111T170000Z" work-start="20200109T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="21" name="Correction des bugs" note="" work="230400" start="20200111T000000Z" end="20200115T153140Z" work-start="20200111T080000Z" percent-complete="90" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200111T000000Z"/>
+        </task>
+        <task id="22" name="Cr&#xE9;ation des tests" note="" work="230400" start="20200111T000000Z" end="20200121T091820Z" work-start="20200111T080000Z" percent-complete="90" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200111T000000Z"/>
+        </task>
+      </task>
+    </task>
+    <task id="23" name="Compilateur pour la totalit&#xE9; du langage" note="" work="1635462" start="20200116T170000Z" end="20200129T170000Z" work-start="20200117T080000Z" percent-complete="1" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="12" type="FS"/>
+      </predecessors>
+      <task id="24" name="Extension &#xE9;tape A (parseur)" note="" work="115200" start="20200116T170000Z" end="20200121T170000Z" work-start="20200117T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+        <task id="25" name="Ajout des nouvelles r&#xE8;gles" note="" work="28800" start="20200116T170000Z" end="20200117T170000Z" work-start="20200117T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="26" name="Ajout des nouveaux noeuds dans l'arbre" note="" work="28800" start="20200116T170000Z" end="20200117T170000Z" work-start="20200117T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="27" name="Gestion des exceptions" note="" work="57600" start="20200120T000000Z" end="20200121T170000Z" work-start="20200120T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200120T000000Z"/>
+        </task>
+      </task>
+      <task id="28" name="Extension &#xE9;tape B" note="" work="376200" start="20200117T170000Z" end="20200129T083000Z" work-start="20200120T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="26" type="FS"/>
+        </predecessors>
+        <task id="29" name="V&#xE9;rification contextuelle et d&#xE9;coration" note="" work="115200" start="20200117T170000Z" end="20200124T081820Z" work-start="20200120T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="30" name="Gestion des environnements" note="" work="86400" start="20200117T170000Z" end="20200122T170000Z" work-start="20200120T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="31" name="D&#xE9;compilation" note="" work="28800" start="20200122T000000Z" end="20200122T170000Z" work-start="20200122T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200122T000000Z"/>
+        </task>
+        <task id="32" name="Gestion des exceptions" note="" work="57600" start="20200123T000000Z" end="20200124T170000Z" work-start="20200123T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200123T000000Z"/>
+        </task>
+        <task id="33" name="Factorisation du code" note="" work="88200" start="20200124T000000Z" end="20200129T083000Z" work-start="20200124T080000Z" percent-complete="50" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200124T000000Z"/>
+        </task>
+      </task>
+      <task id="34" name="Extension &#xE9;tape C" note="" work="576000" start="20200117T170000Z" end="20200128T170000Z" work-start="20200120T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="26" type="FS"/>
+          <predecessor id="1" predecessor-id="8" type="FS"/>
+        </predecessors>
+        <task id="35" name="Gestion de la pile des m&#xE9;thodes" note="" work="86400" start="20200117T170000Z" end="20200122T170000Z" work-start="20200120T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="36" name="Gestion des registres pour l'appel des m&#xE9;thodes" note="" work="86400" start="20200117T170000Z" end="20200122T170000Z" work-start="20200120T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="37" name="D&#xE9;claration des champs " note="" work="86400" start="20200122T000000Z" end="20200124T170000Z" work-start="20200122T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200122T000000Z"/>
+        </task>
+        <task id="38" name="S&#xE9;lection" note="" work="57600" start="20200122T000000Z" end="20200123T170000Z" work-start="20200122T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200122T000000Z"/>
+        </task>
+        <task id="39" name="Gestion des exceptions" note="" work="28800" start="20200124T000000Z" end="20200124T170000Z" work-start="20200124T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200124T000000Z"/>
+        </task>
+        <task id="40" name="Factorisation du code" note="" work="86400" start="20200124T000000Z" end="20200128T170000Z" work-start="20200124T080000Z" percent-complete="50" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200124T000000Z"/>
+        </task>
+        <task id="41" name="Instanceof" note="" work="57600" start="20200123T000000Z" end="20200124T170000Z" work-start="20200123T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200123T000000Z"/>
+        </task>
+        <task id="42" name="Cast" note="" work="86400" start="20200124T000000Z" end="20200128T170000Z" work-start="20200124T080000Z" percent-complete="50" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200124T000000Z"/>
+        </task>
+      </task>
+      <task id="43" name="Tests" note="" work="510462" start="20200116T170000Z" end="20200129T170000Z" work-start="20200117T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="44" name="R&#xE9;solution des bugs" note="" work="251262" start="20200116T170000Z" end="20200129T153000Z" work-start="20200117T080000Z" percent-complete="85" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="45" name="Ecriture des tests" note="" work="259200" start="20200116T170000Z" end="20200129T170000Z" work-start="20200117T080000Z" percent-complete="85" priority="0" type="normal" scheduling="fixed-work"/>
+      </task>
+      <task id="46" name="Gestion des options de compilation" note="" work="57600" start="20200123T000000Z" end="20200123T170000Z" work-start="20200123T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="47" name="Suppression des tests" note="" work="28800" start="20200123T000000Z" end="20200123T170000Z" work-start="20200123T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200123T000000Z"/>
+        </task>
+        <task id="48" name="Affichage de la table des m&#xE9;thodes" note="" work="28800" start="20200123T000000Z" end="20200123T170000Z" work-start="20200123T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200123T000000Z"/>
+        </task>
+      </task>
+    </task>
+    <task id="49" name="Extension TRIGO" note="" work="604800" start="20200109T000000Z" end="20200128T170000Z" work-start="20200109T080000Z" percent-complete="5" priority="0" type="normal" scheduling="fixed-work">
+      <task id="50" name="Recherches dans la litt&#xE9;rature scientifique" note="" work="86400" start="20200109T000000Z" end="20200111T170000Z" work-start="20200109T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20200109T000000Z"/>
+      </task>
+      <task id="51" name="Impl&#xE9;mentation des fonctions en Python" note="" work="57600" start="20200111T170000Z" end="20200113T170000Z" work-start="20200112T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="50" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="52" name="Mesure des performances" note="" work="172800" start="20200111T170000Z" end="20200128T170000Z" work-start="20200112T080000Z" percent-complete="80" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="50" type="FS"/>
+        </predecessors>
+        <task id="53" name="des m&#xE9;thodes impl&#xE9;ment&#xE9;es en Python" note="" work="86400" start="20200111T170000Z" end="20200114T170000Z" work-start="20200112T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="54" name="des m&#xE9;thodes impl&#xE9;ment&#xE9;es en deca" note="" work="86400" start="20200124T000000Z" end="20200128T170000Z" work-start="20200124T080000Z" percent-complete="50" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20200124T000000Z"/>
+        </task>
+      </task>
+      <task id="55" name="R&#xE9;daction d'une documentation" note="" work="201600" start="20200111T170000Z" end="20200120T170000Z" work-start="20200112T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="50" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="56" name="Int&#xE9;gration - Impl&#xE9;mentation en d&#xE9;ca" note="" work="86400" start="20200122T170000Z" end="20200124T142000Z" work-start="20200123T080000Z" percent-complete="75" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="36" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="57" name="Documentation" note="" work="172800" start="20200118T000000Z" end="20200127T170000Z" work-start="20200120T080000Z" percent-complete="75" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200118T000000Z"/>
+    </task>
+    <task id="58" name="R&#xE9;alisation des rendu" note="" work="489600" start="20200107T000000Z" end="20200127T170000Z" work-start="20200107T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200107T000000Z"/>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources>
+    <resource id="1" name="J" short-name="" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="2" name="G" short-name="" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="3" name="M" short-name="" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="4" name="L" short-name="" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="5" name="S" short-name="" type="1" units="0" email="" note="" std-rate="0"/>
+  </resources>
+  <allocations>
+    <allocation task-id="44" resource-id="1" units="13"/>
+    <allocation task-id="45" resource-id="1" units="50"/>
+    <allocation task-id="33" resource-id="1" units="50"/>
+    <allocation task-id="32" resource-id="1" units="40"/>
+    <allocation task-id="22" resource-id="1" units="50"/>
+    <allocation task-id="20" resource-id="1" units="100"/>
+    <allocation task-id="19" resource-id="1" units="100"/>
+    <allocation task-id="31" resource-id="1" units="50"/>
+    <allocation task-id="30" resource-id="1" units="30"/>
+    <allocation task-id="29" resource-id="1" units="33"/>
+    <allocation task-id="17" resource-id="1" units="100"/>
+    <allocation task-id="11" resource-id="1" units="100"/>
+    <allocation task-id="58" resource-id="1" units="20"/>
+    <allocation task-id="57" resource-id="1" units="20"/>
+    <allocation task-id="3" resource-id="1" units="50"/>
+    <allocation task-id="2" resource-id="1" units="50"/>
+    <allocation task-id="5" resource-id="1" units="100"/>
+    <allocation task-id="56" resource-id="2" units="100"/>
+    <allocation task-id="44" resource-id="2" units="30"/>
+    <allocation task-id="45" resource-id="2" units="10"/>
+    <allocation task-id="42" resource-id="2" units="100"/>
+    <allocation task-id="41" resource-id="2" units="100"/>
+    <allocation task-id="40" resource-id="2" units="100"/>
+    <allocation task-id="39" resource-id="2" units="50"/>
+    <allocation task-id="38" resource-id="2" units="100"/>
+    <allocation task-id="36" resource-id="2" units="85"/>
+    <allocation task-id="22" resource-id="2" units="16"/>
+    <allocation task-id="21" resource-id="2" units="100"/>
+    <allocation task-id="51" resource-id="2" units="30"/>
+    <allocation task-id="37" resource-id="2" units="40"/>
+    <allocation task-id="35" resource-id="2" units="40"/>
+    <allocation task-id="14" resource-id="2" units="50"/>
+    <allocation task-id="58" resource-id="2" units="20"/>
+    <allocation task-id="57" resource-id="2" units="20"/>
+    <allocation task-id="55" resource-id="2" units="20"/>
+    <allocation task-id="50" resource-id="2" units="30"/>
+    <allocation task-id="13" resource-id="2" units="50"/>
+    <allocation task-id="3" resource-id="2" units="50"/>
+    <allocation task-id="48" resource-id="3" units="100"/>
+    <allocation task-id="44" resource-id="3" units="13"/>
+    <allocation task-id="45" resource-id="3" units="10"/>
+    <allocation task-id="32" resource-id="3" units="40"/>
+    <allocation task-id="33" resource-id="3" units="50"/>
+    <allocation task-id="22" resource-id="3" units="16"/>
+    <allocation task-id="21" resource-id="3" units="33"/>
+    <allocation task-id="31" resource-id="3" units="50"/>
+    <allocation task-id="30" resource-id="3" units="70"/>
+    <allocation task-id="29" resource-id="3" units="33"/>
+    <allocation task-id="16" resource-id="3" units="100"/>
+    <allocation task-id="58" resource-id="3" units="20"/>
+    <allocation task-id="57" resource-id="3" units="20"/>
+    <allocation task-id="15" resource-id="3" units="100"/>
+    <allocation task-id="10" resource-id="3" units="100"/>
+    <allocation task-id="9" resource-id="3" units="100"/>
+    <allocation task-id="2" resource-id="3" units="50"/>
+    <allocation task-id="4" resource-id="3" units="33"/>
+    <allocation task-id="47" resource-id="4" units="100"/>
+    <allocation task-id="44" resource-id="4" units="30"/>
+    <allocation task-id="45" resource-id="4" units="20"/>
+    <allocation task-id="39" resource-id="4" units="50"/>
+    <allocation task-id="32" resource-id="4" units="20"/>
+    <allocation task-id="29" resource-id="4" units="33"/>
+    <allocation task-id="27" resource-id="4" units="100"/>
+    <allocation task-id="26" resource-id="4" units="100"/>
+    <allocation task-id="25" resource-id="4" units="100"/>
+    <allocation task-id="22" resource-id="4" units="16"/>
+    <allocation task-id="21" resource-id="4" units="33"/>
+    <allocation task-id="37" resource-id="4" units="40"/>
+    <allocation task-id="35" resource-id="4" units="40"/>
+    <allocation task-id="14" resource-id="4" units="50"/>
+    <allocation task-id="58" resource-id="4" units="20"/>
+    <allocation task-id="57" resource-id="4" units="20"/>
+    <allocation task-id="13" resource-id="4" units="50"/>
+    <allocation task-id="7" resource-id="4" units="50"/>
+    <allocation task-id="4" resource-id="4" units="34"/>
+    <allocation task-id="56" resource-id="5" units="80"/>
+    <allocation task-id="54" resource-id="5" units="100"/>
+    <allocation task-id="53" resource-id="5" units="100"/>
+    <allocation task-id="44" resource-id="5" units="13"/>
+    <allocation task-id="45" resource-id="5" units="10"/>
+    <allocation task-id="36" resource-id="5" units="15"/>
+    <allocation task-id="51" resource-id="5" units="70"/>
+    <allocation task-id="37" resource-id="5" units="20"/>
+    <allocation task-id="35" resource-id="5" units="20"/>
+    <allocation task-id="58" resource-id="5" units="20"/>
+    <allocation task-id="57" resource-id="5" units="20"/>
+    <allocation task-id="55" resource-id="5" units="80"/>
+    <allocation task-id="50" resource-id="5" units="70"/>
+    <allocation task-id="7" resource-id="5" units="50"/>
+    <allocation task-id="4" resource-id="5" units="33"/>
+  </allocations>
+</project>
