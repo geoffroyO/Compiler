@@ -32,7 +32,7 @@ class ValueInDeca(threading.Thread):
             f.write("\tMath m = new Math();\n")
 
         f.write("\tfloat b = m.{}({});\n".format(self.function, cutValue))
-        f.write("\tprintln(\"{}; \", b);\n".format(cutValue))
+        f.write("\tprintx(\"{}; \", b);\n".format(cutValue))
         f.write("}\n")
         f.close()
 
@@ -85,13 +85,13 @@ step = 0.1
 lValues = arange(startValue, endValue, step)
 
 listFunctions = [
-   # "cos", 
-   # "sin", 
+   "cos",
+   "sin",
    # "tan", 
-   # "sqrt", 
-   # "acos", 
-   # "asin", 
-   # "atan"
+   "sqrt",
+   #"acos",
+   "asin",
+   "atan"
 ]
 
 #######
@@ -104,8 +104,8 @@ os.system(compilation)
 
 #for i in listFunctions:
 #    # Run deca thread
-#    deca = ValueInDeca(i)
-#    deca.start()
+    deca = ValueInDeca(i)
+    deca.start()
 #
 #    # Run java thread
 #    java = ValueInJava(i)

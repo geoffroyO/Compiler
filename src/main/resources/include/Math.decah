@@ -424,7 +424,9 @@ class Math {
 		float res;
 		float tmp = x;
 
-
+        if (tmp < 0){
+            return -sin(-x);
+        }
 		if (tmp > f.pi){
 			tmp = f.bound(x);
 		}
