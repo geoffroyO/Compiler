@@ -24,7 +24,7 @@ def main():
             os.system("./all_stages/run.sh example_with_object.deca")
 
         elif demo == 4:
-            os.system("./all_stages/run.sh hello-world.deca")
+            os.system("./math/run.sh prog_with_math.deca")
 
         elif demo == 5:
             os.system("./exceptions/run.sh")
@@ -33,7 +33,7 @@ def main():
             os.system("./extension/run.sh")
 
         elif demo == 7:
-            os.system("./all_stages/run.sh hello-world.deca")
+            os.system("./options/run.sh prog.deca")
 
         elif demo == 0:
             quit_demo = True

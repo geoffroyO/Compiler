@@ -1,0 +1,40 @@
+#include "Math.decah"
+
+{
+	Math m = new Math();
+	float input;
+
+	println("Enter a value for sin:");
+	input = readFloat();
+
+	println("sin(", input, ") = ", m.sin(input));
+
+	println();
+
+	println("Enter a value for cos:");
+	input = readFloat();
+
+	println("cos(", input, ") = ", m.cos(input));
+
+	println();
+
+	println("Enter a value for atan:");
+	input = readFloat();
+
+	println("atan(", input, ") = ", m.atan(input));
+
+	println();
+
+	println("Enter a value for asin:");
+	input = readFloat();
+
+	println("asin(", input, ") = ", m.asin(input));
+
+	println();
+
+	println("Enter a value for ulp:");
+	input = readFloat();
+
+	println("ulp(", input, ") = ", m.ulp(input));
+
+}

@@ -1,0 +1,53 @@
+class Number {
+    protected float real;
+
+    float getReal(){
+        return this.real;
+    }
+
+    void setReal(float value){
+        this.real = value;
+    }
+
+    void add(Number anotherNumber){
+        real = real + anotherNumber.getReal();
+    }
+
+	void printNum(){
+		println("Real = ", this.real);
+	}
+
+}
+
+class ComplexNumber extends Number {
+
+    protected float imaginary;
+
+    float getImaginary(){
+        return this.imaginary;
+    }
+
+    void setImaginary(float value){
+        this.imaginary = value;
+    }
+
+	void printNum(){
+		println("Real = ", this.real);
+		println("Imaginary = ", this.imaginary);
+	}
+
+}
+
+{
+	Number n = new Number();
+	ComplexNumber c = new ComplexNumber();
+
+	n.setReal(3.0);
+	n.printNum();
+
+	println("---------");
+
+	c.setReal(4.0);
+	c.setImaginary(5.0);
+	c.printNum();
+}
