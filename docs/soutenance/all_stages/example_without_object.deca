@@ -1,0 +1,25 @@
+{
+    int iterations;
+
+    println("Message is: [Welcome to Projet GL Demo]");
+    println("Currently iterations = ", iterations);
+
+    println();
+
+    print("How many times you want to print the message = ");
+    iterations = readInt();
+
+    println();
+
+    while (iterations > 0){
+        println("[Welcome to Projet GL Demo]");
+        iterations = iterations - 1;
+    }
+
+    println();
+
+    if (iterations == 0){
+        println("Printing is finished! Goodbye :)");
+    }
+
+}

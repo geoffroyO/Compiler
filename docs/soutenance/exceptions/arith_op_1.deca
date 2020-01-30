@@ -1,0 +1,4 @@
+{
+	boolean bool = true;
+	int x = 3 + bool;
+}

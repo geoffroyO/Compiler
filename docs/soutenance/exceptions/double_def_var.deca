@@ -1,0 +1,9 @@
+class Point {
+	protected int x;
+	protected int y;
+}
+
+{
+	int x = 3;
+	int x = 4;
+}

@@ -1,0 +1,10 @@
+class Point {
+	protected int x;
+	protected int y;
+}
+
+{
+	Point p = new Point();
+
+	println(p.x);
+}

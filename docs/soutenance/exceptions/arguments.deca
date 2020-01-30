@@ -1,0 +1,14 @@
+class Point {
+	int x;
+
+	int getX(){
+		return x;
+	}
+
+}
+
+{
+	Point p = new Point();
+
+	println(p.getX(3));
+}

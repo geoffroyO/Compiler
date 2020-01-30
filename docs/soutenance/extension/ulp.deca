@@ -1,0 +1,12 @@
+#include "Math.decah"
+
+{
+	Math m = new Math();
+
+	float counter = -100.14;
+	while(counter <= 100.14){
+		printlnx(m.ulp(counter));
+		counter = counter + 1.0;
+	}
+
+}
